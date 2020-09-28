@@ -3,6 +3,7 @@ package com.casadocodigo.cadaDoCodigo.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.casadocodigo.cadaDoCodigo.controllers.form.AuthorForm;
 import com.casadocodigo.cadaDoCodigo.model.Author;
 import com.casadocodigo.cadaDoCodigo.repositories.AuthorRepositiory;
 import com.casadocodigo.cadaDoCodigo.services.exceptions.ObjectNotFoundException;
@@ -24,6 +25,13 @@ public class AuthorServices {
     public List<Author> index() {
         List<Author> authors = authorRepositiory.findAll();
         return authors;
+    }
+    
+    public Author createAuthor(AuthorForm form) {
+        Author author = new Author(form.getName(), form.getEmail(), form.getDescription());
+        authorRepositiory.save(author);
+
+        return author;
     }
 
     private String exceptionMsg(Long id) {

@@ -4,12 +4,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import com.casadocodigo.cadaDoCodigo.controllers.form.AuthorForm;
 import com.casadocodigo.cadaDoCodigo.model.Author;
-import com.casadocodigo.cadaDoCodigo.repositories.AuthorRepositiory;
 import com.casadocodigo.cadaDoCodigo.services.AuthorServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +40,6 @@ public class AuthorController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<Author> createAuthor(@RequestBody @Valid AuthorForm form, UriComponentsBuilder uriBuilder) {
         Author author = authorServices.createAuthor(form);
         URI uri = uriBuilder.path("author/{id}").buildAndExpand(author.getId()).toUri();

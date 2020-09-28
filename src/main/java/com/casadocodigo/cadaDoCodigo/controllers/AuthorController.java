@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 import com.casadocodigo.cadaDoCodigo.controllers.form.AuthorForm;
 import com.casadocodigo.cadaDoCodigo.model.Author;
 import com.casadocodigo.cadaDoCodigo.services.AuthorServices;
+import com.casadocodigo.cadaDoCodigo.services.CheckDuplicatedEmail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,10 +30,17 @@ public class AuthorController {
     
     @Autowired
     private AuthorServices authorServices;
+    @Autowired
+    private CheckDuplicatedEmail checkDuplicatedEmail;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Author> detailedIndex(@PathVariable Long id) {
-        Optional<Author> author = authorServices.detailedIndex(id);
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(checkDuplicatedEmail);
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Author> detailedIndex(@PathVariable @Email String email) {
+        Optional<Author> author = authorServices.detailedIndex(email);
         return author.isPresent() ? ResponseEntity.ok(author.get()) : ResponseEntity.notFound().build();
     }
 

@@ -18,8 +18,8 @@ public class AuthorServices {
     @Autowired
     private AuthorRepositiory authorRepositiory;
 
-    public Optional<Author> detailedIndex(Long id) {
-        Optional<Author> authorObj = authorRepositiory.findById(id);
+    public Optional<Author> detailedIndex(String email) {
+        Optional<Author> authorObj = authorRepositiory.findByEmail(email);
         return authorObj;
     }
 

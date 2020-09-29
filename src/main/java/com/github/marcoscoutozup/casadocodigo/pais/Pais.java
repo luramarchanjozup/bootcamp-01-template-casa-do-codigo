@@ -1,9 +1,15 @@
 package com.github.marcoscoutozup.casadocodigo.pais;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.marcoscoutozup.casadocodigo.estado.Estado;
+import com.github.marcoscoutozup.casadocodigo.exceptions.NotFoundException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +21,10 @@ public class Pais {
 
     @NotBlank
     private String nome;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "pais")
+    private List<Estado> estados;
 
     @Deprecated
     public Pais() {
@@ -38,5 +48,19 @@ public class Pais {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Estado> getEstados() {
+        return estados;
+    }
+
+    public void setEstados(List<Estado> estados) {
+        this.estados = estados;
+    }
+
+    public void validaSeEstadoPertenceAoPais(UUID estadoId){
+        if(!estados.stream().anyMatch(estado -> estado.getId().equals(estadoId))){
+            throw new NotFoundException("Estado não pertence ao " + nome);
+        }
     }
 }

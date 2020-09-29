@@ -21,6 +21,9 @@ public class ExistsValidator implements ConstraintValidator<Exists, UUID> {
 
     @Override
     public boolean isValid(UUID uuid, ConstraintValidatorContext constraintValidatorContext) {
+        if(uuid == null){
+            return false;
+        }
         Query query = entityManager.createQuery("select 1 from " + classe + " where id = :uuid");
         query.setParameter("uuid", uuid);
         return !query.getResultList().isEmpty();

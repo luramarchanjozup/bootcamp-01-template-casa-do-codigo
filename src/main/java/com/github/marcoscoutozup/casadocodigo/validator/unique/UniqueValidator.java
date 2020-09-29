@@ -24,6 +24,9 @@ public class UniqueValidator implements ConstraintValidator<Unique, String> {
     @Override
     @Transactional
     public boolean isValid(String valor, ConstraintValidatorContext constraintValidatorContext) {
+        if(valor == null){
+            return false;
+        }
         Query query = entityManager.createQuery("select 1 from " + classe + " where " + campo + " = :valor");
         query.setParameter("valor", valor);
         return query.getResultList().isEmpty();

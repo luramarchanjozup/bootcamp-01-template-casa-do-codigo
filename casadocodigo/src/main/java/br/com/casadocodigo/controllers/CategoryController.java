@@ -28,8 +28,10 @@ public class CategoryController {
         boolean uniqueCategoryName = uniqueService.isUnique(category.getName());
 
         if(category != null && uniqueCategoryName){
+
             categoryRepository.save(category);
             return ResponseEntity.ok(category);
+
         }
 
         return ResponseEntity.notFound().build();

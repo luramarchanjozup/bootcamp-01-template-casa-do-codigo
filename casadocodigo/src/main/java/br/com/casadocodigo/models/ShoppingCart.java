@@ -14,6 +14,11 @@ public class ShoppingCart {
     @ElementCollection
     private List<Book> items;
 
+    private boolean isFinished = false;
+
+    @ManyToMany
+    private Coupon coupon;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,5 +48,13 @@ public class ShoppingCart {
 
     public void setItems(List<Book> items) {
         this.items = items;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 }

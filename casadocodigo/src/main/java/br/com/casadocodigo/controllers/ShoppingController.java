@@ -1,7 +1,7 @@
 package br.com.casadocodigo.controllers;
 
-import br.com.casadocodigo.models.Country;
-import br.com.casadocodigo.repositories.CountryRepository;
+import br.com.casadocodigo.models.ShoppingCart;
+import br.com.casadocodigo.repositories.ShoppingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,15 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/countries")
-public class CountryController {
+@RequestMapping("/shopping")
+public class ShoppingController {
 
     @Autowired
-    private CountryRepository countryRepository;
+    private ShoppingRepository shoppingRepository;
 
     @PostMapping
-    public ResponseEntity<Country> createCountry(@RequestBody @Valid Country country){
-        return ResponseEntity.ok(country);
+    public ResponseEntity<ShoppingCart> createShoppingCart(@RequestBody @Valid ShoppingCart shoppingCart){
+
+        if(shoppingCart != null){
+            return ResponseEntity.ok(shoppingCart);
+        }
+
+        return ResponseEntity.notFound().build();
+
     }
 
 }

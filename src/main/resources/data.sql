@@ -1,0 +1,1 @@
+INSERT INTO AUTHORS(name, email, description) VALUES('Author1', 'email@email.com', 'description');

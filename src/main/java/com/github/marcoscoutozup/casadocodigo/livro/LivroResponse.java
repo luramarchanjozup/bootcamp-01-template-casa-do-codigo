@@ -1,6 +1,7 @@
 package com.github.marcoscoutozup.casadocodigo.livro;
 
 import com.github.marcoscoutozup.casadocodigo.autor.Autor;
+import com.github.marcoscoutozup.casadocodigo.autor.AutorResponse;
 import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
 
 import java.time.LocalDate;
@@ -16,8 +17,7 @@ public class LivroResponse {
     private Integer numeroDePaginas;
     private String isbn;
     private LocalDate dataDePublicacao;
-    private Categoria categoria;
-    private Autor autor;
+    private AutorResponse autor;
 
     public LivroResponse(Livro livro){
         this.titulo = livro.getTitulo();
@@ -27,13 +27,44 @@ public class LivroResponse {
         this.numeroDePaginas = livro.getNumeroDePaginas();
         this.isbn = livro.getIsbn();
         this.dataDePublicacao = livro.getDataDePublicacao();
-        this.categoria = livro.getCategoria();
-        this.autor = livro.getAutor();
+        this.autor = new AutorResponse(livro.getAutor());
     }
 
     public static List<LivroResponse> gerarListaDeRespostaDeLivros(List<Livro> livros){
         return livros.stream()
                 .map(LivroResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public Integer getNumeroDePaginas() {
+        return numeroDePaginas;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getDataDePublicacao() {
+        return dataDePublicacao;
+    }
+
+    public AutorResponse getAutor() {
+        return autor;
     }
 }

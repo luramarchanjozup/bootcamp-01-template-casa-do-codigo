@@ -21,13 +21,14 @@ public class LivroController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional //1                                     //2
+    @Transactional                                      //1
     public String cadastrarLivro(@RequestBody @Valid LivroDTO dto){
-        //3
+        //2
         Autor autor = entityManager.find(Autor.class, dto.getAutor());
-        //4
+        //3
         Categoria categoria = entityManager.find(Categoria.class, dto.getCategoria());
 
+        //4
         Livro livro = dto.toModel();
         livro.setAutor(autor);
         livro.setCategoria(categoria);
@@ -36,22 +37,23 @@ public class LivroController {
         return livro.toString();
     }
 
-    @GetMapping
-    public List<Livro> listarLivros(){
+    @GetMapping //5
+    public List<LivroResponse> listarLivros(){
         Query query = entityManager.createQuery("select l from Livro l", Livro.class);
-        List<Livro> livros = query.getResultList();
-        return livros;
+        List<LivroResponse> response = LivroResponse.gerarListaDeRespostaDeLivros(query.getResultList());
+        return response;
     }
 
     @GetMapping("/{id}")
-    public Livro procurarLivroPorId(@PathVariable UUID id){
+    public LivroResponse procurarLivroPorId(@PathVariable UUID id){
         Livro livro = entityManager.find(Livro.class, id);
-        //5
+        //6
         if(livro == null){
-            //6
+            //7
             throw new NotFoundException("Livro não encontrado com id: " + id);
         }
-        return livro;
+        LivroResponse response = new LivroResponse(livro);
+        return response;
     }
 
 }

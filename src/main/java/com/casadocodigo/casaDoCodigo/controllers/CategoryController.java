@@ -9,10 +9,13 @@ import javax.validation.Valid;
 import com.casadocodigo.casaDoCodigo.controllers.form.CategoryForm;
 import com.casadocodigo.casaDoCodigo.model.Category;
 import com.casadocodigo.casaDoCodigo.services.CategoryServices;
+import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedCategory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +29,13 @@ public class CategoryController {
     
     @Autowired
     private CategoryServices categoryServices;
+    @Autowired
+    private CheckDuplicatedCategory checkDuplicatedCategory;
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(checkDuplicatedCategory);
+    }
 
     @GetMapping
     public ResponseEntity<List<Category>> index() {

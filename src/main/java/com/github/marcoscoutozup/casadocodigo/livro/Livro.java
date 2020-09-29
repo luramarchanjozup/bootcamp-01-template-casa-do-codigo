@@ -61,83 +61,27 @@ public class Livro {
         this.dataDePublicacao = dataDePublicacao;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getResumo() {
-        return resumo;
-    }
-
-    public void setResumo(String resumo) {
-        this.resumo = resumo;
-    }
-
-    public String getSumario() {
-        return sumario;
-    }
-
-    public void setSumario(String sumario) {
-        this.sumario = sumario;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
-    }
-
-    public Integer getNumeroDePaginas() {
-        return numeroDePaginas;
-    }
-
-    public void setNumeroDePaginas(Integer numeroDePaginas) {
-        this.numeroDePaginas = numeroDePaginas;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public LocalDate getDataDePublicacao() {
-        return dataDePublicacao;
-    }
-
-    public void setDataDePublicacao(LocalDate dataDePublicacao) {
-        this.dataDePublicacao = dataDePublicacao;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public Autor getAutor() {
-        return autor;
-    }
-
     public void setAutor(Autor autor) {
         this.autor = autor;
+    }
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", sumario='" + sumario + '\'' +
+                ", preco=" + preco +
+                ", numeroDePaginas=" + numeroDePaginas +
+                ", isbn='" + isbn + '\'' +
+                ", dataDePublicacao=" + dataDePublicacao +
+                ", categoria=" + categoria.getNome() +
+                ", autor=" + autor.getNome() +
+                '}';
     }
 }

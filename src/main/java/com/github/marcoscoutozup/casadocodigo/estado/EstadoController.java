@@ -19,16 +19,17 @@ public class EstadoController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional //1                      //2
-    public Estado cadastrarEstado(@RequestBody @Valid EstadoDTO dto){
-        //3
+    @Transactional                      //1
+    public String cadastrarEstado(@RequestBody @Valid EstadoDTO dto){
+        //2
         Pais pais = entityManager.find(Pais.class, dto.getPais());
 
+        //3
         Estado estado = dto.toModel();
         estado.setPais(pais);
 
         entityManager.persist(estado);
-        return estado;
+        return estado.toString();
     }
 
 }

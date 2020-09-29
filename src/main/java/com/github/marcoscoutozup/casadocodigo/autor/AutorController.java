@@ -19,10 +19,10 @@ public class AutorController {
 
     @PostMapping
     @Transactional
-    public Autor cadastrarAutor(@RequestBody @Valid AutorDTO dto){
+    public String cadastrarAutor(@RequestBody @Valid AutorDTO dto){
         Autor autor = dto.toModel();
         entityManager.persist(autor);
-        return autor;
+        return autor.toString();
     }
 
 }

@@ -19,10 +19,10 @@ public class PaisController {
 
     @PostMapping
     @Transactional
-    public Pais cadastrarPais(@RequestBody @Valid PaisDTO dto){
+    public String cadastrarPais(@RequestBody @Valid PaisDTO dto){
         Pais pais = dto.toModel();
         entityManager.persist(pais);
-        return pais;
+        return pais.toString();
     }
 
 }

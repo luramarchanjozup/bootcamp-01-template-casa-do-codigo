@@ -19,10 +19,10 @@ public class CategoriaController {
 
     @PostMapping
     @Transactional
-    public Categoria cadastrarCategoria(@RequestBody @Valid CategoriaDTO dto){
+    public String cadastrarCategoria(@RequestBody @Valid CategoriaDTO dto){
         Categoria categoria = dto.toModel();
         entityManager.persist(categoria);
-        return categoria;
+        return categoria.toString();
     }
 
 }

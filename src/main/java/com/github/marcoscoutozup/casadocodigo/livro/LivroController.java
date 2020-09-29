@@ -22,7 +22,7 @@ public class LivroController {
 
     @PostMapping
     @Transactional //1                                     //2
-    public Livro cadastrarLivro(@RequestBody @Valid LivroDTO dto){
+    public String cadastrarLivro(@RequestBody @Valid LivroDTO dto){
         //3
         Autor autor = entityManager.find(Autor.class, dto.getAutor());
         //4
@@ -33,7 +33,7 @@ public class LivroController {
         livro.setCategoria(categoria);
 
         entityManager.persist(livro);
-        return livro;
+        return livro.toString();
     }
 
     @GetMapping

@@ -38,10 +38,6 @@ public class Pais {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -50,17 +46,17 @@ public class Pais {
         this.nome = nome;
     }
 
-    public List<Estado> getEstados() {
-        return estados;
-    }
-
-    public void setEstados(List<Estado> estados) {
-        this.estados = estados;
-    }
-
     public void validaSeEstadoPertenceAoPais(UUID estadoId){
         if(!estados.stream().anyMatch(estado -> estado.getId().equals(estadoId))){
             throw new NotFoundException("Estado não pertence ao " + nome);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Pais{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 }

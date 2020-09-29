@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.cadastroautor;
+package com.github.marcoscoutozup.casadocodigo.autor;
 
 import com.github.marcoscoutozup.casadocodigo.validator.unique.Unique;
 

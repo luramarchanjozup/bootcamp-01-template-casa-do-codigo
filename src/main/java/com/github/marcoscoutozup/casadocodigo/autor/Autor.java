@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.cadastroautor;
+package com.github.marcoscoutozup.casadocodigo.autor;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -9,7 +9,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity

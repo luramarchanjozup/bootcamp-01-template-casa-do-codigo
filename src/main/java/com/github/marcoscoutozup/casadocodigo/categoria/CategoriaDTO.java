@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.cadastrocategoria;
+package com.github.marcoscoutozup.casadocodigo.categoria;
 
 import com.github.marcoscoutozup.casadocodigo.validator.unique.Unique;
 

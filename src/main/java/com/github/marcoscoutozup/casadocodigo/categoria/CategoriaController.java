@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.cadastrocategoria;
+package com.github.marcoscoutozup.casadocodigo.categoria;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

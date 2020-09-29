@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.cadastroautor;
+package com.github.marcoscoutozup.casadocodigo.autor;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

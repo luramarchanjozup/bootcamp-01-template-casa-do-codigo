@@ -1,7 +1,7 @@
 package com.github.marcoscoutozup.casadocodigo.livro;
 
-import com.github.marcoscoutozup.casadocodigo.cadastroautor.Autor;
-import com.github.marcoscoutozup.casadocodigo.cadastrocategoria.Categoria;
+import com.github.marcoscoutozup.casadocodigo.autor.Autor;
+import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
 import com.github.marcoscoutozup.casadocodigo.exceptions.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 

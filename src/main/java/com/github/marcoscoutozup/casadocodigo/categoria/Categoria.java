@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.cadastrocategoria;
+package com.github.marcoscoutozup.casadocodigo.categoria;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

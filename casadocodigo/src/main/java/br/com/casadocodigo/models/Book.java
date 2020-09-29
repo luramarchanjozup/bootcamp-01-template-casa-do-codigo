@@ -1,9 +1,6 @@
 package br.com.casadocodigo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -39,8 +36,10 @@ public class Book {
 
     private OffsetDateTime publishedAt;
 
+    @OneToOne
     private Category category;
 
+    @ManyToOne
     private Author author;
 
     @Override

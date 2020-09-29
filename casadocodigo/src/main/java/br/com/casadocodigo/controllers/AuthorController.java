@@ -2,7 +2,6 @@ package br.com.casadocodigo.controllers;
 
 import br.com.casadocodigo.models.Author;
 import br.com.casadocodigo.repositories.AuthorRepository;
-import br.com.casadocodigo.services.UniqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,15 +18,11 @@ public class AuthorController {
     @Autowired
     private AuthorRepository authorRepository;
 
-    @Autowired
-    private UniqueService uniqueService;
 
     @PostMapping
     public ResponseEntity<Author> createAuthor(@RequestBody @Valid Author author){
 
-        boolean uniqueEmail = uniqueService.isUnique(author.getEmail());
-
-        if(author != null && uniqueEmail){
+        if(author != null){
 
             authorRepository.save(author);
             return ResponseEntity.ok(author);

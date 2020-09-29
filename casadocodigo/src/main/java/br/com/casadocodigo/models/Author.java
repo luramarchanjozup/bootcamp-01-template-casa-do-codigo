@@ -1,5 +1,6 @@
 package br.com.casadocodigo.models;
 
+import br.com.casadocodigo.validation.Unique;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
@@ -17,8 +18,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Email
+    @Unique
     private String email;
 
     @NotBlank

@@ -16,9 +16,6 @@ public class ShoppingCart {
 
     private boolean isFinished = false;
 
-    @ManyToMany
-    private Coupon coupon;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

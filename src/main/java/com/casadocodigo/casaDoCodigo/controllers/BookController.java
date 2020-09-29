@@ -7,9 +7,12 @@ import javax.validation.Valid;
 import com.casadocodigo.casaDoCodigo.controllers.form.BookForm;
 import com.casadocodigo.casaDoCodigo.model.Book;
 import com.casadocodigo.casaDoCodigo.services.BookServices;
+import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedBook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,13 @@ public class BookController {
     
     @Autowired
     private BookServices bookServices;
+    @Autowired
+    private CheckDuplicatedBook checkDuplicatedBook;
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(checkDuplicatedBook);
+    }
 
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody @Valid BookForm form, UriComponentsBuilder uriBuilder) {

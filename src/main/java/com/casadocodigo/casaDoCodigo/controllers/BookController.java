@@ -12,7 +12,9 @@ import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,12 @@ public class BookController {
     @InitBinder
     public void init(WebDataBinder binder) {
         binder.addValidators(checkDuplicatedBook);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> detailedIndex(@PathVariable @Valid Long id) {
+        Book book = bookServices.detailedIndex(id);
+        return ResponseEntity.ok().body(book);
     }
 
     @PostMapping

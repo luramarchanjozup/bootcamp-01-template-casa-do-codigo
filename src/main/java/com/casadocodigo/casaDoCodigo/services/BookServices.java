@@ -40,6 +40,11 @@ public class BookServices {
         return book;
     }
 
+    public Book detailedIndex(Long id) {
+        Optional<Book> bookObj = bookRepository.findById(id);
+        return bookObj.orElseThrow(() -> new ObjectNotFoundException("No book with id " + id + "found."));
+    }
+
     private String exceptionMsg(String name, String element) {
         return ("There's no " + element + name + " registered. Cannot register Book.\n" +
                 "Make sure that the " + element + "'s name is correct");

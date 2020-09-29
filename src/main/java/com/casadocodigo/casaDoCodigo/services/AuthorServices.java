@@ -1,0 +1,38 @@
+package com.casadocodigo.casaDoCodigo.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import com.casadocodigo.casaDoCodigo.controllers.form.AuthorForm;
+import com.casadocodigo.casaDoCodigo.model.Author;
+import com.casadocodigo.casaDoCodigo.repositories.AuthorRepositiory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthorServices {
+    
+    @Autowired
+    private AuthorRepositiory authorRepositiory;
+
+    public Optional<Author> detailedIndex(String email) {
+        Optional<Author> authorObj = authorRepositiory.findByEmail(email);
+        return authorObj;
+    }
+
+    public List<Author> index() {
+        List<Author> authors = authorRepositiory.findAll();
+        return authors;
+    }
+    
+    @Transactional
+    public Author createAuthor(AuthorForm form) {
+        Author author = new Author(form.getName(), form.getEmail(), form.getDescription());
+        authorRepositiory.save(author);
+
+        return author;
+    }
+}

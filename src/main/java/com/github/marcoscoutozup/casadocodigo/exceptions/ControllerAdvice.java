@@ -2,13 +2,13 @@ package com.github.marcoscoutozup.casadocodigo.exceptions;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -28,6 +28,12 @@ public class ControllerAdvice {
                 .map(error -> messageSource.getMessage(error, Locale.getDefault()))
                 .collect(Collectors.toList());
         return new StandardException(errors);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public StandardException handlerNotFoundException(NotFoundException e){
+        return new StandardException(Arrays.asList(e.getMessage()));
     }
 
 

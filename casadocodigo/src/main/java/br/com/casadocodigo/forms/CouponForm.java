@@ -19,4 +19,11 @@ public class CouponForm {
         return new Coupon(code, discount);
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
 }

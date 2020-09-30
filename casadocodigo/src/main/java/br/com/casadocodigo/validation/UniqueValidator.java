@@ -33,13 +33,19 @@ public class UniqueValidator implements ConstraintValidator<Unique, String> {
     @Override
     public boolean isValid(String input, ConstraintValidatorContext constraintValidatorContext) {
 
-        return authorRepository.findByEmail(input) == null
+        if(authorRepository.findByEmail(input) == null
                 && categoryRepository.findByName(input) == null
                 && bookRepository.findByTitle(input) == null
                 && bookRepository.findByIsbn(input) == null
                 && countryRepository.findByName(input) == null
                 && stateRepository.findByName(input) == null
-                && couponRepository.findByCode(input) == null;
+                && couponRepository.findByCode(input) == null){
+
+            return true;
+
+        }
+
+        return false;
 
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,23 +35,29 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> list(){
+    public ResponseEntity<List<BookDto>> getAllBooks(){
 
         //+1
         List<Book> books = bookRepository.findAll();
-        return ResponseEntity.ok(books);
+
+        List<BookDto> booksDtos = new ArrayList<>();
+
+        //+1
+        books.forEach(book -> booksDtos.add(new BookDto(book)));
+
+        return ResponseEntity.ok(booksDtos);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getById(@PathVariable Long id){
+    public ResponseEntity<BookDto> getBookById(@PathVariable Long id){
 
         //+1
         if(bookRepository.existsById(id)) {
 
             //+1
             Book book = bookRepository.findById(id).orElseThrow();
-            return ResponseEntity.ok(book);
+            return ResponseEntity.ok(new BookDto(book));
 
         }
 

@@ -13,4 +13,11 @@ public class CouponDto {
         this.discount = coupon.getDiscount();
     }
 
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public String getCode() {
+        return code;
+    }
 }

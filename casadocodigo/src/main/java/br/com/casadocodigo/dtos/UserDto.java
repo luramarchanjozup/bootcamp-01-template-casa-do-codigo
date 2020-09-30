@@ -30,5 +30,11 @@ public class UserDto {
 
     }
 
+    public Double getTotal() {
+        return total;
+    }
 
+    public List<BookDto> getBooksDtos() {
+        return booksDtos;
+    }
 }

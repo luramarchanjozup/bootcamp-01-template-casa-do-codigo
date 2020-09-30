@@ -9,7 +9,7 @@ public class AuthorForm {
     private String description;
 
     public Author toEntity() {
-        return new Author(name, email, description);
+        return new Author(email, name, description);
     }
 
     @Deprecated

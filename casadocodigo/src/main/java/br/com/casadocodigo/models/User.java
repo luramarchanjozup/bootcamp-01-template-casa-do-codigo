@@ -48,6 +48,7 @@ public class User {
 
     private Double total;
 
+    @ElementCollection
     private List<Book> shoppingCart;
 
     public User(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep) {

@@ -20,4 +20,19 @@ public class BookDto {
         this.pages = book.getPages();
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Long getPages() {
+        return pages;
+    }
 }

@@ -37,7 +37,7 @@ public class Book {
 
     @NotBlank
     @Unique
-    private Long Isbn;
+    private Long isbn;
 
     @Future
     private OffsetDateTime publishedAt;
@@ -48,13 +48,16 @@ public class Book {
     @ManyToOne
     private Author author;
 
+    @Deprecated
+    public Book(){};
+
     public Book(@NotBlank String title, @NotBlank @Max(500) String resume, @NotBlank String summary, @NotBlank @Min(20) Double price, @NotBlank @Min(100) Long pages, @NotBlank Long isbn) {
         this.title = title;
         this.resume = resume;
         this.summary = summary;
         this.price = price;
         this.pages = pages;
-        Isbn = isbn;
+        this.isbn = isbn;
     }
 
     @Override
@@ -121,11 +124,11 @@ public class Book {
     }
 
     public Long getIsbn() {
-        return Isbn;
+        return isbn;
     }
 
     public void setIsbn(Long isbn) {
-        Isbn = isbn;
+        this.isbn = isbn;
     }
 
     public OffsetDateTime getPublishedAt() {

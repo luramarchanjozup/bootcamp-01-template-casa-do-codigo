@@ -5,6 +5,7 @@ import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -22,12 +23,12 @@ public class Livro {
     @Size(max = 500)
     private String resumo;
 
-    @Lob
+    @Column(columnDefinition = "text")
     private String sumario;
 
     @NotNull
     @Min(20)
-    private Double preco;
+    private BigDecimal preco;
 
     @NotNull
     @Min(100)
@@ -51,7 +52,7 @@ public class Livro {
     public Livro() {
     }
 
-    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario, @NotBlank Double preco, @NotBlank @Min(100) Integer numeroDePaginas, @NotBlank String isbn, LocalDate dataDePublicacao) {
+    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario, @NotBlank BigDecimal preco, @NotBlank @Min(100) Integer numeroDePaginas, @NotBlank String isbn, LocalDate dataDePublicacao) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -77,7 +78,7 @@ public class Livro {
         return sumario;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 

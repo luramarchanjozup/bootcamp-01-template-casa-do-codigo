@@ -36,5 +36,11 @@ public class ControllerAdvice {
         return new StandardException(Arrays.asList(e.getMessage()));
     }
 
+    @ExceptionHandler(ValueNotEqualException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public StandardException handlerValueNotEqualException(ValueNotEqualException e){
+        return new StandardException(Arrays.asList(e.getMessage()));
+    }
+
 
 }

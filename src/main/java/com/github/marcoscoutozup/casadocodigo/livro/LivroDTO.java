@@ -8,6 +8,7 @@ import com.github.marcoscoutozup.casadocodigo.validator.unique.Unique;
 
 import javax.persistence.Lob;
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -21,12 +22,11 @@ public class LivroDTO {
     @Size(max = 500)
     private String resumo;
 
-    @Lob
     private String sumario;
 
     @NotNull
     @Min(20)
-    private Double preco;
+    private BigDecimal preco;
 
     @NotNull
     @Min(100)
@@ -75,11 +75,11 @@ public class LivroDTO {
         this.sumario = sumario;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

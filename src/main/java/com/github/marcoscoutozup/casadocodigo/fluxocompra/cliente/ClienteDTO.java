@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.pagamento;
+package com.github.marcoscoutozup.casadocodigo.fluxocompra.cliente;
 
 import com.github.marcoscoutozup.casadocodigo.pais.Pais;
 import com.github.marcoscoutozup.casadocodigo.validator.cpfoucnpj.CpfOuCpj;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-public class PessoaDTO {
+public class ClienteDTO {
 
     @NotBlank
     @Email
@@ -43,8 +43,9 @@ public class PessoaDTO {
     @NotBlank
     private String telefone;
 
-    @NotBlank
-    private String cep;
+    public Cliente toModel(){
+        return new Cliente(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone);
+    }
 
     public String getEmail() {
         return email;
@@ -124,13 +125,5 @@ public class PessoaDTO {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
     }
 }

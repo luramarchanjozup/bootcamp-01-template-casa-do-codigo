@@ -1,9 +1,8 @@
 package com.github.marcoscoutozup.casadocodigo.livro;
 
-import com.github.marcoscoutozup.casadocodigo.autor.Autor;
 import com.github.marcoscoutozup.casadocodigo.autor.AutorResponse;
-import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +12,7 @@ public class LivroResponse {
     private String titulo;
     private String resumo;
     private String sumario;
-    private Double preco;
+    private BigDecimal preco;
     private Integer numeroDePaginas;
     private String isbn;
     private LocalDate dataDePublicacao;
@@ -48,7 +47,7 @@ public class LivroResponse {
         return sumario;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 

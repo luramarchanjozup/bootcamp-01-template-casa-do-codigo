@@ -1,10 +1,13 @@
 package com.bootcamp.cdd.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -18,12 +21,12 @@ public class Author {
     private String name;
     @Email
     private String email;
-    private Date created_at;
+    private Instant created_at;
 
-    public Author(@NotNull(message = "name can't be empty") @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") String name, @Email String email, Date created_at) {
+    public Author(@NotNull(message = "name can't be empty") @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") String name, @Email String email, Instant created_at) {
         this.name = name;
         this.email = email;
-        created_at = created_at;
+        this.created_at = created_at;
     }
 
     public Author() {
@@ -33,27 +36,15 @@ public class Author {
         return this.id;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public Date getCreated_at() {
-        return this.created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(Instant created_at) {
         this.created_at = created_at;
     }
 }

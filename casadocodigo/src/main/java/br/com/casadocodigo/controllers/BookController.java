@@ -1,4 +1,6 @@
 package br.com.casadocodigo.controllers;
+import br.com.casadocodigo.dtos.BookDto;
+import br.com.casadocodigo.forms.BookForm;
 import br.com.casadocodigo.models.Book;
 import br.com.casadocodigo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,13 @@ public class BookController {
     private BookRepository bookRepository;
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody @Valid Book book){
+    public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookForm bookForm){
+
+        Book book = bookForm.toEntity();
+
         if(book != null) {
             bookRepository.save(book);
-            return ResponseEntity.ok(book);
+            return ResponseEntity.ok(new BookDto(book));
         }
 
         return ResponseEntity.notFound().build();

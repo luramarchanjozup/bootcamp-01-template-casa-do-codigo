@@ -1,13 +1,9 @@
 package br.com.casadocodigo.models;
-
 import br.com.casadocodigo.validation.Unique;
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,6 +15,7 @@ public class Author {
     private Long id;
 
     @Unique
+    @NotBlank
     private String email;
 
     @NotBlank
@@ -27,6 +24,12 @@ public class Author {
     @NotBlank
     @Size(max = 400)
     private String description;
+
+    public Author(String email, String name, String description){
+        this.email = email;
+        this.name = name;
+        this.description = description;
+    }
 
     @Override
     public boolean equals(Object o) {

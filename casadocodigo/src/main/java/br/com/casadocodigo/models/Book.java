@@ -42,6 +42,15 @@ public class Book {
     @ManyToOne
     private Author author;
 
+    public Book(@NotBlank String title, @NotBlank @Max(500) String resume, @NotBlank String summary, @NotBlank @Min(20) Double price, @NotBlank @Min(100) Long pages, @NotBlank Long isbn) {
+        this.title = title;
+        this.resume = resume;
+        this.summary = summary;
+        this.price = price;
+        this.pages = pages;
+        Isbn = isbn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

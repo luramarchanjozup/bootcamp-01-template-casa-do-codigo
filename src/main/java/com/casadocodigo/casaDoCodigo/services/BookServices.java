@@ -1,5 +1,6 @@
 package com.casadocodigo.casaDoCodigo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -43,6 +44,11 @@ public class BookServices {
     public Book detailedIndex(Long id) {
         Optional<Book> bookObj = bookRepository.findById(id);
         return bookObj.orElseThrow(() -> new ObjectNotFoundException("No book with id " + id + "found."));
+    }
+
+    public List<Book> index() {
+        List<Book> books = bookRepository.findAll();
+        return books;
     }
 
     private String exceptionMsg(String name, String element) {

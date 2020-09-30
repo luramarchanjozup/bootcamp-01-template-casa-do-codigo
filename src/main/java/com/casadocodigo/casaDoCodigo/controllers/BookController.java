@@ -1,6 +1,7 @@
 package com.casadocodigo.casaDoCodigo.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -33,6 +34,12 @@ public class BookController {
     @InitBinder
     public void init(WebDataBinder binder) {
         binder.addValidators(checkDuplicatedBook);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Book>> index() {
+        List<Book> books = bookServices.index();
+        return ResponseEntity.ok().body(books);
     }
 
     @GetMapping("/{id}")

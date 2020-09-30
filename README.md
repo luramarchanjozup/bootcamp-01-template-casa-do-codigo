@@ -7,10 +7,15 @@
 1. Controllers
 
 > AuthorController (PCI = 4)
+
 > CategoryController (PCI = 4)
+
 > CountryController (PCI = 4)
+
 > BookController (PCI = 5)
+
 > StateController (PCI = 5)
+
 > CouponController (PCI = 9)
 
 2. Models

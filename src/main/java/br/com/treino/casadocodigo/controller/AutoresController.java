@@ -1,37 +1,26 @@
 package br.com.treino.casadocodigo.controller;
 
+import br.com.treino.casadocodigo.errors.Resultado;
 import br.com.treino.casadocodigo.model.Autor;
 import br.com.treino.casadocodigo.model.NovoAutorRequest;
-import br.com.treino.casadocodigo.repository.AutorRepository;
-import br.com.treino.casadocodigo.validations.EmailDuplicadoValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
 public class AutoresController {
 
-    @Autowired
-    private AutorRepository autorRepository;
-    @Autowired
-    private EmailDuplicadoValidator emailDuplicadoValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(emailDuplicadoValidator);
-    }
-
-    @GetMapping(value = "/")
-    public String home(){
-        return "Tudo Ok!";
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @PostMapping(value = "/autores")
+    @Transactional
     public String novoAutor(@RequestBody @Valid NovoAutorRequest request){
         Autor autor = request.toModel();
-        autorRepository.save(autor);
+        entityManager.persist(autor);
         return autor.toString();
     }
 

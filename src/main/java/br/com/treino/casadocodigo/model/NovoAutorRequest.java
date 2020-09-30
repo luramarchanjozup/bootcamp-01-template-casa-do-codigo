@@ -1,5 +1,7 @@
 package br.com.treino.casadocodigo.model;
 
+import br.com.treino.casadocodigo.validations.UniqueValue;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,9 +11,9 @@ import javax.validation.constraints.Size;
 
 public class NovoAutorRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @NotBlank String nome;
+    @UniqueValue(className = Autor.class, fieldName = "email",
+            message = "Esse email já existe no banco de dados")
     private @NotBlank @Email String email;
     private @NotBlank @Size(max = 400) String descricao;
 

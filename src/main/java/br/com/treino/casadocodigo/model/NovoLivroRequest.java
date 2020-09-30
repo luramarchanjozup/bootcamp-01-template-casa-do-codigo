@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 public class NovoLivroRequest {
 
-    @UniqueValue(fieldName = "titulo", className = Livro.class)
+    @UniqueValue(fieldName = "titulo", className = Livro.class ,message = "Esse título já está cadastrado")
     private @NotBlank String titulo;
     private @NotBlank @Size(max = 500) String resumo;
     private @NotBlank String sumario; //obrigatorio?
@@ -48,11 +48,6 @@ public class NovoLivroRequest {
 
         @NotNull Autor autor = entityManager.find(Autor.class, idAutor);
         @NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria);
-
-        /*if(autor == null || categoria == null){
-            throw new IllegalStateException("Você está tentando cadastrar" +
-                    " um livro para um autor/categoria que não existe no banco");
-        }*/
 
         return new Livro(this.titulo, this.resumo, this.sumario,
                 this.preco, this.numPaginas, this.isbn, this.dataPublicacao,

@@ -2,14 +2,14 @@ package com.casadocodigo.casaDoCodigo.controllers;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
 import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedEmail;
+import com.casadocodigo.casaDoCodigo.controllers.dto.AuthorDto;
+import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedAuthorDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.AuthorForm;
-import com.casadocodigo.casaDoCodigo.model.Author;
 import com.casadocodigo.casaDoCodigo.services.AuthorServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,20 +39,20 @@ public class AuthorController {
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<Author> detailedIndex(@PathVariable @Email String email) {
-        Optional<Author> author = authorServices.detailedIndex(email);
-        return author.isPresent() ? ResponseEntity.ok(author.get()) : ResponseEntity.notFound().build();
+    public ResponseEntity<DetailedAuthorDto> detailedIndex(@PathVariable @Email String email) {
+        DetailedAuthorDto author = authorServices.detailedIndex(email);
+        return ResponseEntity.ok().body(author);
     }
 
     @GetMapping
-    public ResponseEntity<List<Author>> index() {
-        List<Author> authors = authorServices.index();
-        return ResponseEntity.ok(authors);
+    public ResponseEntity<List<AuthorDto>> index() {
+        List<AuthorDto> authors = authorServices.index();
+        return ResponseEntity.ok().body(authors);
     }
 
     @PostMapping
-    public ResponseEntity<Author> createAuthor(@RequestBody @Valid AuthorForm form, UriComponentsBuilder uriBuilder) {
-        Author author = authorServices.createAuthor(form);
+    public ResponseEntity<DetailedAuthorDto> createAuthor(@RequestBody @Valid AuthorForm form, UriComponentsBuilder uriBuilder) {
+        DetailedAuthorDto author = authorServices.createAuthor(form);
         URI uri = uriBuilder.path("author/{id}").buildAndExpand(author.getId()).toUri();
         return ResponseEntity.created(uri).body(author);
     }

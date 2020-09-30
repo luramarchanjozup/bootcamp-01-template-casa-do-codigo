@@ -5,9 +5,12 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.casadocodigo.casaDoCodigo.controllers.dto.AuthorDto;
+import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedAuthorDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.AuthorForm;
 import com.casadocodigo.casaDoCodigo.model.Author;
-import com.casadocodigo.casaDoCodigo.repositories.AuthorRepositiory;
+import com.casadocodigo.casaDoCodigo.repositories.AuthorRepository;
+import com.casadocodigo.casaDoCodigo.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,23 +19,27 @@ import org.springframework.stereotype.Service;
 public class AuthorServices {
     
     @Autowired
-    private AuthorRepositiory authorRepositiory;
+    private AuthorRepository authorRepository;
 
-    public Optional<Author> detailedIndex(String email) {
-        Optional<Author> authorObj = authorRepositiory.findByEmail(email);
-        return authorObj;
+    public DetailedAuthorDto detailedIndex(String email) {
+        Optional<Author> authorObj = authorRepository.findByEmail(email);
+        return new DetailedAuthorDto(authorObj.orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(email))));
     }
 
-    public List<Author> index() {
-        List<Author> authors = authorRepositiory.findAll();
-        return authors;
+    public List<AuthorDto> index() {
+        List<Author> authors = authorRepository.findAll();
+        return AuthorDto.convert(authors);
     }
     
     @Transactional
-    public Author createAuthor(AuthorForm form) {
+    public DetailedAuthorDto createAuthor(AuthorForm form) {
         Author author = new Author(form.getName(), form.getEmail(), form.getDescription());
-        authorRepositiory.save(author);
+        authorRepository.save(author);
 
-        return author;
+        return new DetailedAuthorDto(author);
+    }
+
+    private String exceptionMsg(String email) {
+        return ("Author with email " + email + " not found.");
     }
 }

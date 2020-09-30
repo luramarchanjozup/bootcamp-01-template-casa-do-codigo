@@ -1,14 +1,17 @@
 package com.casadocodigo.casaDoCodigo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.casadocodigo.casaDoCodigo.controllers.dto.BookDto;
+import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedBookDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.BookForm;
 import com.casadocodigo.casaDoCodigo.model.Author;
 import com.casadocodigo.casaDoCodigo.model.Book;
 import com.casadocodigo.casaDoCodigo.model.Category;
-import com.casadocodigo.casaDoCodigo.repositories.AuthorRepositiory;
+import com.casadocodigo.casaDoCodigo.repositories.AuthorRepository;
 import com.casadocodigo.casaDoCodigo.repositories.BookRepository;
 import com.casadocodigo.casaDoCodigo.repositories.CategoryRepository;
 import com.casadocodigo.casaDoCodigo.services.exceptions.ObjectNotFoundException;
@@ -22,12 +25,12 @@ public class BookServices {
     @Autowired
     private BookRepository bookRepository;
     @Autowired
-    private AuthorRepositiory authorRepository;
+    private AuthorRepository authorRepository;
     @Autowired
     private CategoryRepository categoryRepository;
 
     @Transactional
-    public Book createBook(BookForm form) {
+    public DetailedBookDto createBook(BookForm form) {
         Optional<Author> author = authorRepository.findByName(form.getAuthor());
         Optional<Category> category = categoryRepository.findByName(form.getCategory());
 
@@ -37,12 +40,17 @@ public class BookServices {
                             author.orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(form.getAuthor(), "Author"))));
         bookRepository.save(book);
         
-        return book;
+        return new DetailedBookDto(book);
     }
 
-    public Book detailedIndex(Long id) {
+    public DetailedBookDto detailedIndex(Long id) {
         Optional<Book> bookObj = bookRepository.findById(id);
-        return bookObj.orElseThrow(() -> new ObjectNotFoundException("No book with id " + id + "found."));
+        return new DetailedBookDto(bookObj.orElseThrow(() -> new ObjectNotFoundException("No book with id " + id + "found.")));
+    }
+
+    public List<BookDto> index() {
+        List<Book> books = bookRepository.findAll();
+        return BookDto.convert(books);
     }
 
     private String exceptionMsg(String name, String element) {

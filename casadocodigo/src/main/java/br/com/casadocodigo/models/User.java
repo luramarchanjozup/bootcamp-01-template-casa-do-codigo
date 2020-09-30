@@ -2,6 +2,7 @@ package br.com.casadocodigo.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 public class User {
@@ -43,6 +44,24 @@ public class User {
     @NotBlank
     private String cep;
 
+    private Double totalWithoutDiscount;
+
+    private Double total;
+
+    private List<Book> shoppingCart;
+
+    public User(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep) {
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.identification = identification;
+        this.address = address;
+        this.complement = complement;
+        this.city = city;
+        this.phone = phone;
+        this.cep = cep;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,6 +83,22 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public List<Book> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(List<Book> shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     public String getEmail() {
@@ -152,5 +187,13 @@ public class User {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Double getTotalWithoutDiscount() {
+        return totalWithoutDiscount;
+    }
+
+    public void setTotalWithoutDiscount(Double totalWithoutDiscount) {
+        this.totalWithoutDiscount = totalWithoutDiscount;
     }
 }

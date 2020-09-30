@@ -1,5 +1,7 @@
 package br.com.casadocodigo.models;
 
+import br.com.casadocodigo.validation.Unique;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,7 @@ public class State {
     private Long id;
 
     @NotBlank
+    @Unique
     private String name;
 
     public State(String name){

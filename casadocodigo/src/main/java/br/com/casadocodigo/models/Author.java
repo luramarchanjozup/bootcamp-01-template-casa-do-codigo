@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.OffsetDateTime;
 
 @Entity
 public class Author {
@@ -24,6 +25,9 @@ public class Author {
     @NotBlank
     @Size(max = 400)
     private String description;
+
+    @NotBlank
+    private OffsetDateTime createdAt;
 
     public Author(String email, String name, String description){
         this.email = email;
@@ -52,6 +56,14 @@ public class Author {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getEmail() {

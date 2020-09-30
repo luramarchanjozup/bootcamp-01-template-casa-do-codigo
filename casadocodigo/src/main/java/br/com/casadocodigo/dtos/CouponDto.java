@@ -5,7 +5,7 @@ import br.com.casadocodigo.models.Coupon;
 
 public class CouponDto {
 
-    private String discount;
+    private Double discount;
     private String code;
 
     public CouponDto(Coupon coupon){

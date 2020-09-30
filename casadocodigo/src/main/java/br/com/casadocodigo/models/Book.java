@@ -1,6 +1,9 @@
 package br.com.casadocodigo.models;
 
+import br.com.casadocodigo.validation.Unique;
+
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +17,7 @@ public class Book {
     private Long id;
 
     @NotBlank
+    @Unique
     private String title;
 
     @NotBlank
@@ -32,11 +36,13 @@ public class Book {
     private Long pages;
 
     @NotBlank
+    @Unique
     private Long Isbn;
 
+    @Future
     private OffsetDateTime publishedAt;
 
-    @OneToOne
+    @ManyToOne
     private Category category;
 
     @ManyToOne

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping("/authors")
@@ -30,6 +31,7 @@ public class AuthorController {
         //+1
         if(author != null){
 
+            author.setCreatedAt(OffsetDateTime.now());
             authorRepository.save(author);
             return ResponseEntity.ok(new AuthorDto(author));
 

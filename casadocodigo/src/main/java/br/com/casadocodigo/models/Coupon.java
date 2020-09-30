@@ -1,9 +1,12 @@
 package br.com.casadocodigo.models;
 
+import br.com.casadocodigo.validation.Unique;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.OffsetDateTime;
@@ -16,15 +19,17 @@ public class Coupon {
     private Long id;
 
     @NotBlank
+    @Unique
     private String code;
 
     @NotBlank
     @Positive
-    private String discount;
+    private Double discount;
 
+    @Future
     private OffsetDateTime validate;
 
-    public Coupon(String code, String discount){
+    public Coupon(String code, Double discount){
         this.code = code;
         this.discount = discount;
     }
@@ -60,11 +65,11 @@ public class Coupon {
         this.code = code;
     }
 
-    public String getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 

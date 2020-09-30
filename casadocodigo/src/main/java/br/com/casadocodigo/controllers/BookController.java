@@ -36,6 +36,7 @@ public class BookController {
     @GetMapping
     public ResponseEntity<List<Book>> list(){
 
+        //+1
         List<Book> books = bookRepository.findAll();
         return ResponseEntity.ok(books);
 
@@ -45,9 +46,15 @@ public class BookController {
     public ResponseEntity<Book> getById(@PathVariable Long id){
 
         //+1
-        Book book = bookRepository.findById(id).orElseThrow();
+        if(bookRepository.existsById(id)) {
 
-        return ResponseEntity.ok(book);
+            //+1
+            Book book = bookRepository.findById(id).orElseThrow();
+            return ResponseEntity.ok(book);
+
+        }
+
+        return ResponseEntity.notFound().build();
 
     }
 

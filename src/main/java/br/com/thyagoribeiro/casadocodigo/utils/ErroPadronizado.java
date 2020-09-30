@@ -14,7 +14,4 @@ public class ErroPadronizado {
         return mensagens;
     }
 
-    public void setMensagens(Collection<String> mensagens) {
-        this.mensagens = mensagens;
-    }
 }

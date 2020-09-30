@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Calendar;
 
+// Intrinsic charge = 1
 @Entity
 @Table(name = "author")
 public class Author implements Serializable {

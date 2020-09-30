@@ -6,7 +6,8 @@ public class CategoryForm {
 
     private String name;
 
-    public CategoryForm(){ }
+    @Deprecated
+    public CategoryForm(){ };
 
     public CategoryForm(String name){
         this.name = name;

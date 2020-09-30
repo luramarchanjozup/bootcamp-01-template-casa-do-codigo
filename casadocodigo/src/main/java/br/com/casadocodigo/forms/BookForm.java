@@ -21,6 +21,9 @@ public class BookForm {
 
     }
 
+    @Deprecated
+    public BookForm(){};
+
     public BookForm(String title, String resume, String summary, Double price, Long pages, Long isbn) {
         this.title = title;
         this.resume = resume;

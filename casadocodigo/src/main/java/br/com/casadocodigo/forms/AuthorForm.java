@@ -12,6 +12,7 @@ public class AuthorForm {
         return new Author(name, email, description);
     }
 
+    @Deprecated
     public AuthorForm() {};
 
     public AuthorForm(String name, String email, String description) {

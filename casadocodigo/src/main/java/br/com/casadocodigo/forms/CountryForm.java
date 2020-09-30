@@ -7,6 +7,7 @@ public class CountryForm {
 
     private String name;
 
+    @Deprecated
     public CountryForm(){ }
 
     public CountryForm(String name){

@@ -7,6 +7,7 @@ import br.com.casadocodigo.models.User;
 import br.com.casadocodigo.repositories.BookRepository;
 import br.com.casadocodigo.repositories.CouponRepository;
 import br.com.casadocodigo.repositories.UserRepository;
+import br.com.casadocodigo.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,46 +20,29 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserServices userServices;
 
-    @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private CouponRepository couponRepository;
 
     @PostMapping("/{userId}/{bookId}")
     public ResponseEntity<UserDto> addBook(@PathVariable Long bookId, @PathVariable Long userId){
 
-        Book book = bookRepository.findById(bookId).orElseThrow();
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userServices.addToCart(bookId, userId);
 
-        List<Book> books = user.getShoppingCart();
-        books.add(book);
+        if(user != null) {
+            return ResponseEntity.ok(new UserDto(user));
+        }
 
-        user.setShoppingCart(books);
-
-        return ResponseEntity.ok(new UserDto(user));
+        return ResponseEntity.notFound().build();
 
     }
 
     @PutMapping("/{userId}/{couponId}")
     public ResponseEntity<UserDto> applyCoupon(@PathVariable Long couponId, @PathVariable Long userId){
 
-        Coupon coupon = couponRepository.findById(couponId).orElseThrow();
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userServices.couponApplication(couponId, userId);
 
-        OffsetDateTime now = OffsetDateTime.now();
-
-        if(coupon.getValidate().isBefore(now)) {
-
-            Double discount = coupon.getDiscount();
-            user.setTotalWithoutDiscount(user.getTotal());
-            Double total = user.getTotal() * discount;
-            user.setTotal(total);
-
+        if(user != null) {
             return ResponseEntity.ok(new UserDto(user));
-
         }
 
         return ResponseEntity.notFound().build();

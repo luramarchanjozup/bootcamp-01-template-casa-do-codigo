@@ -7,6 +7,7 @@ public class StateForm {
 
     private String name;
 
+    @Deprecated
     public StateForm(){ }
 
     public StateForm(String name){

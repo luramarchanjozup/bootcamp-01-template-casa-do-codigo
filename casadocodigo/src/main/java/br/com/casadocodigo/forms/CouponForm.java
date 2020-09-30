@@ -5,10 +5,12 @@ import br.com.casadocodigo.models.Coupon;
 public class CouponForm {
 
     private String code;
-    private String discount;
+    private Double discount;
 
+    @Deprecated
     public CouponForm() {};
-    public CouponForm(String code, String discount){
+
+    public CouponForm(String code, Double discount){
         this.code = code;
         this.discount = discount;
     }

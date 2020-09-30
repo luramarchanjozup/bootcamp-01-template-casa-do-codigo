@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.AuthorForm;
 import com.casadocodigo.casaDoCodigo.model.Author;
-import com.casadocodigo.casaDoCodigo.repositories.AuthorRepositiory;
+import com.casadocodigo.casaDoCodigo.repositories.AuthorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import org.springframework.validation.Validator;
 public class CheckDuplicatedEmail implements Validator {
     
     @Autowired
-    private AuthorRepositiory authorRepositiory;
+    private AuthorRepository authorRepositiory;
 
     @Override
     public boolean supports(Class<?> clazz) {

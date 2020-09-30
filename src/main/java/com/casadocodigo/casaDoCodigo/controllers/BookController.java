@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.casadocodigo.casaDoCodigo.controllers.dto.BookDto;
+import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedBookDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.BookForm;
-import com.casadocodigo.casaDoCodigo.model.Book;
 import com.casadocodigo.casaDoCodigo.services.BookServices;
 import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedBook;
 
@@ -37,20 +38,20 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> index() {
-        List<Book> books = bookServices.index();
+    public ResponseEntity<List<BookDto>> index() {
+        List<BookDto> books = bookServices.index();
         return ResponseEntity.ok().body(books);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> detailedIndex(@PathVariable @Valid Long id) {
-        Book book = bookServices.detailedIndex(id);
+    public ResponseEntity<DetailedBookDto> detailedIndex(@PathVariable @Valid Long id) {
+        DetailedBookDto book = bookServices.detailedIndex(id);
         return ResponseEntity.ok().body(book);
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody @Valid BookForm form, UriComponentsBuilder uriBuilder) {
-        Book book = bookServices.createBook(form);
+    public ResponseEntity<DetailedBookDto> createBook(@RequestBody @Valid BookForm form, UriComponentsBuilder uriBuilder) {
+        DetailedBookDto book = bookServices.createBook(form);
         URI uri = uriBuilder.path("book/{id}").buildAndExpand(book.getId()).toUri();
         return ResponseEntity.created(uri).body(book);
     }

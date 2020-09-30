@@ -2,7 +2,6 @@ package com.github.marcoscoutozup.casadocodigo.pais;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.marcoscoutozup.casadocodigo.estado.Estado;
-import com.github.marcoscoutozup.casadocodigo.exceptions.NotFoundException;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,10 +45,9 @@ public class Pais {
         this.nome = nome;
     }
 
-    public void validaSeEstadoPertenceAoPais(UUID estadoId){
-        if(!estados.stream().anyMatch(estado -> estado.getId().equals(estadoId))){
-            throw new NotFoundException("Estado não pertence ao " + nome);
-        }
+    public boolean verificarSeEstadoPertenceAoPais(UUID estadoId){
+        return estadoId != null &&
+                estados.stream().anyMatch(estado -> estado.getId().equals(estadoId));
     }
 
     @Override

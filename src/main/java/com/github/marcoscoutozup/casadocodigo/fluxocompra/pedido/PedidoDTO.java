@@ -1,6 +1,5 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.pedido;
 
-import com.github.marcoscoutozup.casadocodigo.exceptions.ValueNotEqualException;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.itempedido.ItemPedido;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.itempedido.ItemPedidoDTO;
 
@@ -53,17 +52,15 @@ public class PedidoDTO {
         return itens.stream().map(ItemPedidoDTO::toModel).collect(Collectors.toList());
     }
 
-    public void validarTotalDoPedido(BigDecimal totalDaCompra, EntityManager entityManager){
+    public boolean validarTotalDoPedido(BigDecimal totalDaCompra, EntityManager entityManager){
+
         //3
         BigDecimal totalDoBanco = itens.stream()
                 .map(item ->
                         item.buscarLivro(entityManager).getPreco().multiply(new BigDecimal(item.getQuantidade())))
                 .reduce(new BigDecimal(0), BigDecimal::add);
 
-        //4
-        if(totalDoBanco.compareTo(totalDaCompra) != 0){
-            //5
-            throw new ValueNotEqualException("O total da compra (" + (totalDaCompra) +")  não é correspondente com o total do banco (" + (totalDoBanco) +")");
-        }
+        return totalDoBanco.compareTo(totalDaCompra) != 0;
+
     }
 }

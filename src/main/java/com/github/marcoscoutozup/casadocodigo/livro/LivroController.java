@@ -2,7 +2,7 @@ package com.github.marcoscoutozup.casadocodigo.livro;
 
 import com.github.marcoscoutozup.casadocodigo.autor.Autor;
 import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
-import com.github.marcoscoutozup.casadocodigo.exceptions.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -38,22 +38,22 @@ public class LivroController {
     }
 
     @GetMapping //5
-    public List<LivroResponse> listarLivros(){
+    public ResponseEntity<List<LivroResponse>> listarLivros(){
         Query query = entityManager.createQuery("select l from Livro l", Livro.class);
         List<LivroResponse> response = LivroResponse.gerarListaDeRespostaDeLivros(query.getResultList());
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public LivroResponse procurarLivroPorId(@PathVariable UUID id){
+    public ResponseEntity<LivroResponse> procurarLivroPorId(@PathVariable UUID id){
         Livro livro = entityManager.find(Livro.class, id);
         //6
         if(livro == null){
-            //7
-            throw new NotFoundException("Livro não encontrado com id: " + id);
+            return ResponseEntity.notFound().build();
         }
+
         LivroResponse response = new LivroResponse(livro);
-        return response;
+        return ResponseEntity.ok(response);
     }
 
 }

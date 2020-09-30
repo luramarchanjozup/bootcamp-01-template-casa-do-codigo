@@ -14,16 +14,19 @@ import javax.validation.Valid;
 @RequestMapping("/coupons")
 public class CouponController {
 
+    //+1
     @Autowired
     private CouponRepository couponRepository;
 
-    @PostMapping
+    @PostMapping                                                        //+1
     public ResponseEntity<CouponDto> createCoupon(@RequestBody @Valid CouponForm couponForm){
 
+        //+1
         Coupon coupon = couponForm.toEntity();
 
+        //+1
         if(coupon != null){
-            couponRepository.save(coupon);
+            couponRepository.save(coupon);      //+1
             return ResponseEntity.ok(new CouponDto(coupon));
         }
 
@@ -34,13 +37,14 @@ public class CouponController {
     @PutMapping("/{couponId}")
     public ResponseEntity<CouponDto> updateCoupon(@PathVariable @Valid Long couponId,
                                                   @RequestBody CouponForm couponForm){
-
+        //+1                                                      //+1
         Coupon coupon = couponForm.toEntity();
 
+        //+1
         if(coupon != null){
 
             coupon.setId(couponId);
-            couponRepository.save(coupon);
+            couponRepository.save(coupon);    //+1
             return ResponseEntity.ok(new CouponDto(coupon));
 
         }

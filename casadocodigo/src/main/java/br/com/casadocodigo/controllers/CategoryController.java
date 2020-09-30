@@ -16,14 +16,17 @@ import javax.validation.Valid;
 @RequestMapping("/categories")
 public class CategoryController {
 
+    //+1
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @PostMapping
+    @PostMapping                                                                //+1
     public ResponseEntity<CategoryDto> createCategory(@RequestBody @Valid CategoryForm categoryForm){
 
+        //+1
         Category category = categoryForm.toEntity();
 
+        //+1
         if(category != null){
 
             categoryRepository.save(category);

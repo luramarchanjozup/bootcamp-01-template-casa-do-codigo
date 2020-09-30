@@ -17,16 +17,19 @@ import javax.validation.Valid;
 @RequestMapping("/states")
 public class StateController {
 
+    //+1
     @Autowired
     private StateRepository stateRepository;
 
-    @PostMapping
+    @PostMapping                                                        //+1
     public ResponseEntity<StateDto> createState(@RequestBody @Valid StateForm stateForm){
 
+        //+1
         State state = stateForm.toEntity();
 
+        //+1
         if(state != null){
-            stateRepository.save(state);
+            stateRepository.save(state);     //+1
             return ResponseEntity.ok(new StateDto(state));
         }
 

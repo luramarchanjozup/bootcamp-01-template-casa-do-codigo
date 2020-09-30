@@ -14,14 +14,17 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
+    //+1
     @Autowired
     private BookRepository bookRepository;
 
-    @PostMapping
+    @PostMapping                                                    //+1
     public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookForm bookForm){
 
+        //+1
         Book book = bookForm.toEntity();
 
+        //+1
         if(book != null) {
             bookRepository.save(book);
             return ResponseEntity.ok(new BookDto(book));
@@ -41,6 +44,7 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<Book> getById(@PathVariable Long id){
 
+        //+1
         Book book = bookRepository.findById(id).orElseThrow();
 
         return ResponseEntity.ok(book);

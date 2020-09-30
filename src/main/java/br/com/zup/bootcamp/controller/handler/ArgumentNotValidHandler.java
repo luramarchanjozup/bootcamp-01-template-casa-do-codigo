@@ -26,11 +26,11 @@ public class ArgumentNotValidHandler {
 
         // Create error messages and add on messages collection
         fieldErrors.forEach(fieldError -> {
-            String message = String.format("Field %s : %s", fieldError.getField(), fieldError.getDefaultMessage());
+            String message = String.format("%s", fieldError.getDefaultMessage());
             messages.add(message);
         });
 
-        GenericResponse response = new GenericResponse(messages, 400);
+        GenericResponse response = new GenericResponse(messages);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }

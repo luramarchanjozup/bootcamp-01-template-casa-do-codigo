@@ -12,7 +12,6 @@ import java.util.Calendar;
 
 // Intrinsic charge = 1
 @Entity
-@Table(name = "author")
 public class Author implements Serializable {
 
     @Id

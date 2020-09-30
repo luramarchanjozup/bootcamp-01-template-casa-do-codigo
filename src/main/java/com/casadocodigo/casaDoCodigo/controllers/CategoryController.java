@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import com.casadocodigo.casaDoCodigo.controllers.form.CategoryForm;
 import com.casadocodigo.casaDoCodigo.model.Category;
 import com.casadocodigo.casaDoCodigo.services.CategoryServices;
-import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedCategory;
+import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedCategory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

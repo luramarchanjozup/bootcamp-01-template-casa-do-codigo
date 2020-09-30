@@ -9,7 +9,7 @@ import com.casadocodigo.casaDoCodigo.controllers.dto.BookDto;
 import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedBookDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.BookForm;
 import com.casadocodigo.casaDoCodigo.services.BookServices;
-import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedBook;
+import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedBook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

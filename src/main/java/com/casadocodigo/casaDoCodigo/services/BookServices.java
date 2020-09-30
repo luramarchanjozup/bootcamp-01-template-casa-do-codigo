@@ -53,18 +53,8 @@ public class BookServices {
         return BookDto.convert(books);
     }
 
-    public List<Book> index() {
-        List<Book> books = bookRepository.findAll();
-        return books;
-    }
-
-    public List<Book> index() {
-        List<Book> books = bookRepository.findAll();
-        return books;
-    }
-
     private String exceptionMsg(String name, String element) {
-        return ("There's no " + element + name + " registered. Cannot register Book.\n" +
+        return ("There's no " + element + " " + name + " registered. Cannot register Book.\n" +
                 "Make sure that the " + element + "'s name is correct");
     }
 }

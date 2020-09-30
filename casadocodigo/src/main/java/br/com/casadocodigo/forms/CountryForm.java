@@ -1,22 +1,24 @@
 package br.com.casadocodigo.forms;
 
 import br.com.casadocodigo.models.Category;
+import br.com.casadocodigo.models.Country;
 
-public class CategoryForm {
+public class CountryForm {
 
     private String name;
 
-    public CategoryForm(){ }
+    public CountryForm(){ }
 
-    public CategoryForm(String name){
+    public CountryForm(String name){
         this.name = name;
     }
 
-    public Category toEntity(){
-        return new Category(name);
+    public Country toEntity(){
+        return new Country(name);
     }
 
     public void setName(String name) {
         this.name = name;
     }
+
 }

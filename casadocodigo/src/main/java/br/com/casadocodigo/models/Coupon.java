@@ -24,6 +24,11 @@ public class Coupon {
 
     private OffsetDateTime validate;
 
+    public Coupon(String code, String discount){
+        this.code = code;
+        this.discount = discount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

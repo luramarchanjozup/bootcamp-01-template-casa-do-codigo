@@ -16,6 +16,11 @@ public class State {
     @NotBlank
     private String name;
 
+    public State(String name){
+        this.name = name;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

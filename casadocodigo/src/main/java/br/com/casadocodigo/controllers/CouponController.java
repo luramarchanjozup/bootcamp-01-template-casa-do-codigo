@@ -1,5 +1,7 @@
 package br.com.casadocodigo.controllers;
 
+import br.com.casadocodigo.dtos.CouponDto;
+import br.com.casadocodigo.forms.CouponForm;
 import br.com.casadocodigo.models.Coupon;
 import br.com.casadocodigo.repositories.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,13 @@ public class CouponController {
     private CouponRepository couponRepository;
 
     @PostMapping
-    public ResponseEntity<Coupon> createCoupon(@RequestBody @Valid Coupon coupon){
+    public ResponseEntity<CouponDto> createCoupon(@RequestBody @Valid CouponForm couponForm){
+
+        Coupon coupon = couponForm.toEntity();
+
         if(coupon != null){
-
             couponRepository.save(coupon);
-            return ResponseEntity.ok(coupon);
-
+            return ResponseEntity.ok(new CouponDto(coupon));
         }
 
         return ResponseEntity.notFound().build();
@@ -29,16 +32,20 @@ public class CouponController {
     }
 
     @PutMapping("/{couponId}")
-    public ResponseEntity<Coupon> updateCoupon(@PathVariable @Valid Long couponId,
-                                               @RequestBody Coupon coupon){
+    public ResponseEntity<CouponDto> updateCoupon(@PathVariable @Valid Long couponId,
+                                                  @RequestBody CouponForm couponForm){
+
+        Coupon coupon = couponForm.toEntity();
+
         if(coupon != null){
+
             coupon.setId(couponId);
             couponRepository.save(coupon);
-            return ResponseEntity.ok(coupon);
+            return ResponseEntity.ok(new CouponDto(coupon));
+
         }
 
         return ResponseEntity.notFound().build();
 
     }
-
 }

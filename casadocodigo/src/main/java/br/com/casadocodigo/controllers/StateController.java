@@ -1,5 +1,7 @@
 package br.com.casadocodigo.controllers;
 
+import br.com.casadocodigo.dtos.StateDto;
+import br.com.casadocodigo.forms.StateForm;
 import br.com.casadocodigo.models.State;
 import br.com.casadocodigo.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,16 @@ public class StateController {
     private StateRepository stateRepository;
 
     @PostMapping
-    public ResponseEntity<State> createState(@RequestBody @Valid State state){
-        return ResponseEntity.ok(state);
-    }
+    public ResponseEntity<StateDto> createState(@RequestBody @Valid StateForm stateForm){
 
+        State state = stateForm.toEntity();
+
+        if(state != null){
+            stateRepository.save(state);
+            return ResponseEntity.ok(new StateDto(state));
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
 }

@@ -1,4 +1,6 @@
 package br.com.casadocodigo.controllers;
+import br.com.casadocodigo.dtos.CategoryDto;
+import br.com.casadocodigo.forms.CategoryForm;
 import br.com.casadocodigo.models.Category;
 import br.com.casadocodigo.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,14 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody @Valid Category category){
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody @Valid CategoryForm categoryForm){
 
+        Category category = categoryForm.toEntity();
 
         if(category != null){
 
             categoryRepository.save(category);
-            return ResponseEntity.ok(category);
+            return ResponseEntity.ok(new CategoryDto(category));
 
         }
 

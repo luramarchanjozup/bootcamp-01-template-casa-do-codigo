@@ -6,7 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
-import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedEmail;
+import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedEmail;
 import com.casadocodigo.casaDoCodigo.controllers.dto.AuthorDto;
 import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedAuthorDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.AuthorForm;

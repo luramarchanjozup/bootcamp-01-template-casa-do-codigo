@@ -1,4 +1,4 @@
-package com.casadocodigo.casaDoCodigo.services;
+package com.casadocodigo.casaDoCodigo.services.validators;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

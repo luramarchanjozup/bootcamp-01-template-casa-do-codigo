@@ -6,7 +6,7 @@ import javax.validation.Valid;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.CountryForm;
 import com.casadocodigo.casaDoCodigo.model.Country;
-import com.casadocodigo.casaDoCodigo.services.CheckDuplicatedCountry;
+import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedCountry;
 import com.casadocodigo.casaDoCodigo.services.CountryService;
 
 import org.springframework.beans.factory.annotation.Autowired;

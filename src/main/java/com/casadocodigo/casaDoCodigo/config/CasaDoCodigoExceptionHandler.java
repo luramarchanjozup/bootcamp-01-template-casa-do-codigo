@@ -1,6 +1,7 @@
 package com.casadocodigo.casaDoCodigo.config;
 
 import com.casadocodigo.casaDoCodigo.services.exceptions.ObjectNotFoundException;
+import com.casadocodigo.casaDoCodigo.services.exceptions.PurchaseException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,5 +30,11 @@ public class CasaDoCodigoExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public String missingRequestParameterHandler(MissingServletRequestParameterException e) {
         return "Error 400: \n\nMessage: Parameter " + e.getParameterName().toString() + " must not be empty";
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PurchaseException.class)
+    public String PurchaseExceptionHandler(PurchaseException e) {
+        return "Error 400: \n\nMessage: " + e.getMessage().toString();
     }
 }

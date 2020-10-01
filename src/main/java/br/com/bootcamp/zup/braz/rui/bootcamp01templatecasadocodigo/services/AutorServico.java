@@ -5,6 +5,8 @@ import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.repositories.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class AutorServico {
 
@@ -12,8 +14,8 @@ public class AutorServico {
     private AutorRepositorio autorRepositorio;
 
     //Cadastrar um novo Autor
-    public Autor cadastrar(String nome, String email, String descricao){
-        Autor autor = new Autor(nome, email, descricao);
+    public Autor cadastrar(String nome, String email, String descricao, LocalDateTime registro){
+        Autor autor = new Autor(nome, email, descricao, registro);
         autorRepositorio.save(autor);
         return autor;
     }

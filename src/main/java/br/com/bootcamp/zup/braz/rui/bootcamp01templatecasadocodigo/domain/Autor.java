@@ -1,27 +1,38 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "t_autor")
 public class Autor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
     private String nome;
+    @NotBlank
+    @Email
     private String email;
+    @Size(min = 5, max = 400)
     private String descricao;
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime registro;
 
-    public Autor(String nome, String email, String descricao) {
+    public Autor(String nome, String email, String descricao, LocalDateTime registro) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
+        this.registro = registro;
     }
 
 

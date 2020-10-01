@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 
 /**
  * Carga intrinseca máxima permitida - 7
- * Carga intrinseca da classe - 4
+ * Carga intrinseca da classe - 3
  */
 
 @RestController
@@ -41,7 +41,7 @@ public class AutorController {
 
         Autor autor = autorRequest.toModel();
         entityManager.persist(autor);
-        System.out.println(autorRequest);
+
         return ResponseEntity.ok().build();
     }
 

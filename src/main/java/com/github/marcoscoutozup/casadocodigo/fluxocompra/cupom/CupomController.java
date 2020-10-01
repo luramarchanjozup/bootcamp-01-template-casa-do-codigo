@@ -12,29 +12,29 @@ import java.util.UUID;
 @RequestMapping("/cupom")
 public class CupomController {
 
-    @Autowired
+    @Autowired //1
     private CupomRepository cupomRepository;
 
     @PostMapping
-    @Transactional                                      //1
+    @Transactional                                      //2
     public String cadastrarCupom(@RequestBody @Valid CupomDTO dto){
-        //2
+        //3
         Cupom cupom = dto.toModel();
         cupomRepository.save(cupom);
         return cupom.toString();
     }
 
     @PutMapping("/{id}")
-    @Transactional                                                                  //3
+    @Transactional                                                                  //4
     public ResponseEntity alterarCupom(@PathVariable UUID id, @RequestBody @Valid CupomDTOUpdate dto){
         Cupom cupom = cupomRepository.findById(id).orElse(null);
 
-        //4
+        //5
         if(cupom == null){
             return ResponseEntity.status(404).body("Cupom não encontrado");
         }
 
-        //5
+        //6
         if(!dto.validarCodigoDoCupom(cupom, cupomRepository)){
             return ResponseEntity.badRequest().body("O código não pode ser duplicado");
         }

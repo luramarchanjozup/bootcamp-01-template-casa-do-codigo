@@ -1,9 +1,12 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.compra;
 
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.cliente.ClienteDTO;
-import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.AplicarCupomDTO;
+import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.Cupom;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.pedido.PedidoDTO;
+import com.github.marcoscoutozup.casadocodigo.validator.codigodecupom.CodigoDeCupom;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -17,10 +20,16 @@ public class CompraDTO {
     @Valid
     private PedidoDTO pedido;
 
-    private AplicarCupomDTO cupom;
+    @CodigoDeCupom
+    private String cupom;
 
-    public Compra toModel(){
-        return new Compra(cliente.toModel(), pedido.toModel());
+    public Compra toModel(EntityManager entityManager){
+        Compra compra = new Compra(cliente.toModel(), pedido.toModel());
+        TypedQuery<Cupom> query = entityManager.createNamedQuery("findCupomByCodigo", Cupom.class).setParameter("codigo", this.cupom);
+        if(!query.getResultList().isEmpty()){
+            compra.setCupom(query.getSingleResult());
+        }
+        return compra;
     }
 
     public ClienteDTO getCliente() {
@@ -39,11 +48,11 @@ public class CompraDTO {
         this.pedido = pedido;
     }
 
-    public AplicarCupomDTO getCupom() {
+    public String getCupom() {
         return cupom;
     }
 
-    public void setCupom(AplicarCupomDTO cupom) {
+    public void setCupom(String cupom) {
         this.cupom = cupom;
     }
 }

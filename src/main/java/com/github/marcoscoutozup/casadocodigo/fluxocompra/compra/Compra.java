@@ -76,6 +76,7 @@ public class Compra {
                 "id=" + id +
                 ", cliente=" + cliente +
                 ", pedido=" + pedido +
+                ", cupom=" + cupom +
                 '}';
     }
 }

@@ -3,6 +3,7 @@ package com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,10 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@NamedQuery(
+        name="findCupomByCodigo",
+        query="select c from Cupom c where codigo = :codigo"
+)
 public class Cupom {
 
     @Id

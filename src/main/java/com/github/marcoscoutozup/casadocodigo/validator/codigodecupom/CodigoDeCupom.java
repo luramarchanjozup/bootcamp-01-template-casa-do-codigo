@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.casadocodigo.validator.unique;
+package com.github.marcoscoutozup.casadocodigo.validator.codigodecupom;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,17 +10,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target(FIELD)
 @Retention(RUNTIME)
-@Constraint(validatedBy = UniqueValidator.class)
-public @interface Unique {
+@Constraint(validatedBy = CodigoDeCupomValidator.class)
+public @interface CodigoDeCupom {
 
-    String message() default "O valor não é único";
+    String message() default "O Cupom não é válido";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    Class classe();
-
-    String campo();
 
 }

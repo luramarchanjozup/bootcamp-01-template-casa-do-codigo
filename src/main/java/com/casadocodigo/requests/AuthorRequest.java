@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.casadocodigo.entity.Author;
+import com.casadocodigo.validators.UniqueValue;
 
 public class AuthorRequest {
 
@@ -13,6 +14,7 @@ public class AuthorRequest {
 
 	@NotBlank
 	@Email
+	@UniqueValue(domainClass = Author.class,fieldName = "email", message = "email já cadastrado!")
 	private String email;
 
 	@NotBlank

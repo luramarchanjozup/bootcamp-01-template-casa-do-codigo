@@ -1,17 +1,13 @@
 package com.bootcamp.cdd.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
-@Table(name = "authors")
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,19 +29,19 @@ public class Author {
     }
 
     public long getId() {
-        return this.id;
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Instant getCreated_at() {
+        return created_at;
     }
 
-    public void setCreated_at(Instant created_at) {
-        this.created_at = created_at;
+    public String getEmail() {
+        return email;
     }
 }
 

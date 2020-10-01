@@ -4,6 +4,7 @@ import com.bootcamp.cdd.models.Author;
 import com.bootcamp.cdd.models.AuthorRequest;
 import com.bootcamp.cdd.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class NewAuthorController {
     @PersistenceContext
     private EntityManager entityManager;
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
     public NewAuthorController (AuthorRepository authorRepository) {
@@ -31,7 +32,7 @@ public class NewAuthorController {
 
     @PostMapping
     @Transactional
-    public Author createAuthor (@RequestBody AuthorRequest request) {
+    public Author createAuthor (@RequestBody @Valid AuthorRequest request) {
         Optional<Author> emailExists = this.authorRepository.findByEmail(request.getEmail());
         if (emailExists.isPresent()) {
             // era pra ser um Exception

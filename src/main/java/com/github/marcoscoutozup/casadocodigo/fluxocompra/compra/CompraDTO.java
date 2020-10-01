@@ -1,6 +1,7 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.compra;
 
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.cliente.ClienteDTO;
+import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.AplicarCupomDTO;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.pedido.PedidoDTO;
 
 import javax.validation.Valid;
@@ -15,6 +16,8 @@ public class CompraDTO {
     @NotNull
     @Valid
     private PedidoDTO pedido;
+
+    private AplicarCupomDTO cupom;
 
     public Compra toModel(){
         return new Compra(cliente.toModel(), pedido.toModel());
@@ -34,5 +37,13 @@ public class CompraDTO {
 
     public void setPedido(PedidoDTO pedido) {
         this.pedido = pedido;
+    }
+
+    public AplicarCupomDTO getCupom() {
+        return cupom;
+    }
+
+    public void setCupom(AplicarCupomDTO cupom) {
+        this.cupom = cupom;
     }
 }

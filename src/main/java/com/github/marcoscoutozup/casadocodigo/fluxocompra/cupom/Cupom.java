@@ -65,6 +65,10 @@ public class Cupom {
         this.validade = validade;
     }
 
+    public boolean estaValido(){
+        return validade == null || validade.isBefore(LocalDate.now());
+    }
+
     @Override
     public String toString() {
         return "Cupom{" +

@@ -45,6 +45,11 @@ public class PagamentoController {
         }
 
         //6
+        if(dto.getCupom() != null && dto.getCupom().validarCupom(entityManager)){
+            System.out.println("Cupom Válido");
+        }
+
+        //7
         Compra compra = dto.toModel();
         entityManager.persist(compra);
 

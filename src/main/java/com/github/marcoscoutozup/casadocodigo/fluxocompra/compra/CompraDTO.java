@@ -3,7 +3,7 @@ package com.github.marcoscoutozup.casadocodigo.fluxocompra.compra;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.cliente.ClienteDTO;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.Cupom;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.pedido.PedidoDTO;
-import com.github.marcoscoutozup.casadocodigo.validator.codigodecupom.CodigoDeCupom;
+import com.github.marcoscoutozup.casadocodigo.validator.codigodecupom.CupomValidoParaCompra;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -20,7 +20,7 @@ public class CompraDTO {
     @Valid
     private PedidoDTO pedido;
 
-    @CodigoDeCupom
+    @CupomValidoParaCompra
     private String cupom;
 
     public Compra toModel(EntityManager entityManager){

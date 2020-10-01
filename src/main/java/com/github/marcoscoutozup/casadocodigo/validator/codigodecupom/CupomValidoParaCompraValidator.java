@@ -8,13 +8,13 @@ import javax.persistence.TypedQuery;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class CodigoDeCupomValidator implements ConstraintValidator<CodigoDeCupom, String> {
+public class CupomValidoParaCompraValidator implements ConstraintValidator<CupomValidoParaCompra, String> {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public void initialize(CodigoDeCupom constraintAnnotation) {
+    public void initialize(CupomValidoParaCompra constraintAnnotation) {
 
     }
 

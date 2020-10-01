@@ -1,7 +1,5 @@
 package com.github.marcoscoutozup.casadocodigo.livro;
 
-import com.github.marcoscoutozup.casadocodigo.autor.Autor;
-import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,32 +22,25 @@ public class LivroController {
     @Transactional                                      //1
     public String cadastrarLivro(@RequestBody @Valid LivroDTO dto){
         //2
-        Autor autor = entityManager.find(Autor.class, dto.getAutor());
-        //3
-        Categoria categoria = entityManager.find(Categoria.class, dto.getCategoria());
-
-        //4
-        Livro livro = dto.toModel();
-        livro.setAutor(autor);
-        livro.setCategoria(categoria);
-
+        Livro livro = dto.toModel(entityManager);
         entityManager.persist(livro);
         return livro.toString();
     }
 
-    @GetMapping //5
-    public ResponseEntity<List<LivroResponse>> listarLivros(){
+    @GetMapping //3
+    public ResponseEntity listarLivros(){
         Query query = entityManager.createQuery("select l from Livro l", Livro.class);
         List<LivroResponse> response = LivroResponse.gerarListaDeRespostaDeLivros(query.getResultList());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LivroResponse> procurarLivroPorId(@PathVariable UUID id){
+    public ResponseEntity procurarLivroPorId(@PathVariable UUID id){
         Livro livro = entityManager.find(Livro.class, id);
-        //6
+
+        //4
         if(livro == null){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body("Livro não encontrado");
         }
 
         LivroResponse response = new LivroResponse(livro);

@@ -52,7 +52,7 @@ public class Livro {
     public Livro() {
     }
 
-    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario, @NotBlank BigDecimal preco, @NotBlank @Min(100) Integer numeroDePaginas, @NotBlank String isbn, LocalDate dataDePublicacao) {
+    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario, @NotNull @Min(20) BigDecimal preco, @NotNull @Min(100) Integer numeroDePaginas, @NotBlank String isbn, @Future LocalDate dataDePublicacao, @NotNull Categoria categoria, @NotNull Autor autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -60,6 +60,8 @@ public class Livro {
         this.numeroDePaginas = numeroDePaginas;
         this.isbn = isbn;
         this.dataDePublicacao = dataDePublicacao;
+        this.categoria = categoria;
+        this.autor = autor;
     }
 
     public UUID getId() {

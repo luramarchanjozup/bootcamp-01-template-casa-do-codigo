@@ -6,7 +6,7 @@ import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
 import com.github.marcoscoutozup.casadocodigo.validator.exists.Exists;
 import com.github.marcoscoutozup.casadocodigo.validator.unique.Unique;
 
-import javax.persistence.Lob;
+import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -47,8 +47,10 @@ public class LivroDTO {
     @Exists(classe = Autor.class)
     private UUID autor;
 
-    public Livro toModel(){
-        return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataDePublicacao);
+    public Livro toModel(EntityManager entityManager){
+        Autor autor = entityManager.find(Autor.class, this.autor);
+        Categoria categoria = entityManager.find(Categoria.class, this.categoria);
+        return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataDePublicacao, categoria, autor);
     }
 
     public String getTitulo() {

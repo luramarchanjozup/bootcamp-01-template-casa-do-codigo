@@ -1,14 +1,14 @@
 package br.com.zup.bootcamp.controller.model;
 
 import br.com.zup.bootcamp.controller.validator.annotation.Unique;
-import br.com.zup.bootcamp.database.model.Category;
+import br.com.zup.bootcamp.domain.model.Category;
 
 import javax.validation.constraints.NotBlank;
 
 // Intrinsic charge = 1
 public class CategoryRequest {
-    @Unique(message = "Category already registered", fieldName = "name", domainClass = Category.class)
     @NotBlank(message = "Name is mandatory")
+    @Unique(message = "Category already registered", fieldName = "name", domainClass = Category.class)
     private String name;
 
     public String getName() {

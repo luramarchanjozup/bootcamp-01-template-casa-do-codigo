@@ -1,6 +1,6 @@
 package br.com.zup.bootcamp.controller.validator;
 
-import br.com.zup.bootcamp.controller.validator.annotation.Unique;
+import br.com.zup.bootcamp.controller.validator.annotation.Exist;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.Collection;
 
 // Intrinsic charge = 1
-public class GenericUnityValidator implements ConstraintValidator<Unique, Object> {
+public class GenericExistenceValidator implements ConstraintValidator<Exist, Object> {
 
     @PersistenceContext
     private EntityManager manager;
@@ -19,7 +19,7 @@ public class GenericUnityValidator implements ConstraintValidator<Unique, Object
     private Class<?> domainClass;
 
     @Override
-    public void initialize(Unique params) {
+    public void initialize(Exist params) {
         this.fieldName = params.fieldName();
         this.domainClass = params.domainClass();
     }
@@ -27,11 +27,11 @@ public class GenericUnityValidator implements ConstraintValidator<Unique, Object
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
         Query query = manager.createQuery(
-                "select " + fieldName + " from " + domainClass.getName() + " where " + this.fieldName + " = :value"
+                "select "+ fieldName + " from " + domainClass.getName() + " where " + fieldName + " = :value"
         );
         query.setParameter("value", obj);
-        Collection<?> result = query.getResultList();
 
-        return result.isEmpty();
+        Collection<?> result = query.getResultList();
+        return !result.isEmpty();
     }
 }

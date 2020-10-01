@@ -34,7 +34,7 @@ public class NewAuthorController {
     @Transactional
     public Author createAuthor (@RequestBody @Valid AuthorRequest request) {
         Optional<Author> emailExists = this.authorRepository.findByEmail(request.getEmail());
-        Author author = new Author(request.getName(), request.getEmail(), Instant.now());
+        Author author = request.toModel();
         entityManager.persist(author);
         return author;
     }

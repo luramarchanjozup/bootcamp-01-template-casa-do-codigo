@@ -4,11 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class AuthorRequest {
-    @NotBlank
-    private String name;
-    @Email
-    @NotBlank
-    private String email;
+    @NotBlank private String name;
+    @Email @NotBlank private String email;
 
     public AuthorRequest(@NotBlank String name, @Email @NotBlank String email) {
         super();

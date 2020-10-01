@@ -1,9 +1,11 @@
 package com.bootcamp.cdd.models;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
@@ -14,18 +16,15 @@ public class Author {
     private long id;
     @NotNull(message = "name can't be empty")
     @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ")
-    private String name;
-    @Email
-    private String email;
-    private Instant created_at;
+    private final String name;
+    @NotBlank(message = "email is empty!") @Email(message = "email format is invalid!") @Column(unique = true)
+    private final String email;
+    private final Instant created_at;
 
     public Author(@NotNull(message = "name can't be empty") @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") String name, @Email String email, Instant created_at) {
         this.name = name;
         this.email = email;
         this.created_at = created_at;
-    }
-
-    public Author() {
     }
 
     public long getId() {
@@ -34,10 +33,6 @@ public class Author {
 
     public String getName() {
         return name;
-    }
-
-    public Instant getCreated_at() {
-        return created_at;
     }
 
     public String getEmail() {

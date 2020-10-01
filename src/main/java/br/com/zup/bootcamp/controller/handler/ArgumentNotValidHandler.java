@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-// Intrinsic charge = 3
+// Intrinsic charge = 2
 @RestControllerAdvice
 public class ArgumentNotValidHandler {
 

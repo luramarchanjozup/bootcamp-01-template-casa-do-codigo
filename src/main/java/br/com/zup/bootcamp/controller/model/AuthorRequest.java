@@ -1,5 +1,6 @@
 package br.com.zup.bootcamp.controller.model;
 
+import br.com.zup.bootcamp.controller.validator.annotation.Unique;
 import br.com.zup.bootcamp.database.model.Author;
 import org.hibernate.validator.constraints.Length;
 
@@ -11,6 +12,7 @@ public class AuthorRequest {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @Unique(message = "Email already registered", fieldName = "email", domainClass = Author.class)
     @Email(message = "Email invalid")
     @NotBlank(message = "Email is mandatory")
     private String email;

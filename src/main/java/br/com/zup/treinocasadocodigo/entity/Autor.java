@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Autor {
@@ -12,13 +17,23 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
     private String nome;
+
+    @NotBlank
+    @Size(max=400)
     private String descricao;
+
+    private LocalDateTime instanteCriacao = LocalDateTime.now();
 
     protected Autor(){}
 
-    public Autor(String email, String nome, String descricao) {
+    public Autor(@NotBlank String nome, @NotBlank @Email String email,
+                 @NotBlank @Size(max = 400) String descricao) {
         this.email = email;
         this.nome = nome;
         this.descricao = descricao;
@@ -30,9 +45,10 @@ public class Autor {
                         "\"id\": \"%d\", " +
                         "\"email\": \"%s\", " +
                         "\"nome\": \"%s\", " +
-                        "\"descricao\": \"%s\"" +
+                        "\"descricao\": \"%s\", " +
+                        "\"instanteCriacao\": \"%s\"" +
                 "}",
-                id, email, nome, descricao);
+                id, email, nome, descricao, instanteCriacao);
     }
 
     public Long getId() {
@@ -61,5 +77,13 @@ public class Autor {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public LocalDateTime getInstanteCriacao() {
+        return instanteCriacao;
+    }
+
+    public void setInstanteCriacao(LocalDateTime instanteCriacao) {
+        this.instanteCriacao = instanteCriacao;
     }
 }

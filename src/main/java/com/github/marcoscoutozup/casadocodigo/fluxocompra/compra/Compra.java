@@ -1,12 +1,10 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.compra;
 
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.cliente.Cliente;
+import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.Cupom;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.pedido.Pedido;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -27,6 +25,9 @@ public class Compra {
     @NotNull
     @Valid
     private Pedido pedido;
+
+    @ManyToOne
+    private Cupom cupom;
 
     @Deprecated
     public Compra() {
@@ -59,6 +60,14 @@ public class Compra {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public Cupom getCupom() {
+        return cupom;
+    }
+
+    public void setCupom(Cupom cupom) {
+        this.cupom = cupom;
     }
 
     @Override

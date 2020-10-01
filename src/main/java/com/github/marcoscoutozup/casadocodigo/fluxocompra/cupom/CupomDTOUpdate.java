@@ -1,9 +1,5 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom;
 
-import org.springframework.http.ResponseEntity;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,11 +25,8 @@ public class CupomDTOUpdate {
         return cupom;
     }
 
-    public boolean validarCodigoDoCupom(Cupom cupom, EntityManager entityManager){
-        Query query = entityManager.createQuery("select c from Cupom c where codigo = :codigo and id <> :id");
-        query.setParameter("codigo", codigo);
-        query.setParameter("id", cupom.getId());
-        return !query.getResultList().isEmpty();
+    public boolean validarCodigoDoCupom(Cupom cupom, CupomRepository cupomRepository){
+        return cupom.getCodigo().equals(codigo) || !cupomRepository.findByCodigo(codigo).isPresent();
     }
 
     public String getCodigo() {

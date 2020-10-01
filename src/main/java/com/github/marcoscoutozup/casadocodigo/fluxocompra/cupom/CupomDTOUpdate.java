@@ -1,21 +1,16 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.http.ResponseEntity;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Entity
-public class Cupom {
-
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    private UUID id;
+public class CupomDTOUpdate {
 
     @NotBlank
     private String codigo;
@@ -27,18 +22,18 @@ public class Cupom {
     @Future
     private LocalDate validade;
 
-    @Deprecated
-    public Cupom() {
+    public Cupom updateCupom(Cupom cupom){
+        cupom.setCodigo(codigo);
+        cupom.setValidade(validade);
+        cupom.setPercentual(percentual);
+        return cupom;
     }
 
-    public Cupom(@NotBlank String codigo, @NotNull @Positive Integer percentual, @Future LocalDate validade) {
-        this.codigo = codigo;
-        this.percentual = percentual;
-        this.validade = validade;
-    }
-
-    public UUID getId() {
-        return id;
+    public boolean validarCodigoDoCupom(Cupom cupom, EntityManager entityManager){
+        Query query = entityManager.createQuery("select c from Cupom c where codigo = :codigo and id <> :id");
+        query.setParameter("codigo", codigo);
+        query.setParameter("id", cupom.getId());
+        return !query.getResultList().isEmpty();
     }
 
     public String getCodigo() {
@@ -63,15 +58,5 @@ public class Cupom {
 
     public void setValidade(LocalDate validade) {
         this.validade = validade;
-    }
-
-    @Override
-    public String toString() {
-        return "Cupom{" +
-                "id=" + id +
-                ", codigo='" + codigo + '\'' +
-                ", percentual=" + percentual +
-                ", validade=" + validade +
-                '}';
     }
 }

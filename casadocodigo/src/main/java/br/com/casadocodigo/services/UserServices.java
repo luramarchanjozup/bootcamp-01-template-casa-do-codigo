@@ -15,36 +15,37 @@ import java.util.List;
 @Service
 public class UserServices {
 
+    //+1
     @Autowired
     private BookRepository bookRepository;
 
+    //+1
     @Autowired
     private ShopRepository shopRepository;
 
+    //+1
     @Autowired
     private CouponRepository couponRepository;
 
 
     public Shop couponApplication(Long userId, Long couponId){
 
+        //+1
         Coupon coupon = couponRepository.findById(couponId).orElseThrow();
 
+        //+1
         Shop shop = shopRepository.findById(userId).orElseThrow();
 
         OffsetDateTime now = OffsetDateTime.now();
 
+        //+1
         if(coupon.getValidate().isBefore(now)) {
 
-            Double discount = coupon.getDiscount();
-
+            //+1
             shop.setTotalWithoutDiscount(shop.getTotal());
-
-            Double total = shop.getTotal() * discount;
-
-            shop.setTotal(total);
+            shop.setTotal(shop.getTotal() * coupon.getDiscount());
 
             return shop;
-
         }
 
         return null;
@@ -53,12 +54,17 @@ public class UserServices {
 
     public Shop addToCart(Long bookId, Long userId){
 
+        //+1
         Book book = bookRepository.findById(bookId).orElseThrow();
+
+        //+1
         Shop shop = shopRepository.findById(userId).orElseThrow();
 
+        //+1
         List<Book> books = shop.getShoppingCart();
         books.add(book);
 
+        //+1
         shop.setShoppingCart(books);
 
         return shop;

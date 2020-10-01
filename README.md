@@ -4,37 +4,47 @@
 
 ### Pontos de Complexidade Intrínseca da API 
 
+> @Limite(PCI = 8)
+
 1. Controllers
 
-> AuthorController (PCI = 4)
+> AuthorController (PCI = 5)
 
 > CategoryController (PCI = 4)
 
-> CountryController (PCI = 4)
+> CountryController (PCI = 5)
 
-> BookController (PCI = 5)
+> BookController (PCI = 9)
 
 > StateController (PCI = 5)
 
 > CouponController (PCI = 9)
 
-2. Models
-3. Dtos
-4. Forms
-5. Repositories
-6. Validations
+2. Services
+
+> ShopServices (PCI = 11)
+
+3. Validation 
+
+> UniqueValidator (PCI = 8)
 
 ### A prioridade máxima é funcionar
 
--> Alguns endpoints estão funcionando e validação de atributo único já funciona para o email do autor (por meio de um Bean Customizado).
+- Swagger: localhost:8080/swagger-ui.html
 
--> Aqui vai o Swagger
+- Visão geral das controllers
+
+![](/readme-assets/api-geral.png)
+
+- Endpoints
+
+![](/readme-assets/endpoints-1.png)
+
+![](/readme-assets/endpoints-2.png)
+
 
 ### Proteger as bordas
 
 -> Os métodos chamados nas classes controller estão recebendo os dados 
-pela classe Form e retornando por meio das Dtos, ficando a Model distanciada das bordas do sistema.
+pela classe Form e retornando por meio das Dtos, ficando as classes Models distanciadas das bordas do sistema.
 
-### Controllers 100% coesos
-
-Continua...

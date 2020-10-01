@@ -8,24 +8,31 @@ import java.util.Optional;
 
 public class UniqueValidator implements ConstraintValidator<Unique, String> {
 
+    // +1
     @Autowired
     private AuthorRepository authorRepository;
 
+    // +1
     @Autowired
     private CategoryRepository categoryRepository;
 
+    // +1
     @Autowired
     private BookRepository bookRepository;
 
+    // +1
     @Autowired
     private CountryRepository countryRepository;
 
+    // +1
     @Autowired
     private StateRepository stateRepository;
 
+    // +1
     @Autowired
     private CouponRepository couponRepository;
 
+    // +1
     @Override
     public void initialize(Unique constraintAnnotation) {
     }
@@ -33,6 +40,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, String> {
     @Override
     public boolean isValid(String input, ConstraintValidatorContext constraintValidatorContext) {
 
+        // +1
         if(authorRepository.findByEmail(input) == null
                 && categoryRepository.findByName(input) == null
                 && bookRepository.findByTitle(input) == null

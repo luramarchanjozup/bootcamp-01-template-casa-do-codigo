@@ -1,5 +1,6 @@
-package com.bootcamp.cdd.models;
+package com.bootcamp.cdd.request;
 
+import com.bootcamp.cdd.models.Author;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;

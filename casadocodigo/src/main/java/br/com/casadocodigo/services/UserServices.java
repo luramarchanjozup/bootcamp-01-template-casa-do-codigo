@@ -1,19 +1,16 @@
 package br.com.casadocodigo.services;
 
-import br.com.casadocodigo.dtos.UserDto;
 import br.com.casadocodigo.models.Book;
 import br.com.casadocodigo.models.Coupon;
-import br.com.casadocodigo.models.User;
+import br.com.casadocodigo.models.Shop;
 import br.com.casadocodigo.repositories.BookRepository;
 import br.com.casadocodigo.repositories.CouponRepository;
-import br.com.casadocodigo.repositories.UserRepository;
+import br.com.casadocodigo.repositories.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServices {
@@ -22,17 +19,17 @@ public class UserServices {
     private BookRepository bookRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private ShopRepository shopRepository;
 
     @Autowired
     private CouponRepository couponRepository;
 
 
-    public User couponApplication(Long userId, Long couponId){
+    public Shop couponApplication(Long userId, Long couponId){
 
         Coupon coupon = couponRepository.findById(couponId).orElseThrow();
 
-        User user = userRepository.findById(userId).orElseThrow();
+        Shop shop = shopRepository.findById(userId).orElseThrow();
 
         OffsetDateTime now = OffsetDateTime.now();
 
@@ -40,13 +37,13 @@ public class UserServices {
 
             Double discount = coupon.getDiscount();
 
-            user.setTotalWithoutDiscount(user.getTotal());
+            shop.setTotalWithoutDiscount(shop.getTotal());
 
-            Double total = user.getTotal() * discount;
+            Double total = shop.getTotal() * discount;
 
-            user.setTotal(total);
+            shop.setTotal(total);
 
-            return user;
+            return shop;
 
         }
 
@@ -54,16 +51,16 @@ public class UserServices {
 
     }
 
-    public User addToCart(Long bookId, Long userId){
+    public Shop addToCart(Long bookId, Long userId){
 
         Book book = bookRepository.findById(bookId).orElseThrow();
-        User user = userRepository.findById(userId).orElseThrow();
+        Shop shop = shopRepository.findById(userId).orElseThrow();
 
-        List<Book> books = user.getShoppingCart();
+        List<Book> books = shop.getShoppingCart();
         books.add(book);
 
-        user.setShoppingCart(books);
+        shop.setShoppingCart(books);
 
-        return user;
+        return shop;
     }
 }

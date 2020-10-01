@@ -1,8 +1,8 @@
 package br.com.casadocodigo.forms;
-import br.com.casadocodigo.models.User;
+import br.com.casadocodigo.models.Shop;
 
 
-public class UserForm {
+public class ShopForm {
 
     private String email;
 
@@ -23,13 +23,13 @@ public class UserForm {
     private String cep;
 
     @Deprecated
-    public UserForm(){};
+    public ShopForm(){};
 
-    public User toEntity(){
-        return new User(email,name, lastName, identification, address, complement, city, phone, cep);
+    public Shop toEntity(){
+        return new Shop(email,name, lastName, identification, address, complement, city, phone, cep);
     }
 
-    public UserForm(String email, String name, String lastName, String identification, String address, String complement, String city, String country, String state, String phone, String cep) {
+    public ShopForm(String email, String name, String lastName, String identification, String address, String complement, String city, String country, String state, String phone, String cep) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;

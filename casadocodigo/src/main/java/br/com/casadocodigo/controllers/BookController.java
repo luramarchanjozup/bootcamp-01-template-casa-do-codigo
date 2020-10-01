@@ -6,7 +6,6 @@ import br.com.casadocodigo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +36,21 @@ public class BookController {
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks(){
 
-        //+1
-        List<Book> books = bookRepository.findAll();
-
         List<BookDto> booksDtos = new ArrayList<>();
 
         //+1
-        books.forEach(book -> booksDtos.add(new BookDto(book)));
+        List<Book> books = bookRepository.findAll();
 
-        return ResponseEntity.ok(booksDtos);
+        //+1
+        if(books != null) {
+
+            //+1
+            books.forEach(book -> booksDtos.add(new BookDto(book)));
+
+            return ResponseEntity.ok(booksDtos);
+        }
+
+        return ResponseEntity.notFound().build();
 
     }
 
@@ -64,5 +69,4 @@ public class BookController {
         return ResponseEntity.notFound().build();
 
     }
-
 }

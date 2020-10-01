@@ -1,20 +1,20 @@
 package br.com.casadocodigo.dtos;
 
 import br.com.casadocodigo.models.Book;
-import br.com.casadocodigo.models.User;
+import br.com.casadocodigo.models.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDto {
+public class ShopDto {
 
     private Double total;
 
     private List<BookDto> booksDtos;
 
-    public UserDto(User user){
-        this.total = user.getTotal();
-        this.booksDtos = toDto(user.getShoppingCart());
+    public ShopDto(Shop shop){
+        this.total = shop.getTotal();
+        this.booksDtos = toDto(shop.getShoppingCart());
     }
 
     public List<BookDto> toDto(List<Book> books){

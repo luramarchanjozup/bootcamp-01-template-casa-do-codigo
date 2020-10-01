@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-public class User {
+public class Shop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,7 @@ public class User {
     @ElementCollection
     private List<Book> shoppingCart;
 
-    public User(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep) {
+    public Shop(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -68,9 +68,9 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        Shop shop = (Shop) o;
 
-        return id.equals(user.id);
+        return id.equals(shop.id);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package br.com.casadocodigo.repositories;
 
-import br.com.casadocodigo.models.User;
+import br.com.casadocodigo.models.Shop;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface ShopRepository extends JpaRepository<Shop, Long> {
 
 }

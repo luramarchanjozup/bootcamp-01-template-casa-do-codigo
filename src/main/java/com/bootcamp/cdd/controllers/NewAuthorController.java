@@ -4,18 +4,12 @@ import com.bootcamp.cdd.models.Author;
 import com.bootcamp.cdd.models.AuthorRequest;
 import com.bootcamp.cdd.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @RestController

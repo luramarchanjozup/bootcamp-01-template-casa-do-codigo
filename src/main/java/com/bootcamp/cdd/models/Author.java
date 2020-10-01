@@ -43,5 +43,15 @@ public class Author {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", created_at=" + created_at +
+                '}';
+    }
 }
 

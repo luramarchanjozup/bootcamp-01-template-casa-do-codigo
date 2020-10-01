@@ -32,13 +32,13 @@ public class NewAuthorController {
 
     @PostMapping
     @Transactional
-    public Author createAuthor (@RequestBody @Valid AuthorRequest request) {
+    public ResponseEntity<String> createAuthor (@RequestBody @Valid AuthorRequest request) {
         Optional<Author> emailExists = this.authorRepository.findByEmail(request.getEmail());
         if (emailExists.isPresent()) {
-            // era pra ser um Exception
+            return ResponseEntity.status(409).body("Email is already in use!");
         }
         Author author = new Author(request.getName(), request.getEmail(), Instant.now());
         entityManager.persist(author);
-        return author;
+        return ResponseEntity.status(201).body(author.toString());
     }
 }

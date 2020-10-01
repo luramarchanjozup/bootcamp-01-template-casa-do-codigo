@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.casadocodigo.entity.Author;
-import com.casadocodigo.requests.AuthorRequest;
-import com.casadocodigo.validators.EmailUniqueValidator;
+import com.casadocodigo.entity.Categories;
+import com.casadocodigo.requests.CategoriesRequest;
+import com.casadocodigo.validators.CategoriesUniqueValidator;
 
 @RestController
-@RequestMapping("/api/authors")
-public class AuthorController {
+@RequestMapping("/api/categories")
+public class CategorieController {
 
 	@PersistenceContext
 	private EntityManager manager;
 	
 	@Autowired
-	private EmailUniqueValidator emailUniqueValidator;
+	private CategoriesUniqueValidator categorieUniqueValidator;
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(emailUniqueValidator);
+		binder.addValidators(categorieUniqueValidator);
 	}
-
+	
 	@PostMapping(value = "")
 	@Transactional
-	public String save(@Valid @RequestBody AuthorRequest request) {
+	public String save(@Valid @RequestBody CategoriesRequest request) {
 
-		Author author = request.toModel();
-		manager.persist(author);
-		return author.toString();
+		Categories categorie = new Categories(request.getName());
+		manager.persist(categorie);
+		return categorie.toString();
 	}
 
 }

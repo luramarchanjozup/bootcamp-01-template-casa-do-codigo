@@ -1,5 +1,6 @@
 package com.casadocodigo.casaDoCodigo.config;
 
+import com.casadocodigo.casaDoCodigo.services.exceptions.DuplicatedException;
 import com.casadocodigo.casaDoCodigo.services.exceptions.ObjectNotFoundException;
 import com.casadocodigo.casaDoCodigo.services.exceptions.PurchaseException;
 
@@ -34,7 +35,13 @@ public class CasaDoCodigoExceptionHandler {
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PurchaseException.class)
-    public String PurchaseExceptionHandler(PurchaseException e) {
+    public String purchaseExceptionHandler(PurchaseException e) {
+        return "Error 400: \n\nMessage: " + e.getMessage().toString();
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DuplicatedException.class)
+    public String duplicatedHandler(DuplicatedException e) {
         return "Error 400: \n\nMessage: " + e.getMessage().toString();
     }
 }

@@ -23,7 +23,7 @@ public class CouponController {
     
     @Autowired
     private CouponServices couponServices;
-
+    
     @PostMapping
     public ResponseEntity<Coupon> createCoupon(@RequestBody @Valid CouponForm form, UriComponentsBuilder uriBuilder) {
         Coupon coupon = couponServices.createCoupon(form);
@@ -33,6 +33,7 @@ public class CouponController {
 
     @PutMapping
     public ResponseEntity<Coupon> editCoupon(@RequestBody @Valid CouponForm form) {
+
         Coupon coupon = couponServices.editCoupon(form);
         return ResponseEntity.ok().body(coupon);
     }

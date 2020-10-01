@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import com.casadocodigo.casaDoCodigo.controllers.form.CouponForm;
 import com.casadocodigo.casaDoCodigo.model.Coupon;
 import com.casadocodigo.casaDoCodigo.repositories.CouponRepository;
+import com.casadocodigo.casaDoCodigo.services.exceptions.DuplicatedException;
 import com.casadocodigo.casaDoCodigo.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,12 @@ public class CouponServices {
 
     @Transactional
     public Coupon createCoupon(CouponForm form) {
+        Optional<Coupon> couponObj = couponRepository.findByCode(form.getCode());
+        if(couponObj.isPresent()) {
+            throw new DuplicatedException("Coupon of code " + form.getCode() + " already exists.\n"
+                                        + "Try using the PUT method to edit a existing discount coupon.");
+        }
+
         float percentage = (float)form.getPercentage() / 100;
         Coupon coupon = new Coupon(form.getCode(), percentage, form.getExpirationDate());
         couponRepository.save(coupon);

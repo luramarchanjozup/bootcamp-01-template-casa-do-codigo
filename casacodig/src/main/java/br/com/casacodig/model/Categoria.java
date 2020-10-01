@@ -15,7 +15,8 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private @NotBlank String nome;
+	@NotBlank
+	private String nome;
 	
 	@Deprecated
 	public Categoria() {

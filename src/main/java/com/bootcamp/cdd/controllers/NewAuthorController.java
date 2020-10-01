@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -17,6 +20,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/author")
 public class NewAuthorController {
+    @PersistenceContext
+    private EntityManager entityManager;
     private AuthorRepository authorRepository;
 
     @Autowired
@@ -25,13 +30,14 @@ public class NewAuthorController {
     }
 
     @PostMapping
-    public Author createAuthor (@RequestBody @Valid AuthorRequest request) {
+    @Transactional
+    public Author createAuthor (@RequestBody AuthorRequest request) {
         Optional<Author> emailExists = this.authorRepository.findByEmail(request.getEmail());
         if (emailExists.isPresent()) {
-            Assert.notNull(emailExists, "email already exists");
+            // era pra ser um Exception
         }
         Author author = new Author(request.getName(), request.getEmail(), Instant.now());
-        this.authorRepository.save(author);
+        entityManager.persist(author);
         return author;
     }
 }

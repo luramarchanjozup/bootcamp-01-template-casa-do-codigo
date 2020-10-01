@@ -32,7 +32,7 @@ public class UniqueEmailValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return AutorRequest.class.equals(aClass);
+        return AutorRequest.class.isAssignableFrom(aClass);
     }
 
     @Override

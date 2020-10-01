@@ -8,32 +8,17 @@ import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 
 public class AuthorRequest {
-    @NotBlank @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") private String name;
-    @NotBlank(message = "email is empty!") @Email(message = "email format is invalid!") private String email;
+    @NotBlank @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") private final String name;
+    @Email(message = "email format is invalid!") private final String email;
+    @NotBlank @Length(min = 2, max = 1000, message = "name needs be greater than 2 characters ") private final String description;
 
-    public AuthorRequest(@NotBlank String name, @Email @NotBlank String email) {
-        super();
+    public AuthorRequest(@NotBlank @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") String name, @Email(message = "email format is invalid!") String email, @NotBlank @Length(min = 2, max = 1000, message = "name needs be greater than 2 characters ") String description) {
         this.name = name;
         this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        this.description = description;
     }
 
     public Author toModel () {
-        return new Author(this.name, this.email, Instant.now());
+        return new Author(this.name, this.email, this.description,  Instant.now());
     }
 }

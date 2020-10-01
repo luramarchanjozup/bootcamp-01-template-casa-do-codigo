@@ -16,12 +16,15 @@ public class Author {
     @NotEmpty(message = "name can't be empty")
     @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ")
     private final String name;
+    @Length(min = 3, max = 60, message = "description needs be greater than 3 characters ")
+    private final String description;
     @NotEmpty(message = "email is empty!") @Email(message = "email format is invalid!") @Column(unique = true)
     private final String email;
     private final Instant created_at;
 
-    public Author(@NotNull(message = "name can't be empty") @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") String name, @Email String email, Instant created_at) {
+    public Author(@NotEmpty(message = "name can't be empty") @Length(min = 3, max = 60, message = "name needs be greater than 3 characters ") String name, @NotEmpty(message = "email is empty!") @Email(message = "email format is invalid!") String email, @Length(min = 3, max = 60, message = "description needs be greater than 3 characters ") String description, Instant created_at) {
         this.name = name;
+        this.description = description;
         this.email = email;
         this.created_at = created_at;
     }
@@ -32,6 +35,10 @@ public class Author {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getEmail() {

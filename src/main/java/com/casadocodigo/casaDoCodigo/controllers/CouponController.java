@@ -11,6 +11,7 @@ import com.casadocodigo.casaDoCodigo.services.CouponServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +29,11 @@ public class CouponController {
         Coupon coupon = couponServices.createCoupon(form);
         URI uri = uriBuilder.path("coupon/{id}").buildAndExpand(coupon.getId()).toUri();
         return ResponseEntity.created(uri).body(coupon);
+    }
+
+    @PutMapping
+    public ResponseEntity<Coupon> editCoupon(@RequestBody @Valid CouponForm form) {
+        Coupon coupon = couponServices.editCoupon(form);
+        return ResponseEntity.ok().body(coupon);
     }
 }

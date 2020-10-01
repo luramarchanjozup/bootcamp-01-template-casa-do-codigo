@@ -33,6 +33,13 @@ public class Coupon {
         this.expirationDate = expirationDate;
     }
 
+    public Coupon(Coupon coupon, String code, Float percentage, LocalDate expirationDate) {
+        this.id = coupon.getId();
+        this.code = code;
+        this.percentage = percentage;
+        this.expirationDate = expirationDate;
+    }
+
     public Long getId() {
         return this.id;
     }

@@ -5,6 +5,7 @@ import org.springframework.validation.ObjectError;
 import java.util.List;
 
 public class ErrorResponse {
+
     private final String mensagem;
     private final int codigo;
     private final String status;

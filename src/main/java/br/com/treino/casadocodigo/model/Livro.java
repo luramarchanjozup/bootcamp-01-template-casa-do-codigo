@@ -14,7 +14,7 @@ public class Livro {
     private long id;
     private @NotBlank String titulo;
     private @NotBlank @Size(max = 500) String resumo;
-    private String sumario; //obrigatorio?
+    private String sumario;
     private @NotNull @Min(20) BigDecimal preco;
     private @NotNull @Min(100)  Integer numPaginas;
     private @NotBlank String isbn;
@@ -29,7 +29,7 @@ public class Livro {
     public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo,
                  String sumario, @NotNull @Min(20) BigDecimal preco,
                  @NotNull @Min(100) Integer numPaginas, @NotBlank String isbn,
-                 @Future @NotNull LocalDate dataPublicacao, Categoria categoria, Autor autor) {
+                 @Future @NotNull LocalDate dataPublicacao, @NotNull Categoria categoria, @NotNull Autor autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -83,4 +83,11 @@ public class Livro {
 
     public LocalDate getDataPublicacao() { return dataPublicacao; }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
 }

@@ -30,13 +30,8 @@ public class ExistIdValidator implements ConstraintValidator<ExistId, Object> {
         List<?> lista = query.getResultList();
 
         if(lista.isEmpty())
-        {
-            System.out.println("Lista vazia \n"+lista.size());
             return false;
-        }else{
-            System.out.println("Lista com items \n"+lista.size());
-            return true;
-        }
 
+        return true;
     }
 }

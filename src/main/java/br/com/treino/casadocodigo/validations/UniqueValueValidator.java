@@ -30,7 +30,6 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
         query.setParameter("value", value);
 
         //List<?> list = query.getResultList();
-
         //if (list.size()>=1)
             //Resultado.erro(new IllegalStateException("Foi encontrado mais de um "
             //        +nomeClass+" com o atributo "+nomeCampo+" = " + value));

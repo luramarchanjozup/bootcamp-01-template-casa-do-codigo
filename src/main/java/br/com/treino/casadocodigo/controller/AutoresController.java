@@ -3,6 +3,8 @@ package br.com.treino.casadocodigo.controller;
 import br.com.treino.casadocodigo.errors.Resultado;
 import br.com.treino.casadocodigo.model.Autor;
 import br.com.treino.casadocodigo.model.NovoAutorRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -19,8 +21,12 @@ public class AutoresController {
     @PostMapping(value = "/autores")
     @Transactional
     public String novoAutor(@RequestBody @Valid NovoAutorRequest request){
-        Autor autor = request.toModel();
+
+        Autor autor = Resultado.sucesso(request).getProposta().toModel();
+
+        //Autor autor = request.toModel();
         entityManager.persist(autor);
+
         return autor.toString();
     }
 

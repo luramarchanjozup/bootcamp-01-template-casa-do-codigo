@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.UUID;
@@ -12,35 +16,35 @@ import java.util.UUID;
 @RequestMapping("/cupom")
 public class CupomController {
 
-    @Autowired //1
-    private CupomRepository cupomRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @PostMapping
-    @Transactional                                      //2
+    @Transactional                                      //1
     public String cadastrarCupom(@RequestBody @Valid CupomDTO dto){
-        //3
+        //2
         Cupom cupom = dto.toModel();
-        cupomRepository.save(cupom);
+        entityManager.persist(cupom);
         return cupom.toString();
     }
 
     @PutMapping("/{id}")
-    @Transactional                                                                  //4
+    @Transactional                                                                  //3
     public ResponseEntity alterarCupom(@PathVariable UUID id, @RequestBody @Valid CupomDTOUpdate dto){
-        Cupom cupom = cupomRepository.findById(id).orElse(null);
+        Cupom cupom = entityManager.find(Cupom.class, id);
 
-        //5
+        //4
         if(cupom == null){
             return ResponseEntity.status(404).body("Cupom não encontrado");
         }
 
-        //6
-        if(!dto.validarCodigoDoCupom(cupom, cupomRepository)){
+        //5
+        if(!dto.validarCodigoDoCupom(cupom, entityManager)){
             return ResponseEntity.badRequest().body("O código não pode ser duplicado");
         }
 
         cupom = dto.updateCupom(cupom);
-        cupomRepository.save(cupom);
+        entityManager.merge(cupom);
         return ResponseEntity.ok(cupom.toString());
     }
 

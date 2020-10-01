@@ -2,7 +2,6 @@ package com.github.marcoscoutozup.casadocodigo.fluxocompra;
 
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.compra.Compra;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.compra.CompraDTO;
-import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.CupomRepository;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.validators.EstadoPertenceAPaisValidator;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.validators.ValorTotalDoPedidoValidator;
 import org.springframework.beans.factory.annotation.Autowired;

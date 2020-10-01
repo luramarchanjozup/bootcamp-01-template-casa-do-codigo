@@ -1,17 +1,17 @@
 package com.github.marcoscoutozup.casadocodigo.validator.codigodecupom;
 
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.Cupom;
-import com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom.CupomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Optional;
 
 public class CodigoDeCupomValidator implements ConstraintValidator<CodigoDeCupom, String> {
 
-    @Autowired
-    private CupomRepository cupomRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public void initialize(CodigoDeCupom constraintAnnotation) {
@@ -24,7 +24,8 @@ public class CodigoDeCupomValidator implements ConstraintValidator<CodigoDeCupom
     }
 
     private boolean verificarValidadeDoCupom(String codigoDeCupom){
-        Optional<Cupom> cupom = cupomRepository.findByCodigo(codigoDeCupom);
-        return cupom.isPresent() && cupom.get().estaValido();
+        TypedQuery<Cupom> query = entityManager.createNamedQuery("findCupomByCodigo", Cupom.class);
+        query.setParameter("codigo", codigoDeCupom);
+        return !query.getResultList().isEmpty() && query.getSingleResult().estaValido();
     }
 }

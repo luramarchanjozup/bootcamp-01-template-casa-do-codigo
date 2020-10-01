@@ -1,5 +1,6 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,8 +26,12 @@ public class CupomDTOUpdate {
         return cupom;
     }
 
-    public boolean validarCodigoDoCupom(Cupom cupom, CupomRepository cupomRepository){
-        return cupom.getCodigo().equals(codigo) || !cupomRepository.findByCodigo(codigo).isPresent();
+    public boolean validarCodigoDoCupom(Cupom cupom, EntityManager entityManager){
+        return cupom.getCodigo().equals(codigo) ||
+                entityManager
+                        .createNamedQuery("findCupomByCodigo")
+                        .setParameter("codigo", codigo)
+                        .getResultList().isEmpty();
     }
 
     public String getCodigo() {

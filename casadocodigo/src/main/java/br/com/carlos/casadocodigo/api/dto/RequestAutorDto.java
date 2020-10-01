@@ -1,21 +1,24 @@
 package br.com.carlos.casadocodigo.api.dto;
 
-import br.com.carlos.casadocodigo.domain.entity.Autor;
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.catalina.mapper.Mapper;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 
 @Getter
 @Setter
 public class RequestAutorDto {
 
-    @NotNull
+    @NotBlank
     private String nome;
-    @NotNull
+
+    @NotBlank @Email(message = "inválido")
     private String email;
-    @NotNull
+
+    @NotBlank @Size(max = 400, message = "Limite de 400 carateres")
     private String descricao;
 
 }

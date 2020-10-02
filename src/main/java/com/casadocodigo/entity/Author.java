@@ -17,7 +17,7 @@ public class Author {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long authorId;
+	private Long id;
 
 	@NotBlank
 	private String name;
@@ -46,7 +46,7 @@ public class Author {
 
 	@Override
 	public String toString() {
-		return "Author [authorId=" + authorId + ", name=" + name + ", email=" + email + ", description=" + description
+		return "Author [id=" + id + ", name=" + name + ", email=" + email + ", description=" + description
 				+ ", createdAt=" + createdAt + "]";
 	};
 	

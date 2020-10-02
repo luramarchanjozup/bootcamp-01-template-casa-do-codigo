@@ -10,9 +10,9 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.util.Assert;
 
-import com.casadocodigo.annotations.UniqueValue;
+import com.casadocodigo.annotations.ExistsValue;
 
-public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
+public class ExistsValueValidator implements ConstraintValidator<ExistsValue, Object> {
 
 	private String atribute;
 	private Class<?> theClass;
@@ -21,7 +21,7 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 	EntityManager entityManager;
 
 	@Override
-	public void initialize(UniqueValue value) {
+	public void initialize(ExistsValue value) {
 		atribute = value.fieldName();
 		theClass = value.domainClass();
 	}
@@ -33,9 +33,9 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 		query.setParameter("value", value);
 
 		List<?> list = query.getResultList();
-		Assert.state(list.size() <= 1, "já existe um elemento " + theClass + " com atributo o " + atribute + "=" + value);
+		Assert.isTrue(list.size() <= 1, "já existe um elemento " + theClass + " com atributo o " + atribute + "=" + value);
 
-		return list.isEmpty();
+		return !list.isEmpty();
 	}
 	
 }

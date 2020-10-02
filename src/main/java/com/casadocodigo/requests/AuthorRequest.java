@@ -4,8 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.casadocodigo.annotations.UniqueValue;
 import com.casadocodigo.entity.Author;
-import com.casadocodigo.validators.UniqueValue;
 
 public class AuthorRequest {
 

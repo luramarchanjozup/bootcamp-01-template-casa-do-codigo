@@ -4,6 +4,7 @@ import java.util.List;
 
 public class CartForm {
     private Integer total;
+    private String coupon;
     private List<CartItemsForm> items;
 
     public Integer getTotal() {
@@ -12,6 +13,14 @@ public class CartForm {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public String getCoupon() {
+        return this.coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
     }
 
     public List<CartItemsForm> getItems() {

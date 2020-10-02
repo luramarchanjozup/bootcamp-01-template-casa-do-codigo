@@ -14,10 +14,12 @@ import com.casadocodigo.casaDoCodigo.model.Book;
 import com.casadocodigo.casaDoCodigo.model.Cart;
 import com.casadocodigo.casaDoCodigo.model.CartItem;
 import com.casadocodigo.casaDoCodigo.model.Country;
+import com.casadocodigo.casaDoCodigo.model.Coupon;
 import com.casadocodigo.casaDoCodigo.model.Purchases;
 import com.casadocodigo.casaDoCodigo.model.State;
 import com.casadocodigo.casaDoCodigo.repositories.BookRepository;
 import com.casadocodigo.casaDoCodigo.repositories.CountryRepository;
+import com.casadocodigo.casaDoCodigo.repositories.CouponRepository;
 import com.casadocodigo.casaDoCodigo.repositories.PurchaseRepository;
 import com.casadocodigo.casaDoCodigo.repositories.StateRepository;
 import com.casadocodigo.casaDoCodigo.services.exceptions.ObjectNotFoundException;
@@ -37,12 +39,15 @@ public class PurchasesServices {
     private StateRepository stateRepository;
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private CouponRepository couponRepository;
 
     @Transactional
     public PurchaseDto createPurchase(PurchaseForm form) {
 
         List<BookPurchaseDto> books = new ArrayList<>();
         List<CartItem> cartItems = new ArrayList<>();
+        String appliedCoupon = "No coupons were applied";
         float finalPrice = 0f;
         int quantity = 0;
 
@@ -59,6 +64,17 @@ public class PurchasesServices {
             throw new PurchaseException("Cart total does not match the number of items");
         }
 
+        if (!form.getCart().getCoupon().isBlank()) {
+            Optional<Coupon> couponObj = couponRepository.findByCode(form.getCart().getCoupon());
+            if(couponObj.isPresent()) {
+                finalPrice -= (finalPrice * couponObj.get().getPercentage());
+                appliedCoupon = "Coupon code " + form.getCart().getCoupon() + " with a discount of " + 
+                                (couponObj.get().getPercentage() * 100) + "% has been applied";
+            } else {
+                appliedCoupon = "No coupon of code " + form.getCart().getCoupon() + " found. No discount applied";
+            }
+        }
+
         Cart cart = new Cart(quantity, cartItems);
 
         Optional<Country> countryObj = countryRepository.findByName(form.getCountry());
@@ -71,7 +87,7 @@ public class PurchasesServices {
 
         purchaseRepository.save(purchase);
 
-        return new PurchaseDto(purchase, books, finalPrice);
+        return new PurchaseDto(purchase, books, finalPrice, appliedCoupon);
     }
 
     private String exceptionMsg(String type, String name) {

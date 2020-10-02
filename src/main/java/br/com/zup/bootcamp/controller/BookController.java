@@ -13,9 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDate;
-import java.util.Collection;
 
-// Intrinsic charge = 4
+// Intrinsic charge = 5
 @RestController
 @RequestMapping("/book")
 public class BookController {

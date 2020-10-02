@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-// Intrinsic charge = 3
+// Intrinsic charge = 5
 public class BookRequest {
     @NotBlank(message = "Isbn is mandatory")
     @Unique(message = "Isbn already registered", fieldName = "isbn", domainClass = Book.class)

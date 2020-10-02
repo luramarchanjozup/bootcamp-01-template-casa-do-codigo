@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-// Intrinsic charge = 1
+// Intrinsic charge = 2
 public class AuthorRequest {
     @NotBlank(message = "Name is mandatory")
     private String name;

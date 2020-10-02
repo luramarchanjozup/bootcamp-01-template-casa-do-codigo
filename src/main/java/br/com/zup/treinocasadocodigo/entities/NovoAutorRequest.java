@@ -4,6 +4,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * Contagem de carga intrínseca da classe: 0
+ */
+
 public class NovoAutorRequest {
     @Email
     @NotBlank

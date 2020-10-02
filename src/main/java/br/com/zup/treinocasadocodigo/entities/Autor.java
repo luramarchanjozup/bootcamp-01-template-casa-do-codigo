@@ -9,6 +9,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+/**
+ * Contagem de carga intrínseca da classe: 0
+ */
+
+
 @Entity
 public class Autor {
 

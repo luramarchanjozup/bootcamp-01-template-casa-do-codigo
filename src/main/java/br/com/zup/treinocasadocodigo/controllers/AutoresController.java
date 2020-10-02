@@ -11,6 +11,10 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+/**
+ * Contagem de carga intrínseca da classe: 2
+ */
+
 @RestController
 public class AutoresController {
 
@@ -19,7 +23,9 @@ public class AutoresController {
 
     @PostMapping(value="/autores")
     @Transactional
+    //1
     public String cadastroAutor(@RequestBody @Valid NovoAutorRequest novoAutor) {
+        //1
         Autor autor = novoAutor.toModel();
         manager.persist(autor);
         return autor.toString();

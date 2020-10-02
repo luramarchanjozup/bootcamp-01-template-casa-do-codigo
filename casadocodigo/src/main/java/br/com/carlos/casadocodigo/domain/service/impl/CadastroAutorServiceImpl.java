@@ -5,8 +5,6 @@ import br.com.carlos.casadocodigo.domain.repository.AutorRepository;
 import br.com.carlos.casadocodigo.domain.service.CadastroAutorService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class CadastroAutorServiceImpl implements CadastroAutorService {
 

@@ -77,6 +77,38 @@ public class Cliente {
         this.estado = estado;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +

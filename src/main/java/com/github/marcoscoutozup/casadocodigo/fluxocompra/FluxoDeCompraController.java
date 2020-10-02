@@ -2,6 +2,7 @@ package com.github.marcoscoutozup.casadocodigo.fluxocompra;
 
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.compra.Compra;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.compra.CompraDTO;
+import com.github.marcoscoutozup.casadocodigo.fluxocompra.compra.CompraResponse;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.validators.EstadoPertenceAPaisValidator;
 import com.github.marcoscoutozup.casadocodigo.fluxocompra.validators.ValorTotalDoPedidoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/pagamento")
-public class PagamentoController {
+@RequestMapping("/compra")
+public class FluxoDeCompraController {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -39,5 +41,6 @@ public class PagamentoController {
         entityManager.persist(compra);
         return compra.toString();
     }
+
 
 }

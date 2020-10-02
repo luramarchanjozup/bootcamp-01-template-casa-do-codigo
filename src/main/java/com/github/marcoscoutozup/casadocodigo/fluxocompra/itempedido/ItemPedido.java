@@ -27,6 +27,14 @@ public class ItemPedido {
         this.quantidade = quantidade;
     }
 
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
     @Override
     public String toString() {
         return "ItemPedido{" +

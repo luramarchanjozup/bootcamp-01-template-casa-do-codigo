@@ -13,8 +13,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDate;
+import java.util.Collection;
 
-// Intrinsic charge = 5
+// Intrinsic charge = 4
 @RestController
 @RequestMapping("/book")
 public class BookController {
@@ -26,6 +27,7 @@ public class BookController {
     @Transactional
     public ResponseEntity<GenericResponse> register(@Validated @RequestBody BookRequest request){
         GenericResponse response;
+
         if(request.getPublicationDate().isEqual(LocalDate.now())){
             response = new GenericResponse("Publication date needs to be in the future");
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
@@ -42,9 +44,23 @@ public class BookController {
     @Transactional
     public ResponseEntity<GenericResponse> consult(){
         Query query = manager.createQuery("select b from " + Book.class.getName() + " b");
-        GenericResponse response = new GenericResponse();
-        response.setMessage(query.getResultList());
+
+        GenericResponse response = new GenericResponse(query.getResultList());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-    
+
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<GenericResponse> consultOne(@PathVariable("id") String id){
+        GenericResponse response;
+        Book book = manager.find(Book.class, id);
+
+        if(book == null){
+            response = new GenericResponse("Book not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        response = new GenericResponse(book);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

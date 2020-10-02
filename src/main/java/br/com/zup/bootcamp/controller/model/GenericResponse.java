@@ -9,12 +9,12 @@ public class GenericResponse {
 
     public GenericResponse(){}
 
-    public GenericResponse(Collection<String> message){
-        this.message = message;
+    public GenericResponse(Collection<?> messages){
+        this.message = messages;
     }
 
-    public GenericResponse(String message){
-        ArrayList<String> messages = new ArrayList<>();
+    public <T> GenericResponse(T message){
+        ArrayList<T> messages = new ArrayList<>();
         messages.add(message);
         this.message = messages;
     }
@@ -23,7 +23,7 @@ public class GenericResponse {
         return message;
     }
 
-    public void setMessage(Collection<String> message) {
+    public void setMessage(Collection<?> message) {
         this.message = message;
     }
 }

@@ -1,12 +1,14 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.cliente;
 
+import com.github.marcoscoutozup.casadocodigo.estado.Estado;
+import com.github.marcoscoutozup.casadocodigo.pais.Pais;
 import com.github.marcoscoutozup.casadocodigo.validator.cpfoucnpj.CpfOuCpj;
 
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Embeddable
 public class Cliente {
@@ -35,9 +37,11 @@ public class Cliente {
     private String cidade;
 
     @NotNull
-    private UUID pais;
+    @ManyToOne
+    private Pais pais;
 
-    private UUID estado;
+    @ManyToOne
+    private Estado estado;
 
     @NotBlank
     private String telefone;
@@ -46,7 +50,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull UUID pais, UUID estado, @NotBlank String telefone) {
+    public Cliente(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotBlank String telefone) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -54,9 +58,23 @@ public class Cliente {
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
-        this.pais = pais;
-        this.estado = estado;
         this.telefone = telefone;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override

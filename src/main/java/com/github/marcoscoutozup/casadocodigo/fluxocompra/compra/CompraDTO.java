@@ -24,7 +24,7 @@ public class CompraDTO {
     private String cupom;
 
     public Compra toModel(EntityManager entityManager){
-        Compra compra = new Compra(cliente.toModel(), pedido.toModel());
+        Compra compra = new Compra(cliente.toModel(entityManager), pedido.toModel());
         TypedQuery<Cupom> query = entityManager.createNamedQuery("findCupomByCodigo", Cupom.class).setParameter("codigo", this.cupom);
         if(!query.getResultList().isEmpty()){
             compra.setCupom(query.getSingleResult());

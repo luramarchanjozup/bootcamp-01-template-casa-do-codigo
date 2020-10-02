@@ -22,12 +22,17 @@ public class EstadoPertenceAPaisValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
+        if(errors.hasErrors()){
+            return;
+        }
+
         CompraDTO compraDTO = (CompraDTO) o;
 
-        Pais pais = entityManager.find(Pais.class, compraDTO.getCliente().getPais());
-
-        if(!pais.verificarSeEstadoPertenceAoPais(compraDTO.getCliente().getEstado())){
-            errors.rejectValue( "cliente.estado", null,"O estado não está relacionado ao país");
+        if(compraDTO.getCliente().getEstado() != null){
+            Pais pais = entityManager.find(Pais.class, compraDTO.getCliente().getPais());
+            if(!pais.verificarSeEstadoPertenceAoPais(compraDTO.getCliente().getEstado())){
+                errors.rejectValue( "cliente.estado", null,"O estado não está relacionado ao país");
+            }
         }
     }
 }

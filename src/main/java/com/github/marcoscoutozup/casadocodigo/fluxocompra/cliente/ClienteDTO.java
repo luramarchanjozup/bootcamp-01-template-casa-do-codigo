@@ -1,9 +1,11 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.cliente;
 
+import com.github.marcoscoutozup.casadocodigo.estado.Estado;
 import com.github.marcoscoutozup.casadocodigo.pais.Pais;
 import com.github.marcoscoutozup.casadocodigo.validator.cpfoucnpj.CpfOuCpj;
 import com.github.marcoscoutozup.casadocodigo.validator.exists.Exists;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -43,8 +45,16 @@ public class ClienteDTO {
     @NotBlank
     private String telefone;
 
-    public Cliente toModel(){
-        return new Cliente(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone);
+    public Cliente toModel(EntityManager entityManager){
+        Cliente cliente = new Cliente(email, nome, sobrenome, documento, endereco, complemento, cidade, telefone);
+        Pais pais = entityManager.find(Pais.class, this.pais);
+        cliente.setPais(pais);
+        if(this.estado != null){
+            Estado estado = entityManager.find(Estado.class, this.estado);
+            cliente.setEstado(estado);
+        }
+
+        return cliente;
     }
 
     public String getEmail() {

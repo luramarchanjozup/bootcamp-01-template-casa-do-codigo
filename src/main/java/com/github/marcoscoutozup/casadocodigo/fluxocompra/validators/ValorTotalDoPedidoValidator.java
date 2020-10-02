@@ -22,6 +22,10 @@ public class ValorTotalDoPedidoValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
+        if(errors.hasErrors()){
+            return;
+        }
+
         CompraDTO compraDTO = (CompraDTO) o;
         PedidoDTO pedido = compraDTO.getPedido();
 

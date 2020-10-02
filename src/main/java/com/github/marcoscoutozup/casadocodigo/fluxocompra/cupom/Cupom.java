@@ -71,7 +71,7 @@ public class Cupom {
     }
 
     public boolean estaValido(){
-        return validade == null || validade.isBefore(LocalDate.now());
+        return validade == null || validade.isAfter(LocalDate.now());
     }
 
     @Override

@@ -2,8 +2,6 @@ package com.itau.cdc.controller;
 
 import java.net.URI;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -16,35 +14,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.model.Autor;
 import com.itau.cdc.model.DTO.NovoAutorRequest;
 import com.itau.cdc.service.AutorService;
-import com.itau.cdc.validator.proibeEmailDuplicadoAutorValidator;
+import com.itau.cdc.validator.ProibeEmailDuplicadoAutorValidator;
 
 @RestController
-public class CasaDoCodigoController {
+public class AutorController {
 
 	@Autowired
 	private AutorService autorService;
 	
-	@PersistenceContext
-	private EntityManager manager;
-	
+	//1
 	@Autowired
-	private proibeEmailDuplicadoAutorValidator proibeEmailDuplicadoAutorValidator;
+	private ProibeEmailDuplicadoAutorValidator proibeEmailDuplicadoAutorValidator;
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
 		binder.addValidators(proibeEmailDuplicadoAutorValidator);
 	}
-	
+
+	//1
 	@PostMapping("/v1/autor")
 	@Transactional
 	public ResponseEntity<?> CriaAutor(@RequestBody @Valid NovoAutorRequest request, UriComponentsBuilder builder){
-		
-		Autor novoAutor = request.toModel();
-		
-		Long idAutor = autorService.IncluirAutor(novoAutor);
+		//1
+		Long idAutor = autorService.IncluirAutor(request);
 		
 		URI enderecoConsulta = builder.path("/v1/autor/{id}").build(idAutor);
 		

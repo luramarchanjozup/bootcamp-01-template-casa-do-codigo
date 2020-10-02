@@ -12,7 +12,7 @@ import com.itau.cdc.model.Autor;
 import com.itau.cdc.model.DTO.NovoAutorRequest;
 
 @Component
-public class proibeEmailDuplicadoAutorValidator implements Validator {
+public class ProibeEmailDuplicadoAutorValidator implements Validator {
 
 	@Autowired
 	private AutorJpaRepository autorJpaRepository;

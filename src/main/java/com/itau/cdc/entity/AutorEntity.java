@@ -7,22 +7,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class AutorEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id", nullable = false)
 	private Long id;
 	
-	@Column(name="nome")
+	@Column(name="nome", nullable = false)
 	private String nome;
 	
-	@Column(name="email")
+	@Column(name="email", nullable = false)
 	private String email;
 	
-	@Column(name="descricao")
+	@Column(name="descricao", nullable = false)
 	private String descricao;
 	
 	@Column(name="intante_criacao")

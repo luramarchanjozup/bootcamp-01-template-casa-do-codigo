@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 /**
- * Contagem de carga intrínseca da classe: 4
+ * Contagem de carga intrínseca da classe: 3
  */
 
 @RestController

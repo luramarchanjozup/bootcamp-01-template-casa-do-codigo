@@ -10,9 +10,15 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
+/**
+ * Contagem de carga intrínseca da classe: 3
+ */
+
 @Component
 public class AutorValidator implements Validator {
+
     @Autowired
+    //1
     private AutorRepository autorRepository;
 
     @Override
@@ -26,11 +32,13 @@ public class AutorValidator implements Validator {
             return;
         }
 
+        //1
         NovoAutorRequest novoAutor = (NovoAutorRequest) target;
 
         Optional<Autor> possivelAutor = autorRepository
                 .findByEmail(novoAutor.getEmail());
 
+        //1
         if (possivelAutor.isPresent()) {
             errors.rejectValue("email", null,
                     "já cadastrado: " + novoAutor.getEmail());

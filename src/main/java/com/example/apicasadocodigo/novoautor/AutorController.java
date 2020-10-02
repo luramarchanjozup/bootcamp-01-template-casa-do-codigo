@@ -1,8 +1,5 @@
 package com.example.apicasadocodigo.novoautor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -18,14 +15,9 @@ public class AutorController {
 
     @PostMapping
     @Transactional
-    public String novoAutor(@RequestBody @Valid NovoAutorRequest request) {
-        Autor autor = request.toModel();
-        manager.persist(autor);
-        return "Novo autor criado.";
-    }
-
-    @GetMapping
-    public String ola() {
-        return "Hello World";
+    public String criarAutor(@Valid @RequestBody NovoAutorRequest request) {
+        Autor novoAutor = request.toModel();
+        manager.persist(novoAutor);
+        return "Autor(a) " + novoAutor.getNome() + " criado(a).";
     }
 }

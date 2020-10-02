@@ -17,16 +17,17 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
+
     private String nome;
-    @NotBlank
-    @Email
     private String email;
-    @Size(min = 5, max = 400)
     private String descricao;
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime registro;
+
+    @Deprecated
+    public Autor(){
+
+    }
 
     public Autor(String nome, String email, String descricao, LocalDateTime registro) {
         this.nome = nome;

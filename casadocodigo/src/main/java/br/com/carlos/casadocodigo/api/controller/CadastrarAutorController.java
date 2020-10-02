@@ -16,14 +16,14 @@ import javax.validation.Valid;
 public class CadastrarAutorController {
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapper mapper;
     @Autowired
-    private AutorRepository autorRepository;
+    private AutorRepository repository;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseAutorDto adicionar(@Valid @RequestBody RequestAutorDto requestAutorDto) {
-        Autor autor = modelMapper.map(requestAutorDto, Autor.class);
-        return  modelMapper.map(autorRepository.save(autor), ResponseAutorDto.class);
+    public ResponseAutorDto adicionar(@Valid @RequestBody RequestAutorDto request) {
+        Autor autor = mapper.map(request, Autor.class);
+        return  mapper.map(repository.save(autor), ResponseAutorDto.class);
     }
 }

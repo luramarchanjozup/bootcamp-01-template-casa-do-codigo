@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entity;
+package br.com.zup.treinocasadocodigo.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Autor {
@@ -38,17 +37,16 @@ public class Autor {
         this.nome = nome;
         this.descricao = descricao;
     }
+
     @Override
     public String toString() {
-        return String.format(
-                "{" +
-                        "\"id\": \"%d\", " +
-                        "\"email\": \"%s\", " +
-                        "\"nome\": \"%s\", " +
-                        "\"descricao\": \"%s\", " +
-                        "\"instanteCriacao\": \"%s\"" +
-                "}",
-                id, email, nome, descricao, instanteCriacao);
+        return "Autor{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", instanteCriacao=" + instanteCriacao +
+                '}';
     }
 
     public Long getId() {

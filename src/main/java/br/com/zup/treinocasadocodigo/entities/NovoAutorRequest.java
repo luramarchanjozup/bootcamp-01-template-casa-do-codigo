@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entity;
+package br.com.zup.treinocasadocodigo.entities;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

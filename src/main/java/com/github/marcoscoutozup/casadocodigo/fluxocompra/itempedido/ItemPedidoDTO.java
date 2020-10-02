@@ -2,6 +2,7 @@ package com.github.marcoscoutozup.casadocodigo.fluxocompra.itempedido;
 
 import com.github.marcoscoutozup.casadocodigo.livro.Livro;
 import com.github.marcoscoutozup.casadocodigo.validator.exists.Exists;
+import jdk.swing.interop.SwingInterOpUtils;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
@@ -18,8 +19,10 @@ public class ItemPedidoDTO {
     @Positive
     private Integer quantidade;
 
-    public ItemPedido toModel(){
-        return new ItemPedido(idLivro, quantidade);
+    public ItemPedido toModel(EntityManager entityManager){
+        Livro livro = entityManager.find(Livro.class, idLivro);
+        System.out.println(livro);
+        return new ItemPedido(livro, quantidade);
     }
 
     public UUID getIdLivro() {

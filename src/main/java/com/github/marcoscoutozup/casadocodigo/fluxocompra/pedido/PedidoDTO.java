@@ -22,8 +22,8 @@ public class PedidoDTO {
     @Valid //1
     private List<ItemPedidoDTO> itens;
 
-    public Pedido toModel(){
-        return new Pedido(total, converteListaDeItensDePedido(itens));
+    public Pedido toModel(EntityManager entityManager){
+        return new Pedido(total, converteListaDeItensDePedido(itens, entityManager));
     }
 
     public BigDecimal getTotal() {
@@ -48,8 +48,8 @@ public class PedidoDTO {
     }
 
     //2
-    private List<ItemPedido> converteListaDeItensDePedido(List<ItemPedidoDTO> itens){
-        return itens.stream().map(ItemPedidoDTO::toModel).collect(Collectors.toList());
+    private List<ItemPedido> converteListaDeItensDePedido(List<ItemPedidoDTO> itens, EntityManager entityManager){
+        return itens.stream().map(item -> item.toModel(entityManager)).collect(Collectors.toList());
     }
 
     public boolean validarTotalDoPedido(BigDecimal totalDaCompra, EntityManager entityManager){

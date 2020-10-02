@@ -1,15 +1,18 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.itempedido;
 
+import com.github.marcoscoutozup.casadocodigo.livro.Livro;
+
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.util.UUID;
 
 @Embeddable
 public class ItemPedido {
 
     @NotNull
-    private UUID idLivro;
+    @ManyToOne
+    private Livro livro;
 
     @NotNull
     @Positive
@@ -19,17 +22,16 @@ public class ItemPedido {
     public ItemPedido() {
     }
 
-    public ItemPedido(@NotNull UUID idLivro, @NotNull @Positive Integer quantidade) {
-        this.idLivro = idLivro;
+    public ItemPedido(@NotNull Livro livro, @NotNull @Positive Integer quantidade) {
+        this.livro = livro;
         this.quantidade = quantidade;
     }
 
     @Override
     public String toString() {
         return "ItemPedido{" +
-                "idLivro=" + idLivro +
+                "livro=" + livro +
                 ", quantidade=" + quantidade +
                 '}';
     }
-
 }

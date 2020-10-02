@@ -48,6 +48,7 @@ public class PurchasesServices {
         List<BookPurchaseDto> books = new ArrayList<>();
         List<CartItem> cartItems = new ArrayList<>();
         String appliedCoupon = "No coupons were applied";
+        float discountedPrice = 0f;
         float finalPrice = 0f;
         int quantity = 0;
 
@@ -67,10 +68,11 @@ public class PurchasesServices {
         if (!form.getCart().getCoupon().isBlank()) {
             Optional<Coupon> couponObj = couponRepository.findByCode(form.getCart().getCoupon());
             if(couponObj.isPresent()) {
-                finalPrice -= (finalPrice * couponObj.get().getPercentage());
+                discountedPrice = finalPrice - (finalPrice * couponObj.get().getPercentage());
                 appliedCoupon = "Coupon code " + form.getCart().getCoupon() + " with a discount of " + 
                                 (couponObj.get().getPercentage() * 100) + "% has been applied";
             } else {
+                discountedPrice = finalPrice;
                 appliedCoupon = "No coupon of code " + form.getCart().getCoupon() + " found. No discount applied";
             }
         }
@@ -87,7 +89,7 @@ public class PurchasesServices {
 
         purchaseRepository.save(purchase);
 
-        return new PurchaseDto(purchase, books, finalPrice, appliedCoupon);
+        return new PurchaseDto(purchase, books, finalPrice, discountedPrice, appliedCoupon);
     }
 
     private String exceptionMsg(String type, String name) {

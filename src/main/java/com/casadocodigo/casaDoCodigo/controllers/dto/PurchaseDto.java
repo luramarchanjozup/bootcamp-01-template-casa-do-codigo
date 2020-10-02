@@ -12,9 +12,10 @@ public class PurchaseDto {
     private String address;
     private List<BookPurchaseDto> boughtBooks;
     private String couponMessage;
+    private Float discountedPrice;
     private Float finalPrice;
 
-    public PurchaseDto(Purchases purchase, List<BookPurchaseDto> books, float finalPrice, String couponMessage) {
+    public PurchaseDto(Purchases purchase, List<BookPurchaseDto> books, float finalPrice, float discountedPrice, String couponMessage) {
         this.id = purchase.getId();
         this.name = purchase.getName();
         this.lastName = purchase.getLastName();
@@ -22,6 +23,7 @@ public class PurchaseDto {
         this.address = purchase.getAddress();
         this.boughtBooks = books;
         this.couponMessage = couponMessage;
+        this.discountedPrice = discountedPrice;
         this.finalPrice = finalPrice;
     }
 
@@ -51,6 +53,10 @@ public class PurchaseDto {
 
     public String getCouponMessage() {
         return this.couponMessage;
+    }
+
+    public Float getDiscountedPrice() {
+        return this.discountedPrice;
     }
 
     public Float getFinalPrice() {

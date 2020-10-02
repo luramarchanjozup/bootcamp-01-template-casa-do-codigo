@@ -1,11 +1,8 @@
 package com.casadocodigo.casaDoCodigo.services;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.StateForm;
-import com.casadocodigo.casaDoCodigo.model.Country;
 import com.casadocodigo.casaDoCodigo.model.State;
 import com.casadocodigo.casaDoCodigo.repositories.CountryRepository;
 import com.casadocodigo.casaDoCodigo.repositories.StateRepository;
@@ -23,16 +20,14 @@ public class StateServices {
     private CountryRepository countryRepository;
 
     public State detailedIndex(String name) {
-        Optional<State> stateObj = stateRepository.findByName(name);
-        return stateObj.orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(name, "State")));
+        return stateRepository.findByName(name).orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(name, "State")));
     }
 
     @Transactional
     public State createState(StateForm form) {
-        Optional<Country> countryObj = countryRepository.findByName(form.getCountry());
-        System.out.println(countryObj.isPresent());
         State state = new State(form.getName(), 
-                                countryObj.orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(form.getCountry(), "Country"))));
+            countryRepository.findByName(form.getCountry()).orElseThrow(
+                () -> new ObjectNotFoundException(exceptionMsg(form.getCountry(), "Country"))));
         
         stateRepository.save(state);
 

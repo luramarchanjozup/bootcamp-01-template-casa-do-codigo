@@ -1,7 +1,5 @@
 package com.casadocodigo.casaDoCodigo.controllers;
 
-import java.net.URI;
-
 import javax.validation.Valid;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.StateForm;
@@ -37,14 +35,11 @@ public class StateController {
 
     @GetMapping("/{name}")
     public ResponseEntity<State> detailedIndex(@PathVariable @Valid String name) {
-        State state = stateServices.detailedIndex(name);
-        return ResponseEntity.ok().body(state);
+        return ResponseEntity.ok().body(stateServices.detailedIndex(name));
     }
 
     @PostMapping
     public ResponseEntity<State> createState(@RequestBody @Valid StateForm form, UriComponentsBuilder uriBuilder) {
-        State state = stateServices.createState(form);
-        URI uri = uriBuilder.path("state/{name}").buildAndExpand(state.getName()).toUri();
-        return ResponseEntity.created(uri).body(state);
+        return ResponseEntity.ok().body(stateServices.createState(form));
     }
 }

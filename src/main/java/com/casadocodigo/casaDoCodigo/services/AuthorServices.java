@@ -1,11 +1,7 @@
 package com.casadocodigo.casaDoCodigo.services;
 
-import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
-import com.casadocodigo.casaDoCodigo.controllers.dto.AuthorDto;
 import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedAuthorDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.AuthorForm;
 import com.casadocodigo.casaDoCodigo.model.Author;
@@ -22,13 +18,8 @@ public class AuthorServices {
     private AuthorRepository authorRepository;
 
     public DetailedAuthorDto detailedIndex(String email) {
-        Optional<Author> authorObj = authorRepository.findByEmail(email);
-        return new DetailedAuthorDto(authorObj.orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(email))));
-    }
-
-    public List<AuthorDto> index() {
-        List<Author> authors = authorRepository.findAll();
-        return AuthorDto.convert(authors);
+        return new DetailedAuthorDto(authorRepository.findByEmail(email).orElseThrow(
+                            () -> new ObjectNotFoundException(exceptionMsg(email))));
     }
     
     @Transactional

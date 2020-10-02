@@ -1,7 +1,5 @@
 package com.casadocodigo.casaDoCodigo.controllers;
 
-import java.net.URI;
-
 import javax.validation.Valid;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.CouponForm;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/coupon")
@@ -25,16 +22,12 @@ public class CouponController {
     private CouponServices couponServices;
     
     @PostMapping
-    public ResponseEntity<Coupon> createCoupon(@RequestBody @Valid CouponForm form, UriComponentsBuilder uriBuilder) {
-        Coupon coupon = couponServices.createCoupon(form);
-        URI uri = uriBuilder.path("coupon/{id}").buildAndExpand(coupon.getId()).toUri();
-        return ResponseEntity.created(uri).body(coupon);
+    public ResponseEntity<Coupon> createCoupon(@RequestBody @Valid CouponForm form) {
+        return ResponseEntity.ok().body(couponServices.createCoupon(form));
     }
 
     @PutMapping
     public ResponseEntity<Coupon> editCoupon(@RequestBody @Valid CouponForm form) {
-
-        Coupon coupon = couponServices.editCoupon(form);
-        return ResponseEntity.ok().body(coupon);
+        return ResponseEntity.ok().body(couponServices.editCoupon(form));
     }
 }

@@ -1,6 +1,5 @@
 package com.casadocodigo.casaDoCodigo.controllers;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -39,20 +38,16 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<List<BookDto>> index() {
-        List<BookDto> books = bookServices.index();
-        return ResponseEntity.ok().body(books);
+        return ResponseEntity.ok().body(bookServices.index());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DetailedBookDto> detailedIndex(@PathVariable @Valid Long id) {
-        DetailedBookDto book = bookServices.detailedIndex(id);
-        return ResponseEntity.ok().body(book);
+        return ResponseEntity.ok().body(bookServices.detailedIndex(id));
     }
 
     @PostMapping
     public ResponseEntity<DetailedBookDto> createBook(@RequestBody @Valid BookForm form, UriComponentsBuilder uriBuilder) {
-        DetailedBookDto book = bookServices.createBook(form);
-        URI uri = uriBuilder.path("book/{id}").buildAndExpand(book.getId()).toUri();
-        return ResponseEntity.created(uri).body(book);
+        return ResponseEntity.ok().body(bookServices.createBook(form));
     }
 }

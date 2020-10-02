@@ -38,7 +38,6 @@ public class CheckDuplicatedBook implements Validator {
                 errors.rejectValue("isbn", null, "There's already a registered book with the isbn " + request.getIsbn() + ".");
             }
         }
-
     }
     
 }

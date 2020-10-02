@@ -1,7 +1,5 @@
 package com.casadocodigo.casaDoCodigo.services;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.CouponForm;
@@ -21,8 +19,7 @@ public class CouponServices {
 
     @Transactional
     public Coupon createCoupon(CouponForm form) {
-        Optional<Coupon> couponObj = couponRepository.findByCode(form.getCode());
-        if(couponObj.isPresent()) {
+        if(couponRepository.findByCode(form.getCode()).isPresent()) {
             throw new DuplicatedException("Coupon of code " + form.getCode() + " already exists.\n"
                                         + "Try using the PUT method to edit a existing discount coupon.");
         }
@@ -36,10 +33,9 @@ public class CouponServices {
 
     @Transactional 
     public Coupon editCoupon(CouponForm form) {
-        Optional<Coupon> couponObj = couponRepository.findByCode(form.getCode());
-        Coupon coupon = couponObj.orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(form.getCode())));
-
-        Coupon updatedCoupon = new Coupon(coupon, form.getCode(), ((float)form.getPercentage() / 100), form.getExpirationDate());
+        Coupon updatedCoupon = new Coupon(couponRepository.findByCode(form.getCode())
+                                    .orElseThrow(() -> new ObjectNotFoundException(exceptionMsg(form.getCode()))), 
+                                    form.getCode(), ((float)form.getPercentage() / 100), form.getExpirationDate());
         couponRepository.save(updatedCoupon);
 
         return updatedCoupon;

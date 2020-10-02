@@ -1,7 +1,5 @@
 package com.casadocodigo.casaDoCodigo.controllers;
 
-import java.net.URI;
-
 import javax.validation.Valid;
 
 import com.casadocodigo.casaDoCodigo.controllers.dto.PurchaseDto;
@@ -25,8 +23,6 @@ public class PurchasesController {
 
     @PostMapping
     public ResponseEntity<PurchaseDto> createPurchase(@RequestBody @Valid PurchaseForm form, UriComponentsBuilder uriBuilder) {
-        PurchaseDto purchase = purchasesServices.createPurchase(form);
-        URI uri = uriBuilder.path("purchase/{id}").buildAndExpand(purchase.getId()).toUri();
-        return ResponseEntity.created(uri).body(purchase);
+        return ResponseEntity.ok().body(purchasesServices.createPurchase(form));
     }
 }

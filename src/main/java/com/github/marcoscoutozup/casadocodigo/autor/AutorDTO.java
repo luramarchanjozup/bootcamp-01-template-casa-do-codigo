@@ -20,6 +20,11 @@ public class AutorDTO {
     @Size(max = 400)
     private String descricao;
 
+            //1
+    public Autor toModel(){
+        return new Autor(nome, email, descricao);
+    }
+
     public String getNome() {
         return nome;
     }
@@ -44,7 +49,4 @@ public class AutorDTO {
         this.descricao = descricao;
     }
 
-    public Autor toModel(){
-        return new Autor(nome, email, descricao);
-    }
 }

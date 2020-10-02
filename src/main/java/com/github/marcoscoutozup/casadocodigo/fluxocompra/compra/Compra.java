@@ -18,15 +18,15 @@ public class Compra {
 
     @Embedded
     @NotNull
-    @Valid
+    @Valid   //1
     private Cliente cliente;
 
     @Embedded
     @NotNull
-    @Valid
+    @Valid //2
     private Pedido pedido;
 
-    @ManyToOne
+    @ManyToOne //3
     private Cupom cupom;
 
     @Deprecated

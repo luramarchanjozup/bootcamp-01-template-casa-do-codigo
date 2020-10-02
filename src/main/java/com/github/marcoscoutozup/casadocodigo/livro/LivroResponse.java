@@ -1,7 +1,5 @@
 package com.github.marcoscoutozup.casadocodigo.livro;
 
-import com.github.marcoscoutozup.casadocodigo.autor.AutorResponse;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +14,7 @@ public class LivroResponse {
     private Integer numeroDePaginas;
     private String isbn;
     private LocalDate dataDePublicacao;
-    private AutorResponse autor;
+    private String autor;
 
     public LivroResponse(Livro livro){
         this.titulo = livro.getTitulo();
@@ -26,9 +24,9 @@ public class LivroResponse {
         this.numeroDePaginas = livro.getNumeroDePaginas();
         this.isbn = livro.getIsbn();
         this.dataDePublicacao = livro.getDataDePublicacao();
-        this.autor = new AutorResponse(livro.getAutor());
+        this.autor = livro.getAutor().getNome();
     }
-
+                                                                        //1
     public static List<LivroResponse> gerarListaDeRespostaDeLivros(List<Livro> livros){
         return livros.stream()
                 .map(LivroResponse::new)
@@ -63,7 +61,7 @@ public class LivroResponse {
         return dataDePublicacao;
     }
 
-    public AutorResponse getAutor() {
+    public String getAutor() {
         return autor;
     }
 }

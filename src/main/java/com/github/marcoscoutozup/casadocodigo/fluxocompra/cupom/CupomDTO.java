@@ -21,6 +21,7 @@ public class CupomDTO {
     @Future
     private LocalDate validade;
 
+    //1
     public Cupom toModel(){
         return new Cupom(codigo, percentual, validade);
     }

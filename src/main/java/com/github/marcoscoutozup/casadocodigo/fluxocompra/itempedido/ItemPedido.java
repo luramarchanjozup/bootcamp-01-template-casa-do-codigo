@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive;
 public class ItemPedido {
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //1
     private Livro livro;
 
     @NotNull

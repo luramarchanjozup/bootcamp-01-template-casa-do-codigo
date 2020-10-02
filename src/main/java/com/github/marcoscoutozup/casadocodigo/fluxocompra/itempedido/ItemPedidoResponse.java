@@ -8,6 +8,7 @@ public class ItemPedidoResponse {
     private BigDecimal preco;
     private Integer quantidade;
 
+                                //1
     public ItemPedidoResponse(ItemPedido itemPedido) {
         this.tituloDoLivro = itemPedido.getLivro().getTitulo();
         this.preco = itemPedido.getLivro().getPreco();

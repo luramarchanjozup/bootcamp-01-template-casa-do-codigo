@@ -10,14 +10,17 @@ import java.util.stream.Collectors;
 public class PedidoResponse {
 
     private BigDecimal total;
+                    //1
     private List<ItemPedidoResponse> itens;
 
+                            //2
     public PedidoResponse(Pedido pedido) {
         this.total = pedido.getTotal();
         this.itens = converterListadePedidos(pedido.getItens());
     }
 
     private List<ItemPedidoResponse> converterListadePedidos(List<ItemPedido> itemPedidos) {
+                                            //3
         return itemPedidos.stream().map(ItemPedidoResponse::new).collect(Collectors.toList());
     }
 

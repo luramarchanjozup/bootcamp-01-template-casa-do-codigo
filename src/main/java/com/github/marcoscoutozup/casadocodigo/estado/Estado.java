@@ -21,7 +21,7 @@ public class Estado {
     private String nome;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //1
     private Pais pais;
 
     @Deprecated

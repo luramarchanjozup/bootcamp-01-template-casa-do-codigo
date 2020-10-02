@@ -41,11 +41,11 @@ public class Livro {
     private LocalDate dataDePublicacao;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //1
     private Categoria categoria;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //2
     private Autor autor;
 
     @Deprecated

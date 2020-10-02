@@ -37,10 +37,10 @@ public class Cliente {
     private String cidade;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //1
     private Pais pais;
 
-    @ManyToOne
+    @ManyToOne //2
     private Estado estado;
 
     @NotBlank

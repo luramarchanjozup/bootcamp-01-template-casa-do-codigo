@@ -45,11 +45,17 @@ public class ClienteDTO {
     @NotBlank
     private String telefone;
 
+            //1
     public Cliente toModel(EntityManager entityManager){
         Cliente cliente = new Cliente(email, nome, sobrenome, documento, endereco, complemento, cidade, telefone);
+
+        //2
         Pais pais = entityManager.find(Pais.class, this.pais);
         cliente.setPais(pais);
+
+        //3
         if(this.estado != null){
+            //4
             Estado estado = entityManager.find(Estado.class, this.estado);
             cliente.setEstado(estado);
         }

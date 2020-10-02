@@ -24,6 +24,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, String> {
     @Override
     @Transactional
     public boolean isValid(String valor, ConstraintValidatorContext constraintValidatorContext) {
+        //1
         if(valor == null){
             return false;
         }

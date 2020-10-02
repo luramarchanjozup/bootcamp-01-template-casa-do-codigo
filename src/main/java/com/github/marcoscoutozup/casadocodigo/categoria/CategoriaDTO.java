@@ -9,7 +9,7 @@ public class CategoriaDTO {
     @NotBlank
     @Unique(campo = "nome", classe = Categoria.class)
     private String nome;
-
+            //1
     public Categoria toModel(){
         return new Categoria(nome);
     }

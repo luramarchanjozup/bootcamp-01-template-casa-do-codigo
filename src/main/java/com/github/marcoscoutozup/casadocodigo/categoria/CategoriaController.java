@@ -18,7 +18,7 @@ public class CategoriaController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional                                          //1
     public String cadastrarCategoria(@RequestBody @Valid CategoriaDTO dto){
         Categoria categoria = dto.toModel();
         entityManager.persist(categoria);

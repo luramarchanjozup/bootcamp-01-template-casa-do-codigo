@@ -10,14 +10,20 @@ import java.math.BigDecimal;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CompraResponse {
 
+    //1
     private ClienteResponse cliente;
+
+    //2
     private PedidoResponse pedido;
+
+    //3
     private CupomResponse cupom;
     private BigDecimal totalComDesconto;
-
+                            //4
     public CompraResponse(Compra compra) {
         this.cliente = new ClienteResponse(compra.getCliente());
         this.pedido = new PedidoResponse(compra.getPedido());
+        //5
         if(compra.getCupom() != null){
             this.cupom = new CupomResponse(compra.getCupom());
             this.totalComDesconto = calcularValorComDesconto(compra);

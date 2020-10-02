@@ -19,9 +19,9 @@ public class ItemPedidoDTO {
     @Positive
     private Integer quantidade;
 
+            //1
     public ItemPedido toModel(EntityManager entityManager){
         Livro livro = entityManager.find(Livro.class, idLivro);
-        System.out.println(livro);
         return new ItemPedido(livro, quantidade);
     }
 

@@ -21,8 +21,10 @@ public class DetalhesDaCompraController {
 
     @GetMapping("/{id}")
     public ResponseEntity exibirDetalhesDaCompra(@PathVariable UUID id){
+        //1
         Compra compra = entityManager.find(Compra.class, id);
 
+        //2
         if(compra == null){
             return ResponseEntity.status(404).body("Compra não encontrada");
         }

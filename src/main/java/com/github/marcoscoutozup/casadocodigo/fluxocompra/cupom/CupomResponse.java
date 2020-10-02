@@ -8,7 +8,9 @@ public class CupomResponse {
     private Integer percentual;
     private LocalDate validade;
 
+                        //1
     public CupomResponse(Cupom cupom) {
+        //2
         if(cupom != null){
             this.codigo = cupom.getCodigo();
             this.percentual = cupom.getPercentual();

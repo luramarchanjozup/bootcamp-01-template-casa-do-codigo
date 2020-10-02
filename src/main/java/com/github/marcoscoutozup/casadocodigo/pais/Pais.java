@@ -22,7 +22,7 @@ public class Pais {
     private String nome;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "pais")
+    @OneToMany(mappedBy = "pais") //1
     private List<Estado> estados;
 
     @Deprecated

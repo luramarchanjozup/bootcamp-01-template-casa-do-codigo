@@ -21,7 +21,7 @@ public class Pedido {
 
     @ElementCollection
     @NotEmpty
-    @Valid //1
+    @Valid          //1
     private List<ItemPedido> itens;
 
     @Deprecated

@@ -18,7 +18,7 @@ public class PaisController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional                                  //1
     public String cadastrarPais(@RequestBody @Valid PaisDTO dto){
         Pais pais = dto.toModel();
         entityManager.persist(pais);

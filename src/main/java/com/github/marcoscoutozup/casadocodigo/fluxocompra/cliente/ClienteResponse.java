@@ -25,6 +25,7 @@ public class ClienteResponse {
         this.complemento = cliente.getComplemento();
         this.cidade = cliente.getCidade();
         this.pais = cliente.getPais().getNome();
+        //1
         if(cliente.getEstado() != null){
             this.estado = cliente.getEstado().getNome();
         }

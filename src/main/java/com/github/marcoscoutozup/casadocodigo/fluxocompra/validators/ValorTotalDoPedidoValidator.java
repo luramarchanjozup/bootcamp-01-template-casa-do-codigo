@@ -22,13 +22,18 @@ public class ValorTotalDoPedidoValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
+
+        //1
         if(errors.hasErrors()){
             return;
         }
-
+        //2
         CompraDTO compraDTO = (CompraDTO) o;
+
+        //3
         PedidoDTO pedido = compraDTO.getPedido();
 
+        //4
         if(pedido.validarTotalDoPedido(pedido.getTotal(), entityManager)){
             errors.rejectValue( "pedido.total", null,"O valor do total não é compatível com o valor do banco");
         }

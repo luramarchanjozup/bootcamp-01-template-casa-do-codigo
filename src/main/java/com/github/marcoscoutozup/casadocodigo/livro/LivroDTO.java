@@ -47,6 +47,7 @@ public class LivroDTO {
     @Exists(classe = Autor.class)
     private UUID autor;
 
+            //1
     public Livro toModel(EntityManager entityManager){
         Autor autor = entityManager.find(Autor.class, this.autor);
         Categoria categoria = entityManager.find(Categoria.class, this.categoria);

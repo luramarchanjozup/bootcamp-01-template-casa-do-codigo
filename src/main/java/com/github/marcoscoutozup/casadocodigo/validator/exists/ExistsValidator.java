@@ -21,6 +21,7 @@ public class ExistsValidator implements ConstraintValidator<Exists, UUID> {
 
     @Override
     public boolean isValid(UUID uuid, ConstraintValidatorContext constraintValidatorContext) {
+        //1
         if(uuid == null){
             return false;
         }

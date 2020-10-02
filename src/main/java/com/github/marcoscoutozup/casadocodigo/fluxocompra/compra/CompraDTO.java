@@ -13,19 +13,22 @@ import javax.validation.constraints.NotNull;
 public class CompraDTO {
 
     @NotNull
-    @Valid
+    @Valid  //1
     private ClienteDTO cliente;
 
     @NotNull
-    @Valid
+    @Valid  //2
     private PedidoDTO pedido;
 
     @CupomValidoParaCompra
     private String cupom;
 
+            //3
     public Compra toModel(EntityManager entityManager){
         Compra compra = new Compra(cliente.toModel(entityManager), pedido.toModel(entityManager));
         TypedQuery<Cupom> query = entityManager.createNamedQuery("findCupomByCodigo", Cupom.class).setParameter("codigo", this.cupom);
+
+        //4
         if(!query.getResultList().isEmpty()){
             compra.setCupom(query.getSingleResult());
         }

@@ -1,11 +1,15 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 public class CupomResponse {
 
     private String codigo;
     private Integer percentual;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate validade;
 
                         //1

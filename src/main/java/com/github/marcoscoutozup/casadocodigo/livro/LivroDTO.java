@@ -1,6 +1,7 @@
 package com.github.marcoscoutozup.casadocodigo.livro;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.marcoscoutozup.casadocodigo.autor.Autor;
 import com.github.marcoscoutozup.casadocodigo.categoria.Categoria;
 import com.github.marcoscoutozup.casadocodigo.validator.exists.Exists;
@@ -37,6 +38,7 @@ public class LivroDTO {
     private String isbn;
 
     @Future
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDePublicacao;
 
     @NotNull

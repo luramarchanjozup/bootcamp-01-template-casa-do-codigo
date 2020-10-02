@@ -1,5 +1,7 @@
 package com.github.marcoscoutozup.casadocodigo.livro;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +15,8 @@ public class LivroResponse {
     private BigDecimal preco;
     private Integer numeroDePaginas;
     private String isbn;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDePublicacao;
     private String autor;
 

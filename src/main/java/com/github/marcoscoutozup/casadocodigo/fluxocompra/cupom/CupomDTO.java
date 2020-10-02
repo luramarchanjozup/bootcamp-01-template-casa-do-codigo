@@ -1,5 +1,6 @@
 package com.github.marcoscoutozup.casadocodigo.fluxocompra.cupom;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.marcoscoutozup.casadocodigo.validator.unique.Unique;
 
 import javax.validation.constraints.Future;
@@ -19,6 +20,7 @@ public class CupomDTO {
     private Integer percentual;
 
     @Future
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate validade;
 
     //1

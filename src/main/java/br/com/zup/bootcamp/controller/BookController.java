@@ -7,16 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.time.LocalDate;
 
-// Intrinsic charge = 4
+// Intrinsic charge = 5
 @RestController
 @RequestMapping("/book")
 public class BookController {
@@ -39,4 +37,14 @@ public class BookController {
         response = new GenericResponse("The book was registered");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @GetMapping
+    @Transactional
+    public ResponseEntity<GenericResponse> consult(){
+        Query query = manager.createQuery("select b from " + Book.class.getName() + " b");
+        GenericResponse response = new GenericResponse();
+        response.setMessage(query.getResultList());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+    
 }

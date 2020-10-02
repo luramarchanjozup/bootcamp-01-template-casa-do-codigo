@@ -2,6 +2,7 @@ package com.example.apicasadocodigo.novolivro;
 
 import com.example.apicasadocodigo.novacategoria.Categoria;
 import com.example.apicasadocodigo.novoautor.Autor;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -42,6 +43,10 @@ public class Livro {
         this.dataDePublicacao = dataDePublicacao;
         this.autor = autor;
         this.categoria = categoria;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitulo() {

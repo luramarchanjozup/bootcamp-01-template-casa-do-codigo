@@ -14,34 +14,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.PaisRequest;
-import com.itau.cdc.service.PaisService;
-import com.itau.cdc.validator.ProibePaisDuplicadoValidator;
+import com.itau.cdc.DTO.EstadoRequest;
+import com.itau.cdc.service.EstadoService;
+import com.itau.cdc.validator.ProibeEstadoDuplicadoValidator;
 
 @RestController
-public class PaisController {
+public class EstadoControle {
 
 	@Autowired
-	private PaisService paisService;
+	private EstadoService estadoService;
 	
 	@Autowired
-	private ProibePaisDuplicadoValidator proibePaisDuplicadoValidator;
+	private ProibeEstadoDuplicadoValidator proibeEstadoDuplicadoValidator;
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(proibePaisDuplicadoValidator);
+		binder.addValidators(proibeEstadoDuplicadoValidator);
 	}
 	
-	@PostMapping("/v1/paises")
+	@PostMapping("/v1/estados")
 	@Transactional
-	public ResponseEntity<?> CriaPais(@RequestBody @Valid PaisRequest request, UriComponentsBuilder builder){
+	public ResponseEntity<?> CriaEstado(@RequestBody @Valid EstadoRequest request, UriComponentsBuilder builder){
 		
-		Long idPais = paisService.IncluirPais(request);
+		Long idEstado = estadoService.IncluirEstado(request);
 		
-		URI enderecoConsulta = builder.path("/v1/paises/{id}").build(idPais);
+		URI enderecoConsulta = builder.path("/v1/estados/{id}").build(idEstado);
 		
 		return ResponseEntity.created(enderecoConsulta).build();
 		
 	}
-	
 }

@@ -14,8 +14,6 @@ import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.Repository.AutorJpaRepository;
-import com.itau.cdc.Repository.CategoriaJpaRepository;
 import com.itau.cdc.model.Autor;
 import com.itau.cdc.model.Categoria;
 import com.itau.cdc.model.Livro2;
@@ -115,14 +113,14 @@ public class LivroRequest {
 		return idAutor;
 	}
 	
-	public @Valid Livro2 toModel(LivroRequest request, CategoriaJpaRepository categoriaJpaRepository, AutorJpaRepository autorJpaRepository, EntityManager manager) {
+	public @Valid Livro2 toModel(EntityManager manager) {
 	
 		Categoria categoria  = manager.find(Categoria.class, idCategoria);
 		Autor autor = manager.find(Autor.class,  idAutor);
 		
-		Assert.state(categoria!=null || autor!=null, "Categoria e autor não existem");
-		Assert.state(categoria!=null, "Categoria não existe");
-		Assert.state(autor!=null, "Autor não existe");
+		Assert.state(categoria!=null || autor!=null, "Categoria e autor não existem.");
+		Assert.state(categoria!=null, "Categoria não existe.");
+		Assert.state(autor!=null, "Autor não existe.");
 		
 		return new Livro2(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria, autor);
 		

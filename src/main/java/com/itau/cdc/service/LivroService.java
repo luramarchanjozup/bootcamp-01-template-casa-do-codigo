@@ -38,9 +38,6 @@ public class LivroService {
 	}
 
 	public Iterable<Livro2> ListaLivros() {
-
-		
-		
 		return livroJpaRepository.findAll();
 	}
 

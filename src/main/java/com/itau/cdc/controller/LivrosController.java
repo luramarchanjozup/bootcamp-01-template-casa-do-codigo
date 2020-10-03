@@ -35,7 +35,6 @@ public class LivrosController {
 	}
 	
 	@GetMapping("/v1/livros")
-	@Transactional
 	public ResponseEntity<?> RetornaListaLivros(UriComponentsBuilder builder){
 
 		Iterable<Livro2> livros = livroService.ListaLivros();

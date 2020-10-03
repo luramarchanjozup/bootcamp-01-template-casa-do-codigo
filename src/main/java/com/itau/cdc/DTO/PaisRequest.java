@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itau.cdc.model.Pais;
 
 
-public class NovoPaisRequest {
+public class PaisRequest {
 
 	@NotBlank
 	@JsonProperty("nome")

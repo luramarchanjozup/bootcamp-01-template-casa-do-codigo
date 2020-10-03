@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.NovaCategoriaRequest;
+import com.itau.cdc.DTO.CategoriaRequest;
 import com.itau.cdc.service.CategoriaService;
 
 @RestController
@@ -23,7 +23,7 @@ public class CategoriaController {
 	
 	@PostMapping("/v1/categorias")
 	@Transactional
-	public ResponseEntity<?> CriaCategoria(@RequestBody @Valid NovaCategoriaRequest request, UriComponentsBuilder builder){
+	public ResponseEntity<?> CriaCategoria(@RequestBody @Valid CategoriaRequest request, UriComponentsBuilder builder){
 		//1
 		Long idCategoria = categoriaService.IncluirCategoria(request);
 		

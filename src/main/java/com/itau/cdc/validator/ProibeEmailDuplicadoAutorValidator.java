@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.itau.cdc.DTO.NovoAutorRequest;
+import com.itau.cdc.DTO.AutorRequest;
 import com.itau.cdc.Repository.AutorJpaRepository;
 import com.itau.cdc.model.Autor;
 
@@ -19,7 +19,7 @@ public class ProibeEmailDuplicadoAutorValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return NovoAutorRequest.class.isAssignableFrom(clazz);
+		return AutorRequest.class.isAssignableFrom(clazz);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class ProibeEmailDuplicadoAutorValidator implements Validator {
 			return;
 		}
 
-		NovoAutorRequest request = (NovoAutorRequest) target;
+		AutorRequest request = (AutorRequest) target;
 
 		Optional<Autor> possivelAutor = autorJpaRepository.findByEmail(request.getEmail());
 

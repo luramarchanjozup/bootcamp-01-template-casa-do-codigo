@@ -20,7 +20,7 @@ import com.itau.cdc.model.Autor;
 import com.itau.cdc.model.Categoria;
 import com.itau.cdc.model.Livro2;
 
-public class NovoLivroRequest {
+public class LivroRequest {
 
 	@JsonProperty("titulo")
 	@NotBlank
@@ -60,7 +60,7 @@ public class NovoLivroRequest {
 	@NotNull
 	private Long idAutor;
 
-	public NovoLivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
+	public LivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
 			@NotBlank @Min(20) BigDecimal preco, @NotBlank Integer numeroPaginas, @NotBlank String isbn,
 			@NotNull Date dataPublicacao, @NotNull @NotBlank Long categoria, @NotNull @NotBlank Long autor) {
 		super();
@@ -75,7 +75,7 @@ public class NovoLivroRequest {
 		this.idAutor = autor;
 	}
 
-	public NovoLivroRequest() {
+	public LivroRequest() {
 		super();
 	}
 
@@ -115,7 +115,7 @@ public class NovoLivroRequest {
 		return idAutor;
 	}
 	
-	public @Valid Livro2 toModel(NovoLivroRequest request, CategoriaJpaRepository categoriaJpaRepository, AutorJpaRepository autorJpaRepository, EntityManager manager) {
+	public @Valid Livro2 toModel(LivroRequest request, CategoriaJpaRepository categoriaJpaRepository, AutorJpaRepository autorJpaRepository, EntityManager manager) {
 	
 		Categoria categoria  = manager.find(Categoria.class, idCategoria);
 		Autor autor = manager.find(Autor.class,  idAutor);

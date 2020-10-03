@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itau.cdc.DTO.NovaCategoriaRequest;
+import com.itau.cdc.DTO.CategoriaRequest;
 import com.itau.cdc.Repository.CategoriaJpaRepository;
 import com.itau.cdc.model.Categoria;
 
@@ -15,7 +15,7 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaJpaRepository categoriaJpaRepository;
 	
-	public Long IncluirCategoria(@Valid NovaCategoriaRequest request) {
+	public Long IncluirCategoria(@Valid CategoriaRequest request) {
 		
 		@Valid
 		Categoria novaCategoria = request.toModel();

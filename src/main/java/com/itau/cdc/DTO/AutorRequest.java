@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itau.cdc.model.Autor;
 
-public class NovoAutorRequest {
+public class AutorRequest {
 
 	@NotBlank
 	@JsonProperty("nome")
@@ -23,7 +23,7 @@ public class NovoAutorRequest {
 	@JsonProperty("descricao")
 	private String descricao;
 	
-	public NovoAutorRequest (@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
+	public AutorRequest (@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
 		super();
 		this.nome = nome;
 		this.email = email;

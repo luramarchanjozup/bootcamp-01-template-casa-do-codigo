@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.NovoAutorRequest;
+import com.itau.cdc.DTO.AutorRequest;
 import com.itau.cdc.service.AutorService;
 import com.itau.cdc.validator.ProibeEmailDuplicadoAutorValidator;
 
@@ -36,7 +36,7 @@ public class AutorController {
 	//1
 	@PostMapping("/v1/autores")
 	@Transactional
-	public ResponseEntity<?> CriaAutor(@RequestBody @Valid NovoAutorRequest request, UriComponentsBuilder builder){
+	public ResponseEntity<?> CriaAutor(@RequestBody @Valid AutorRequest request, UriComponentsBuilder builder){
 		//1
 		Long idAutor = autorService.IncluirAutor(request);
 		

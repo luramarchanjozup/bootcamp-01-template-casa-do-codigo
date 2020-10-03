@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itau.cdc.DTO.NovoLivroRequest;
+import com.itau.cdc.DTO.LivroRequest;
 import com.itau.cdc.Repository.AutorJpaRepository;
 import com.itau.cdc.Repository.CategoriaJpaRepository;
 import com.itau.cdc.Repository.LivroJpaRepository;
@@ -28,7 +28,7 @@ public class LivroService {
 	@PersistenceContext
 	private EntityManager manager;
 	
-	public Long IncluirLivro(@Valid NovoLivroRequest request) {
+	public Long IncluirLivro(@Valid LivroRequest request) {
 
 		Livro2 novoLivro = request.toModel(request, categoriaJpaRepository, autorJpaRepository, manager);
 		

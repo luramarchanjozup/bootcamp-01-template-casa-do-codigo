@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.NovoLivroRequest;
+import com.itau.cdc.DTO.LivroRequest;
 import com.itau.cdc.model.Livro2;
 import com.itau.cdc.service.LivroService;
 
@@ -25,7 +25,7 @@ public class LivrosController {
 	
 	@PostMapping("/v1/livros")
 	@Transactional
-	public ResponseEntity<?> CriaLivro(@RequestBody @Valid NovoLivroRequest request, UriComponentsBuilder builder){
+	public ResponseEntity<?> CriaLivro(@RequestBody @Valid LivroRequest request, UriComponentsBuilder builder){
 		
 		Long idLivro = livroService.IncluirLivro(request);
 		

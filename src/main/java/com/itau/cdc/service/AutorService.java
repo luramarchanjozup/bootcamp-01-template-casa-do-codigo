@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itau.cdc.DTO.NovoAutorRequest;
+import com.itau.cdc.DTO.AutorRequest;
 import com.itau.cdc.Repository.AutorJpaRepository;
 import com.itau.cdc.model.Autor;
 
@@ -16,7 +16,7 @@ public class AutorService {
 	@Autowired
 	private AutorJpaRepository autorJpaRepository;
 	
-	public Long IncluirAutor(@Valid NovoAutorRequest request) {
+	public Long IncluirAutor(@Valid AutorRequest request) {
 		
 		@Valid
 		Autor novoAutor = request.toModel();

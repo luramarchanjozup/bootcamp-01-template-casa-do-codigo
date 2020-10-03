@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.itau.cdc.DTO.NovaCategoriaRequest;
+import com.itau.cdc.DTO.CategoriaRequest;
 import com.itau.cdc.Repository.CategoriaJpaRepository;
 import com.itau.cdc.model.Categoria;
 
@@ -19,7 +19,7 @@ public class ProibeCategoriaDuplicadaValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return NovaCategoriaRequest.class.isAssignableFrom(clazz);
+		return CategoriaRequest.class.isAssignableFrom(clazz);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class ProibeCategoriaDuplicadaValidator implements Validator {
 			return;
 		}
 		
-		NovaCategoriaRequest request = (NovaCategoriaRequest) target;
+		CategoriaRequest request = (CategoriaRequest) target;
 		
 		Optional<Categoria> possivelCategoria = categoriaJpaRepository.findByNome(request.getNome());
 		

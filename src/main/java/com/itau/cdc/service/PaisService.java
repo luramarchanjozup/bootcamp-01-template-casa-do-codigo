@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itau.cdc.DTO.NovoPaisRequest;
+import com.itau.cdc.DTO.PaisRequest;
 import com.itau.cdc.model.Pais;
 
 @Service
@@ -14,7 +14,7 @@ public class PaisService {
 	@Autowired
 	private PaisJpsRepository paisJpaRepository;
 	
-	public Long IncluirPais(@Valid NovoPaisRequest request) {
+	public Long IncluirPais(@Valid PaisRequest request) {
 		
 		@Valid
 		Pais novoPais = request.toModel();

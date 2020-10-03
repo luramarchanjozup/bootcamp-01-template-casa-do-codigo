@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.NovoPaisRequest;
+import com.itau.cdc.DTO.PaisRequest;
 import com.itau.cdc.service.PaisService;
 
 @RestController
@@ -23,7 +23,7 @@ public class PaisController {
 	
 	@PostMapping("/v1/paises")
 	@Transactional
-	public ResponseEntity<?> CriaPais(@RequestBody @Valid NovoPaisRequest request, UriComponentsBuilder builder){
+	public ResponseEntity<?> CriaPais(@RequestBody @Valid PaisRequest request, UriComponentsBuilder builder){
 		
 		Long idPais = paisService.IncluirPais(request);
 		

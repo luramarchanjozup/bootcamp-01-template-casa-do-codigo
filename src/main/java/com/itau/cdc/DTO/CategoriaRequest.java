@@ -5,17 +5,17 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itau.cdc.model.Categoria;
 
-public class NovaCategoriaRequest {
+public class CategoriaRequest {
 
 	@NotBlank
 	@JsonProperty("nome")
 	private String nome;
 
-	public NovaCategoriaRequest() {
+	public CategoriaRequest() {
 		super();
 	}
 
-	public NovaCategoriaRequest(@NotBlank String nome) {
+	public CategoriaRequest(@NotBlank String nome) {
 		super();
 		this.nome = nome;
 	}

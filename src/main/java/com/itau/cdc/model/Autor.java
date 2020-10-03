@@ -68,5 +68,17 @@ public class Autor {
 	public String getEmail() {
 		return email;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public LocalDateTime getInstanteCriacao() {
+		return instanteCriacao;
+	}
 	
 }

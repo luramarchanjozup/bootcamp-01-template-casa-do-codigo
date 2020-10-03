@@ -1,5 +1,7 @@
 package com.itau.cdc.service;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
@@ -36,6 +38,13 @@ public class LivroService {
 		novoLivro = livroJpaRepository.save(novoLivro);
 		
 		return novoLivro.getId();
+	}
+
+	public Iterable<Livro2> ListaLivros() {
+
+		
+		
+		return livroJpaRepository.findAll();
 	}
 
 }

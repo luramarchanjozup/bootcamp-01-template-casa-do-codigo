@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.itau.cdc.DTO.NovoAutorRequest;
 import com.itau.cdc.Repository.AutorJpaRepository;
 import com.itau.cdc.model.Autor;
-import com.itau.cdc.model.DTO.NovoAutorRequest;
 
 @Component
 public class ProibeEmailDuplicadoAutorValidator implements Validator {

@@ -12,25 +12,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.NovaCategoriaRequest;
-import com.itau.cdc.service.CategoriaService;
+import com.itau.cdc.DTO.NovoLivroRequest;
+import com.itau.cdc.service.LivroService;
 
 @RestController
-public class CategoriaController {
+public class LivrosController {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private LivroService livroService;
 	
-	@PostMapping("/v1/categorias")
+	@PostMapping("/v1/livros")
 	@Transactional
-	public ResponseEntity<?> CriaCategoria(@RequestBody @Valid NovaCategoriaRequest request, UriComponentsBuilder builder){
-		//1
-		Long idCategoria = categoriaService.IncluirCategoria(request);
+	public ResponseEntity<?> CriaLivro(@RequestBody @Valid NovoLivroRequest request, UriComponentsBuilder builder){
 		
-		URI enderecoConsulta = builder.path("/v1/categorias/{id}").build(idCategoria);
+		Long idLivro = livroService.IncluirLivro(request);
+		
+		URI enderecoConsulta = builder.path("/v1/livros/{id}").build(idLivro);
 		
 		return ResponseEntity.created(enderecoConsulta).build();
-		
 	}
 	
 }

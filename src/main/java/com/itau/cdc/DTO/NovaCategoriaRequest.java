@@ -1,4 +1,4 @@
-package com.itau.cdc.model.DTO;
+package com.itau.cdc.DTO;
 
 import javax.validation.constraints.NotBlank;
 

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.itau.cdc.DTO.NovaCategoriaRequest;
 import com.itau.cdc.Repository.CategoriaJpaRepository;
 import com.itau.cdc.model.Categoria;
-import com.itau.cdc.model.DTO.NovaCategoriaRequest;
 
 @Component
 public class ProibeCategoriaDuplicadaValidator implements Validator {

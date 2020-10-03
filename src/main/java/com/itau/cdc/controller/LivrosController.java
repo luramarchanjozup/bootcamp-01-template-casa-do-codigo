@@ -1,7 +1,6 @@
 package com.itau.cdc.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;

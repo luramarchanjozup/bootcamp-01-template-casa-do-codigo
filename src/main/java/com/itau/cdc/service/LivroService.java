@@ -1,7 +1,5 @@
 package com.itau.cdc.service;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
@@ -13,7 +11,6 @@ import com.itau.cdc.DTO.NovoLivroRequest;
 import com.itau.cdc.Repository.AutorJpaRepository;
 import com.itau.cdc.Repository.CategoriaJpaRepository;
 import com.itau.cdc.Repository.LivroJpaRepository;
-import com.itau.cdc.model.Categoria;
 import com.itau.cdc.model.Livro2;
 
 @Service

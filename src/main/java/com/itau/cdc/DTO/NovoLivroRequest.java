@@ -2,7 +2,6 @@ package com.itau.cdc.DTO;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -11,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

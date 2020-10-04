@@ -23,7 +23,6 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
     // +1
     private Class<?> klass;
 
-    // +1
     @Override
     public void initialize(Unique constraintAnnotation) {
 
@@ -35,15 +34,12 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 
     }
 
-    @Override
+    @Override                            // +1
     public boolean isValid(Object fieldContentToBeValidated, ConstraintValidatorContext constraintValidatorContext) {
 
         // +1
-        Query query = entityManager
-                .createQuery("select 1 from " + klass.getName() + " where "+ domainAttribute + "=:value");
-
-        // +1
-        return query
+        return entityManager
+                .createQuery("select 1 from " + klass.getName() + " where "+ domainAttribute + "=:value")
                 .setParameter("value", fieldContentToBeValidated)
                 .getResultList()
                 .isEmpty();

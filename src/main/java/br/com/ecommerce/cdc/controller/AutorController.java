@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 
 /**
  * Carga intrinseca máxima permitida - 7
- * Carga intrinseca da classe - 3
+ * Carga intrinseca da classe - 2
  */
 
 @RestController
@@ -24,15 +24,6 @@ public class AutorController {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Autowired
-    // +1
-    private UniqueEmailValidator uniqueEmailValidator;
-
-    @InitBinder
-    protected void initBinder(WebDataBinder webDataBinder){
-        webDataBinder.addValidators(uniqueEmailValidator);
-    }
 
     @PostMapping
     @Transactional

@@ -1,5 +1,7 @@
 package br.com.ecommerce.cdc.domain;
 
+import br.com.ecommerce.cdc.anotacao.NotDuplicated;
+
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -7,7 +9,7 @@ import java.time.ZoneId;
 public class AutorRequest {
     @NotBlank
     private String name;
-    @NotBlank @Email
+    @NotBlank @Email @NotDuplicated(fieldName = "email", nameClass = "Autor")
     private String email;
     @NotBlank @Size(max = 400)
     private String description;

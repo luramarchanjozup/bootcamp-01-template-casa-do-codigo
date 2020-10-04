@@ -1,5 +1,7 @@
 package br.com.ecommerce.cdc.domain;
 
+import br.com.ecommerce.cdc.anotacao.NotDuplicated;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 

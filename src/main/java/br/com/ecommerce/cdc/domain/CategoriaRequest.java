@@ -1,9 +1,12 @@
 package br.com.ecommerce.cdc.domain;
 
+import br.com.ecommerce.cdc.anotacao.NotDuplicated;
+
 import javax.validation.constraints.NotBlank;
 
 public class CategoriaRequest {
     @NotBlank
+    @NotDuplicated(nameClass = "Categoria", fieldName = "nome")
     private String nome;
 
     public CategoriaRequest() {

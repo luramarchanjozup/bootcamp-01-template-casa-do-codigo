@@ -1,9 +1,11 @@
 package br.com.casadocodigo.forms;
 
 import br.com.casadocodigo.models.Author;
+import br.com.casadocodigo.validation.Unique;
 
 public class AuthorForm {
 
+    @Unique(fieldName = "email", domainClass = Author.class)
     private String email;
     private String name;
     private String description;

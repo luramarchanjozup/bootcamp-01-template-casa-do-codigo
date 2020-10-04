@@ -2,9 +2,11 @@ package br.com.casadocodigo.forms;
 
 import br.com.casadocodigo.models.Category;
 import br.com.casadocodigo.models.Country;
+import br.com.casadocodigo.validation.Unique;
 
 public class CountryForm {
 
+    @Unique(fieldName = "name", domainClass = Country.class)
     private String name;
 
     @Deprecated

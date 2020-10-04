@@ -19,7 +19,6 @@ public class Coupon {
     private Long id;
 
     @NotBlank
-    @Unique
     private String code;
 
     @NotBlank
@@ -28,6 +27,9 @@ public class Coupon {
 
     @Future
     private OffsetDateTime validate;
+
+    @Deprecated
+    public Coupon(){};
 
     public Coupon(String code, Double discount){
         this.code = code;

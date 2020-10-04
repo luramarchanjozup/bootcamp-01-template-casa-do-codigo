@@ -22,14 +22,16 @@ public class ShopForm {
 
     private String cep;
 
+    private Double total;
+
     @Deprecated
     public ShopForm(){};
 
     public Shop toEntity(){
-        return new Shop(email,name, lastName, identification, address, complement, city, phone, cep);
+        return new Shop(email,name, lastName, identification, address, complement, city, phone, cep, total);
     }
 
-    public ShopForm(String email, String name, String lastName, String identification, String address, String complement, String city, String country, String state, String phone, String cep) {
+    public ShopForm(String email, String name, String lastName, String identification, String address, String complement, String city, String country, String state, String phone, String cep, Double total) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -39,6 +41,7 @@ public class ShopForm {
         this.city = city;
         this.phone = phone;
         this.cep = cep;
+        this.total = total;
     }
 
     public void setEmail(String email) {

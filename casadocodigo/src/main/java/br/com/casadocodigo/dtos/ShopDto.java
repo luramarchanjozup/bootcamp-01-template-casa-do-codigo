@@ -13,8 +13,10 @@ public class ShopDto {
     private List<BookDto> booksDtos;
 
     public ShopDto(Shop shop){
+
         this.total = shop.getTotal();
         this.booksDtos = toDto(shop.getShoppingCart());
+
     }
 
     public List<BookDto> toDto(List<Book> books){

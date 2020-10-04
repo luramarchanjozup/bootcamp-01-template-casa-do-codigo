@@ -2,6 +2,8 @@ package br.com.casadocodigo.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,14 +46,19 @@ public class Shop {
     @NotBlank
     private String cep;
 
-    private Double totalWithoutDiscount;
+    @Positive
+    private Double totalWithDiscount;
 
+    @Positive
     private Double total;
 
     @ElementCollection
-    private List<Book> shoppingCart;
+    private List<Book> shoppingCart = new ArrayList<>();
 
-    public Shop(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep) {
+    @Deprecated
+    public Shop(){};
+
+    public Shop(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep, Double total) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -61,6 +68,7 @@ public class Shop {
         this.city = city;
         this.phone = phone;
         this.cep = cep;
+        this.total = total;
     }
 
     @Override
@@ -190,11 +198,11 @@ public class Shop {
         this.cep = cep;
     }
 
-    public Double getTotalWithoutDiscount() {
-        return totalWithoutDiscount;
+    public Double getTotalWithDiscount() {
+        return totalWithDiscount;
     }
 
-    public void setTotalWithoutDiscount(Double totalWithoutDiscount) {
-        this.totalWithoutDiscount = totalWithoutDiscount;
+    public void setTotalWithDiscount(Double totalWithDiscount) {
+        this.totalWithDiscount = totalWithDiscount;
     }
 }

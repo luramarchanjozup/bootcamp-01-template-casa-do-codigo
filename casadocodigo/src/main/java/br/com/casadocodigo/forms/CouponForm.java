@@ -1,9 +1,11 @@
 package br.com.casadocodigo.forms;
 
 import br.com.casadocodigo.models.Coupon;
+import br.com.casadocodigo.validation.Unique;
 
 public class CouponForm {
 
+    @Unique(fieldName = "code", domainClass = Coupon.class)
     private String code;
     private Double discount;
 

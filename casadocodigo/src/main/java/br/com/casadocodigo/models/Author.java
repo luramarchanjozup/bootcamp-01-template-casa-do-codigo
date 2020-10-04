@@ -1,5 +1,4 @@
 package br.com.casadocodigo.models;
-import br.com.casadocodigo.validation.Unique;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +14,6 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Unique
     @NotBlank
     private String email;
 

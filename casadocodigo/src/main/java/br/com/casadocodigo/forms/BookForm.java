@@ -1,18 +1,22 @@
 package br.com.casadocodigo.forms;
-
 import br.com.casadocodigo.models.Book;
+import br.com.casadocodigo.validation.Unique;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
 public class BookForm {
 
+    @Unique(fieldName = "title", domainClass = Book.class)
     private String title;
+
     private String resume;
+
     private String summary;
+
     private Double price;
+
     private Long pages;
+
+    @Unique(fieldName = "isbn", domainClass = Book.class)
     private Long Isbn;
 
     public Book toEntity(){

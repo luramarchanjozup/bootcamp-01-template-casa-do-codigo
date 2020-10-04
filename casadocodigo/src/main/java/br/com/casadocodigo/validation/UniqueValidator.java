@@ -2,58 +2,51 @@ package br.com.casadocodigo.validation;
 import br.com.casadocodigo.models.Author;
 import br.com.casadocodigo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
-public class UniqueValidator implements ConstraintValidator<Unique, String> {
+public class UniqueValidator implements ConstraintValidator<Unique, Object> {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     // +1
-    @Autowired
-    private AuthorRepository authorRepository;
+    private String domainAttribute;
 
     // +1
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    // +1
-    @Autowired
-    private BookRepository bookRepository;
-
-    // +1
-    @Autowired
-    private CountryRepository countryRepository;
-
-    // +1
-    @Autowired
-    private StateRepository stateRepository;
-
-    // +1
-    @Autowired
-    private CouponRepository couponRepository;
+    private Class<?> klass;
 
     // +1
     @Override
     public void initialize(Unique constraintAnnotation) {
+
+        // +1
+        domainAttribute = constraintAnnotation.fieldName();
+
+        // +1
+        klass = constraintAnnotation.domainClass();
+
     }
 
     @Override
-    public boolean isValid(String input, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Object fieldContentToBeValidated, ConstraintValidatorContext constraintValidatorContext) {
 
         // +1
-        if(authorRepository.findByEmail(input) == null
-                && categoryRepository.findByName(input) == null
-                && bookRepository.findByTitle(input) == null
-                && bookRepository.findByIsbn(input) == null
-                && countryRepository.findByName(input) == null
-                && stateRepository.findByName(input) == null
-                && couponRepository.findByCode(input) == null){
+        Query query = entityManager
+                .createQuery("select 1 from " + klass.getName() + " where "+ domainAttribute + "=:value");
 
-            return true;
-
-        }
-
-        return false;
+        // +1
+        return query
+                .setParameter("value", fieldContentToBeValidated)
+                .getResultList()
+                .isEmpty();
 
     }
 }

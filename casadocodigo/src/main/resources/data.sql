@@ -45,17 +45,17 @@ INSERT INTO COUPON(code, discount) VALUES('123123123123123', 0.7);
 INSERT INTO COUPON(code, discount) VALUES('123123123123123', 0.6);
 INSERT INTO COUPON(code, discount) VALUES('123123123123123', 0.5);
 
-INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep)
-VALUES('teste1@email.com', 'test1', 'test', '1212121212123', 'address test', 'test complement', 'city name', 'phone number', 'cep number');
+INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep, total)
+VALUES('teste1@email.com', 'test1', 'test', '1212121212123', 'address test', 'test complement', 'city name', 'phone number', 'cep number', 0.0);
 
-INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep)
-VALUES('teste2@email.com', 'test2', 'test', '1212121212124', 'address test', 'test complement', 'city name', 'phone number', 'cep number');
+INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep, total)
+VALUES('teste2@email.com', 'test2', 'test', '1212121212124', 'address test', 'test complement', 'city name', 'phone number', 'cep number', 0.0);
 
-INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep)
-VALUES('teste3@email.com', 'test3', 'test', '1212121212125', 'address test', 'test complement', 'city name', 'phone number', 'cep number');
+INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep, total)
+VALUES('teste3@email.com', 'test3', 'test', '1212121212125', 'address test', 'test complement', 'city name', 'phone number', 'cep number', 0.0);
 
-INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep)
-VALUES('teste4@email.com', 'test4', 'test', '1212121212126', 'address test', 'test complement', 'city name', 'phone number', 'cep number');
+INSERT INTO SHOP(email, name, last_name, identification, address, complement, city, phone, cep, total)
+VALUES('teste4@email.com', 'test4', 'test', '1212121212126', 'address test', 'test complement', 'city name', 'phone number', 'cep number', 0.0);
 
 
 

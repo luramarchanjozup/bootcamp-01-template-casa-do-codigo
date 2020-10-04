@@ -16,7 +16,6 @@ public class Category {
     private Long id;
 
     @NotBlank
-    @Unique
     private String name;
 
     public Category(String name){

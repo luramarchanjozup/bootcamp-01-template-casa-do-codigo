@@ -1,43 +1,71 @@
 package br.com.casadocodigo.controllers;
-
 import br.com.casadocodigo.dtos.ShopDto;
 import br.com.casadocodigo.models.Shop;
-import br.com.casadocodigo.services.UserServices;
+import br.com.casadocodigo.repositories.ShopRepository;
+import br.com.casadocodigo.services.AddToCartService;
+import br.com.casadocodigo.services.CouponApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/shop")
 public class ShopController {
 
     @Autowired
-    private UserServices userServices;
+    private AddToCartService addToCartService;
+
+    @Autowired
+    private CouponApplyService couponApplyService;
+
+    @Autowired
+    private EntityManager entityManager;
 
 
-    @PostMapping("/{userId}/{bookId}")
-    public ResponseEntity<ShopDto> addBook(@PathVariable Long bookId, @PathVariable Long userId){
+    @GetMapping("/{shopId}")
+    public ResponseEntity<ShopDto> shopDetails(@PathVariable Long shopId){
 
-        Shop shop = userServices.addToCart(bookId, userId);
+        Shop shop = entityManager.find(Shop.class, shopId);
 
-        if(shop != null) {
+        if(shopId != null) {
+
             return ResponseEntity.ok(new ShopDto(shop));
+
         }
 
         return ResponseEntity.notFound().build();
 
     }
 
-    @PutMapping("/{userId}/{couponId}")
-    public ResponseEntity<ShopDto> applyCoupon(@PathVariable Long couponId, @PathVariable Long userId){
+    @PutMapping("/addBook/{shopId}/{bookId}")
+    public ResponseEntity<ShopDto> addBook(@PathVariable Long bookId, @PathVariable Long shopId){
 
-        Shop shop = userServices.couponApplication(couponId, userId);
+        Shop shop = addToCartService.addToCart(bookId, shopId);
 
         if(shop != null) {
+
             return ResponseEntity.ok(new ShopDto(shop));
+
         }
 
         return ResponseEntity.notFound().build();
 
     }
+
+    @PutMapping("/applyCoupon/{userId}/{couponId}")
+    public ResponseEntity<Double> applyCoupon(@PathVariable Long couponId,
+      @PathVariable Long userId)
+    {
+        Shop shop = couponApplyService.couponApplication(couponId, userId);
+
+        if(shop != null) {
+
+            return ResponseEntity.ok(shop.getTotalWithDiscount());
+
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }

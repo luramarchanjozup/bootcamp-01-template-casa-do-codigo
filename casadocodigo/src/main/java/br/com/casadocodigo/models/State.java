@@ -16,7 +16,6 @@ public class State {
     private Long id;
 
     @NotBlank
-    @Unique
     private String name;
 
     public State(String name){

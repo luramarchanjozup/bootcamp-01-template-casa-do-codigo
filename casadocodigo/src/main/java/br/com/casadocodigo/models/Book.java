@@ -17,7 +17,6 @@ public class Book {
     private Long id;
 
     @NotBlank
-    @Unique
     private String title;
 
     @NotBlank
@@ -36,7 +35,6 @@ public class Book {
     private Long pages;
 
     @NotBlank
-    @Unique
     private Long isbn;
 
     @Future

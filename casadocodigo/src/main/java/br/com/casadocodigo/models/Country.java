@@ -16,7 +16,6 @@ public class Country {
     private Long id;
 
     @NotBlank
-    @Unique
     private String name;
 
     public Country(String name){

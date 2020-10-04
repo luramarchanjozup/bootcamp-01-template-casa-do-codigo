@@ -1,9 +1,11 @@
 package br.com.casadocodigo.forms;
 
 import br.com.casadocodigo.models.Category;
+import br.com.casadocodigo.validation.Unique;
 
 public class CategoryForm {
 
+    @Unique(fieldName = "name", domainClass = Category.class)
     private String name;
 
     @Deprecated

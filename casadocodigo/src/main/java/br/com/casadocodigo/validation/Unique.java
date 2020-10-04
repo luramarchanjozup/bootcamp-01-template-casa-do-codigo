@@ -21,4 +21,8 @@ public @interface Unique {
 
     Class<? extends Payload>[] payload() default {};
 
+    String fieldName();
+
+    Class<?> domainClass();
+
 }

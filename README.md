@@ -4,7 +4,7 @@
 
 ### Pontos de Complexidade Intrínseca da API 
 
-> @Limite(PCI = 8)
+> @Limite(PCI = +- 8)
 
 1. Controllers
 
@@ -20,13 +20,35 @@
 
 > CouponController (PCI = 9)
 
+> ShopController (PCI = 11)
+
 2. Services
 
-> ShopServices (PCI = 11)
+> CouponApplyService (PCI = 6)
+
+> AddToCartService (PCI = 10)
 
 3. Validation 
 
+> Unique (PCI = 2)
+
 > UniqueValidator (PCI = 8)
+
+### Etapas do desafio
+
+- cadastrar novo autor
+- email do autor único
+- cadastro de uma-categoria
+- criação de um validador genérico
+- criar um novo livro
+- exibir lista de livros
+- página de detalhes do livro
+- cadastrar país e estados
+- começar fluxo de pagamento (partes 1 e 2)
+- cadastrar cupom de desconto
+- alterar cupom de desconto
+- aplicar cupom de desconto
+- detalhes da compra
 
 ### A prioridade máxima é funcionar
 

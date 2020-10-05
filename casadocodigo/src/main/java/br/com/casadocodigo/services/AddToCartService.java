@@ -14,7 +14,8 @@ public class AddToCartService {
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional
+    //+1
+    @Transactional               //+1        //+1
     public Shop addToCart(Long bookId, Long shopId){
 
         //+1

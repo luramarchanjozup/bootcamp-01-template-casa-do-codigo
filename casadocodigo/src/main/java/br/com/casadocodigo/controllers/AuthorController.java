@@ -30,6 +30,7 @@ public class AuthorController {
 
             //+1
             author.setCreatedAt(OffsetDateTime.now());
+
             authorRepository.save(author);
             return ResponseEntity.ok(new AuthorDto(author));
 

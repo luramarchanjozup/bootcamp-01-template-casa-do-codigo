@@ -13,7 +13,8 @@ public class CouponApplyService {
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional
+    //+1
+    @Transactional                      //+1           //+1
     public Shop couponApplication(Long shopId, Long couponId){
 
         //+1

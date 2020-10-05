@@ -49,7 +49,7 @@ public class CouponController {
 
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
 
     }
 }

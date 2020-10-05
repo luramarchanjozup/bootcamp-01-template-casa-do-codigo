@@ -1,10 +1,14 @@
 package br.com.casadocodigo.models;
 
+import br.com.casadocodigo.forms.ShopPriceForm;
+import org.springframework.data.util.Pair;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 public class Shop {
@@ -49,16 +53,12 @@ public class Shop {
     @Positive
     private Double totalWithDiscount;
 
-    @Positive
     private Double total;
-
-    @ElementCollection
-    private List<Book> shoppingCart = new ArrayList<>();
 
     @Deprecated
     public Shop(){};
 
-    public Shop(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep, Double total) {
+    public Shop(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -68,7 +68,6 @@ public class Shop {
         this.city = city;
         this.phone = phone;
         this.cep = cep;
-        this.total = total;
     }
 
     @Override
@@ -79,6 +78,14 @@ public class Shop {
         Shop shop = (Shop) o;
 
         return id.equals(shop.id);
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     @Override
@@ -92,22 +99,6 @@ public class Shop {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public List<Book> getShoppingCart() {
-        return shoppingCart;
-    }
-
-    public void setShoppingCart(List<Book> shoppingCart) {
-        this.shoppingCart = shoppingCart;
     }
 
     public String getEmail() {

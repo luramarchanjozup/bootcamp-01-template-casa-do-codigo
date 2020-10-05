@@ -33,7 +33,7 @@ public class StateController {
             return ResponseEntity.ok(new StateDto(state));
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
 
     }
 }

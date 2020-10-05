@@ -1,14 +1,17 @@
 package br.com.casadocodigo.controllers;
 import br.com.casadocodigo.dtos.ShopDto;
+import br.com.casadocodigo.forms.ShopDataForm;
+import br.com.casadocodigo.forms.ShopPriceForm;
 import br.com.casadocodigo.models.Shop;
-import br.com.casadocodigo.repositories.ShopRepository;
-import br.com.casadocodigo.services.AddToCartService;
+import br.com.casadocodigo.models.ShopPrice;
 import br.com.casadocodigo.services.CouponApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/shop")
@@ -16,15 +19,10 @@ public class ShopController {
 
     // + 1
     @Autowired
-    private AddToCartService addToCartService;
-
-    // + 1
-    @Autowired
     private CouponApplyService couponApplyService;
 
     @Autowired
     private EntityManager entityManager;
-
 
     @GetMapping("/{shopId}")
     public ResponseEntity<ShopDto> shopDetails(@PathVariable Long shopId){
@@ -35,7 +33,26 @@ public class ShopController {
         // + 1
         if(shopId != null) {
 
-                                          // + 1
+            // + 1
+            return ResponseEntity.ok(new ShopDto(shop));
+
+        }
+
+        return ResponseEntity.badRequest().build();
+
+    }
+
+    @PostMapping("/shoppingCartData")
+    @Transactional
+    public ResponseEntity<ShopDto> addShopUserData(@RequestBody @Valid ShopDataForm shopDataForm){
+
+        Shop shop = shopDataForm.toEntity();
+
+        // + 1
+        if(shop != null) {
+
+            entityManager.persist(shop);
+                                            // + 1
             return ResponseEntity.ok(new ShopDto(shop));
 
         }
@@ -44,16 +61,20 @@ public class ShopController {
 
     }
 
-    @PutMapping("/addBook/{shopId}/{bookId}")
-    public ResponseEntity<ShopDto> addBook(@PathVariable Long bookId, @PathVariable Long shopId){
+    @PostMapping("/shoppingCartFinal")
+    @Transactional
+    public ResponseEntity<ShopPrice> addFinalShopCart(
+            @RequestBody @Valid ShopPriceForm shopPriceForm){
+
+        ShopPrice shopCart = shopPriceForm.toEntity();
 
         // + 1
-        Shop shop = addToCartService.addToCart(bookId, shopId);
+        if(shopCart != null) {
 
-        // + 1
-        if(shop != null) {
-                                            // + 1
-            return ResponseEntity.ok(new ShopDto(shop));
+            entityManager.persist(shopCart);
+
+            // + 1
+            return ResponseEntity.ok(shopCart);
 
         }
 
@@ -74,7 +95,9 @@ public class ShopController {
             return ResponseEntity.ok(shop.getTotalWithDiscount());
 
         }
-        return ResponseEntity.notFound().build();
+
+
+        return ResponseEntity.badRequest().build();
 
     }
 }

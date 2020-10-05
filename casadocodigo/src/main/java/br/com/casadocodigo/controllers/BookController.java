@@ -30,7 +30,7 @@ public class BookController {
             return ResponseEntity.ok(new BookDto(book));
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
 
     @GetMapping
@@ -50,7 +50,7 @@ public class BookController {
             return ResponseEntity.ok(booksDtos);
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
 
     }
 
@@ -62,11 +62,12 @@ public class BookController {
 
             //+1
             Book book = bookRepository.findById(id).orElseThrow();
+
             return ResponseEntity.ok(new BookDto(book));
 
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
 
     }
 }

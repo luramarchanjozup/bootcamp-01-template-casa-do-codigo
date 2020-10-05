@@ -33,7 +33,7 @@ public class CountryController {
             return ResponseEntity.ok(new CountryDto(country));
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
 
     }
 }

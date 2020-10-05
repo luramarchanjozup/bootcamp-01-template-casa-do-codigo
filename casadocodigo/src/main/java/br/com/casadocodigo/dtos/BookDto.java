@@ -10,12 +10,10 @@ public class BookDto {
 
     private String title;
     private Double price;
-    private Long pages;
 
     public BookDto(Book book) {
         this.title = book.getTitle();
         this.price = book.getPrice();
-        this.pages = book.getPages();
     }
 
     public String getTitle() {
@@ -26,7 +24,4 @@ public class BookDto {
         return price;
     }
 
-    public Long getPages() {
-        return pages;
-    }
 }

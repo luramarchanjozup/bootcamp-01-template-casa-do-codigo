@@ -1,12 +1,15 @@
 package br.com.casadocodigo.forms;
 import br.com.casadocodigo.models.Shop;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 
-public class ShopForm {
+public class ShopDataForm {
 
     @NotBlank
+    @Email
     private String email;
 
     @NotBlank
@@ -33,17 +36,14 @@ public class ShopForm {
     @NotBlank
     private String cep;
 
-    @NotBlank
-    private Double total;
-
     @Deprecated
-    public ShopForm(){};
+    public ShopDataForm(){};
 
     public Shop toEntity(){
-        return new Shop(email,name, lastName, identification, address, complement, city, phone, cep, total);
+        return new Shop(email,name, lastName, identification, address, complement, city, phone, cep);
     }
 
-    public ShopForm(String email, String name, String lastName, String identification, String address, String complement, String city, String country, String state, String phone, String cep, Double total) {
+    public ShopDataForm(String email, String name, String lastName, String identification, String address, String complement, String city, String country, String state, String phone, String cep, Double total) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -53,7 +53,6 @@ public class ShopForm {
         this.city = city;
         this.phone = phone;
         this.cep = cep;
-        this.total = total;
     }
 
     public void setEmail(String email) {

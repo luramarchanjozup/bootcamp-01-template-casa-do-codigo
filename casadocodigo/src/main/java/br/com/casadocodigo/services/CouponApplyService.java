@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.time.OffsetDateTime;
 
 @Service
 public class CouponApplyService {
@@ -24,11 +25,18 @@ public class CouponApplyService {
         Shop shop = entityManager.find(Shop.class, shopId);
 
         //+1
-        shop.setTotalWithDiscount(shop.getTotal() * coupon.getDiscount());
+        if(coupon.getValidate().isBefore(OffsetDateTime.now())){
 
-        entityManager.persist(shop);
+            //+1
+            shop.setTotalWithDiscount(shop.getTotal() * coupon.getDiscount());
 
-        return shop;
+            entityManager.persist(shop);
+
+            return shop;
+
+        }
+
+        return null;
 
     }
 }

@@ -7,7 +7,6 @@ import br.com.casadocodigo.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
 
@@ -22,21 +21,24 @@ public class AuthorController {
     @PostMapping                                                         //+1
     public ResponseEntity<AuthorDto> createAuthor(@RequestBody @Valid AuthorForm authorForm){
 
-        //+1
-        Author author = authorForm.toEntity();
-
-        //+1
-        if(author != null){
+            //+1
+            Author author = authorForm.toEntity();
 
             //+1
-            author.setCreatedAt(OffsetDateTime.now());
+            if(author != null){
 
-            authorRepository.save(author);
-            return ResponseEntity.ok(new AuthorDto(author));
+                //+1
+                author.setCreatedAt(OffsetDateTime.now());
 
-        }
+                //+1
+                authorRepository.save(author);
 
-        return ResponseEntity.notFound().build();
+                //+1
+                return ResponseEntity.ok(new AuthorDto(author));
+
+            }
+
+            return ResponseEntity.badRequest().build();
 
     }
 }

@@ -31,9 +31,10 @@ public class Coupon {
     @Deprecated
     public Coupon(){};
 
-    public Coupon(String code, Double discount){
+    public Coupon(String code, Double discount, OffsetDateTime validate){
         this.code = code;
         this.discount = discount;
+        this.validate = validate;
     }
 
     @Override

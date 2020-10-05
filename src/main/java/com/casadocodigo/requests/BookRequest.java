@@ -2,11 +2,14 @@ package com.casadocodigo.requests;
 
 import java.time.LocalDate;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.util.Assert;
 
 import com.casadocodigo.annotations.ExistsValue;
 import com.casadocodigo.annotations.UniqueValue;
@@ -66,8 +69,16 @@ public class BookRequest {
 		this.idAuthor = idAuthor;
 	}
 
-	public Book toModel() {
-		return new Book(title, summary, abstractBook, price, numberOfPages, isbn, publishDate, null, null);
+	public Book toModel(EntityManager manager) {
+		@NotNull
+		Author author = manager.find(Author.class, idAuthor);
+		@NotNull
+		Categories category = manager.find(Categories.class, idCategory);
+		
+		Assert.state(author!=null, "O Autor precisa estar cadastrado "+idAuthor);
+		Assert.state(category!=null, "A categoria precisa estar cadastada "+idCategory);
+		
+		return new Book(title, summary, abstractBook, price, numberOfPages, isbn, publishDate, author, category);
 	}
 
 	public void setPublishDate(LocalDate publishDate) {

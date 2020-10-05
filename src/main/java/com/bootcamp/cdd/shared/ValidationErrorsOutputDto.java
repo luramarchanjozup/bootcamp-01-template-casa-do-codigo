@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationErrorsOutputDto {
-    private List<String> globalErrorMessagesList = new ArrayList<>();
-    private List<FieldErrorOutputDto> fieldErrorsList = new ArrayList<>();
+    private final List<String> globalErrorMessagesList = new ArrayList<>();
+    private final List<FieldErrorOutputDto> fieldErrorsList = new ArrayList<>();
 
     public void addError (String message) {
         globalErrorMessagesList.add(message);

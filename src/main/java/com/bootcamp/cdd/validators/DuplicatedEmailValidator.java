@@ -30,7 +30,7 @@ public class DuplicatedEmailValidator implements Validator {
         AuthorRequest request = (AuthorRequest) o;
         Optional<Author> authorOptional = authorRepository.findByEmail(request.getEmail());
         if (authorOptional.isPresent()) {
-            errors.rejectValue("email", "", "email: "+request.getEmail()+" already exists!");
+            errors.rejectValue("email", "", "email: "+request.getEmail()+" já existe!");
         }
     }
 }

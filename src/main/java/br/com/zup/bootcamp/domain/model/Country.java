@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Collection;
 
-// Intrinsic charge = 1
+// Intrinsic charge = 2
 @Entity
 public class Country implements Serializable {
 
@@ -22,6 +22,9 @@ public class Country implements Serializable {
     @OneToMany
     private Collection<State> states;
 
+    @OneToMany
+    private Collection<Buyer> buyers;
+
     public Country(){}
 
     public Country(@NotBlank String name) {
@@ -34,6 +37,10 @@ public class Country implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public Collection<Buyer> getBuyers() {
+        return buyers;
     }
 
     public Collection<State> getStates() {
@@ -50,5 +57,9 @@ public class Country implements Serializable {
 
     public void setStates(Collection<State> states) {
         this.states = states;
+    }
+
+    public void addBuyer(Buyer buyer){
+        this.buyers.add(buyer);
     }
 }

@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Collection;
 
-// Intrinsic charge = 1
+// Intrinsic charge = 2
 public class GenericUnityValidator implements ConstraintValidator<Unique, Object> {
 
     @PersistenceContext
@@ -26,6 +26,9 @@ public class GenericUnityValidator implements ConstraintValidator<Unique, Object
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
+        if(obj == null){
+            return true;
+        }
         Query query = manager.createQuery(
                 "select " + fieldName + " from " + domainClass.getName() + " where " + this.fieldName + " = :value"
         );

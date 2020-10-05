@@ -5,8 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Collection;
 
-// Intrinsic charge = 1
+// Intrinsic charge = 2
 @Entity
 public class State implements Serializable {
 
@@ -21,6 +22,9 @@ public class State implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Country country;
+
+    @OneToMany
+    private Collection<Buyer> buyers;
 
     public State(){}
 
@@ -41,6 +45,10 @@ public class State implements Serializable {
         return country;
     }
 
+    public Collection<Buyer> getBuyers() {
+        return buyers;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -51,5 +59,9 @@ public class State implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public void addBuyer(Buyer buyer){
+        this.buyers.add(buyer);
     }
 }

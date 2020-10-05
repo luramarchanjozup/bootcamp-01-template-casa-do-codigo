@@ -1,24 +1,25 @@
 package br.com.thyagoribeiro.casadocodigo.rest.contract;
 
-import br.com.thyagoribeiro.casadocodigo.domain.Categoria;
+import br.com.thyagoribeiro.casadocodigo.domain.Pais;
 import br.com.thyagoribeiro.casadocodigo.validator.ExistsValue;
 import br.com.thyagoribeiro.casadocodigo.validator.ValueStatus;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 // CDD - Total: 3
 
-public class NovaCategoriaRequest {
+public class NovoPaisRequest {
 
     @NotBlank
-    @ExistsValue(domainClass = Categoria.class, fieldName = "nome", valueStatus = ValueStatus.NOT_EXISTS) // CDD 3 - Interface @ExistsValue, classe Categoria e ENUM ValueStatus
+    @ExistsValue(domainClass = Pais.class, fieldName = "nome", valueStatus = ValueStatus.NOT_EXISTS) // CDD 3 - Interface @ExistsValue, classe Pais e ENUM ValueStatus
     private String nome;
 
     @Deprecated
-    public NovaCategoriaRequest() {
+    public NovoPaisRequest() {
     }
 
-    public NovaCategoriaRequest(@NotBlank String nome) {
+    public NovoPaisRequest(@NotBlank String nome) {
         this.nome = nome;
     }
 
@@ -30,7 +31,8 @@ public class NovaCategoriaRequest {
         this.nome = nome;
     }
 
-    public Categoria toModel() {
-        return new Categoria(nome);
+    public Pais toModel() {
+        return new Pais(nome);
     }
+
 }

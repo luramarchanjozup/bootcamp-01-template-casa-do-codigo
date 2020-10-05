@@ -1,6 +1,6 @@
 package br.com.thyagoribeiro.casadocodigo.rest;
 
-import br.com.thyagoribeiro.casadocodigo.rest.contract.NovoAutorRequest;
+import br.com.thyagoribeiro.casadocodigo.rest.contract.NovoLivroRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,16 +13,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
-class AutorControllerTests {
+public class LivroControllerTests {
 
     @Mock
-    private NovoAutorController autorController;
+    private NovoLivroController livroController;
 
     @Mock
     private Validator validator;
@@ -31,17 +33,25 @@ class AutorControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("Verifica se eh criado um novo(a) autor(a) na base")
-    void criaAutorTest() throws Exception {
+    @DisplayName("Verifica se eh criado um novo livro na base")
+    void criaLivroTest() throws Exception {
 
-        NovoAutorRequest novoAutorRequest = new NovoAutorRequest("J. R. R. Tolkien", "tolkien@teste.com.br" ,"Autor de livros de fantasia.");
+        NovoLivroRequest novoLivroRequest = new NovoLivroRequest("Titulo teste",
+                "Resumo teste",
+                "Sumario teste",
+                new BigDecimal(20.0),
+                100,
+                "ISBN teste",
+                new Date(),
+                0L,
+                0L);
         ObjectMapper objectMapper = new ObjectMapper();
 
-        mockMvc = MockMvcBuilders.standaloneSetup(autorController).setValidator(validator).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(livroController).setValidator(validator).build();
 
-        mockMvc.perform(post("/api/autor")
+        mockMvc.perform(post("/api/livro")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(novoAutorRequest)))
+                .content(objectMapper.writeValueAsString(novoLivroRequest)))
                 .andExpect(status().isOk());
 
     }

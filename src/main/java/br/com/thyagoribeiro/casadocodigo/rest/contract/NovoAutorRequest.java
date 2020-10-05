@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-// CDD - Total: 2
+// CDD - Total: 3
 
 public class NovoAutorRequest {
 
@@ -17,7 +17,7 @@ public class NovoAutorRequest {
 
     @NotBlank
     @Email
-    @ExistsValue(domainClass = Autor.class, fieldName = "email", valueStatus = ValueStatus.NOT_EXISTS) // CDD 2 - Interface UniqueValue e classe Autor
+    @ExistsValue(domainClass = Autor.class, fieldName = "email", valueStatus = ValueStatus.NOT_EXISTS) // CDD 3 - Interface @ExistsValue, classe Autor e ENUM ValueStatus
     private String email;
 
     @NotBlank

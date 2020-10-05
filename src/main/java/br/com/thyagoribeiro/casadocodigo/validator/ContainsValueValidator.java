@@ -37,7 +37,7 @@ public class ContainsValueValidator implements ConstraintValidator<ExistsValue, 
         boolean exists = result.size() > 0;
         context.disableDefaultConstraintViolation();
 
-        if(valueStatus.equals(ValueStatus.NOT_EXISTS)) { // CDD 1 - ENUM ValueStatus e branch if
+        if(valueStatus.equals(ValueStatus.NOT_EXISTS)) { // CDD 2 - ENUM ValueStatus e branch if
             context.buildConstraintViolationWithTemplate(messageValueNotExists).addConstraintViolation();
             return !exists;
         }

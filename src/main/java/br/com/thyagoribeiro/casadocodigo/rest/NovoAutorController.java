@@ -15,7 +15,7 @@ import javax.validation.Valid;
 // CDD - Total: 2
 
 @RestController
-public class AutorController {
+public class NovoAutorController {
 
     @PersistenceContext
     private EntityManager entityManager;

@@ -2,7 +2,6 @@ package br.com.thyagoribeiro.casadocodigo.rest;
 
 import br.com.thyagoribeiro.casadocodigo.rest.contract.NovaCategoriaRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CategoriaControllerTest {
 
     @Mock
-    private CategoriaController categoriaController;
+    private NovoCategoriaController categoriaController;
 
     @Mock
     private Validator validator;

@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "0dac8670-1588-4395-aaee-5c31b0e436e4",
+		"name": "Casa do Código",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autor",
+			"item": [
+				{
+					"name": "Cadastrar Autor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Autor2\",\r\n    \"email\":\"autor2@editora2.com.br\",\r\n    \"descricao\": \"Esse autor é massa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/autor",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"autor"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Categoria",
+			"item": [
+				{
+					"name": "Cadastrar Categoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Categoria 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categoria",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categoria"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Livro",
+			"item": [
+				{
+					"name": "Cadastrar Livro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Titulo 2\",\r\n    \"resumo\": \"Resumo 1\",\r\n    \"sumario\": \"***Sumario 1***\",\r\n    \"preco\": 29.90,\r\n    \"numeroDePaginas\": 100,\r\n    \"isbn\": \"1234567\",\r\n    \"dataDePublicacao\": \"01/12/2020\",\r\n    \"autor\": \"1b8de97a-1e2c-4ac5-a86e-2c909713962c\",\r\n    \"categoria\": \"cf1f5b2c-f9a2-4862-979f-6245861e3b6c\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/livro",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"livro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir Livros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/livro",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"livro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir Livro por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/livro/473a142e-ca10-421b-9cfe-6ab93a04117c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"livro",
+								"473a142e-ca10-421b-9cfe-6ab93a04117c"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "País",
+			"item": [
+				{
+					"name": "Cadastrar Pais",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Brasil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/pais",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pais"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Estado",
+			"item": [
+				{
+					"name": "Cadastrar Estado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\" : \"São Paulo\",\r\n    \"pais\" : \"921a568b-ea33-440e-8ff3-a605c5a30785\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/estado",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"estado"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Compra",
+			"item": [
+				{
+					"name": "Cadastrar Compra",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cliente\": { \r\n        \"email\": \"cliente1@cliente.com.br\",\r\n        \"nome\": \"Cliente 1\",\r\n        \"sobrenome\": \"Sobrenome\",\r\n        \"documento\": \"08.995.365/0001-05\",\r\n        \"endereco\": \"Rua um 123 bairro 1\",\r\n        \"complemento\": \"não tem\",\r\n        \"cidade\": \"São Paulo\",\r\n        \"pais\": \"921a568b-ea33-440e-8ff3-a605c5a30785\",\r\n        \"estado\": \"7a8e5113-02f2-4168-97df-996ed4a62fb4\",\r\n        \"telefone\": \"1234-5678\",\r\n        \"cep\": \"12345-678\"\r\n    },\r\n   \"pedido\": {\r\n        \"total\": 29.9,\r\n        \"itens\": [\r\n            {\r\n                \"idLivro\": \"469bc521-6372-4955-a09f-63dd684084ef\",\r\n                \"quantidade\": 1\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/compra",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"compra"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir Detalhes da Compra",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/compra/b2e1543f-5d24-4d0a-9945-33ed56913a92",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"compra",
+								"b2e1543f-5d24-4d0a-9945-33ed56913a92"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Cupom",
+			"item": [
+				{
+					"name": "Cadastrar Cupom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\": \"ABCDEF\",\r\n    \"percentual\": 20,\r\n    \"validade\": \"01/03/2021\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cupom",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cupom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Cupom",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\": \"ABCDEFGKI\",\r\n    \"percentual\": 28,\r\n    \"validade\": \"01/03/2021\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cupom/482998c2-51c7-4328-9da6-4d6ac34adbbd",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cupom",
+								"482998c2-51c7-4328-9da6-4d6ac34adbbd"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

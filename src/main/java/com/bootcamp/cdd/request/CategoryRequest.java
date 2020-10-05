@@ -6,7 +6,7 @@ import com.bootcamp.cdd.shared.UniqueValue;
 import javax.validation.constraints.NotEmpty;
 
 public class CategoryRequest {
-    @UniqueValue(domainClass = Category.class, fieldName = "name") @NotEmpty(message = "categoria precisa ser preenchida") private String name;
+    @UniqueValue(domainClass = Category.class, fieldName = "name", message = "categoria já cadastrada") @NotEmpty(message = "categoria precisa ser preenchida") private String name;
 
     public CategoryRequest(@NotEmpty(message = "categoria precisa ser preenchida") String name) {
         this.name = name;

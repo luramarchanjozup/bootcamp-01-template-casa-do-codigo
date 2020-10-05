@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/author")
-public class NewAuthorController {
+public class AuthorController {
     @PersistenceContext
     private EntityManager entityManager;
 

@@ -2,7 +2,7 @@ package com.bootcamp.cdd.controllers;
 
 import com.bootcamp.cdd.models.Category;
 import com.bootcamp.cdd.request.CategoryRequest;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -16,9 +16,8 @@ public class CategoryController {
     @PersistenceContext
     private EntityManager entityManager;
 
-
-
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public Category addCategory (@RequestBody @Valid CategoryRequest request) {
         Category category = request.toModel();

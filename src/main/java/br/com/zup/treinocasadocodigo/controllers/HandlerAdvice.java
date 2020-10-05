@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @RestControllerAdvice
-public class AutorHandlerAdvice {
+public class HandlerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErroPadronizado> handle(MethodArgumentNotValidException methodArgumentNotValidException) {

@@ -6,10 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Contagem de carga intrínseca da classe: 0
- */
-
 @Repository
 public interface AutorRepository extends CrudRepository<Autor, Long> {
 

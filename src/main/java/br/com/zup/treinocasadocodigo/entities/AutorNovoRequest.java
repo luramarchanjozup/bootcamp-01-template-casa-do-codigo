@@ -5,10 +5,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * Contagem de carga intrínseca da classe: 0
+ * Contagem de carga intrínseca da classe: 1
  */
 
-public class NovoAutorRequest {
+public class AutorNovoRequest {
     @Email
     @NotBlank
     private String email;
@@ -20,14 +20,10 @@ public class NovoAutorRequest {
     @Size(max=400)
     private String descricao;
 
-    public NovoAutorRequest(@Email @NotBlank String email, @NotBlank String nome, @NotBlank @Size(max = 400) String descricao) {
+    public AutorNovoRequest(@Email @NotBlank String email, @NotBlank String nome, @NotBlank @Size(max = 400) String descricao) {
         this.email = email;
         this.nome = nome;
         this.descricao = descricao;
-    }
-
-    public Autor toModel() {
-        return new Autor(this.nome, this.email, this.descricao);
     }
 
     public String getEmail() {
@@ -41,4 +37,10 @@ public class NovoAutorRequest {
     public String getDescricao() {
         return descricao;
     }
+
+    //1
+    public Autor toModel() {
+        return new Autor(this.nome, this.email, this.descricao);
+    }
+
 }

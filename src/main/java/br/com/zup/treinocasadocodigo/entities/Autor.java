@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
  * Contagem de carga intrínseca da classe: 0
  */
 
-
 @Entity
 public class Autor {
 
@@ -41,17 +40,6 @@ public class Autor {
         this.email = email;
         this.nome = nome;
         this.descricao = descricao;
-    }
-
-    @Override
-    public String toString() {
-        return "Autor{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", instanteCriacao=" + instanteCriacao +
-                '}';
     }
 
     public Long getId() {
@@ -88,5 +76,16 @@ public class Autor {
 
     public void setInstanteCriacao(LocalDateTime instanteCriacao) {
         this.instanteCriacao = instanteCriacao;
+    }
+
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", instanteCriacao=" + instanteCriacao +
+                '}';
     }
 }

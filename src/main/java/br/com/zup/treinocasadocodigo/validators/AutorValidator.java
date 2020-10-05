@@ -1,7 +1,7 @@
 package br.com.zup.treinocasadocodigo.validators;
 
 import br.com.zup.treinocasadocodigo.entities.Autor;
-import br.com.zup.treinocasadocodigo.entities.NovoAutorRequest;
+import br.com.zup.treinocasadocodigo.entities.AutorNovoRequest;
 import br.com.zup.treinocasadocodigo.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class AutorValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return NovoAutorRequest.class.isAssignableFrom(clazz);
+        return AutorNovoRequest.class.isAssignableFrom(clazz);
     }
 
     @Override
@@ -33,14 +33,14 @@ public class AutorValidator implements Validator {
         }
 
         //1
-        NovoAutorRequest novoAutor = (NovoAutorRequest) target;
+        AutorNovoRequest novoAutor = (AutorNovoRequest) target;
 
         Optional<Autor> possivelAutor = autorRepository
                 .findByEmail(novoAutor.getEmail());
 
         //1
         if (possivelAutor.isPresent()) {
-            errors.rejectValue("email", null,
+            errors.rejectValue("email", "Autor.Email.Validacao",
                     "já cadastrado: " + novoAutor.getEmail());
         }
     }

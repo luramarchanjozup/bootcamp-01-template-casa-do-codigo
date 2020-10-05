@@ -1,33 +1,18 @@
 package com.guiferrini.CasaCodigo;
 
-//public class App {
-
-	//public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	//}
-
-//}
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * @author postgresqltutorial.com
- */
+//postgresqltutorial.com
+
 public class App{
 
     private final String url = "jdbc:postgresql://localhost/";
     private final String user = "postgres";
     private final String password = "laika123";
 
-    /**
-     * Connect to the PostgreSQL database
-     *
-     * @return a Connection object
-     */
+    //Conectando ao POstgresql - retorna se conectou
     public Connection connect() {
         Connection conn = null;
         try {

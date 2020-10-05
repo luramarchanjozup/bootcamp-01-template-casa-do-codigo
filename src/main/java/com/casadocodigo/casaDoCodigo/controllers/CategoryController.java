@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.CategoryForm;
 import com.casadocodigo.casaDoCodigo.model.Category;
-import com.casadocodigo.casaDoCodigo.services.CategoryServices;
+import com.casadocodigo.casaDoCodigo.repositories.CategoryRepository;
 import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedCategory;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CategoryController {
     
     @Autowired
-    private CategoryServices categoryServices;
+    private CategoryRepository categoryRepository;
     @Autowired
     private CheckDuplicatedCategory checkDuplicatedCategory;
 
@@ -33,6 +33,9 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody @Valid CategoryForm form, UriComponentsBuilder uriBuilder) {
-        return ResponseEntity.ok().body(categoryServices.createCategory(form.getName()));
+        Category category = new Category(form.getName());
+        categoryRepository.save(category);
+
+        return ResponseEntity.ok().body(category);
     }
 }

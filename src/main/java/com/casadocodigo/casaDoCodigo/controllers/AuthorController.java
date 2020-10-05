@@ -1,12 +1,14 @@
 package com.casadocodigo.casaDoCodigo.controllers;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
 import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedEmail;
 import com.casadocodigo.casaDoCodigo.controllers.dto.DetailedAuthorDto;
 import com.casadocodigo.casaDoCodigo.controllers.form.AuthorForm;
-import com.casadocodigo.casaDoCodigo.services.AuthorServices;
+import com.casadocodigo.casaDoCodigo.model.Author;
+import com.casadocodigo.casaDoCodigo.repositories.AuthorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthorController {
     
     @Autowired
-    private AuthorServices authorServices;
+    private AuthorRepository authorRepository;
     @Autowired
     private CheckDuplicatedEmail checkDuplicatedEmail;
 
@@ -35,11 +37,17 @@ public class AuthorController {
 
     @GetMapping("/{email}")
     public ResponseEntity<DetailedAuthorDto> detailedIndex(@PathVariable @Email String email) {
-        return ResponseEntity.ok().body(authorServices.detailedIndex(email));
+        DetailedAuthorDto author = new DetailedAuthorDto(authorRepository.findByEmail(email).orElseThrow(
+                                () -> new IllegalStateException("Author of email " + email + " not found")));
+        return ResponseEntity.ok().body(author);
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<DetailedAuthorDto> createAuthor(@RequestBody @Valid AuthorForm form) {
-        return ResponseEntity.ok().body(authorServices.createAuthor(form));
+        Author author = new Author(form.getName(), form.getEmail(), form.getDescription());
+        authorRepository.save(author);
+
+        return ResponseEntity.ok().body(new DetailedAuthorDto(author));
     }
 }

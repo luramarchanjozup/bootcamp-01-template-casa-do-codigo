@@ -60,6 +60,12 @@ public class Purchases {
     }
 
     public Purchases(PurchaseForm form, State state, Country country, Cart cart) {
+        if (state == null) {
+            throw new IllegalStateException("State not found");
+        }
+        if (country == null) {
+            throw new IllegalStateException("Country not found");
+        }
         this.name = form.getName();
         this.lastName = form.getLastName();
         this.email = form.getEmail();

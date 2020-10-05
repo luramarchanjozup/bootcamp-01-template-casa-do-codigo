@@ -1,5 +1,6 @@
 package com.casadocodigo.casaDoCodigo.controllers.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.casadocodigo.casaDoCodigo.model.CartItem;
@@ -11,6 +12,10 @@ public class CartDetails {
     private Integer quantity;
 
     public CartDetails() {
+        this.books = new ArrayList<>();
+        this.cartItems = new ArrayList<>();
+        this.finalPrice = 0f;
+        this.quantity = 0;
     }
 
     public List<BookPurchaseDto> getBooks() {

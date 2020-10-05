@@ -4,8 +4,8 @@ import javax.validation.Valid;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.CountryForm;
 import com.casadocodigo.casaDoCodigo.model.Country;
+import com.casadocodigo.casaDoCodigo.repositories.CountryRepository;
 import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedCountry;
-import com.casadocodigo.casaDoCodigo.services.CountryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CountryController {
     
     @Autowired
-    private CountryService countryService;
+    private CountryRepository countryRepository;
     @Autowired
     private CheckDuplicatedCountry checkDuplicatedCountry;
 
@@ -33,6 +33,9 @@ public class CountryController {
 
     @PostMapping
     public ResponseEntity<Country> createCountry(@RequestBody @Valid CountryForm form, UriComponentsBuilder uriBuilder) {
-        return ResponseEntity.ok().body(countryService.createCountry(form));
+        Country country = new Country(form.getName());
+        countryRepository.save(country);
+
+        return ResponseEntity.ok().body(country);
     }
 }

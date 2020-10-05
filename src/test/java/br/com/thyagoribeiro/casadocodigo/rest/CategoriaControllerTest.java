@@ -1,37 +1,49 @@
 package br.com.thyagoribeiro.casadocodigo.rest;
 
-import br.com.thyagoribeiro.casadocodigo.repository.CategoriaRepository;
 import br.com.thyagoribeiro.casadocodigo.rest.contract.NovaCategoriaRequest;
-import br.com.thyagoribeiro.casadocodigo.validator.NomeUnicoCategoriaValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import javax.swing.text.html.parser.Entity;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CategoriaControllerTest {
+public class CategoriaControllerTest {
+
+    @Mock
+    private CategoriaController categoriaController;
+
+    @Mock
+    private Validator validator;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-    @DisplayName("Verifica se eh criado uma nova categoria na base")
-    void novaCategoria() {
+    @DisplayName("Verifica se eh criada uma nova categoria na base")
+    public void novaCategoria() throws Exception {
 
-        EntityManager entityManager = mock(EntityManager.class);
-        CategoriaRepository categoriaRepository = mock(CategoriaRepository.class);
-        NomeUnicoCategoriaValidator nomeUnicoCategoriaValidator = new NomeUnicoCategoriaValidator(categoriaRepository);
-        CategoriaController categoriaController = new CategoriaController(entityManager, nomeUnicoCategoriaValidator);
+        NovaCategoriaRequest novaCategoriaRequest = new NovaCategoriaRequest("Teste");
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        NovaCategoriaRequest novaCategoriaRequest = new NovaCategoriaRequest("Fantasia");
+        mockMvc = MockMvcBuilders.standaloneSetup(categoriaController).setValidator(validator).build();
 
-        ResponseEntity response = categoriaController.novaCategoria(novaCategoriaRequest);
-        assertEquals(200, response.getStatusCodeValue());
+        mockMvc.perform(post("/api/categoria")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(novaCategoriaRequest)))
+                .andExpect(status().isOk());
 
     }
+
 }

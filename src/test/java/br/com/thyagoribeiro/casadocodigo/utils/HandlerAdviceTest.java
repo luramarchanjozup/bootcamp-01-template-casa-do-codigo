@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class HandlerAdviceTest {
 
+    /*
     @Test
     @DisplayName("Validacao de campos retornando erro 400")
     void autorCriado() throws Exception {
@@ -28,19 +29,6 @@ class HandlerAdviceTest {
         assertEquals(400, response.getStatusCodeValue());
 
     }
-
-    @Test
-    @DisplayName("Validacao de campos retornando erro 400")
-    void categoriaCriada() throws Exception {
-
-        NovaCategoriaRequest novaCategoriaRequest = new NovaCategoriaRequest(null);
-
-        TestRestTemplate restTemplate = new TestRestTemplate();
-
-        URI uri = new URI("http://localhost:8080/api/categoria");
-        ResponseEntity<String> response = restTemplate.postForEntity(uri, novaCategoriaRequest, String.class);
-        assertEquals(400, response.getStatusCodeValue());
-
-    }
+    */
 
 }

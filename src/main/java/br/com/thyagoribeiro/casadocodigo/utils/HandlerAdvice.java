@@ -13,11 +13,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+// CDD - Total: 2
+
 @RestControllerAdvice
 public class HandlerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErroPadronizado> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
+    public ResponseEntity<ErroPadronizado> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) { // CDD 1 - Classe ErroPadronizado
 
         Collection<String> mensagens = new ArrayList<>();
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
@@ -27,7 +29,7 @@ public class HandlerAdvice {
                     String message = String.format("Campo %s %s", fieldError.getField(), fieldError.getDefaultMessage());
                     mensagens.add(message);
                 }
-        );
+        ); // CDD 1 - Função de ordem superior
 
         ErroPadronizado erroPadronizado = new ErroPadronizado(mensagens);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroPadronizado);

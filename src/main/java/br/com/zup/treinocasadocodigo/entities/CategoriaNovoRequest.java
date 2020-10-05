@@ -1,5 +1,7 @@
 package br.com.zup.treinocasadocodigo.entities;
 
+import br.com.zup.treinocasadocodigo.validators.UniqueValue;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -9,13 +11,8 @@ import javax.validation.constraints.NotBlank;
 public class CategoriaNovoRequest {
 
     @NotBlank
+    @UniqueValue(dominioClasse = Categoria.class, nomeCampo = "nome")
     private String nome;
-
-    public  CategoriaNovoRequest(){}
-
-    public CategoriaNovoRequest(@NotBlank String nome) {
-        this.nome = nome;
-    }
 
     public String getNome() {
         return nome;

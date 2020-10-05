@@ -1,5 +1,7 @@
 package br.com.zup.treinocasadocodigo.entities;
 
+import br.com.zup.treinocasadocodigo.validators.UniqueValue;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -11,6 +13,7 @@ import javax.validation.constraints.Size;
 public class AutorNovoRequest {
     @Email
     @NotBlank
+    @UniqueValue(dominioClasse = Autor.class, nomeCampo = "email")
     private String email;
 
     @NotBlank

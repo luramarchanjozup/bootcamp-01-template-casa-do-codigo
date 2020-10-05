@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/category")
@@ -19,7 +20,7 @@ public class CategoryController {
 
     @PostMapping
     @Transactional
-    public Category addCategory (@RequestBody CategoryRequest request) {
+    public Category addCategory (@RequestBody @Valid CategoryRequest request) {
         Category category = request.toModel();
         entityManager.persist(category);
         return category;

@@ -2,6 +2,7 @@ package com.bootcamp.cdd.controllers;
 
 import com.bootcamp.cdd.models.Author;
 import com.bootcamp.cdd.request.AuthorRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ public class NewAuthorController {
     private EntityManager entityManager;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public Author createAuthor (@RequestBody @Valid AuthorRequest request) {
         Author author = request.toModel();

@@ -3,10 +3,15 @@ package br.com.casadocodigo.forms;
 import br.com.casadocodigo.models.Coupon;
 import br.com.casadocodigo.validation.Unique;
 
+import javax.validation.constraints.NotBlank;
+
 public class CouponForm {
 
+    @NotBlank
     @Unique(fieldName = "code", domainClass = Coupon.class)
     private String code;
+
+    @NotBlank
     private Double discount;
 
     @Deprecated

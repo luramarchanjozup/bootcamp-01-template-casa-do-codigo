@@ -3,8 +3,11 @@ package br.com.casadocodigo.forms;
 import br.com.casadocodigo.models.Category;
 import br.com.casadocodigo.validation.Unique;
 
+import javax.validation.constraints.NotBlank;
+
 public class CategoryForm {
 
+    @NotBlank
     @Unique(fieldName = "name", domainClass = Category.class)
     private String name;
 

@@ -49,13 +49,14 @@ public class Book {
     @Deprecated
     public Book(){};
 
-    public Book(@NotBlank String title, @NotBlank @Max(500) String resume, @NotBlank String summary, @NotBlank @Min(20) Double price, @NotBlank @Min(100) Long pages, @NotBlank Long isbn) {
+    public Book(@NotBlank String title, @NotBlank @Max(500) String resume, @NotBlank String summary, @NotBlank @Min(20) Double price, @NotBlank @Min(100) Long pages, @NotBlank Long isbn, OffsetDateTime publishedAt) {
         this.title = title;
         this.resume = resume;
         this.summary = summary;
         this.price = price;
         this.pages = pages;
         this.isbn = isbn;
+        this.publishedAt = publishedAt;
     }
 
     @Override

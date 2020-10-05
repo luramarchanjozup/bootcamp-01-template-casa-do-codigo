@@ -4,8 +4,11 @@ import br.com.casadocodigo.models.Category;
 import br.com.casadocodigo.models.Country;
 import br.com.casadocodigo.validation.Unique;
 
+import javax.validation.constraints.NotBlank;
+
 public class CountryForm {
 
+    @NotBlank
     @Unique(fieldName = "name", domainClass = Country.class)
     private String name;
 

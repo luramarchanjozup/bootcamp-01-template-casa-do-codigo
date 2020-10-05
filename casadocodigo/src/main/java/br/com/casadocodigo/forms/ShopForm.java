@@ -1,27 +1,39 @@
 package br.com.casadocodigo.forms;
 import br.com.casadocodigo.models.Shop;
 
+import javax.validation.constraints.NotBlank;
+
 
 public class ShopForm {
 
+    @NotBlank
     private String email;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String lastName;
 
+    @NotBlank
     private String identification;
 
+    @NotBlank
     private String address;
 
+    @NotBlank
     private String complement;
 
+    @NotBlank
     private String city;
 
+    @NotBlank
     private String phone;
 
+    @NotBlank
     private String cep;
 
+    @NotBlank
     private Double total;
 
     @Deprecated

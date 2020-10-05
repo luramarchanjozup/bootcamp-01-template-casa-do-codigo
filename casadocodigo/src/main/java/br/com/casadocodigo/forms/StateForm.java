@@ -4,8 +4,11 @@ import br.com.casadocodigo.models.Category;
 import br.com.casadocodigo.models.State;
 import br.com.casadocodigo.validation.Unique;
 
+import javax.validation.constraints.NotBlank;
+
 public class StateForm {
 
+    @NotBlank
     @Unique(fieldName = "name", domainClass = State.class)
     private String name;
 

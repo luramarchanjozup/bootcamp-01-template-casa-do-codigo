@@ -1,5 +1,6 @@
-package br.com.treino.casadocodigo.model;
+package br.com.treino.casadocodigo.request;
 
+import br.com.treino.casadocodigo.model.Categoria;
 import br.com.treino.casadocodigo.validations.UniqueValue;
 
 import javax.validation.constraints.NotBlank;

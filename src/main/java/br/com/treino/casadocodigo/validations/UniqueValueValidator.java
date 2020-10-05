@@ -1,13 +1,10 @@
 package br.com.treino.casadocodigo.validations;
 
-import br.com.treino.casadocodigo.errors.Resultado;
-import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.List;
 
 public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
 

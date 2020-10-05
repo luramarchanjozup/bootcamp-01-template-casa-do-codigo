@@ -1,12 +1,11 @@
 package br.com.treino.casadocodigo.controller;
 
 import br.com.treino.casadocodigo.model.Estado;
-import br.com.treino.casadocodigo.model.NovoEstadoRequest;
+import br.com.treino.casadocodigo.request.NovoEstadoRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
@@ -18,12 +17,12 @@ import javax.validation.Valid;
 public class EstadoController {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @PostMapping(value = "/estados")
     @Transactional
-    public ResponseEntity<Estado> novoEstado(@RequestBody @Valid NovoEstadoRequest request){
-        Estado estado = request.toModel(entityManager);
+    public ResponseEntity<Estado> novoEstado(@RequestBody @Valid NovoEstadoRequest request){ //1
+        Estado estado = request.toModel(entityManager); //2
         entityManager.persist(estado);
         return new ResponseEntity(HttpStatus.OK);
     }

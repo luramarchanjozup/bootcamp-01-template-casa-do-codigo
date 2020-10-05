@@ -1,13 +1,8 @@
-package br.com.treino.casadocodigo.model;
+package br.com.treino.casadocodigo.request;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import br.com.treino.casadocodigo.model.Livro;
+
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class DetalheLivroRequest {
 

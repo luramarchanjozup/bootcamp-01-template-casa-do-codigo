@@ -1,5 +1,7 @@
 package br.com.treino.casadocodigo.validations;
 
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,15 +25,13 @@ public class ExistIdValidator implements ConstraintValidator<ExistId, Object> {
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
 
+        if(value == null)
+            return true;
+
         Query query = entityManager.createQuery("select 1 from "+ nomeClasse.getName()+
                 " where "+ nomeCampo+"=:value");
         query.setParameter("value", value);
 
-        List<?> lista = query.getResultList();
-
-        if(lista.isEmpty())
-            return false;
-
-        return true;
+        return !query.getResultList().isEmpty();
     }
 }

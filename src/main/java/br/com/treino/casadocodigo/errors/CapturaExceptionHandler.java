@@ -16,8 +16,8 @@ public class CapturaExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex
             , HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<ErrorObject> errors = getErrors(ex);
-        ErrorResponse errorResponse = getErrorResponse(ex, status, errors);
+        List<ErrorObject> errors = getErrors(ex);//1
+        ErrorResponse errorResponse = getErrorResponse(ex, status, errors); //2
         return new ResponseEntity<>(errorResponse, status);
     }
 
@@ -29,7 +29,7 @@ public class CapturaExceptionHandler extends ResponseEntityExceptionHandler {
 
     private List<ErrorObject> getErrors(MethodArgumentNotValidException ex){
         return ex.getBindingResult().getFieldErrors().stream()
-                .map(error -> new ErrorObject(error.getDefaultMessage(), error.getField(),
+                .map(error -> new ErrorObject(error.getDefaultMessage(), error.getField(), //3
                         error.getRejectedValue()))
                 .collect(Collectors.toList());
     }

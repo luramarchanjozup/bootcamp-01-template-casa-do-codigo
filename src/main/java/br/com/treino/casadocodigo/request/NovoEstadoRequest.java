@@ -1,5 +1,7 @@
-package br.com.treino.casadocodigo.model;
+package br.com.treino.casadocodigo.request;
 
+import br.com.treino.casadocodigo.model.Estado;
+import br.com.treino.casadocodigo.model.Pais;
 import br.com.treino.casadocodigo.validations.ExistId;
 import br.com.treino.casadocodigo.validations.UniqueValue;
 
@@ -16,7 +18,7 @@ public class NovoEstadoRequest {
     private @ManyToOne
     @NotNull
     @ExistId(className = Pais.class, fieldName = "id",
-    message = "Não existe um estado com esse ID") long idPais;
+    message = "Não existe um país com esse ID cadastrado") long idPais;
 
     public NovoEstadoRequest(@NotBlank String nome, @NotNull long idPais) {
         this.nome = nome;

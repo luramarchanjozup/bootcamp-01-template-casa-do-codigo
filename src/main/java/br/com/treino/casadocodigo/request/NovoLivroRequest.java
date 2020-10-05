@@ -1,5 +1,8 @@
-package br.com.treino.casadocodigo.model;
+package br.com.treino.casadocodigo.request;
 
+import br.com.treino.casadocodigo.model.Autor;
+import br.com.treino.casadocodigo.model.Categoria;
+import br.com.treino.casadocodigo.model.Livro;
 import br.com.treino.casadocodigo.validations.ExistId;
 import br.com.treino.casadocodigo.validations.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;

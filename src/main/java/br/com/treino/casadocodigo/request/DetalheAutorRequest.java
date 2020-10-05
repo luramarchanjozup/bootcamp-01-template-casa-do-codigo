@@ -1,4 +1,6 @@
-package br.com.treino.casadocodigo.model;
+package br.com.treino.casadocodigo.request;
+
+import br.com.treino.casadocodigo.model.Autor;
 
 public class DetalheAutorRequest {
 

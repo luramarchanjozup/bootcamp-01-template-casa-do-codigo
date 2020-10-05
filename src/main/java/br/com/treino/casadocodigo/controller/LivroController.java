@@ -1,9 +1,8 @@
 package br.com.treino.casadocodigo.controller;
 
-import br.com.treino.casadocodigo.model.Autor;
-import br.com.treino.casadocodigo.model.DetalheLivroRequest;
+import br.com.treino.casadocodigo.request.DetalheLivroRequest;
 import br.com.treino.casadocodigo.model.Livro;
-import br.com.treino.casadocodigo.model.NovoLivroRequest;
+import br.com.treino.casadocodigo.request.NovoLivroRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,41 +14,35 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-public class LivrosController {
+public class LivroController {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @GetMapping(value = "/livros")
-    public ResponseEntity<List<Livro>> getAllLivros(){
+    public ResponseEntity<List<Livro>> getAllLivros(){ //1
         List<Livro> livros = entityManager
                 .createQuery("select l from Livro l").getResultList();
-
-        System.out.println(livros);
-
         return new ResponseEntity<>(livros, HttpStatus.OK);
     }
 
     @GetMapping(value = "/livros/{id}")
-    public ResponseEntity<DetalheLivroRequest> getLivroById(@PathVariable("id") long id){
+    public ResponseEntity<DetalheLivroRequest> getLivroById(@PathVariable("id") long id){ //2
 
         Livro livro = entityManager.find(Livro.class, id);
-
         if (livro == null){
             return ResponseEntity.notFound().build();
         }
-
         DetalheLivroRequest detalheLivroRequest = new DetalheLivroRequest(livro);
-
         return new ResponseEntity<>(detalheLivroRequest, HttpStatus.OK);
     }
 
     @PostMapping(value = "/livros")
     @Transactional
-    public String novoLivro(@RequestBody @Valid NovoLivroRequest request){
+    public ResponseEntity novoLivro(@RequestBody @Valid NovoLivroRequest request){ //3
         Livro novoLivro = request.toModel(entityManager);
         entityManager.persist(novoLivro);
-        return novoLivro.toString();
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

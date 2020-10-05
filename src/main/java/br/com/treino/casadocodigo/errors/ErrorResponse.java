@@ -12,6 +12,18 @@ public class ErrorResponse {
     private final String nomeObjeto;
     private final List<ErrorObject> erros;
 
+    private List<Object> f;
+
+    public void teste(){
+        String menssagem = "";
+        String campo = "";
+        Object parametro = "";
+
+        f.add(menssagem);
+        f.add(campo);
+        f.add(parametro);
+    }
+
     public ErrorResponse(String mensagem, int codigo, String status,
                          String nomeObjeto, List<ErrorObject> erros) {
         this.mensagem = mensagem;

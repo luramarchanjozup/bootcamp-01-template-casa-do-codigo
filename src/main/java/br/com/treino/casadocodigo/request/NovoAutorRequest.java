@@ -1,5 +1,6 @@
-package br.com.treino.casadocodigo.model;
+package br.com.treino.casadocodigo.request;
 
+import br.com.treino.casadocodigo.model.Autor;
 import br.com.treino.casadocodigo.validations.UniqueValue;
 
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,6 @@ public class NovoAutorRequest {
 
     public NovoAutorRequest(@NotBlank String nome, @NotBlank @Email String email,
                             @NotBlank @Size(max = 400) String descricao) {
-        super();
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;

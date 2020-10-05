@@ -18,10 +18,6 @@ public class CategoriaNovoRequest {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     //1
     public Categoria toModel(){
         return new Categoria(this.nome);

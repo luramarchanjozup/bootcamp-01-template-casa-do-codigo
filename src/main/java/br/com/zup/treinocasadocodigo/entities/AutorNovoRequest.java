@@ -23,12 +23,6 @@ public class AutorNovoRequest {
     @Size(max=400)
     private String descricao;
 
-    public AutorNovoRequest(@Email @NotBlank String email, @NotBlank String nome, @NotBlank @Size(max = 400) String descricao) {
-        this.email = email;
-        this.nome = nome;
-        this.descricao = descricao;
-    }
-
     public String getEmail() {
         return email;
     }

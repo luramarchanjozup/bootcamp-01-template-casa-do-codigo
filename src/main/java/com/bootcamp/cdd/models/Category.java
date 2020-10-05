@@ -1,5 +1,7 @@
 package com.bootcamp.cdd.models;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
@@ -8,7 +10,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true)
+    @UniqueElements
     private final String name;
 
     public Category (String name) {

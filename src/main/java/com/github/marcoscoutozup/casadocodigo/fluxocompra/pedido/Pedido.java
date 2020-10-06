@@ -55,6 +55,10 @@ public class Pedido {
                 .reduce(new BigDecimal(0), BigDecimal::add);
     }
 
+    public BigDecimal calcularValorTotalComDesconto(BigDecimal percentualDeDesconto){
+        return total.subtract(total.multiply(percentualDeDesconto));
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +

@@ -26,15 +26,8 @@ public class CompraResponse {
         //5
         if(compra.getCupom() != null){
             this.cupom = new CupomResponse(compra.getCupom());
-            this.totalComDesconto = calcularValorComDesconto(compra);
+            this.totalComDesconto = compra.calcularValorComDesconto();
         }
-    }
-
-    private BigDecimal calcularValorComDesconto(Compra compra){
-        BigDecimal percentualDeDesconto = new BigDecimal(compra.getCupom().getPercentual()).divide(new BigDecimal(100));
-        BigDecimal valorDoDesconto = compra.getPedido().getTotal().multiply(percentualDeDesconto);
-        BigDecimal valorTotalComDesconto = compra.getPedido().getTotal().subtract(valorDoDesconto);
-        return valorTotalComDesconto.setScale(2);
     }
 
     public ClienteResponse getCliente() {

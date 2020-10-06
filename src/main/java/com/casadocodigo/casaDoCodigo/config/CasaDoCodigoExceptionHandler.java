@@ -1,8 +1,7 @@
 package com.casadocodigo.casaDoCodigo.config;
 
-import com.casadocodigo.casaDoCodigo.services.exceptions.DuplicatedException;
-import com.casadocodigo.casaDoCodigo.services.exceptions.ObjectNotFoundException;
-import com.casadocodigo.casaDoCodigo.services.exceptions.PurchaseException;
+import javax.persistence.NoResultException;
+import javax.validation.ValidationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class CasaDoCodigoExceptionHandler {
     
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ObjectNotFoundException.class)
-    public String objectNotFoundHandler(ObjectNotFoundException e) {
+    @ExceptionHandler(IllegalStateException.class)
+    public String objectNotFoundHandler(IllegalStateException e) {
         return "Error 400: \n\nMessage: " + e.getMessage();
     }
 
@@ -34,14 +33,14 @@ public class CasaDoCodigoExceptionHandler {
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(PurchaseException.class)
-    public String purchaseExceptionHandler(PurchaseException e) {
+    @ExceptionHandler(NoResultException.class)
+    public String purchaseExceptionHandler(NoResultException e) {
         return "Error 400: \n\nMessage: " + e.getMessage().toString();
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(DuplicatedException.class)
-    public String duplicatedHandler(DuplicatedException e) {
+    @ExceptionHandler(ValidationException.class)
+    public String duplicatedHandler(ValidationException e) {
         return "Error 400: \n\nMessage: " + e.getMessage().toString();
     }
 }

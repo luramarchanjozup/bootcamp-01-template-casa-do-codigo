@@ -1,12 +1,12 @@
 package com.casadocodigo.casaDoCodigo.controllers;
 
-import java.net.URI;
-
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import com.casadocodigo.casaDoCodigo.controllers.form.StateForm;
 import com.casadocodigo.casaDoCodigo.model.State;
-import com.casadocodigo.casaDoCodigo.services.StateServices;
+import com.casadocodigo.casaDoCodigo.repositories.CountryRepository;
+import com.casadocodigo.casaDoCodigo.repositories.StateRepository;
 import com.casadocodigo.casaDoCodigo.services.validators.CheckDuplicatedState;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class StateController {
     
     @Autowired
-    private StateServices stateServices;
+    private StateRepository stateRepository;
+    @Autowired
+    private CountryRepository countryRepository;
     @Autowired
     private CheckDuplicatedState checkDuplicatedState;
 
@@ -37,14 +39,19 @@ public class StateController {
 
     @GetMapping("/{name}")
     public ResponseEntity<State> detailedIndex(@PathVariable @Valid String name) {
-        State state = stateServices.detailedIndex(name);
-        return ResponseEntity.ok().body(state);
+        return ResponseEntity.ok().body(stateRepository.findByName(name)
+            .orElseThrow(() -> new IllegalStateException("State not found")));
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<State> createState(@RequestBody @Valid StateForm form, UriComponentsBuilder uriBuilder) {
-        State state = stateServices.createState(form);
-        URI uri = uriBuilder.path("state/{name}").buildAndExpand(state.getName()).toUri();
-        return ResponseEntity.created(uri).body(state);
+        State state = new State(form.getName(), 
+            countryRepository.findByName(form.getCountry()).orElseThrow(
+                () -> new IllegalStateException("Country not found")));
+        
+        stateRepository.save(state);
+
+        return ResponseEntity.ok().body(state);
     }
 }

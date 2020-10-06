@@ -1,8 +1,16 @@
 package com.casadocodigo.casaDoCodigo.controllers.form;
 
+import javax.persistence.EntityManager;
+import javax.validation.ValidationException;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.casadocodigo.casaDoCodigo.controllers.dto.BookPurchaseDto;
+import com.casadocodigo.casaDoCodigo.controllers.dto.CartDetails;
+import com.casadocodigo.casaDoCodigo.model.Book;
+import com.casadocodigo.casaDoCodigo.model.CartItem;
+import com.casadocodigo.casaDoCodigo.model.Coupon;
 
 public class PurchaseForm {
     @NotNull @NotBlank
@@ -126,4 +134,29 @@ public class PurchaseForm {
         this.cart = cart;
     }
 
+    public CartDetails createCart(EntityManager manager) {
+        CartDetails cartDetails = new CartDetails();
+
+        for (CartItemsForm book : this.cart.getItems()) {
+            Book bookId = manager.find(Book.class, book.getBookId());
+            cartDetails.setBooks(new BookPurchaseDto(bookId));
+            cartDetails.setCartItems(new CartItem(book.getBookId(), book.getQuantity()));
+            cartDetails.setFinalPrice(bookId, book);
+            cartDetails.setQuantity(book);
+        }
+
+        if (!this.cart.getCoupon().isBlank()) {
+            cartDetails.setCoupon(manager.createQuery("SELECT c FROM Coupon c WHERE c.code = :code", Coupon.class)
+                        .setParameter("code", this.cart.getCoupon()).getSingleResult());
+        }
+                    
+        cartDetails.setDiscountedPrice();
+        cartDetails.setAppliedCoupon(this.cart.getCoupon());
+
+        if (this.cart.getTotal() != cartDetails.getQuantity()) {
+            throw new ValidationException("Cart total does not match the number of items");
+        }
+
+        return cartDetails;
+    }
 }

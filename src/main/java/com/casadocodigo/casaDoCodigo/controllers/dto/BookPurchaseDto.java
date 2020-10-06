@@ -8,6 +8,9 @@ public class BookPurchaseDto {
     private Float price;
 
     public BookPurchaseDto(Book book) {
+        if (book == null) {
+            throw new IllegalStateException("Book not found");
+        }
         this.id = book.getId();
         this.title = book.getTitle();
         this.price = book.getPrice();

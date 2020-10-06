@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.controllers;
+package br.com.zup.treinocasadocodigo.validators;
 
 import br.com.zup.treinocasadocodigo.entities.ErroPadronizado;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @RestControllerAdvice
-public class HandlerAdvice {
+public class ValidacaoHandlerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErroPadronizado> handle(MethodArgumentNotValidException methodArgumentNotValidException) {

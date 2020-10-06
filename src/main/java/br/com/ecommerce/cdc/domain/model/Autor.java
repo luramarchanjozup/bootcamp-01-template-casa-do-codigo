@@ -1,4 +1,4 @@
-package br.com.ecommerce.cdc.domain;
+package br.com.ecommerce.cdc.domain.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

@@ -1,7 +1,7 @@
 package br.com.ecommerce.cdc.validation;
 
-import br.com.ecommerce.cdc.domain.Categoria;
-import br.com.ecommerce.cdc.domain.CategoriaRequest;
+import br.com.ecommerce.cdc.domain.model.Categoria;
+import br.com.ecommerce.cdc.domain.request.CategoriaRequest;
 import br.com.ecommerce.cdc.repository.CategoriaRepository;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;

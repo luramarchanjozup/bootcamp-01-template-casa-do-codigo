@@ -1,6 +1,7 @@
-package br.com.ecommerce.cdc.domain;
+package br.com.ecommerce.cdc.domain.request;
 
 import br.com.ecommerce.cdc.anotacao.NotDuplicated;
+import br.com.ecommerce.cdc.domain.model.Categoria;
 
 import javax.validation.constraints.NotBlank;
 

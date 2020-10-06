@@ -1,12 +1,9 @@
 package br.com.ecommerce.cdc.controller;
 
-import br.com.ecommerce.cdc.domain.Autor;
-import br.com.ecommerce.cdc.domain.AutorRequest;
-import br.com.ecommerce.cdc.validation.UniqueEmailValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.ecommerce.cdc.domain.model.Autor;
+import br.com.ecommerce.cdc.domain.request.AutorRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;

@@ -1,8 +1,8 @@
 package br.com.ecommerce.cdc.validation;
 
 
-import br.com.ecommerce.cdc.domain.Autor;
-import br.com.ecommerce.cdc.domain.AutorRequest;
+import br.com.ecommerce.cdc.domain.model.Autor;
+import br.com.ecommerce.cdc.domain.request.AutorRequest;
 import br.com.ecommerce.cdc.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD,ElementType.LOCAL_VARIABLE})
 public @interface NotDuplicated {
 
-    String message() default "{javax.validation.constraints.NotBlank.message}";
+    String message() default "{javax.validation.constraints.NotDuplicated.message}";
 
     Class<?>[] groups() default { };
 

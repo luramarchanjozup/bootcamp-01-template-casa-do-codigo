@@ -1,6 +1,6 @@
 package br.com.ecommerce.cdc.repository;
 
-import br.com.ecommerce.cdc.domain.Categoria;
+import br.com.ecommerce.cdc.domain.model.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

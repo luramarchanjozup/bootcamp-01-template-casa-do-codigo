@@ -1,12 +1,9 @@
 package br.com.ecommerce.cdc.controller;
 
-import br.com.ecommerce.cdc.domain.Categoria;
-import br.com.ecommerce.cdc.domain.CategoriaRequest;
-import br.com.ecommerce.cdc.validation.NomeUnicoCategoriaValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.ecommerce.cdc.domain.model.Categoria;
+import br.com.ecommerce.cdc.domain.request.CategoriaRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;

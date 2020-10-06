@@ -4,16 +4,15 @@ import com.cdcAPI.model.Autor;
 import com.cdcAPI.model.Categoria;
 import com.cdcAPI.model.Livro;
 import com.cdcAPI.validator.EntradaUnica;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.persistence.EntityManager;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+//Complexidade
+//EntradaUnica, Autor, Categoria, Livro, 2 if
+//Total = 6
 
 public class LivroRequest {
 
@@ -28,11 +27,11 @@ public class LivroRequest {
     @NotBlank
     private String sumario;
 
-    @NotBlank
+    @NotNull
     @Min(20)
     private BigDecimal preco;
 
-    @NotBlank
+    @NotNull
     @Min(100)
     private int n_paginas;
 
@@ -40,27 +39,20 @@ public class LivroRequest {
     @EntradaUnica(domainClass = Livro.class, fieldName = "isbn")
     private String isbn;
 
-    @NotBlank
+    @NotNull
     @Future
-    @JsonFormat(pattern = "dd/mm/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate dataPublicacao;
 
-    //rever
-    @NotBlank
-    @ManyToOne
-    @Valid
-    private AutorRequest autor;
+    @NotNull
+    private Long autorId;
 
-    //rever
-    @NotBlank
-    @ManyToOne
-    @Valid
-    private CategoriaRequest categoria;
+    @NotNull
+    private Long categoriaId;
 
     public LivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo,
-                 @NotBlank String sumario, @NotBlank @Min(20) BigDecimal preco,
-                 @NotBlank @Min(100) int n_paginas, @NotBlank String isbn , @NotBlank LocalDate dataPublicacao,
-                 @NotBlank AutorRequest autorId, @NotBlank @ManyToOne @Valid CategoriaRequest categoriaId) {
+                 @NotBlank String sumario, @NotNull @Min(20) BigDecimal preco,
+                 @NotNull @Min(100) int n_paginas, @NotBlank String isbn , @NotNull LocalDate dataPublicacao,
+                 @NotNull Long autorId, @NotNull Long categoriaId) {
 
         this.titulo = titulo;
         this.resumo = resumo;
@@ -69,11 +61,104 @@ public class LivroRequest {
         this.n_paginas = n_paginas;
         this.isbn = isbn;
         this.dataPublicacao = dataPublicacao;
-        this.autor = autorId;//rever
-        this.categoria = categoriaId;//rever
+        this.autorId = autorId;
+        this.categoriaId = categoriaId;
         //Todo  Usar builder
     }
 
+    //Usar Entity mananger para puxar id's e validar se pode criar livro
+    public Livro toModel(EntityManager manager) throws Exception {
+
+
+        @NotBlank
+        Autor autor = manager.find(Autor.class, autorId);
+        @NotBlank
+        Categoria categoria = manager.find(Categoria.class, categoriaId);
+
+        if (autor == null) {
+            throw new Exception("Livro não pode ser cadastrado. Autor não existe.");
+        }
+        if (categoria == null) {
+            throw new Exception("Livro não pode ser cadastrado. Categoria não existe.");
+        }
+
+        return new Livro(titulo, resumo, sumario, preco, n_paginas, isbn,
+                dataPublicacao, autor, categoria);
+    }
+
+
+
     //get e set
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public void setSumario(String sumario) {
+        this.sumario = sumario;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public int getN_paginas() {
+        return n_paginas;
+    }
+
+    public void setN_paginas(int n_paginas) {
+        this.n_paginas = n_paginas;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public LocalDate getDataPublicacao() {
+        return dataPublicacao;
+    }
+
+    public void setDataPublicacao(LocalDate dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
+    }
+
+    public Long getAutorId() {
+        return autorId;
+    }
+
+    public void setAutorId(Long autorId) {
+        this.autorId = autorId;
+    }
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
+    }
 }

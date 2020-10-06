@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.itau.cdc.DTO.NovoCupomRequest;
 import com.itau.cdc.Repository.CupomJpaRepository;
-import com.itau.cdc.entity.Cupom;
+import com.itau.cdc.entity.Cupom2;
 
 @Service
 public class CupomService {
@@ -19,7 +19,7 @@ public class CupomService {
 
 	public Long NovoCupom(@Valid NovoCupomRequest request) {
 
-		Cupom novoCupom = request.toModel();
+		Cupom2 novoCupom = request.toModel();
 
 		if(cupomJpaRepository.findByCodigo(novoCupom.getCodigo()).isPresent()) {
 			throw new IllegalArgumentException("Código já cadastrado.");
@@ -30,21 +30,21 @@ public class CupomService {
 		return novoCupom.getId();
 	}
 
-	public Optional<Cupom> ConsultaCupom(Long idCupom) {
+	public Optional<Cupom2> ConsultaCupom(String codigoCupom) {
 
-		return cupomJpaRepository.findById(idCupom);
+		return cupomJpaRepository.findByCodigo(codigoCupom);
 
 	}
 
-	public Cupom AlteraCupom(String codigoCupom, @Valid NovoCupomRequest request) {
+	public Cupom2 AlteraCupom(String codigoCupom, @Valid NovoCupomRequest request) {
 		
-		Optional<Cupom> cupomNaBase = cupomJpaRepository.findByCodigo(codigoCupom);
+		Optional<Cupom2> cupomNaBase = cupomJpaRepository.findByCodigo(codigoCupom);
 		
 		if(!cupomNaBase.isPresent()) {
 			return null;
 		}
 		
-		Cupom cupomAlterado = request.toModel();
+		Cupom2 cupomAlterado = request.toModel();
 		cupomAlterado.AlteraIdCupom(cupomNaBase);
 		
 		cupomJpaRepository.save(cupomAlterado);

@@ -13,6 +13,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.itau.cdc.entity.Cupom2;
 import com.itau.cdc.entity.ItemPedido;
 import com.itau.cdc.entity.NovaCompra;
 import com.itau.cdc.entity.PedidoCompra;
@@ -24,10 +25,13 @@ public class PedidoCompraRequest {
 	@NotNull
 	@JsonProperty("total")
 	private BigDecimal total;
-	
+
 	@Valid
 	@Size(min = 1)
 	private List<ItemCompraRequest> itens = new ArrayList<>();
+
+	@JsonProperty("id_cupom")
+	private Long idCupom;
 
 	public PedidoCompraRequest() {
 		super();
@@ -44,16 +48,24 @@ public class PedidoCompraRequest {
 	public Function<NovaCompra, PedidoCompra> toModel(EntityManager manager) {
 
 		Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
-		
+
+		Cupom2 cupom = new Cupom2();
+		cupom.CupomValido(cupom, idCupom, manager);
+
 		return (compra) -> {
-			PedidoCompra pedido = new @Valid PedidoCompra(compra,itensCalculados);
-			
-			if(!pedido.totalIgual(total)) {
-				throw new IllegalArgumentException("Valor total enviado no pedido não corresponde ao valor total real dos produtos.");
+			PedidoCompra pedido = new @Valid PedidoCompra(compra, itensCalculados, cupom);
+
+			if (!pedido.totalIgual(total)) {
+				throw new IllegalArgumentException(
+						"Valor total enviado no pedido não corresponde ao valor total real dos produtos.");
 			}
-			
+
 			return pedido;
 		};
 	}
-	
+
+	public Long getIdCupom() {
+		return idCupom;
+	}
+
 }

@@ -24,24 +24,27 @@ public class ShopController {
     @Autowired
     private EntityManager entityManager;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ShopDto> shopDetails(@PathVariable Long id){
+    @GetMapping("/{id}/{userDataId}")
+    public ResponseEntity<ShopDto> shopDetails(@PathVariable Long id, @PathVariable Long userDataId){
 
         // +1
         ShopPrice shop = entityManager.find(ShopPrice.class, id);
 
+        //+ 1
+        Shop userData = entityManager.find(Shop.class, userDataId);
+
         // +1
-        return ResponseEntity.ok(new ShopDto(shop));
+        return ResponseEntity.ok(new ShopDto(shop,userData));
 
     }
 
     @PostMapping("/user-data")
     @Transactional
-    public ResponseEntity<ShopDto> addShopUserData(@RequestBody @Valid ShopDataForm shopDataForm){
-
-        Shop shop = shopDataForm.toEntity();
+    public ResponseEntity<?> addShopUserData(@RequestBody @Valid ShopDataForm shopDataForm){
 
         // +1
+        Shop shop = shopDataForm.toEntity();
+
         entityManager.persist(shop);
 
         return ResponseEntity.ok().build();
@@ -50,21 +53,21 @@ public class ShopController {
 
     @PostMapping("/finish")
     @Transactional
-    public ResponseEntity<ShopDto> addFinalShopCart(
+    public ResponseEntity<?> addFinalShopCart(
             @RequestBody @Valid ShopPriceForm shopPriceForm){
 
+        // +1
         ShopPrice shopCart = shopPriceForm.toEntity();
 
-        // +1
         entityManager.persist(shopCart);
 
         // +1
-        return ResponseEntity.ok(new ShopDto(shopCart));
+        return ResponseEntity.ok().build();
 
     }
 
     @PutMapping("/apply-coupon/{id}/{couponId}")
-    public ResponseEntity<ShopDto> applyCoupon(@PathVariable Long couponId,
+    public ResponseEntity<?> applyCoupon(@PathVariable Long couponId,
       @PathVariable Long id)
     {
 
@@ -72,7 +75,7 @@ public class ShopController {
         ShopPrice shop = couponApplyService.couponApplication(couponId, id);
 
                                         // + 1
-        return ResponseEntity.ok(new ShopDto(shop));
+        return ResponseEntity.ok().build();
 
     }
 }

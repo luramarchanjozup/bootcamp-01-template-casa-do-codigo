@@ -1,5 +1,4 @@
 package br.com.casadocodigo.controllers;
-import br.com.casadocodigo.dtos.CategoryDto;
 import br.com.casadocodigo.forms.CategoryForm;
 import br.com.casadocodigo.models.Category;
 import br.com.casadocodigo.repositories.CategoryRepository;
@@ -21,7 +20,7 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
 
     @PostMapping                                                                //+1
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody @Valid CategoryForm categoryForm){
+    public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryForm categoryForm){
 
         //+1
         Category category = categoryForm.toEntity();
@@ -29,8 +28,8 @@ public class CategoryController {
 
         categoryRepository.save(category);
 
-                                                //+1
-        return ResponseEntity.ok(new CategoryDto(category));
+
+        return ResponseEntity.ok().build();
 
     }
 }

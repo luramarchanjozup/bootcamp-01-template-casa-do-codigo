@@ -22,7 +22,7 @@ public class StateController {
     private StateRepository stateRepository;
 
     @PostMapping                                                        //+1
-    public ResponseEntity<StateDto> createState(@RequestBody @Valid StateForm stateForm){
+    public ResponseEntity<?> createState(@RequestBody @Valid StateForm stateForm){
 
         //+1
         State state = stateForm.toEntity();
@@ -30,8 +30,8 @@ public class StateController {
 
         stateRepository.save(state);
 
-                                            //+1
-        return ResponseEntity.ok(new StateDto(state));
+
+        return ResponseEntity.ok().build();
 
     }
 }

@@ -6,25 +6,23 @@
 
 1. Controllers
 
-> AuthorController (pci = 5)
+> AuthorController (pci = 4)
 
 > CategoryController (pci = 4)
 
-> CountryController (pci = 5)
+> CountryController (pci = 4)
 
-> BookController (pci = 9)
+> BookController (pci = 6)
 
-> StateController (pci = 5)
+> StateController (pci = 4)
 
-> CouponController (pci = 9)
+> CouponController (pci = 7)
 
-> ShopController (pci = 11)
+> ShopController (pci = 8)
 
 2. Services
 
 > CouponApplyService (pci = 6)
-
-> AddToCartService (pci = 10)
 
 3. Validation 
 
@@ -37,42 +35,36 @@
 - Usei como referência o guia do Spotify 
 - https://developer.spotify.com/documentation/web-api/reference
 
-- MÉTODO          ENDPOINT            USO          RETORNA
+- MÉTODO   #########    ENDPOINT     #########       USO      #########    RETORNA
 
 
 - Compras        
-- POST           /shop/finish      finalizar compra
-
-- POST           /shop/user-data   dados do usuário
-                                     que fará a compra
-
-- PUT        /shop/{id}/{couponId}    aplica cupom
-
-- GET           /shop/{id}          detalhes finais
-                                      da compra
+    - POST           /shop/finish       finalizar compra
+    - POST           /shop/user-data    dados do usuário que fará a compra
+    - PUT        /shop/{id}/{couponId}  aplica cupom detalhes finais da compra
+    - GET           /shop/{id}          
+                                      
 
 - Autores
-- POST            /authors        criar autor     autor (nome)
+    - POST            /authors        criar autor     autor (nome)
 
 
 - Livros
-- GET             /books          buscar livros 
-
-- GET             /books/{id}     buscar um livro
-
-- POST            /books          criar livro
+    - GET             /books          buscar livros 
+    - GET             /books/{id}     buscar um livro
+    - POST            /books          criar livro
 
 
 - Categorias
-- POST            /categories     criar categorias
+    - POST            /categories     criar categorias
 
 
 - Países
-- POST            /countries      criar países
+    - POST            /countries      criar países
 
 
 - Estados
-- POST            /states         criar estados
+    - POST            /states         criar estados
 
 
 ### Etapas do desafio

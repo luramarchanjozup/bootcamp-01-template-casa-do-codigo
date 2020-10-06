@@ -20,7 +20,7 @@ public class BookController {
 
     @PostMapping
     @Transactional
-    public Book createBook (@RequestBody BookRequest request) {
+    public Book createBook (@RequestBody @Valid BookRequest request) {
         Book book = request.toModel(entityManager);
         entityManager.persist(book);
         return book;

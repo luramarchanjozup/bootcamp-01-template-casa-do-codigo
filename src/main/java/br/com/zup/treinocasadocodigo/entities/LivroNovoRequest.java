@@ -1,5 +1,6 @@
 package br.com.zup.treinocasadocodigo.entities;
 
+import br.com.zup.treinocasadocodigo.validators.ExistId;
 import br.com.zup.treinocasadocodigo.validators.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.util.Assert;
@@ -42,9 +43,11 @@ public class LivroNovoRequest {
     private LocalDate dataPublicacao;
 
     @NotNull
+    @ExistId(dominioClasse = Categoria.class, nomeCampo = "id")
     private Long idCategoria;
 
     @NotNull
+    @ExistId(dominioClasse = Autor.class, nomeCampo = "id")
     private Long idAutor;
 
     public String getTitulo() {

@@ -1,6 +1,5 @@
 package br.com.zup.treinocasadocodigo.validators;
 
-import br.com.zup.treinocasadocodigo.entities.ErroPadronizado;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

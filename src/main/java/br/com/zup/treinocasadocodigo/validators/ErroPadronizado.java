@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.validators;
 
 import java.util.Collection;
 

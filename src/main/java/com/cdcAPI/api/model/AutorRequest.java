@@ -7,6 +7,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+//Complexidade
+//EntradaUnica, Autor
+//Total = 2
+
 public class AutorRequest {
 
     @NotBlank

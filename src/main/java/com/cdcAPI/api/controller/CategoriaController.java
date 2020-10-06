@@ -3,6 +3,7 @@ package com.cdcAPI.api.controller;
 import com.cdcAPI.api.model.CategoriaRequest;
 import com.cdcAPI.model.Categoria;
 import com.cdcAPI.repository.CategoriaRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
+
+//Complexidade
+//CategoriaRequest, Categoria, CategoriaRepository
+//Total = 3
 
 @RestController
 public class CategoriaController {

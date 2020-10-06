@@ -5,6 +5,10 @@ import com.cdcAPI.validator.EntradaUnica;
 
 import javax.validation.constraints.NotBlank;
 
+//Complexidade
+//EntradaUnica, Categoria
+//Total = 2
+
 public class CategoriaRequest {
 
     @NotBlank

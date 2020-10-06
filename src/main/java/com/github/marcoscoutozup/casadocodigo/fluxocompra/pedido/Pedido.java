@@ -49,6 +49,16 @@ public class Pedido {
         this.itens = itens;
     }
 
+    public BigDecimal calcularTotalDoPedido(){
+        return itens.stream()
+                .map(itemPedido -> itemPedido.calcularTotalDoItemPedido())
+                .reduce(new BigDecimal(0), BigDecimal::add);
+    }
+
+    public BigDecimal calcularValorTotalComDesconto(BigDecimal percentualDeDesconto){
+        return total.subtract(total.multiply(percentualDeDesconto));
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +
@@ -56,7 +66,5 @@ public class Pedido {
                 ", itens=" + itens +
                 '}';
     }
-
-
 
 }

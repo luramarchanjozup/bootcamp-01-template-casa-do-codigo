@@ -2,33 +2,34 @@ package br.com.zup.treinocasadocodigo.controllers;
 
 import br.com.zup.treinocasadocodigo.entities.Livro;
 import br.com.zup.treinocasadocodigo.entities.LivroNovoRequest;
+import br.com.zup.treinocasadocodigo.entities.LivroRetorno;
 import br.com.zup.treinocasadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 2
+ * Contagem de carga intrínseca da classe: 5
  */
 
 @RestController
+@RequestMapping("/livros")
 public class LivroController {
 
     @PersistenceContext
     private EntityManager manager;
 
     @Autowired
+    //1
     private LivroRepository livroRepository;
 
-    @PostMapping("/livros")
+    @PostMapping()
     @Transactional
     //1
     public String cadastroLivro(@RequestBody @Valid LivroNovoRequest livroNovo) {
@@ -38,8 +39,14 @@ public class LivroController {
         return livro.toString();
     }
 
-    @GetMapping("/livros")
-    public List<Livro> todosLivros() {
-        return livroRepository.findAll();
+    @GetMapping()
+    //1
+    public List<LivroRetorno> todosLivros() {
+        //1
+        return livroRepository
+                .findAll()
+                .stream()
+                .map(LivroRetorno::new)
+                .collect(Collectors.toList());
     }
 }

@@ -19,10 +19,10 @@ public class Country implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "country")
     private Collection<State> states;
 
-    @OneToMany
+    @OneToMany(mappedBy = "country")
     private Collection<Buyer> buyers;
 
     public Country(){}

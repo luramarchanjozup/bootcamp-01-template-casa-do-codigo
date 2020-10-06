@@ -33,7 +33,7 @@ public class Author implements Serializable {
     @Column(nullable = false, name = "creation_date")
     private LocalDateTime creationDate;
 
-    @OneToMany
+    @OneToMany(mappedBy = "author")
     private Collection<Book> books;
 
     public Author(){}

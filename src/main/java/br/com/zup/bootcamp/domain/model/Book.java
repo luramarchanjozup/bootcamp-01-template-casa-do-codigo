@@ -8,8 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
 
-// Intrinsic charge = 2
+// Intrinsic charge = 3
 @Entity
 public class Book implements Serializable {
 
@@ -38,12 +39,15 @@ public class Book implements Serializable {
     private LocalDate publicationDate;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category category;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false)
     private Author author;
+
+    @OneToMany(mappedBy = "book")
+    private Collection<Item> items;
 
     public Book(){}
 
@@ -97,6 +101,10 @@ public class Book implements Serializable {
         return author;
     }
 
+    public Collection<Item> getItems() {
+        return items;
+    }
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
@@ -131,5 +139,9 @@ public class Book implements Serializable {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public void addItem(Item item){
+        this.items.add(item);
     }
 }

@@ -20,10 +20,10 @@ public class State implements Serializable {
     private String name;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
     private Country country;
 
-    @OneToMany
+    @OneToMany(mappedBy = "country")
     private Collection<Buyer> buyers;
 
     public State(){}

@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-// Intrinsic charge = 2
+// Intrinsic charge = 3
 @Entity
 public class Buyer implements Serializable {
 
@@ -40,10 +40,11 @@ public class Buyer implements Serializable {
     private String city;
 
     @ManyToOne
+    @JoinColumn(name = "state_id", referencedColumnName = "id")
     private State state;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
     private Country country;
 
     @Column(nullable = false)
@@ -51,6 +52,9 @@ public class Buyer implements Serializable {
 
     @Column(nullable = false)
     private String cep;
+
+    @OneToOne(mappedBy = "buyer", cascade = CascadeType.ALL)
+    private Purchase purchase;
 
     public Buyer(){}
 
@@ -118,6 +122,10 @@ public class Buyer implements Serializable {
         return cep;
     }
 
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -164,5 +172,9 @@ public class Buyer implements Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
     }
 }

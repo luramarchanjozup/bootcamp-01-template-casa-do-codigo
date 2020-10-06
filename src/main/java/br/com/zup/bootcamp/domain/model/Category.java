@@ -18,7 +18,7 @@ public class Category implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     private Collection<Book> books;
 
     public Category(){}

@@ -5,8 +5,10 @@ import br.com.zup.bootcamp.domain.model.Buyer;
 import br.com.zup.bootcamp.domain.model.Country;
 import br.com.zup.bootcamp.domain.model.State;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 // Intrinsic charge = 6
 public class BuyerRequest {
@@ -44,6 +46,10 @@ public class BuyerRequest {
 
     @NotBlank(message = "CEP is mandatory")
     private String cep;
+
+    @NotNull(message = "Cart is mandatory")
+    @Valid
+    private CartRequest cart;
 
     public String getEmail() {
         return email;
@@ -89,6 +95,10 @@ public class BuyerRequest {
         return cep;
     }
 
+    public CartRequest getCart() {
+        return cart;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -131,6 +141,10 @@ public class BuyerRequest {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public void setCart(CartRequest cart) {
+        this.cart = cart;
     }
 
     public Buyer convert(){

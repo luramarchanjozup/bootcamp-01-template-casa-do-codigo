@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,27 +26,27 @@ public class Livro {
     @NotBlank
     private String sumario;
 
-    @NotBlank
+    @NotNull
     @Min(20)
     private BigDecimal preco;
 
-    @NotBlank
+    @NotNull
     @Min(100)
     private int n_paginas;
 
     @NotBlank
     private String isbn; // Usar Long ou String?
 
-    //apenas data futura @Future
-    @NotBlank
+    //ToDo apenas data futura @Future
+    @NotNull
     private LocalDate dataPublicacao;
 
-    @NotBlank
+    @NotNull
     @ManyToOne
     @Valid
     private Autor autor;
 
-    @NotBlank
+    @NotNull
     @ManyToOne
     @Valid
     private Categoria categoria;
@@ -56,9 +57,9 @@ public class Livro {
     } //Pede default
 
     public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo,
-                 @NotBlank String sumario, @NotBlank @Min(20) BigDecimal preco,
-                 @NotBlank @Min(100) int n_paginas, @NotBlank String isbn , @NotBlank LocalDate dataPublicacao,
-                 @NotBlank @ManyToOne @Valid Autor autor, @NotBlank @ManyToOne @Valid Categoria categoria) {
+                 @NotBlank String sumario, @NotNull @Min(20) BigDecimal preco,
+                 @NotNull @Min(100) int n_paginas, @NotBlank String isbn , @NotNull LocalDate dataPublicacao,
+                 @NotNull @Valid Autor autor, @NotNull @Valid Categoria categoria) {
 
         this.titulo = titulo;
         this.resumo = resumo;
@@ -153,4 +154,5 @@ public class Livro {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
 }

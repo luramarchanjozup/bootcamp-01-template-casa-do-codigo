@@ -31,10 +31,7 @@ public class ValorTotalDoPedidoValidator implements Validator {
         CompraDTO compraDTO = (CompraDTO) o;
 
         //3
-        PedidoDTO pedido = compraDTO.getPedido();
-
-        //4
-        if(pedido.validarTotalDoPedido(pedido.getTotal(), entityManager)){
+        if(compraDTO.toModel(entityManager).verificarSeTotalDoPedidoEIgualAoTotalRecebido()){
             errors.rejectValue( "pedido.total", null,"O valor do total não é compatível com o valor do banco");
         }
     }

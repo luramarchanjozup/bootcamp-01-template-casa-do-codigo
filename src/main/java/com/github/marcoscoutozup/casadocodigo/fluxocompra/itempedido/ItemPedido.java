@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 @Embeddable
 public class ItemPedido {
@@ -33,6 +34,10 @@ public class ItemPedido {
 
     public Integer getQuantidade() {
         return quantidade;
+    }
+
+    public BigDecimal calcularTotalDoItemPedido(){
+        return livro.getPreco().multiply(new BigDecimal(quantidade));
     }
 
     @Override

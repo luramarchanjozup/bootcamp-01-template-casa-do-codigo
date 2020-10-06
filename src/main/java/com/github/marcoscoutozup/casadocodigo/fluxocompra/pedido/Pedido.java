@@ -49,6 +49,12 @@ public class Pedido {
         this.itens = itens;
     }
 
+    public BigDecimal calcularTotalDoPedido(){
+        return itens.stream()
+                .map(itemPedido -> itemPedido.calcularTotalDoItemPedido())
+                .reduce(new BigDecimal(0), BigDecimal::add);
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +
@@ -56,7 +62,5 @@ public class Pedido {
                 ", itens=" + itens +
                 '}';
     }
-
-
 
 }

@@ -7,6 +7,7 @@ import com.github.marcoscoutozup.casadocodigo.fluxocompra.pedido.Pedido;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -68,6 +69,10 @@ public class Compra {
 
     public void setCupom(Cupom cupom) {
         this.cupom = cupom;
+    }
+
+    public boolean verificarSeTotalDoPedidoEIgualAoTotalRecebido(){
+        return pedido.calcularTotalDoPedido().compareTo(pedido.getTotal()) != 0;
     }
 
     @Override

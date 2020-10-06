@@ -24,7 +24,7 @@ public class PedidoDTO {
 
             //2
     public Pedido toModel(EntityManager entityManager){
-        return new Pedido(total, converteListaDeItensDePedido(itens, entityManager));
+        return new Pedido(total, converteListaDeItensDePedido(entityManager));
     }
 
     public BigDecimal getTotal() {
@@ -48,22 +48,8 @@ public class PedidoDTO {
         this.itens = itens;
     }
 
-    private List<ItemPedido> converteListaDeItensDePedido(List<ItemPedidoDTO> itens, EntityManager entityManager){
+    private List<ItemPedido> converteListaDeItensDePedido(EntityManager entityManager){
         //3
         return itens.stream().map(item -> item.toModel(entityManager)).collect(Collectors.toList());
-    }
-
-    public boolean validarTotalDoPedido(BigDecimal totalDaCompra, EntityManager entityManager){
-
-
-        BigDecimal totalDoBanco = itens.stream()
-                .map(item ->
-                        //4
-                        item.buscarLivro(entityManager).getPreco().multiply(new BigDecimal(item.getQuantidade())))
-                                                //5
-                .reduce(new BigDecimal(0), BigDecimal::add);
-
-        return totalDoBanco.compareTo(totalDaCompra) != 0;
-
     }
 }

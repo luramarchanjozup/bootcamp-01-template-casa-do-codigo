@@ -7,10 +7,13 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private final String name;
+    private String name;
 
     public Category (String name) {
         this.name = name;
+    }
+
+    public Category() {
     }
 
     public String getName() {

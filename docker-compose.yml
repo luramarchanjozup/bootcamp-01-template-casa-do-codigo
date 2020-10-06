@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: casadocodigo
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    ports:
+      - 9000:8080

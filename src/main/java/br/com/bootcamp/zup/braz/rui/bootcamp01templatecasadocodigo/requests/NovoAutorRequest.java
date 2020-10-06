@@ -1,35 +1,36 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.services.validation.EmailDuplicado;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Autor;
 
-import javax.persistence.Column;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class NovoAutorRequest {
 
-    @NotEmpty(message = "Preenchimento obrigatório.")
+    @NotBlank(message = "Preenchimento obrigatório.")
     private String nome;
-    @NotEmpty(message = "Preenchimento obrigatório.")
-    @Column(unique = true)
+    @NotBlank(message = "Preenchimento obrigatório.")
     @Email(message = "Formado de email inválido")
-    @EmailDuplicado
     private String email;
-    @Length(max = 400)
+    @NotBlank(message = "Preenchimento obrigatório.")
+    @Size(max = 400)
     private String descricao;
 
-    //Getters e Setters
-    public String getNome() {
-        return nome;
+    public NovoAutorRequest(@NotBlank(message = "Preenchimento obrigatório.") String nome, @NotBlank(message = "Preenchimento obrigatório.") String email, @NotBlank(message = "Preenchimento obrigatório.") @Size(max = 400) String descricao) {
+        this.nome = nome;
+        this.email = email;
+        this.descricao = descricao;
     }
 
+    public Autor toModel() {
+        return new Autor(this.nome, this.email, this.descricao);
+    }
+
+    //Getters e Setters
     public String getEmail() {
         return email;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
 
 }

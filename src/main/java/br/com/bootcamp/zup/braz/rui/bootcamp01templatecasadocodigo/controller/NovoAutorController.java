@@ -1,13 +1,15 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.controller;
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Autor;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests.NovoAutorRequest;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.services.NovoAutorService;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.EmailDuplicadoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import javax.persistence.EntityManager;
 
 
 @RestController
@@ -15,13 +17,23 @@ import java.time.LocalDateTime;
 public class NovoAutorController {
 
     @Autowired
-    NovoAutorService novoAutorService;
+    EntityManager entityManager;
+
+    @Autowired
+    EmailDuplicadoValidator emailDuplicadoValidator;
+
+    @InitBinder
+    public void init(WebDataBinder binder){
+        binder.addValidators(emailDuplicadoValidator);
+    }
 
     //Cadastrar um novo Autor
     @PostMapping
-    public ResponseEntity<Void> cadastrarAutor(@Validated @RequestBody NovoAutorRequest novoAutorRequest){
+    @Transactional
+    public String cadastrarAutor(@Validated @RequestBody NovoAutorRequest novoAutorRequest){
 
-        novoAutorService.cadastrar(novoAutorRequest.getNome(), novoAutorRequest.getEmail(), novoAutorRequest.getDescricao(), LocalDateTime.now());
-        return ResponseEntity.ok().build();
+        Autor novoAutor = novoAutorRequest.toModel();
+        entityManager.persist(novoAutor);
+        return novoAutor.toString();
     }
 }

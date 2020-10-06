@@ -2,11 +2,10 @@ package br.com.casadocodigo.forms;
 
 import br.com.casadocodigo.models.Author;
 import br.com.casadocodigo.validation.Unique;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.OffsetDateTime;
+
 
 public class AuthorForm {
 
@@ -46,4 +45,5 @@ public class AuthorForm {
     public void setName(String name) {
         this.name = name;
     }
+
 }

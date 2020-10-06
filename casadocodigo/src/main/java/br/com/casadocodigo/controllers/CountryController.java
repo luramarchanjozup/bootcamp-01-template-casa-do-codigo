@@ -27,13 +27,11 @@ public class CountryController {
         //+1
         Country country = countryForm.toEntity();
 
-        //+1
-        if(country != null){
-            countryRepository.save(country);          //+1
-            return ResponseEntity.ok(new CountryDto(country));
-        }
 
-        return ResponseEntity.badRequest().build();
+        countryRepository.save(country);
+
+                                            //+1
+        return ResponseEntity.ok(new CountryDto(country));
 
     }
 }

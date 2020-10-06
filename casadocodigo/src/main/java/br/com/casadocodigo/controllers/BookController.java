@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
@@ -24,50 +25,37 @@ public class BookController {
         //+1
         Book book = bookForm.toEntity();
 
-        //+1
-        if(book != null) {
-            bookRepository.save(book);
-            return ResponseEntity.ok(new BookDto(book));
-        }
+        bookRepository.save(book);
 
-        return ResponseEntity.badRequest().build();
+                                        //+1
+        return ResponseEntity.ok(new BookDto(book));
+
     }
 
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks(){
 
+        //+1
         List<BookDto> booksDtos = new ArrayList<>();
 
         //+1
         List<Book> books = bookRepository.findAll();
 
         //+1
-        if(books != null) {
+        books.forEach(book -> booksDtos.add(new BookDto(book)));
 
-            //+1
-            books.forEach(book -> booksDtos.add(new BookDto(book)));
-
-            return ResponseEntity.ok(booksDtos);
-        }
-
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(booksDtos);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookDto> getBookById(@PathVariable Long id){
+    public ResponseEntity<?> getBookById(@PathVariable Long id){
 
         //+1
-        if(bookRepository.existsById(id)) {
+        Optional<Book> book = bookRepository.findById(id);
 
-            //+1
-            Book book = bookRepository.findById(id).orElseThrow();
-
-            return ResponseEntity.ok(new BookDto(book));
-
-        }
-
-        return ResponseEntity.badRequest().build();
+        //+1
+        return ResponseEntity.ok(book);
 
     }
 }

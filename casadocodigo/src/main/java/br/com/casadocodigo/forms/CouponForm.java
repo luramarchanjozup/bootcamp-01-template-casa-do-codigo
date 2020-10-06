@@ -5,6 +5,7 @@ import br.com.casadocodigo.validation.Unique;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.OffsetDateTime;
 
@@ -14,7 +15,7 @@ public class CouponForm {
     @Unique(fieldName = "code", domainClass = Coupon.class)
     private String code;
 
-    @NotBlank
+    @NotNull
     @Positive
     private Double discount;
 

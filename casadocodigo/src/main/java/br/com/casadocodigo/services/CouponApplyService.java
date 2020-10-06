@@ -2,6 +2,7 @@ package br.com.casadocodigo.services;
 
 import br.com.casadocodigo.models.Coupon;
 import br.com.casadocodigo.models.Shop;
+import br.com.casadocodigo.models.ShopPrice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
@@ -16,27 +17,20 @@ public class CouponApplyService {
 
     //+1
     @Transactional                      //+1           //+1
-    public Shop couponApplication(Long shopId, Long couponId){
+    public ShopPrice couponApplication(Long shopId, Long couponId){
 
         //+1
         Coupon coupon = entityManager.find(Coupon.class, couponId);
 
         //+1
-        Shop shop = entityManager.find(Shop.class, shopId);
+        ShopPrice shop = entityManager.find(ShopPrice.class, shopId);
 
         //+1
-        if(coupon.getValidate().isBefore(OffsetDateTime.now())){
+        shop.setTotalWithDiscount(shop.getTotal() * coupon.getDiscount());
 
-            //+1
-            shop.setTotalWithDiscount(shop.getTotal() * coupon.getDiscount());
+        entityManager.persist(shop);
 
-            entityManager.persist(shop);
-
-            return shop;
-
-        }
-
-        return null;
+        return shop;
 
     }
 }

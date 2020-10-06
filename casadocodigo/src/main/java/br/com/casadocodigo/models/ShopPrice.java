@@ -15,8 +15,14 @@ public class ShopPrice {
     @Positive
     private Double total;
 
+    @Positive
+    private Double totalWithDiscount;
+
     @ElementCollection
     private List<Item> items = new ArrayList<>();
+
+    @Deprecated
+    public ShopPrice(){};
 
     public ShopPrice(@Positive Double total, List<Item> items) {
         this.total = total;
@@ -60,5 +66,13 @@ public class ShopPrice {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public Double getTotalWithDiscount() {
+        return totalWithDiscount;
+    }
+
+    public void setTotalWithDiscount(Double totalWithDiscount) {
+        this.totalWithDiscount = totalWithDiscount;
     }
 }

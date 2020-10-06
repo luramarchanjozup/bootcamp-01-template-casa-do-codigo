@@ -14,31 +14,22 @@ import java.time.OffsetDateTime;
 @RequestMapping("/authors")
 public class AuthorController {
 
-    //+1
+    // +1
     @Autowired
     private AuthorRepository authorRepository;
 
-    @PostMapping                                                         //+1
-    public ResponseEntity<AuthorDto> createAuthor(@RequestBody @Valid AuthorForm authorForm){
+    @PostMapping                                                         // +1
+    public ResponseEntity<?> createAuthor(@RequestBody @Valid AuthorForm authorForm){
 
-            //+1
+            // +1
             Author author = authorForm.toEntity();
 
-            //+1
-            if(author != null){
+            // +1
+            authorRepository.save(author);
 
-                //+1
-                author.setCreatedAt(OffsetDateTime.now());
-
-                //+1
-                authorRepository.save(author);
-
-                //+1
-                return ResponseEntity.ok(new AuthorDto(author));
-
-            }
-
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .ok()
+                    .build();
 
     }
 }

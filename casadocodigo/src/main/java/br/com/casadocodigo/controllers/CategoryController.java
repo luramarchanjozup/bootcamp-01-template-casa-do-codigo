@@ -26,15 +26,11 @@ public class CategoryController {
         //+1
         Category category = categoryForm.toEntity();
 
-        //+1
-        if(category != null){
 
-            categoryRepository.save(category);
-            return ResponseEntity.ok(new CategoryDto(category));
+        categoryRepository.save(category);
 
-        }
-
-        return ResponseEntity.badRequest().build();
+                                                //+1
+        return ResponseEntity.ok(new CategoryDto(category));
 
     }
 }

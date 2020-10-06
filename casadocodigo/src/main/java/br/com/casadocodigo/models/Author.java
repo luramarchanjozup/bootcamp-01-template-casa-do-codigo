@@ -31,6 +31,7 @@ public class Author {
         this.email = email;
         this.name = name;
         this.description = description;
+        this.createdAt = OffsetDateTime.now();
     }
 
     @Override

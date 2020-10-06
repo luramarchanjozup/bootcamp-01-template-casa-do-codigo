@@ -24,13 +24,11 @@ public class CouponController {
         //+1
         Coupon coupon = couponForm.toEntity();
 
-        //+1
-        if(coupon != null){
-            couponRepository.save(coupon);      //+1
-            return ResponseEntity.ok(new CouponDto(coupon));
-        }
 
-        return ResponseEntity.notFound().build();
+        couponRepository.save(coupon);
+
+                                            //+1
+        return ResponseEntity.ok(new CouponDto(coupon));
 
     }
 
@@ -40,16 +38,12 @@ public class CouponController {
         //+1                                                      //+1
         Coupon coupon = couponForm.toEntity();
 
-        //+1
-        if(coupon != null){
+        coupon.setId(couponId);
 
-            coupon.setId(couponId);
-            couponRepository.save(coupon);    //+1
-            return ResponseEntity.ok(new CouponDto(coupon));
+        couponRepository.save(coupon);
 
-        }
-
-        return ResponseEntity.badRequest().build();
+                                        //+1
+        return ResponseEntity.ok(new CouponDto(coupon));
 
     }
 }

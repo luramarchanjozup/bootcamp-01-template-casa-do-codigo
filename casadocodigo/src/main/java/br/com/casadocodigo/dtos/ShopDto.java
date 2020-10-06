@@ -2,6 +2,7 @@ package br.com.casadocodigo.dtos;
 
 import br.com.casadocodigo.models.Book;
 import br.com.casadocodigo.models.Shop;
+import br.com.casadocodigo.models.ShopPrice;
 
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class ShopDto {
 
     private Double totalWithDiscount;
 
-    public ShopDto(Shop shop){
+    public ShopDto(ShopPrice shop){
 
         this.total = shop.getTotal();
         this.totalWithDiscount = shop.getTotalWithDiscount();

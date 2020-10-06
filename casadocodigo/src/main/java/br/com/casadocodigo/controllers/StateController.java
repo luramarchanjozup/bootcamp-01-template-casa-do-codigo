@@ -27,13 +27,11 @@ public class StateController {
         //+1
         State state = stateForm.toEntity();
 
-        //+1
-        if(state != null){
-            stateRepository.save(state);     //+1
-            return ResponseEntity.ok(new StateDto(state));
-        }
 
-        return ResponseEntity.badRequest().build();
+        stateRepository.save(state);
+
+                                            //+1
+        return ResponseEntity.ok(new StateDto(state));
 
     }
 }

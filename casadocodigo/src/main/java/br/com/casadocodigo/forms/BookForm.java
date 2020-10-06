@@ -5,8 +5,8 @@ import br.com.casadocodigo.validation.Unique;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
-
 
 public class BookForm {
 
@@ -20,15 +20,15 @@ public class BookForm {
     @NotBlank
     private String summary;
 
-    @NotBlank
     @Min(20)
+    @NotNull
     private Double price;
 
-    @NotBlank
+    @NotNull
     @Min(100)
     private Long pages;
 
-    @NotBlank
+    @NotNull
     @Unique(fieldName = "isbn", domainClass = Book.class)
     private Long Isbn;
 

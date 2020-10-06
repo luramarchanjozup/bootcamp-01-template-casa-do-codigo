@@ -16,8 +16,11 @@ public class ShopPriceForm {
     private List<Item> items;
 
     public ShopPriceForm(@NotBlank Double total, List<Item> items) {
+
         this.total = total;
+
         this.items = items;
+
     }
 
     public ShopPrice toEntity(){
@@ -25,7 +28,5 @@ public class ShopPriceForm {
         return new ShopPrice(total, items);
 
     }
-
-
 
 }

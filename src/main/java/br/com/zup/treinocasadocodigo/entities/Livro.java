@@ -3,6 +3,7 @@ package br.com.zup.treinocasadocodigo.entities;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -23,7 +24,7 @@ public class Livro {
 
     @NotNull
     @Min(20)
-    private double preco;
+    private BigDecimal preco;
 
     @NotNull
     @Min(100)
@@ -48,7 +49,7 @@ public class Livro {
 
     protected Livro(){}
 
-    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario, @NotBlank @Min(20) double preco, @NotBlank @Min(100) int nPaginas, @NotBlank String isbn, @NotBlank @Future LocalDate dataPublicacao, @NotBlank @Valid Categoria categoria, @NotBlank @Valid Autor autor) {
+    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario, @NotBlank @Min(20) BigDecimal preco, @NotBlank @Min(100) int nPaginas, @NotBlank String isbn, @NotBlank @Future LocalDate dataPublicacao, @NotBlank @Valid Categoria categoria, @NotBlank @Valid Autor autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -88,11 +89,11 @@ public class Livro {
         this.sumario = sumario;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

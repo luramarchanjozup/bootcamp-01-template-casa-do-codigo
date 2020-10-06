@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -27,7 +28,7 @@ public class LivroNovoRequest {
 
     @NotNull
     @Min(20)
-    private double preco;
+    private BigDecimal preco;
 
     @NotNull
     @Min(100)
@@ -62,7 +63,7 @@ public class LivroNovoRequest {
         return sumario;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 

@@ -4,8 +4,12 @@ import br.com.casadocodigo.forms.BookForm;
 import br.com.casadocodigo.models.Book;
 import br.com.casadocodigo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +19,17 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BookController {
 
-    //+1
     @Autowired
-    private BookRepository bookRepository;
+    private EntityManager entityManager;
 
-    @PostMapping                                                    //+1
-    public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookForm bookForm){
+    @PostMapping
+    @Transactional
+    public ResponseEntity<?> createBook(@RequestBody @Valid BookForm bookForm){
 
         //+1
-        Book book = bookForm.toEntity();
+        entityManager.persist(bookForm.toEntity());
 
-        bookRepository.save(book);
-
-                                        //+1
-        return ResponseEntity.ok(new BookDto(book));
+        return ResponseEntity.ok().build();
 
     }
 
@@ -36,26 +37,42 @@ public class BookController {
     public ResponseEntity<List<BookDto>> getAllBooks(){
 
         //+1
-        List<BookDto> booksDtos = new ArrayList<>();
+        try{
 
-        //+1
-        List<Book> books = bookRepository.findAll();
+            //+1
+            List<BookDto> booksDtos = new ArrayList<>();
 
-        //+1
-        books.forEach(book -> booksDtos.add(new BookDto(book)));
+            //+1
+            entityManager
+                    .createQuery("SELECT b FROM Book b", Book.class)
+                    .getResultList()
+                    .forEach(book -> booksDtos.add(new BookDto(book)));
 
-        return ResponseEntity.ok(booksDtos);
+            return ResponseEntity.ok(booksDtos);
+
+        }catch(RuntimeException exception){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getBookById(@PathVariable Long id){
+    public ResponseEntity<Book> getBookById(@PathVariable Long id){
 
         //+1
-        Optional<Book> book = bookRepository.findById(id);
+        try{
 
-        //+1
-        return ResponseEntity.ok(book);
+            Book book = entityManager.find(Book.class, id);
 
+            //+1
+            return  book != null ? ResponseEntity.ok(book) : ResponseEntity.notFound().build();
+
+        }catch(RuntimeException exception){
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
     }
 }

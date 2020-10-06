@@ -37,42 +37,42 @@
 - Usei como referência o guia do Spotify 
 - https://developer.spotify.com/documentation/web-api/reference
 
-> MÉTODO          ENDPOINT            USO          RETORNA
+- MÉTODO          ENDPOINT            USO          RETORNA
 
 
-> Compras        
-> POST           /shop/finish      finalizar compra
+- Compras        
+- POST           /shop/finish      finalizar compra
 
-> POST           /shop/user-data   dados do usuário
+- POST           /shop/user-data   dados do usuário
                                      que fará a compra
 
-> PUT        /shop/{id}/{couponId}    aplica cupom
+- PUT        /shop/{id}/{couponId}    aplica cupom
 
-> GET           /shop/{id}          detalhes finais
+- GET           /shop/{id}          detalhes finais
                                       da compra
 
-> Autores
-> POST            /authors        criar autor     autor (nome)
+- Autores
+- POST            /authors        criar autor     autor (nome)
 
 
-> Livros
-> GET             /books          buscar livros 
+- Livros
+- GET             /books          buscar livros 
 
-> GET             /books/{id}     buscar um livro
+- GET             /books/{id}     buscar um livro
 
-> POST            /books          criar livro
-
-
-> Categorias
-> POST            /categories     criar categorias
+- POST            /books          criar livro
 
 
-> Países
-> POST            /countries      criar países
+- Categorias
+- POST            /categories     criar categorias
 
 
-> Estados
-> POST            /states         criar estados
+- Países
+- POST            /countries      criar países
+
+
+- Estados
+- POST            /states         criar estados
 
 
 ### Etapas do desafio

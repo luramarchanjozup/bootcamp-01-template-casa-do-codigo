@@ -3,8 +3,6 @@ package com.itau.cdc.DTO;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.EntityManager;
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,11 +10,8 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.entity.Autor;
-import com.itau.cdc.entity.Categoria;
-import com.itau.cdc.entity.Livro;
 
-public class LivroRequest {
+public class LivroResponse {
 
 	@JsonProperty("titulo")
 	@NotBlank
@@ -56,9 +51,9 @@ public class LivroRequest {
 	@NotNull
 	private Long idAutor;
 
-	public LivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
-			@NotBlank @Min(20) BigDecimal preco, @NotBlank Integer numeroPaginas, @NotBlank String isbn,
-			@NotNull Date dataPublicacao, @NotNull @NotBlank Long categoria, @NotNull @NotBlank Long autor) {
+	public LivroResponse(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
+			@NotNull @Min(20) BigDecimal preco, @NotNull Integer numeroPaginas, @NotBlank String isbn,
+			@NotNull Date dataPublicacao, @NotNull Long idCategoria, @NotNull Long idAutor) {
 		super();
 		this.titulo = titulo;
 		this.resumo = resumo;
@@ -67,12 +62,8 @@ public class LivroRequest {
 		this.numeroPaginas = numeroPaginas;
 		this.isbn = isbn;
 		this.dataPublicacao = dataPublicacao;
-		this.idCategoria = categoria;
-		this.idAutor = autor;
-	}
-
-	public LivroRequest() {
-		super();
+		this.idCategoria = idCategoria;
+		this.idAutor = idAutor;
 	}
 
 	public String getTitulo() {
@@ -109,23 +100,6 @@ public class LivroRequest {
 
 	public Long getIdAutor() {
 		return idAutor;
-	}
-	
-	public @Valid Livro toModel(EntityManager manager) {
-	
-		Categoria categoria  = manager.find(Categoria.class, idCategoria);
-		Autor autor = manager.find(Autor.class,  idAutor);
-		
-		if((categoria==null && autor==null)) {
-			throw new IllegalArgumentException("Categoria e autor não cadastrados.");
-		}else if(categoria==null) {
-			throw new IllegalArgumentException("Categoria não cadastrada.");
-		}else if(autor==null) {
-			throw new IllegalArgumentException("Autor(a) não cadastrado(a).");
-		}
-		
-		return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria, autor);
-		
 	}
 	
 }

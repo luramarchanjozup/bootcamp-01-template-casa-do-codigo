@@ -16,6 +16,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.itau.cdc.DTO.LivroResponse;
+
 @Entity
 public class Livro {
 	
@@ -118,6 +120,10 @@ public class Livro {
 
 	public Autor getAutor() {
 		return autor;
+	}
+
+	public LivroResponse toResponse() {
+		return new LivroResponse(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria.getId(), autor.getId());
 	}
 	
 }

@@ -1,7 +1,8 @@
-package com.itau.cdc.model;
+package com.itau.cdc.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +38,10 @@ public class Cupom {
 		this.codigo = codigo;
 		this.percentual = percentual;
 		this.validade = validade;
+	}
+	
+	public void AlteraIdCupom(Optional<Cupom> cupomNaBase) {
+		this.id = cupomNaBase.get().getId();
 	}
 
 	public Long getId() {

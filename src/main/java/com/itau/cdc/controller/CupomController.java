@@ -11,23 +11,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.CupomRequest;
-import com.itau.cdc.model.Cupom;
-import com.itau.cdc.service.NovoCupomService;
+import com.itau.cdc.DTO.NovoCupomRequest;
+import com.itau.cdc.entity.Cupom;
+import com.itau.cdc.service.CupomService;
 
 @RestController
 public class CupomController {
 
 	@Autowired
-	private NovoCupomService novoCupomService;
+	private CupomService novoCupomService;
 	
 	@PostMapping("/v1/cupons")
 	@Transactional
-	private ResponseEntity<?> NovoCupom(@RequestBody @Valid CupomRequest request, UriComponentsBuilder builder){
+	private ResponseEntity<?> NovoCupom(@RequestBody @Valid NovoCupomRequest request, UriComponentsBuilder builder){
 		
 		Long idCupom = novoCupomService.NovoCupom(request);
 		
@@ -47,6 +48,16 @@ public class CupomController {
 		}else {
 			return ResponseEntity.notFound().build();
 		}
+		
+	}
+	
+	@PutMapping("/v1/cupons/{codigo_cupom}")
+	@Transactional
+	private ResponseEntity<?> AlteraCupom(@PathVariable("codigo_cupom") String codigoCupom, @RequestBody @Valid NovoCupomRequest request){
+		
+		Cupom cupom = novoCupomService.AlteraCupom(codigoCupom, request);
+		
+		return ResponseEntity.ok(cupom);
 		
 	}
 	

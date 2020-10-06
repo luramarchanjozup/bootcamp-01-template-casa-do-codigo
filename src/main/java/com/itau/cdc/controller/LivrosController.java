@@ -1,6 +1,7 @@
 package com.itau.cdc.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.itau.cdc.DTO.LivroRequest;
-import com.itau.cdc.entity.Livro;
+import com.itau.cdc.DTO.LivroResponse;
 import com.itau.cdc.service.LivroService;
 
 @RestController
@@ -37,8 +38,7 @@ public class LivrosController {
 	@GetMapping("/v1/livros")
 	public ResponseEntity<?> RetornaListaLivros(UriComponentsBuilder builder){
 
-		Iterable<Livro> livros = livroService.ListaLivros();
-		
+		List<LivroResponse> livros = livroService.ListaLivros();
 		if(livros==null) {
 			return ResponseEntity.notFound().build();
 		}

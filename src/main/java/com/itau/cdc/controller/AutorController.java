@@ -31,7 +31,6 @@ public class AutorController {
 		URI enderecoConsulta = builder.path("/v1/autores/{id}").build(idAutor);
 		
 		return ResponseEntity.created(enderecoConsulta).build();
-		
 	}
 	
 }

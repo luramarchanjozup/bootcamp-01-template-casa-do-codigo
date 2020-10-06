@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.model.Autor;
+import com.itau.cdc.entity.Autor;
 
 public class AutorRequest {
 

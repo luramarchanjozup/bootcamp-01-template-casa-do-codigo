@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.itau.cdc.model.Pais;
+import com.itau.cdc.entity.Pais;
 
 public interface PaisJpaRepository extends JpaRepository<Pais, Long> {
 

@@ -12,23 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.AutorRequest;
-import com.itau.cdc.service.AutorService;
+import com.itau.cdc.DTO.CompraRequest;
+import com.itau.cdc.service.NovaCompraService;
 
 @RestController
-public class AutorController {
+public class NovaCompraController {
 
 	@Autowired
-	private AutorService autorService;
-
-	//1
-	@PostMapping("/v1/autores")
+	private NovaCompraService novaCompraService;
+	
+	@PostMapping("/v1/compras")
 	@Transactional
-	public ResponseEntity<?> CriaAutor(@RequestBody @Valid AutorRequest request, UriComponentsBuilder builder){
-		//1
-		Long idAutor = autorService.IncluirAutor(request);
+	public ResponseEntity<?> NovaCompra (@RequestBody @Valid CompraRequest request,  UriComponentsBuilder builder){
 		
-		URI enderecoConsulta = builder.path("/v1/autores/{id}").build(idAutor);
+		Long idCompra = novaCompraService.NovaCompra(request);
+		
+		URI enderecoConsulta = builder.path("/v1/compras/{id}").build(idCompra);
 		
 		return ResponseEntity.created(enderecoConsulta).build();
 		

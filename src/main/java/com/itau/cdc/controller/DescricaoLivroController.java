@@ -21,8 +21,12 @@ public class DescricaoLivroController {
 		
 		DetalheSiteLivroResponse livro = descricaoLivroService.DescricaoLivro(idLivro);
 		
-		return ResponseEntity.ok(livro);
-		
+		if (livro == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(livro);
+		}
+
 	}
 	
 }

@@ -3,7 +3,7 @@ package com.itau.cdc.DTO;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.model.Categoria;
+import com.itau.cdc.entity.Categoria;
 
 public class CategoriaRequest {
 

@@ -7,32 +7,21 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.itau.cdc.DTO.LivroRequest;
-import com.itau.cdc.model.Livro2;
+import com.itau.cdc.entity.Livro;
 import com.itau.cdc.service.LivroService;
-import com.itau.cdc.validator.ProibeLivroDuplicadoValidator;
 
 @RestController
 public class LivrosController {
 
 	@Autowired
 	private LivroService livroService;
-	
-	@Autowired
-	private ProibeLivroDuplicadoValidator proibeLivroDuplicadoValidator;
-	
-	@InitBinder
-	public void init(WebDataBinder binder) {
-		binder.addValidators(proibeLivroDuplicadoValidator);
-	}
 	
 	@PostMapping("/v1/livros")
 	@Transactional
@@ -48,10 +37,14 @@ public class LivrosController {
 	@GetMapping("/v1/livros")
 	public ResponseEntity<?> RetornaListaLivros(UriComponentsBuilder builder){
 
-		Iterable<Livro2> livros = livroService.ListaLivros();
+		Iterable<Livro> livros = livroService.ListaLivros();
+		
+		if(livros==null) {
+			return ResponseEntity.notFound().build();
+		}
 		
 		return ResponseEntity.ok(livros);
-		
+	
 	}
 	
 }

@@ -1,7 +1,7 @@
 package com.itau.cdc.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.model.Autor;
+import com.itau.cdc.entity.Autor;
 
 public class DetalheSiteAutorResponse {
 

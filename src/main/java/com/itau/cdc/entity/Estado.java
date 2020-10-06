@@ -1,10 +1,11 @@
-package com.itau.cdc.model;
+package com.itau.cdc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -21,13 +22,17 @@ public class Estado {
 	private String nome;
 	
 	@NotNull
-	@Column(name="id_pais", nullable = false)
+	@ManyToOne
 	private Pais pais;
 
 	public Estado(@NotBlank String nome, @NotNull Pais pais) {
 		super();
 		this.nome=nome;
 		this.pais=pais;
+	}
+
+	public Estado() {
+		super();
 	}
 
 	public Long getId() {
@@ -38,7 +43,7 @@ public class Estado {
 		return nome;
 	}
 
-	public Pais getIdPais() {
+	public Pais getPais() {
 		return pais;
 	}
 	

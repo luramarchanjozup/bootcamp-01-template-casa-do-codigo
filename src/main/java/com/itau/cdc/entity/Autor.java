@@ -1,4 +1,4 @@
-package com.itau.cdc.model;
+package com.itau.cdc.entity;
 
 import java.time.LocalDateTime;
 

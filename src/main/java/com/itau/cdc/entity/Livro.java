@@ -1,4 +1,4 @@
-package com.itau.cdc.model;
+package com.itau.cdc.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Livro2 {
+public class Livro {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +51,7 @@ public class Livro2 {
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)
+	
 	@Column(name="data_publicacao", nullable = false)
 	private Date dataPublicacao;
 	
@@ -60,11 +61,11 @@ public class Livro2 {
 	@ManyToOne(targetEntity = Autor.class)
 	private Autor autor;
 
-	public Livro2() {
+	public Livro() {
 		super();
 	}
 	
-	public Livro2(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
+	public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
 			@NotBlank @Min(20) BigDecimal preco, @NotBlank Integer numeroPaginas, @NotBlank String isbn,
 			@NotNull Date dataPublicacao, @NotNull Categoria categoria, @NotNull Autor autor) {
 		super();

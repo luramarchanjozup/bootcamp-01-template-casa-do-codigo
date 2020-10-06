@@ -5,11 +5,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.util.Assert;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.model.Estado;
-import com.itau.cdc.model.Pais;
+import com.itau.cdc.entity.Estado;
+import com.itau.cdc.entity.Pais;
 
 public class EstadoRequest {
 
@@ -29,7 +27,9 @@ public class EstadoRequest {
 		
 		Pais pais = manager.find(Pais.class, idPais);
 		
-		Assert.state(pais!=null, "Pais não cadastrado.");
+		if(pais == null){
+			throw new IllegalArgumentException("País não cadastrado.");
+		}
 		
 		return new Estado(nome, pais);
 	}

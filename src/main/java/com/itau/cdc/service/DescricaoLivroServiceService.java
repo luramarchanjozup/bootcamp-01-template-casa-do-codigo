@@ -4,10 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import com.itau.cdc.DTO.DetalheSiteLivroResponse;
-import com.itau.cdc.model.Livro2;
+import com.itau.cdc.entity.Livro;
 
 @Service
 public class DescricaoLivroServiceService {
@@ -17,9 +16,11 @@ public class DescricaoLivroServiceService {
 	
 	public DetalheSiteLivroResponse DescricaoLivro(Long idLivro) {
 		
-		Livro2 livro = manager.find(Livro2.class, idLivro);
+		Livro livro = manager.find(Livro.class, idLivro);
 		
-		Assert.state(livro!=null, "Livro não existe");
+		if (livro == null){
+			return null;
+		}
 		
 		DetalheSiteLivroResponse detalheLivro = new DetalheSiteLivroResponse(livro);
 		

@@ -3,7 +3,7 @@ package com.itau.cdc.DTO;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.model.Pais;
+import com.itau.cdc.entity.Pais;
 
 
 public class PaisRequest {

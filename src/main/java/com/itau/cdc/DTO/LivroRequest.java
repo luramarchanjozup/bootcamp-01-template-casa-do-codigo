@@ -14,9 +14,9 @@ import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.model.Autor;
-import com.itau.cdc.model.Categoria;
-import com.itau.cdc.model.Livro2;
+import com.itau.cdc.entity.Autor;
+import com.itau.cdc.entity.Categoria;
+import com.itau.cdc.entity.Livro;
 
 public class LivroRequest {
 
@@ -113,16 +113,20 @@ public class LivroRequest {
 		return idAutor;
 	}
 	
-	public @Valid Livro2 toModel(EntityManager manager) {
+	public @Valid Livro toModel(EntityManager manager) {
 	
 		Categoria categoria  = manager.find(Categoria.class, idCategoria);
 		Autor autor = manager.find(Autor.class,  idAutor);
 		
-		Assert.state(categoria!=null || autor!=null, "Categoria e autor não existem.");
-		Assert.state(categoria!=null, "Categoria não existe.");
-		Assert.state(autor!=null, "Autor não existe.");
+		if((categoria==null && autor==null)) {
+			throw new IllegalArgumentException("Categoria e autor não cadastrados.");
+		}else if(categoria==null) {
+			throw new IllegalArgumentException("Categoria não cadastrada.");
+		}else if(autor==null) {
+			throw new IllegalArgumentException("Autor(a) não cadastrado(a).");
+		}
 		
-		return new Livro2(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria, autor);
+		return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria, autor);
 		
 	}
 	

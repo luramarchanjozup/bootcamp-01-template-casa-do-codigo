@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.model.Livro2;
+import com.itau.cdc.entity.Livro;
 
 public class DetalheSiteLivroResponse {
 
@@ -32,7 +32,7 @@ public class DetalheSiteLivroResponse {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataPublicacao;
 	
-	public DetalheSiteLivroResponse(Livro2 livro) {
+	public DetalheSiteLivroResponse(Livro livro) {
 		super();
 		this.autor = new DetalheSiteAutorResponse(livro.getAutor());
 		this.titulo = livro.getTitulo();

@@ -2,9 +2,11 @@ package br.com.zup.treinocasadocodigo.controllers;
 
 import br.com.zup.treinocasadocodigo.entities.Livro;
 import br.com.zup.treinocasadocodigo.entities.LivroNovoRequest;
-import br.com.zup.treinocasadocodigo.entities.LivroRetorno;
+import br.com.zup.treinocasadocodigo.entities.LivroRetornoLista;
+import br.com.zup.treinocasadocodigo.entities.LivroRetornoDetalhes;
 import br.com.zup.treinocasadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 5
+ * Contagem de carga intrínseca da classe: 7
  */
 
 @RestController
@@ -41,12 +43,23 @@ public class LivroController {
 
     @GetMapping()
     //1
-    public List<LivroRetorno> todosLivros() {
+    public List<LivroRetornoLista> todosLivros() {
         //1
         return livroRepository
                 .findAll()
                 .stream()
-                .map(LivroRetorno::new)
+                .map(LivroRetornoLista::new)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> detalhesLivro(@PathVariable("id") Long id) {
+        Livro livro = manager.find(Livro.class, id);
+        //1
+        if (livro == null) {
+            return ResponseEntity.notFound().build();
+        }
+        //1
+        return ResponseEntity.ok(new LivroRetornoDetalhes(livro));
     }
 }

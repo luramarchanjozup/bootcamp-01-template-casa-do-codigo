@@ -21,7 +21,6 @@ public class BookController {
     @PostMapping
     @Transactional
     public Book createBook (@RequestBody BookRequest request) {
-        System.out.println("teste");
         Book book = request.toModel(entityManager);
         entityManager.persist(book);
         return book;

@@ -1,11 +1,14 @@
 package com.bootcamp.cdd.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 public class Author {
@@ -18,13 +21,13 @@ public class Author {
     private String description;
     @NotBlank(message = "email precisa ser preenchido") @Email(message = "email invalido!")
     private String email;
-    private Instant created_at;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:SSS'Z'")
+    private final LocalDateTime created_at = LocalDateTime.now();
 
-    public Author(@NotBlank String name, @Length(min = 3, max = 60) String description, @NotBlank @Email String email, Instant created_at) {
+    public Author(@NotBlank String name, @Length(min = 3, max = 60) String description, @NotBlank @Email String email) {
         this.name = name;
         this.description = description;
         this.email = email;
-        this.created_at = created_at;
     }
 
     public Author() {
@@ -46,7 +49,7 @@ public class Author {
         return email;
     }
 
-    public Instant getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 }

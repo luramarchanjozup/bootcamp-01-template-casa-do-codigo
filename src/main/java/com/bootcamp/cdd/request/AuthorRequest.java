@@ -20,6 +20,6 @@ public class AuthorRequest {
     }
 
     public Author toModel () {
-        return new Author(this.name, this.description,  this.email, Instant.now());
+        return new Author(this.name, this.description,  this.email);
     }
 }

@@ -53,13 +53,14 @@ public class LivroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> detalhesLivro(@PathVariable("id") Long id) {
+    //1
+    public ResponseEntity<LivroRetornoDetalhes> detalhesLivro(@PathVariable("id") Long id) {
         Livro livro = manager.find(Livro.class, id);
         //1
         if (livro == null) {
             return ResponseEntity.notFound().build();
         }
-        //1
+
         return ResponseEntity.ok(new LivroRetornoDetalhes(livro));
     }
 }

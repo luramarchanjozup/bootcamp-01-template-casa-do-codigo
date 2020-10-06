@@ -1,10 +1,8 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -17,25 +15,27 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
+    @NotBlank
     private String nome;
+    @NotBlank
+    @Email
     private String email;
+    @NotBlank
+    @Size(max = 400)
     private String descricao;
     @NotNull
-    private LocalDateTime registro;
+    private LocalDateTime registro = LocalDateTime.now();
 
     @Deprecated
     public Autor(){
 
     }
 
-    public Autor(String nome, String email, String descricao, LocalDateTime registro) {
+    public Autor(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
-        this.registro = registro;
     }
-
 
     //Getters e Setters
     public Integer getId() {
@@ -72,5 +72,14 @@ public class Autor {
 
     public LocalDateTime getRegistro() {
         return registro;
+    }
+
+    @Override
+    public String toString() {
+        return "Autor Cadastrado [" +
+                "Nome: '" + nome + '\'' +
+                " | Email: '" + email + '\'' +
+                " | Descrição: '" + descricao + '\'' +
+                ']';
     }
 }

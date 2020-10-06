@@ -1,6 +1,9 @@
 package com.guiferrini.CasaCodigo.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +23,15 @@ public class AutorController {
 	//Criando Autor
 	@CrossOrigin
 	@PostMapping
-	public Autor createAutor(@RequestBody Autor autor) {
+	//public Autor createAutor(@Valid @RequestBody Autor autor) {
+	public ResponseEntity<Autor> insert(@Valid @RequestBody Autor autor){
 		Autor obj = autorRepo.save(autor);
-		return obj;
+		if(obj instanceof Autor) {
+			return ResponseEntity.status(200).body(obj);
+			//return obj.toString();
+		} else {
+			return ResponseEntity.status(400).body(obj);
+		}
 	}
 	
 	//Listando Autores

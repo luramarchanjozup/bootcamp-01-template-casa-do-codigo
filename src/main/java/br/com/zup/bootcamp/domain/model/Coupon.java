@@ -1,17 +1,14 @@
 package br.com.zup.bootcamp.domain.model;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
 
-// Intrinsic charge = 0
+// Intrinsic charge = 1
 @Entity
 public class Coupon implements Serializable {
 
@@ -33,6 +30,9 @@ public class Coupon implements Serializable {
     @Future
     @Column(nullable = false)
     private LocalDate expirationDate;
+
+    @OneToMany(mappedBy = "coupon")
+    private Collection<Purchase> purchases;
 
     public String getId() {
         return id;
@@ -64,5 +64,9 @@ public class Coupon implements Serializable {
 
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public boolean isValid() {
+        return !this.expirationDate.isAfter(LocalDate.now());
     }
 }

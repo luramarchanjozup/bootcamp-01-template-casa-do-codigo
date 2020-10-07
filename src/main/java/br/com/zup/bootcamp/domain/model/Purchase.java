@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-// Intrinsic charge = 2
+// Intrinsic charge = 3
 @Entity
 public class Purchase implements Serializable {
 
@@ -21,6 +21,10 @@ public class Purchase implements Serializable {
 
     @Column(nullable = false)
     private float total;
+
+    @ManyToOne
+    @JoinColumn(name = "coupon_id", referencedColumnName = "id")
+    private Coupon coupon;
 
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
     private Collection<Item> items;
@@ -41,6 +45,10 @@ public class Purchase implements Serializable {
         return items;
     }
 
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -55,6 +63,10 @@ public class Purchase implements Serializable {
 
     public void setItems(Collection<Item> items) {
         this.items = items;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
     }
 
     public void addItem(Item item){

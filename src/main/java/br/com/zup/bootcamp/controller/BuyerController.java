@@ -19,7 +19,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.Collection;
 
-// Intrinsic charge = 9
+// Intrinsic charge = 15
 @RestController
 @RequestMapping("/buy")
 public class BuyerController {
@@ -34,6 +34,21 @@ public class BuyerController {
         Buyer newBuyer = request.convert();
         Purchase newPurchase = request.getCart().convert(newBuyer);
         newBuyer.setPurchase(newPurchase);
+
+        Coupon coupon;
+        if(request.getCart().getCoupon() != null){
+            Query query = manager.createQuery("select b from " + Coupon.class.getName() + " b where code = :value");
+            query.setParameter("value", request.getCart().getCoupon());
+            coupon = (Coupon) query.getResultList().get(0);
+            if(coupon.isValid()){
+                response = new GenericResponse("Coupon is expired");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+            newPurchase.setCoupon(coupon);
+        }else{
+            coupon = new Coupon();
+            coupon.setPercentage(0);
+        }
 
         if(request.getCart().getTotal() <= 0){
             response = new GenericResponse("Total must to be greater than 0");
@@ -50,6 +65,7 @@ public class BuyerController {
             items.add(item);
         }
         newPurchase.setItems(items);
+        total = total - ( (total * coupon.getPercentage()) / 100 );
 
         if(total != newPurchase.getTotal()){
             response = new GenericResponse("The total request is different from the calculated");

@@ -6,6 +6,7 @@ import com.bootcamp.cdd.shared.UniqueValue;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -15,12 +16,18 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotBlank(message = "titulo é obrigatório")
     private String titulo;
     private String sumario;
+    @Min(value = 100, message = "O livro deve ter pelo menos 100 paginas")
     private int quantidadePaginas;
+    @NotBlank(message = "resumo é obrigatório") @Length(min = 1, max = 500, message = "O resumo deve ter entre 1 e 500 caracteres")
     private String resumo;
+   @Min(value = 20, message = "o preço minimo é de 20 reais")
     private double preco;
+    @NotBlank(message = "Isnb é obrigatorio")
     private String isnb;
+    @Future
     private LocalDate dataPublicacao;
     @ManyToOne
     private Author author;

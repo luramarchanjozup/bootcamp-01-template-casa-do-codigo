@@ -8,21 +8,26 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class BookRequest {
     @NotBlank(message = "Titulo é obrigatório")
+    @UniqueValue(domainClass = Book.class, fieldName = "titulo", message = "Esse titulo já foi cadastrado")
     private String titulo;
     private String sumario;
+    @Min(value = 100, message = "O livro deve ter pelo menos 100 paginas")
     private int quantidadePaginas;
     @NotBlank(message = "Resumo é obrigatório") @Length(min = 1, max = 500, message = "Sumario deve ter entre 1 e 500 caracteres.")
     private String resumo;
     @Min(value = 20, message = "Preço deve ser maior que 20.")
     private double preco;
     @NotBlank(message = "Isnb é obrigatório")
+    @UniqueValue(domainClass = Book.class, fieldName = "isnb", message = "Esse isnb já foi cadastrado")
     private String isnb;
+    @Future
     private LocalDate dataPublicacao;
     private long categoryId;
     private long authorId;

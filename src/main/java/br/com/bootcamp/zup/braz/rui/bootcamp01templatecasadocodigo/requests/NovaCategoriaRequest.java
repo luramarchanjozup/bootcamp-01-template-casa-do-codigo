@@ -28,6 +28,6 @@ public class NovaCategoriaRequest {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toLowerCase();
     }
 }

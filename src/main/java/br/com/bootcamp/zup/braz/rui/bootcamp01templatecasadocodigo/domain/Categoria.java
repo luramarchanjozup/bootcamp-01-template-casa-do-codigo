@@ -38,7 +38,7 @@ public class Categoria {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toLowerCase();
     }
 
     @Override

@@ -29,7 +29,7 @@ public class CategoriaUnicaValidator implements Validator {
         Optional<Categoria> categoriaCadastrada = categoriaRepository.findByNome(novaCategoriaRequest.getNome());
 
         if (categoriaCadastrada.isPresent()){
-            errors.rejectValue("categoria", null, "Categoria ja cadastrada: " + novaCategoriaRequest.getNome());
+            errors.rejectValue("nome", null, "da categoria já cadastrada: " + novaCategoriaRequest.getNome());
         }
     }
 }

@@ -2,30 +2,11 @@ package com.guiferrini.CasaCodigo.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
-
-@Entity
-@Table(name = "autor")
-public class Autor {
-	
-	@Id
-	@Column(name="id",nullable=false)
-	//@SequenceGenerator(name="autor_seq",sequenceName = "autor_seq_id",initialValue = 1,allocationSize = 1)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="autor_seq")
-	//private Long id;
-	@GeneratedValue(generator = "UUID", strategy = GenerationType.SEQUENCE)
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	private String id;
+public class AutorDTO {
 	
 	@NotBlank(message = "Nome obrigatório")
 	private String nome;
@@ -39,12 +20,11 @@ public class Autor {
 	private String descricao;
 	
 	private LocalDateTime horaRegistro = LocalDateTime.now();
-	 
-	@Deprecated
-	public Autor() {
+
+	public AutorDTO() {
 	}
 
-	public Autor(
+	public AutorDTO(
 			@NotBlank String nome, 
 			@NotBlank @Email String email, 
 			@NotBlank @Size(max=400) String descricao
@@ -53,14 +33,6 @@ public class Autor {
 		this.nome = nome;
 		this.email = email;
 		this.descricao = descricao;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -87,14 +59,9 @@ public class Autor {
 		this.descricao = descricao;
 	} 
 	
-	public String toString() {
-		return nome
-				+ " "
-				+ email
-				+ " "
-				+ descricao
-				+ " "
-				+ horaRegistro; 
+	public Autor toModel() {
+		Autor obj = new Autor(nome, email, descricao);
+		return obj; 
 	}
 }
 

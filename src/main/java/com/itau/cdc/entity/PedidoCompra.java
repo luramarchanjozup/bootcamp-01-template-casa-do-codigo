@@ -2,7 +2,10 @@ package com.itau.cdc.entity;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -16,6 +19,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.itau.cdc.DTO.ItemCompraResponse;
+import com.itau.cdc.DTO.PedidoCompraResponse;
+
 @Entity
 public class PedidoCompra {
 
@@ -23,6 +29,12 @@ public class PedidoCompra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Positive
+	private BigDecimal total;
+	
+	@Positive
+	private BigDecimal totalSemDesconto;
+	
 	@OneToOne
 	private NovaCompra compra;
 
@@ -31,23 +43,35 @@ public class PedidoCompra {
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	@ManyToOne
-	private Cupom2 cupom;
+	private Cupom cupom;
 
-	public PedidoCompra(@NotNull @Valid NovaCompra compra, @Size(min = 1) Set<ItemPedido> itensCalculados,
-			Cupom2 cupom) {
+	public PedidoCompra(@Positive BigDecimal total, @NotNull @Valid NovaCompra compra, @Size(min = 1) Set<ItemPedido> itensCalculados,
+			Cupom cupom) {
 		super();
+		this.total=total;
 		this.compra = compra;
 		this.itens.addAll(itensCalculados);
+		this.total=total;
+
 		this.cupom = cupom;
+		if(cupom!=null) {
+			this.totalSemDesconto=calculaTotalPedido();
+		}else {
+			this.totalSemDesconto=total;
+		}
+		
 	}
 
 	public PedidoCompra() {
 		super();
 	}
 
+	public BigDecimal calculaTotalPedido() {
+		return itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo));
+	}
+	
 	public boolean totalIgual(@Positive BigDecimal total) {
-		BigDecimal totalPedido = CalculaTotalPedidoComDesconto(
-				itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo)));
+		BigDecimal totalPedido = CalculaTotalPedidoComDesconto(calculaTotalPedido());
 
 		return totalPedido.doubleValue() == total.doubleValue();
 	}
@@ -72,8 +96,22 @@ public class PedidoCompra {
 		return itens;
 	}
 
-	public Cupom2 getCupom() {
+	public Cupom getCupom() {
 		return cupom;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public PedidoCompraResponse toResponse() {
+		List<ItemCompraResponse> listaItens = StreamSupport.stream(itens.spliterator(), false)
+				.map(item -> item.toResponse()).collect(Collectors.toList());
+		if(cupom!=null) {
+			return new PedidoCompraResponse(listaItens, cupom.toResponse(), total, totalSemDesconto);
+		}else {
+			return new PedidoCompraResponse(listaItens, total);
+		}
 	}
 
 }

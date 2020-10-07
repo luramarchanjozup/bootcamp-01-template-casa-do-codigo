@@ -48,4 +48,15 @@ public class LivroService {
 		return listaLivrosResponse;
 	}
 
+	public LivroResponse ConsultaLivro(Long idLivro) {
+
+		Livro livro = manager.find(Livro.class, idLivro);
+		
+		if(livro.equals(null)) {
+			return null;
+		}
+		
+		return livro.toResponse();
+	}
+
 }

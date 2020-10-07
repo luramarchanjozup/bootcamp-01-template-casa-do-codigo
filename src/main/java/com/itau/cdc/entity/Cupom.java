@@ -13,8 +13,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.itau.cdc.DTO.CupomResponse;
+
 @Entity
-public class Cupom2 {
+public class Cupom {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,18 +32,18 @@ public class Cupom2 {
 	@NotNull
 	private Date validade;
 
-	public Cupom2() {
+	public Cupom() {
 		super();
 	}
 
-	public Cupom2(String codigo, @NotNull @Positive BigDecimal percentual, Date validade) {
+	public Cupom(String codigo, @NotNull @Positive BigDecimal percentual, Date validade) {
 		super();
 		this.codigo = codigo;
 		this.percentualDesconto = percentual;
 		this.validade = validade;
 	}
 
-	public void AlteraIdCupom(Optional<Cupom2> cupomNaBase) {
+	public void AlteraIdCupom(Optional<Cupom> cupomNaBase) {
 		this.id = cupomNaBase.get().getId();
 	}
 
@@ -66,15 +68,20 @@ public class Cupom2 {
 		return codigo;
 	}
 
-	public void CupomValido(Cupom2 cupom, Long idCupom, EntityManager manager) {
+	public Cupom CupomValido(Cupom cupom, Long idCupom, EntityManager manager) {
 		if(idCupom!=null) {
-			 cupom = manager.find(Cupom2.class, idCupom);
-			 if(cupom.getValidade().after(new Date())) {
+			 cupom = manager.find(Cupom.class, idCupom);
+			 if(!cupom.getValidade().after(new Date())) {
 				 throw new IllegalArgumentException("Cupom vencido.");
 			 }
 		}else {
 			 cupom = null;
 		}
+		return cupom;
+	}
+
+	public CupomResponse toResponse() {
+		return new CupomResponse(id, codigo, percentualDesconto);
 	}
 
 }

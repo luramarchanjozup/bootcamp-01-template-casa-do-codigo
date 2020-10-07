@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.itau.cdc.entity.Cupom2;
+import com.itau.cdc.entity.Cupom;
 
-public class NovoCupomRequest {
+public class CupomRequest {
 
 	@NotBlank
 	private String codigo;
@@ -35,11 +35,11 @@ public class NovoCupomRequest {
 		return validade;
 	}
 
-	public Cupom2 toModel() {
+	public Cupom toModel() {
 		if(!validade.after(new Date())) {
 			throw new IllegalArgumentException("Data de validade " + validade + " do cupom deve ser maior que agora.");
 		}
-		return new Cupom2(codigo, percentual, validade);
+		return new Cupom(codigo, percentual, validade);
 	}
 
 }

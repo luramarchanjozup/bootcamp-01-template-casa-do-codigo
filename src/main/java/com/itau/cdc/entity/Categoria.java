@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.itau.cdc.DTO.CategoriaResponse;
+
 @Entity
 public class Categoria {
 
@@ -44,6 +46,10 @@ public class Categoria {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public @NotNull CategoriaResponse toResponse() {
+		return new CategoriaResponse(id, nome);
 	}
 	
 }

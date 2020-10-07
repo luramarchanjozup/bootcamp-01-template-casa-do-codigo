@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import com.itau.cdc.DTO.AutorResponse;
+
 @Entity
 public class Autor {
 
@@ -79,6 +81,10 @@ public class Autor {
 
 	public LocalDateTime getInstanteCriacao() {
 		return instanteCriacao;
+	}
+
+	public @NotNull AutorResponse toResponse() {
+		return new AutorResponse(id, email, nome, descricao);
 	}
 	
 }

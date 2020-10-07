@@ -123,7 +123,7 @@ public class Livro {
 	}
 
 	public LivroResponse toResponse() {
-		return new LivroResponse(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria.getId(), autor.getId());
+		return new LivroResponse(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria.toResponse(), autor.toResponse());
 	}
 	
 }

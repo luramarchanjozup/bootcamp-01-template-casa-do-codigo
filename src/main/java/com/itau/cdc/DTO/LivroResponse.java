@@ -43,17 +43,17 @@ public class LivroResponse {
 	@NotNull
 	private Date dataPublicacao;
 
-	@JsonProperty("id_categoria")
+	@JsonProperty("categoria")
 	@NotNull
-	private Long idCategoria;
+	private CategoriaResponse categoria;
 
-	@JsonProperty("id_autor")
+	@JsonProperty("autor")
 	@NotNull
-	private Long idAutor;
+	private AutorResponse autor;
 
 	public LivroResponse(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
 			@NotNull @Min(20) BigDecimal preco, @NotNull Integer numeroPaginas, @NotBlank String isbn,
-			@NotNull Date dataPublicacao, @NotNull Long idCategoria, @NotNull Long idAutor) {
+			@NotNull Date dataPublicacao, @NotNull CategoriaResponse categoria, @NotNull AutorResponse autor) {
 		super();
 		this.titulo = titulo;
 		this.resumo = resumo;
@@ -62,8 +62,8 @@ public class LivroResponse {
 		this.numeroPaginas = numeroPaginas;
 		this.isbn = isbn;
 		this.dataPublicacao = dataPublicacao;
-		this.idCategoria = idCategoria;
-		this.idAutor = idAutor;
+		this.categoria = categoria;
+		this.autor = autor;
 	}
 
 	public String getTitulo() {
@@ -94,12 +94,13 @@ public class LivroResponse {
 		return dataPublicacao;
 	}
 
-	public Long getIdCategoria() {
-		return idCategoria;
+	public CategoriaResponse getCategoria() {
+		return categoria;
 	}
 
-	public Long getIdAutor() {
-		return idAutor;
+	public AutorResponse getAutor() {
+		return autor;
 	}
+
 	
 }

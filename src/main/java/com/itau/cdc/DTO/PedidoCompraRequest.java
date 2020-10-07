@@ -13,7 +13,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.itau.cdc.entity.Cupom2;
+import com.itau.cdc.entity.Cupom;
 import com.itau.cdc.entity.ItemPedido;
 import com.itau.cdc.entity.NovaCompra;
 import com.itau.cdc.entity.PedidoCompra;
@@ -49,11 +49,10 @@ public class PedidoCompraRequest {
 
 		Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
 
-		Cupom2 cupom = new Cupom2();
-		cupom.CupomValido(cupom, idCupom, manager);
+		Cupom validaCupom = new Cupom();
 
 		return (compra) -> {
-			PedidoCompra pedido = new @Valid PedidoCompra(compra, itensCalculados, cupom);
+			PedidoCompra pedido = new @Valid PedidoCompra(total, compra, itensCalculados, validaCupom.CupomValido(validaCupom, idCupom, manager));
 
 			if (!pedido.totalIgual(total)) {
 				throw new IllegalArgumentException(

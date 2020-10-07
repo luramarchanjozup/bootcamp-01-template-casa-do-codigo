@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Positive;
 
+import com.itau.cdc.DTO.ItemCompraResponse;
 import com.sun.istack.NotNull;
 
 @Embeddable
@@ -47,6 +48,10 @@ public class ItemPedido {
 	
 	public BigDecimal total() {
 		return precoMomento.multiply(new BigDecimal(quantidade));
+	}
+	
+	public ItemCompraResponse toResponse() {
+		return new ItemCompraResponse(quantidade, livro.toResponse());
 	}
 	
 }

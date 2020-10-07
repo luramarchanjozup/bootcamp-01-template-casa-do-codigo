@@ -15,6 +15,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.itau.cdc.DTO.CompraResponse;
+
 @Entity
 public class NovaCompra {
 
@@ -136,6 +138,11 @@ public class NovaCompra {
 
 	public String getTelefone() {
 		return telefone;
+	}
+
+	public CompraResponse toResponse() {
+		return new CompraResponse(nome, sobrenome, cpfCnpj, email, endereco, complemento, cep,cidade,
+		estado, pais, telefone, pedido.toResponse());
 	}
 	
 }

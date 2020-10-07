@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.NovoCupomRequest;
-import com.itau.cdc.entity.Cupom2;
+import com.itau.cdc.DTO.CupomRequest;
+import com.itau.cdc.entity.Cupom;
 import com.itau.cdc.service.CupomService;
 
 @RestController
@@ -28,7 +28,7 @@ public class CupomController {
 	
 	@PostMapping("/v1/cupons")
 	@Transactional
-	private ResponseEntity<?> NovoCupom(@RequestBody @Valid NovoCupomRequest request, UriComponentsBuilder builder){
+	private ResponseEntity<?> NovoCupom(@RequestBody @Valid CupomRequest request, UriComponentsBuilder builder){
 		
 		Long idCupom = novoCupomService.NovoCupom(request);
 		
@@ -41,7 +41,7 @@ public class CupomController {
 	@Transactional
 	private ResponseEntity<?> ConsultaCupom(@PathVariable("codigo_cupom") String codigoCupom){
 		
-		Optional<Cupom2> cupom = novoCupomService.ConsultaCupom(codigoCupom);
+		Optional<Cupom> cupom = novoCupomService.ConsultaCupom(codigoCupom);
 		
 		if(cupom.isPresent()) {
 			return ResponseEntity.ok(cupom);
@@ -52,9 +52,9 @@ public class CupomController {
 	
 	@PutMapping("/v1/cupons/{codigo_cupom}")
 	@Transactional
-	private ResponseEntity<?> AlteraCupom(@PathVariable("codigo_cupom") String codigoCupom, @RequestBody @Valid NovoCupomRequest request){
+	private ResponseEntity<?> AlteraCupom(@PathVariable("codigo_cupom") String codigoCupom, @RequestBody @Valid CupomRequest request){
 		
-		Cupom2 cupom = novoCupomService.AlteraCupom(codigoCupom, request);
+		Cupom cupom = novoCupomService.AlteraCupom(codigoCupom, request);
 		
 		return ResponseEntity.ok(cupom);
 		

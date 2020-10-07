@@ -36,6 +36,7 @@ public class LivrosController {
 	}
 	
 	@GetMapping("/v1/livros")
+	@Transactional
 	public ResponseEntity<?> RetornaListaLivros(UriComponentsBuilder builder){
 
 		List<LivroResponse> livros = livroService.ListaLivros();
@@ -44,7 +45,6 @@ public class LivrosController {
 		}
 		
 		return ResponseEntity.ok(livros);
-	
 	}
 	
 }

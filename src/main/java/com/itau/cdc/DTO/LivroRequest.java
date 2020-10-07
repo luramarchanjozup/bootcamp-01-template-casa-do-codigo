@@ -10,11 +10,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.http.HttpStatus;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itau.cdc.entity.Autor;
 import com.itau.cdc.entity.Categoria;
 import com.itau.cdc.entity.Livro;
+import com.itau.cdc.exception.ApiErroException;
 
 public class LivroRequest {
 
@@ -117,11 +120,11 @@ public class LivroRequest {
 		Autor autor = manager.find(Autor.class,  idAutor);
 		
 		if((categoria==null && autor==null)) {
-			throw new IllegalArgumentException("Categoria e autor não cadastrados.");
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Categoria e autor não cadastrados.");
 		}else if(categoria==null) {
-			throw new IllegalArgumentException("Categoria não cadastrada.");
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Categoria não cadastrada.");
 		}else if(autor==null) {
-			throw new IllegalArgumentException("Autor(a) não cadastrado(a).");
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Autor(a) não cadastrado(a).");
 		}
 		
 		return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria, autor);

@@ -9,12 +9,14 @@ import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.itau.cdc.DTO.LivroRequest;
 import com.itau.cdc.DTO.LivroResponse;
 import com.itau.cdc.Repository.LivroJpaRepository;
 import com.itau.cdc.entity.Livro;
+import com.itau.cdc.exception.ApiErroException;
 
 @Service
 public class LivroService {
@@ -28,7 +30,7 @@ public class LivroService {
 	public Long IncluirLivro(@Valid LivroRequest request) {
 
 		if ((livroJpaRepository.findByTitulo(request.getTitulo()).isPresent())) {
-			throw new IllegalArgumentException("Já existe um outro livro com o mesmo titulo " + request.getTitulo());
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe um outro livro com o mesmo titulo " + request.getTitulo());
 		}
 
 		Livro novoLivro = request.toModel(manager);

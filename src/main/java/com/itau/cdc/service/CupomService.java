@@ -5,11 +5,13 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.itau.cdc.DTO.CupomRequest;
 import com.itau.cdc.Repository.CupomJpaRepository;
 import com.itau.cdc.entity.Cupom;
+import com.itau.cdc.exception.ApiErroException;
 
 @Service
 public class CupomService {
@@ -22,7 +24,7 @@ public class CupomService {
 		Cupom novoCupom = request.toModel();
 
 		if(cupomJpaRepository.findByCodigo(novoCupom.getCodigo()).isPresent()) {
-			throw new IllegalArgumentException("Código já cadastrado.");
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Código já cadastrado.");
 		}
 		
 		cupomJpaRepository.save(novoCupom);

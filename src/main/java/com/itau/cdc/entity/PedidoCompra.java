@@ -36,7 +36,7 @@ public class PedidoCompra {
 	private BigDecimal totalSemDesconto;
 	
 	@OneToOne
-	private NovaCompra compra;
+	private Compra compra;
 
 	@ElementCollection
 	@Size(min = 1)
@@ -45,7 +45,7 @@ public class PedidoCompra {
 	@ManyToOne
 	private Cupom cupom;
 
-	public PedidoCompra(@Positive BigDecimal total, @NotNull @Valid NovaCompra compra, @Size(min = 1) Set<ItemPedido> itensCalculados,
+	public PedidoCompra(@Positive BigDecimal total, @NotNull @Valid Compra compra, @Size(min = 1) Set<ItemPedido> itensCalculados,
 			Cupom cupom) {
 		super();
 		this.total=total;
@@ -88,7 +88,7 @@ public class PedidoCompra {
 		return id;
 	}
 
-	public NovaCompra getCompra() {
+	public Compra getCompra() {
 		return compra;
 	}
 

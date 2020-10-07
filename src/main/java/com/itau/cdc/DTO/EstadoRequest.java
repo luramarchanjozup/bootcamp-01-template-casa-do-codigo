@@ -25,13 +25,9 @@ public class EstadoRequest {
 
 	public @Valid Estado toModel(EntityManager manager) {
 		
-		Pais pais = manager.find(Pais.class, idPais);
+		Pais pais = new Pais();
 		
-		if(pais == null){
-			throw new IllegalArgumentException("País não cadastrado.");
-		}
-		
-		return new Estado(nome, pais);
+		return new Estado(nome, pais.ValidaPais(manager, idPais));
 	}
 
 	public Long getIdPais() {

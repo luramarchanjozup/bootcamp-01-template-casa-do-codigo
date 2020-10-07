@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.itau.cdc.DTO.CompraRequest;
 import com.itau.cdc.DTO.CompraResponse;
-import com.itau.cdc.entity.NovaCompra;
+import com.itau.cdc.entity.Compra;
 
 @Service
 public class NovaCompraService {
@@ -19,7 +19,8 @@ public class NovaCompraService {
 	
 	public Long NovaCompra(@Valid CompraRequest request) {
 		
-		NovaCompra novaCompra = request.toModel(manager);
+		@Valid
+		Compra novaCompra = request.toModel(manager);
 		
 		manager.persist(novaCompra);
 		
@@ -28,9 +29,13 @@ public class NovaCompraService {
 
 	public CompraResponse consultaCompra(@NotNull Long id_compra) {
 		
-		NovaCompra compra = manager.find(NovaCompra.class, id_compra);
+		Compra compra = manager.find(Compra.class, id_compra);
 		
-		return compra.toResponse();
+		if(compra == null) {
+			return null;
+		}else {
+			return compra.toResponse();
+		}
 	}
 
 }

@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itau.cdc.entity.Cupom;
 import com.itau.cdc.entity.ItemPedido;
-import com.itau.cdc.entity.NovaCompra;
+import com.itau.cdc.entity.Compra;
 import com.itau.cdc.entity.PedidoCompra;
 import com.sun.istack.NotNull;
 
@@ -45,7 +45,7 @@ public class PedidoCompraRequest {
 		return itens;
 	}
 
-	public Function<NovaCompra, PedidoCompra> toModel(EntityManager manager) {
+	public Function<Compra, PedidoCompra> toModel(EntityManager manager) {
 
 		Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
 

@@ -7,8 +7,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.springframework.http.HttpStatus;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.itau.cdc.entity.Cupom;
+import com.itau.cdc.exception.ApiErroException;
 
 public class CupomRequest {
 
@@ -37,7 +40,7 @@ public class CupomRequest {
 
 	public Cupom toModel() {
 		if(!validade.after(new Date())) {
-			throw new IllegalArgumentException("Data de validade " + validade + " do cupom deve ser maior que agora.");
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Data de validade " + validade + " do cupom deve ser maior que agora.");
 		}
 		return new Cupom(codigo, percentual, validade);
 	}

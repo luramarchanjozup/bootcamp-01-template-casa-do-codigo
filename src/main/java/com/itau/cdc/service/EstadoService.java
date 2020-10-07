@@ -5,11 +5,13 @@ import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.itau.cdc.DTO.EstadoRequest;
 import com.itau.cdc.Repository.EstadoJpaRepository;
 import com.itau.cdc.entity.Estado;
+import com.itau.cdc.exception.ApiErroException;
 
 @Service
 public class EstadoService {
@@ -23,7 +25,7 @@ public class EstadoService {
 	public Long IncluirEstado(@Valid EstadoRequest request) {
 		
 		if((estadoJpaRepository.findByNome(request.getNome()).isPresent())){
-			throw new IllegalArgumentException("Já existe um outro estado com o mesmo nome " + request.getNome());
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe um outro estado com o mesmo nome " + request.getNome());
 		}
 			
 		@Valid

@@ -42,7 +42,11 @@ public class NovaCompraController {
 		
 		CompraResponse compra = novaCompraService.consultaCompra(id_compra);
 		
-		return ResponseEntity.ok(compra);
+		if(compra == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(compra);
+		}
 	}
 	
 }

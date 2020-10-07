@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import com.itau.cdc.DTO.CompraResponse;
 
 @Entity
-public class NovaCompra {
+public class Compra {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,9 +70,9 @@ public class NovaCompra {
 	@OneToOne(mappedBy = "compra",cascade = CascadeType.PERSIST)
 	public PedidoCompra pedido;
 
-	public NovaCompra(@NotBlank String nome, @NotBlank String sobrenome, @NotBlank String cpfCnpj,
+	public Compra(@NotBlank String nome, @NotBlank String sobrenome, @NotBlank String cpfCnpj,
 			@Email @NotBlank String email, @NotBlank String endereco, @NotBlank String complemento,
-			@NotBlank String cep, @NotBlank String cidade, Pais pais, Estado estado, @NotBlank String telefone, @Valid Function<NovaCompra, PedidoCompra> funcaoCriacaoPedido) {
+			@NotBlank String cep, @NotBlank String cidade, Pais pais, Estado estado, @NotBlank String telefone, @Valid Function<Compra, PedidoCompra> funcaoCriacaoPedido) {
 		super();
 		this.nome=nome;
 		this.sobrenome=sobrenome;
@@ -88,7 +88,7 @@ public class NovaCompra {
 		this.pedido=funcaoCriacaoPedido.apply(this);
 	}
 
-	public NovaCompra() {
+	public Compra() {
 		super();
 	}
 

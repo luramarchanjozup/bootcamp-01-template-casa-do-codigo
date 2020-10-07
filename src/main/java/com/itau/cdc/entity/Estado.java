@@ -61,7 +61,7 @@ public class Estado {
 				throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Estado não cadastrado.");
 			}
 
-			if (pais.getId() != estado.getPais().getId()) {
+			if (estado.getId() != estado.getPais().getId()) {
 				throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY,
 						"Estado " + estado.getNome() + " não pertence ao País " + pais.getNome() + ".");
 			}

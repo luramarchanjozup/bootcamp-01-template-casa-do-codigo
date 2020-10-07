@@ -36,6 +36,7 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private int pages;
 
+    @Column
     private LocalDate publicationDate;
 
     @ManyToOne

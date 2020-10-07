@@ -59,4 +59,8 @@ public class Estado {
                 ", pais=" + pais +
                 '}';
     }
+
+    public boolean pertenceAPais(Pais pais) {
+        return pais.equals(this.pais);
+    }
 }

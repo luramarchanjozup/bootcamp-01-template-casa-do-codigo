@@ -1,7 +1,7 @@
 package br.com.zup.treinocasadocodigo.controllers;
 
-import br.com.zup.treinocasadocodigo.entities.Categoria;
-import br.com.zup.treinocasadocodigo.entities.CategoriaNovoRequest;
+import br.com.zup.treinocasadocodigo.entities.categoria.Categoria;
+import br.com.zup.treinocasadocodigo.entities.categoria.CategoriaNovoRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

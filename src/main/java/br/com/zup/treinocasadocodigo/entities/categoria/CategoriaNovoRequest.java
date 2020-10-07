@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.categoria;
 
 import br.com.zup.treinocasadocodigo.validators.UniqueValue;
 

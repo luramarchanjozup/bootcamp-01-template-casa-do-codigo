@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.categoria;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,8 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Contagem de carga intrínseca da classe: 0
+ */
+
 @Entity
-public class Pais {
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,9 +20,9 @@ public class Pais {
     @NotBlank
     private String nome;
 
-    protected Pais() {}
+    protected Categoria(){}
 
-    public Pais(@NotBlank String nome) {
+    public Categoria(@NotBlank String nome) {
         this.nome = nome;
     }
 
@@ -36,7 +40,7 @@ public class Pais {
 
     @Override
     public String toString() {
-        return "Pais{" +
+        return "Categoria{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 '}';

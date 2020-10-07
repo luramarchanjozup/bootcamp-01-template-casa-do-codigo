@@ -1,5 +1,6 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.estado;
 
+import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 import br.com.zup.treinocasadocodigo.validators.ExistId;
 import br.com.zup.treinocasadocodigo.validators.UniqueValue;
 import org.springframework.util.Assert;
@@ -7,6 +8,10 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+/**
+ * Contagem de carga intrínseca da classe: 1
+ */
 
 public class EstadoNovoRequest {
 

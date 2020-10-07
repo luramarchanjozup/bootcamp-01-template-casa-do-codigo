@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.autor;
 
 import br.com.zup.treinocasadocodigo.validators.UniqueValue;
 

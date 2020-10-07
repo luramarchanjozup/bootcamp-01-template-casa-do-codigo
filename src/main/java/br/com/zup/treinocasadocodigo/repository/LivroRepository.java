@@ -1,6 +1,6 @@
 package br.com.zup.treinocasadocodigo.repository;
 
-import br.com.zup.treinocasadocodigo.entities.Livro;
+import br.com.zup.treinocasadocodigo.entities.livro.Livro;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package br.com.zup.treinocasadocodigo.controllers;
 
-import br.com.zup.treinocasadocodigo.entities.Autor;
-import br.com.zup.treinocasadocodigo.entities.AutorNovoRequest;
+import br.com.zup.treinocasadocodigo.entities.autor.Autor;
+import br.com.zup.treinocasadocodigo.entities.autor.AutorNovoRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

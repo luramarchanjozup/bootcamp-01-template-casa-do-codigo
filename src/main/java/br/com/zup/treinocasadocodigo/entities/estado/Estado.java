@@ -1,10 +1,14 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.estado;
 
-import br.com.zup.treinocasadocodigo.validators.UniqueValue;
+import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+/**
+ * Contagem de carga intrínseca da classe: 0
+ */
 
 @Entity
 public class Estado {

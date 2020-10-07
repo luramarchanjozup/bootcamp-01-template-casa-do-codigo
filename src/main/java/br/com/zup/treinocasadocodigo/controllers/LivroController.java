@@ -1,9 +1,9 @@
 package br.com.zup.treinocasadocodigo.controllers;
 
-import br.com.zup.treinocasadocodigo.entities.Livro;
-import br.com.zup.treinocasadocodigo.entities.LivroNovoRequest;
-import br.com.zup.treinocasadocodigo.entities.LivroRetornoLista;
-import br.com.zup.treinocasadocodigo.entities.LivroRetornoDetalhes;
+import br.com.zup.treinocasadocodigo.entities.livro.Livro;
+import br.com.zup.treinocasadocodigo.entities.livro.LivroNovoRequest;
+import br.com.zup.treinocasadocodigo.entities.livro.LivroRetornoLista;
+import br.com.zup.treinocasadocodigo.entities.livro.LivroRetornoDetalhes;
 import br.com.zup.treinocasadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

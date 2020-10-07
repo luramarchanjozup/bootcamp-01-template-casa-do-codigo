@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.categoria;
 
 /**
  * Contagem de carga intrínseca da classe: 1

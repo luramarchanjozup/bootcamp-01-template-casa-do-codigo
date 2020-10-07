@@ -1,5 +1,7 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.livro;
 
+import br.com.zup.treinocasadocodigo.entities.autor.AutorRetorno;
+import br.com.zup.treinocasadocodigo.entities.categoria.CategoriaRetorno;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;

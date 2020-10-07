@@ -1,10 +1,17 @@
-package br.com.zup.treinocasadocodigo.entities;
+package br.com.zup.treinocasadocodigo.entities.livro;
+
+import br.com.zup.treinocasadocodigo.entities.autor.Autor;
+import br.com.zup.treinocasadocodigo.entities.categoria.Categoria;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+/**
+ * Contagem de carga intrínseca da classe: 0
+ */
 
 @Entity
 public class Livro {

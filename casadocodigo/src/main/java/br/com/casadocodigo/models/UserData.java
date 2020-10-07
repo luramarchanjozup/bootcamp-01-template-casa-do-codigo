@@ -1,17 +1,13 @@
 package br.com.casadocodigo.models;
 
-import br.com.casadocodigo.forms.ShopPriceForm;
-import org.springframework.data.util.Pair;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
-public class Shop {
+public class UserData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,9 +52,12 @@ public class Shop {
     private Double total;
 
     @Deprecated
-    public Shop(){};
+    public UserData(){};
 
-    public Shop(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification, @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone, @NotBlank String cep) {
+    public UserData(@NotBlank String email, @NotBlank String name, @NotBlank String lastName, @NotBlank String identification,
+                    @NotBlank String address, @NotBlank String complement, @NotBlank String city, @NotBlank String phone,
+                    @NotBlank String cep) {
+
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -68,6 +67,7 @@ public class Shop {
         this.city = city;
         this.phone = phone;
         this.cep = cep;
+
     }
 
     @Override
@@ -75,17 +75,9 @@ public class Shop {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Shop shop = (Shop) o;
+        UserData userData = (UserData) o;
 
-        return id.equals(shop.id);
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
+        return id.equals(userData.id);
     }
 
     @Override
@@ -195,5 +187,13 @@ public class Shop {
 
     public void setTotalWithDiscount(Double totalWithDiscount) {
         this.totalWithDiscount = totalWithDiscount;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

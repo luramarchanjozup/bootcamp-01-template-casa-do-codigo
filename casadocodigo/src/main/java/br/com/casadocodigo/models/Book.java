@@ -1,12 +1,11 @@
 package br.com.casadocodigo.models;
 
+import br.com.casadocodigo.validation.ExistsId;
 import br.com.casadocodigo.validation.Unique;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -41,15 +40,23 @@ public class Book {
     private OffsetDateTime publishedAt;
 
     @ManyToOne
+    @NotNull
+    @Valid
     private Category category;
 
     @ManyToOne
+    @NotNull
+    @Valid
     private Author author;
 
     @Deprecated
     public Book(){};
 
-    public Book(@NotBlank String title, @NotBlank @Max(500) String resume, @NotBlank String summary, @NotBlank @Min(20) Double price, @NotBlank @Min(100) Long pages, @NotBlank Long isbn, OffsetDateTime publishedAt) {
+    public Book(@NotBlank String title, @NotBlank @Max(500) String resume, @NotBlank String summary,
+                @NotBlank @Min(20) Double price, @NotBlank @Min(100) Long pages,
+                @NotBlank Long isbn, OffsetDateTime publishedAt, @Valid @NotNull Author author,
+                @Valid @NotNull Category category) {
+
         this.title = title;
         this.resume = resume;
         this.summary = summary;
@@ -57,6 +64,9 @@ public class Book {
         this.pages = pages;
         this.isbn = isbn;
         this.publishedAt = publishedAt;
+        this.author = author;
+        this.category = category;
+
     }
 
     @Override

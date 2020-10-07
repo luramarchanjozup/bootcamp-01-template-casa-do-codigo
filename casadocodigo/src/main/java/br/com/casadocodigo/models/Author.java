@@ -27,6 +27,9 @@ public class Author {
     @NotBlank
     private OffsetDateTime createdAt;
 
+    @Deprecated
+    public Author(){};
+
     public Author(String email, String name, String description){
         this.email = email;
         this.name = name;

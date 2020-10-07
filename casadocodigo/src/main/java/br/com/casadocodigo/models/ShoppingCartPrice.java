@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class ShopPrice {
+public class ShoppingCartPrice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,9 @@ public class ShopPrice {
     private List<Item> items = new ArrayList<>();
 
     @Deprecated
-    public ShopPrice(){};
+    public ShoppingCartPrice(){};
 
-    public ShopPrice(@Positive Double total, List<Item> items) {
+    public ShoppingCartPrice(@Positive Double total, List<Item> items) {
         this.total = total;
         this.items = items;
     }
@@ -34,9 +34,15 @@ public class ShopPrice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ShopPrice shopPrice = (ShopPrice) o;
+        ShoppingCartPrice that = (ShoppingCartPrice) o;
 
-        return id.equals(shopPrice.id);
+        return id.equals(that.id);
+    }
+
+    public void applyDiscount(Coupon coupon){
+
+        this.totalWithDiscount = this.total * coupon.getDiscount();
+
     }
 
     @Override
@@ -60,6 +66,14 @@ public class ShopPrice {
         this.total = total;
     }
 
+    public Double getTotalWithDiscount() {
+        return totalWithDiscount;
+    }
+
+    public void setTotalWithDiscount(Double totalWithDiscount) {
+        this.totalWithDiscount = totalWithDiscount;
+    }
+
     public List<Item> getItems() {
         return items;
     }
@@ -68,11 +82,4 @@ public class ShopPrice {
         this.items = items;
     }
 
-    public Double getTotalWithDiscount() {
-        return totalWithDiscount;
-    }
-
-    public void setTotalWithDiscount(Double totalWithDiscount) {
-        this.totalWithDiscount = totalWithDiscount;
-    }
 }

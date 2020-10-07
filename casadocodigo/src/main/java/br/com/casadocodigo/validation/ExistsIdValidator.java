@@ -35,10 +35,10 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object> 
 
         // +1
         return !entityManager
-                    .createQuery("select 1 from "+klass.getName()+" where "+domainAttribute+"=:value")
+                    .createQuery("select 1 from "+ klass.getName() +" where "+ domainAttribute + "=:value")
                     .setParameter("value", id)
                     .getResultList()
-                    .isEmpty();
+                    .isEmpty() || id == null;
 
     }
 }

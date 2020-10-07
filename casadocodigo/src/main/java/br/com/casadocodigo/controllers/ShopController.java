@@ -2,9 +2,9 @@ package br.com.casadocodigo.controllers;
 import br.com.casadocodigo.dtos.ShopDto;
 import br.com.casadocodigo.forms.ShopDataForm;
 import br.com.casadocodigo.forms.ShopPriceForm;
-import br.com.casadocodigo.models.Shop;
-import br.com.casadocodigo.models.ShopPrice;
-import br.com.casadocodigo.services.CouponApplyService;
+import br.com.casadocodigo.models.Coupon;
+import br.com.casadocodigo.models.ShoppingCartPrice;
+import br.com.casadocodigo.models.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +17,6 @@ import javax.validation.Valid;
 @RequestMapping("/shop")
 public class ShopController {
 
-    // +1
-    @Autowired
-    private CouponApplyService couponApplyService;
 
     @Autowired
     private EntityManager entityManager;
@@ -28,13 +25,12 @@ public class ShopController {
     public ResponseEntity<ShopDto> shopDetails(@PathVariable Long id, @PathVariable Long userDataId){
 
         // +1
-        ShopPrice shop = entityManager.find(ShopPrice.class, id);
-
-        //+ 1
-        Shop userData = entityManager.find(Shop.class, userDataId);
-
-        // +1
-        return ResponseEntity.ok(new ShopDto(shop,userData));
+        return ResponseEntity.ok(
+                new ShopDto(
+                        entityManager.find(UserData.class, userDataId),
+                        entityManager.find(ShoppingCartPrice.class, id)
+                )
+        );
 
     }
 
@@ -43,9 +39,9 @@ public class ShopController {
     public ResponseEntity<?> addShopUserData(@RequestBody @Valid ShopDataForm shopDataForm){
 
         // +1
-        Shop shop = shopDataForm.toEntity();
+        UserData userData = shopDataForm.toEntity();
 
-        entityManager.persist(shop);
+        entityManager.persist(userData);
 
         return ResponseEntity.ok().build();
 
@@ -57,24 +53,29 @@ public class ShopController {
             @RequestBody @Valid ShopPriceForm shopPriceForm){
 
         // +1
-        ShopPrice shopCart = shopPriceForm.toEntity();
+        ShoppingCartPrice userDataCart = shopPriceForm.toEntity();
 
-        entityManager.persist(shopCart);
+        entityManager.persist(userDataCart);
 
         // +1
         return ResponseEntity.ok().build();
 
     }
 
+    @Transactional
     @PutMapping("/apply-coupon/{id}/{couponId}")
-    public ResponseEntity<?> applyCoupon(@PathVariable Long couponId,
-      @PathVariable Long id)
+    public ResponseEntity<?> applyCoupon(@PathVariable Long couponId, @PathVariable Long id)
     {
+        // +1
+        ShoppingCartPrice shoppingCartPrice = entityManager
+                .find(ShoppingCartPrice.class, id);
 
-        // + 1
-        ShopPrice shop = couponApplyService.couponApplication(couponId, id);
+        // +1                            // +1
+        shoppingCartPrice.applyDiscount(entityManager
+                .find(Coupon.class, couponId));
 
-                                        // + 1
+        entityManager.persist(shoppingCartPrice);
+
         return ResponseEntity.ok().build();
 
     }

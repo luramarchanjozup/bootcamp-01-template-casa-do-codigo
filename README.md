@@ -4,7 +4,9 @@
 
 > @Limite(pci = +- 8)
 
+
 1. Controllers
+
 
 > AuthorController (pci = 4)
 
@@ -20,9 +22,12 @@
 
 > ShopController (pci = 8)
 
+
 2. Services
 
+
 > CouponApplyService (pci = 6)
+
 
 3. Validation 
 
@@ -30,41 +35,46 @@
 
 > UniqueValidator (pci = 8)
 
+
 ### Documentando a API
 
 - Usei como referência o guia do Spotify 
+
 - https://developer.spotify.com/documentation/web-api/reference
+
+- Também é possível interagir com a documentação da api gerada por meio do Swagger: localhost:8080/swagger-ui.html
+
 
 - MÉTODO   #########    ENDPOINT     #########       USO      #########    RETORNA
 
 
 - Compras        
-    - POST           /shop/finish       finalizar compra
-    - POST           /shop/user-data    dados do usuário que fará a compra
-    - PUT        /shop/{id}/{couponId}  aplica cupom detalhes finais da compra
-    - GET           /shop/{id}          
-                                      
+    - POST           /shop/finish       #########    finalizar compra
+    - POST           /shop/user-data    #########  dados do usuário que fará a compra
+    - PUT        /shop/{id}/{couponId}  ######### aplica cupom detalhes finais da compra
+    - GET           /shop/{id}          #########                                     
 
 - Autores
-    - POST            /authors        criar autor     autor (nome)
+    - POST            /authors      #########     criar autor  #########   autor (nome)
 
 
 - Livros
-    - GET             /books          buscar livros 
-    - GET             /books/{id}     buscar um livro
-    - POST            /books          criar livro
+    - GET             /books        #########   buscar livros 
+    - GET             /books/{id}   #########  buscar um livro
+    - POST            /books        #########  criar livro
 
 
 - Categorias
-    - POST            /categories     criar categorias
+    - POST            /categories  #########   criar categorias
 
 
 - Países
-    - POST            /countries      criar países
+    - POST            /countries   #########   criar países
 
 
 - Estados
-    - POST            /states         criar estados
+    - POST            /states      #########   criar estados
+
 
 
 ### Etapas do desafio
@@ -95,19 +105,12 @@
 
 - detalhes da compra
 
-### A prioridade máxima é funcionar
 
-- Swagger: localhost:8080/swagger-ui.html
 
-- Visão geral das controllers
 
-![](/readme-assets/api-geral.png)
 
-- Endpoints
 
-![](/readme-assets/endpoints-1.png)
 
-![](/readme-assets/endpoints-2.png)
 
 
 

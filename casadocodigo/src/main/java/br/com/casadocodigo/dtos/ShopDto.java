@@ -2,11 +2,6 @@ package br.com.casadocodigo.dtos;
 
 import br.com.casadocodigo.models.*;
 
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
-
 public class ShopDto {
 
     private Double total;
@@ -36,31 +31,30 @@ public class ShopDto {
     private String cep;
 
 
-    public ShopDto(ShopPrice shopPrice, Shop shop){
+    public ShopDto(UserData userData, ShoppingCartPrice shoppingCartPrice) {
 
-        this.total = shopPrice.getTotal();
-        this.totalWithDiscount = shopPrice.getTotalWithDiscount();
-        this.email = shop.getEmail();
-        this.name = shop.getName();
-        this.lastName = shop.getLastName();
-        this.identification = shop.getIdentification();
-        this.address = shop.getAddress();
-        this.complement = shop.getComplement();
-        this.city = shop.getCity();
-        this.country = shop.getCountry();
-        this.state = shop.getState();
-        this.phone = shop.getPhone();
-        this.cep = shop.getCep();
-
-    }
-
-    public ShopDto(ShopPrice shopPrice){
-
-        this.total = shopPrice.getTotal();
-        this.totalWithDiscount = shopPrice.getTotalWithDiscount();
+        this.email = userData.getEmail();
+        this.name = userData.getName();
+        this.lastName = userData.getLastName();
+        this.identification = userData.getIdentification();
+        this.address = userData.getAddress();
+        this.complement = userData.getComplement();
+        this.city = userData.getCity();
+        this.country = userData.getCountry();
+        this.state = userData.getState();
+        this.phone = userData.getPhone();
+        this.cep = userData.getCep();
+        this.total = shoppingCartPrice.getTotal();
+        this.totalWithDiscount = shoppingCartPrice.getTotalWithDiscount();
 
     }
 
+    public ShopDto(ShoppingCartPrice shoppingCartPrice){
+
+        this.total = shoppingCartPrice.getTotal();
+        this.totalWithDiscount = shoppingCartPrice.getTotalWithDiscount();
+
+    }
 
     public Double getTotal() {
         return total;

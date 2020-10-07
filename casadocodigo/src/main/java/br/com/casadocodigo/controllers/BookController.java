@@ -27,7 +27,7 @@ public class BookController {
     public ResponseEntity<?> createBook(@RequestBody @Valid BookForm bookForm){
 
         //+1
-        entityManager.persist(bookForm.toEntity());
+        entityManager.persist(bookForm.toEntity(entityManager));
 
         return ResponseEntity.ok().build();
 

@@ -1,8 +1,8 @@
 package br.com.casadocodigo.forms;
 
 import br.com.casadocodigo.models.Item;
-import br.com.casadocodigo.models.Shop;
-import br.com.casadocodigo.models.ShopPrice;
+import br.com.casadocodigo.models.ShoppingCartPrice;
+import br.com.casadocodigo.models.UserData;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -23,9 +23,9 @@ public class ShopPriceForm {
 
     }
 
-    public ShopPrice toEntity(){
+    public ShoppingCartPrice toEntity(){
 
-        return new ShopPrice(total, items);
+        return new ShoppingCartPrice(total, items);
 
     }
 

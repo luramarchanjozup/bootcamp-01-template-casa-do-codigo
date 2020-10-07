@@ -1,9 +1,8 @@
 package br.com.casadocodigo.forms;
-import br.com.casadocodigo.models.Shop;
+import br.com.casadocodigo.models.UserData;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
 
 
 public class ShopDataForm {
@@ -39,8 +38,8 @@ public class ShopDataForm {
     @Deprecated
     public ShopDataForm(){};
 
-    public Shop toEntity(){
-        return new Shop(email,name, lastName, identification, address, complement, city, phone, cep);
+    public UserData toEntity(){
+        return new UserData(email,name, lastName, identification, address, complement, city, phone, cep);
     }
 
     public ShopDataForm(String email, String name, String lastName, String identification, String address, String complement, String city, String country, String state, String phone, String cep, Double total) {

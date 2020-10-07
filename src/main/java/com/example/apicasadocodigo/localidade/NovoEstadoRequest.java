@@ -1,5 +1,6 @@
 package com.example.apicasadocodigo.localidade;
 
+import com.example.apicasadocodigo.compartilhado.ExistsId;
 import com.example.apicasadocodigo.compartilhado.UniqueValue;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ public class NovoEstadoRequest {
     @UniqueValue(domainClass = Estado.class, fieldName = "nome")
     private String nome;
     @NotNull
+    @ExistsId(domainClass = Pais.class, fieldName = "id")
     private Long idPais;
 
     public Estado toModel(EntityManager manager) {

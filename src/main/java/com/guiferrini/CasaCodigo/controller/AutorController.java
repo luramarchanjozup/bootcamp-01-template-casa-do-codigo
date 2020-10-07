@@ -19,11 +19,13 @@ import com.guiferrini.CasaCodigo.repository.AutorRepository;
 
 
 @RestController
+
 @RequestMapping("/autor")
 public class AutorController {
-
-	@Autowired AutorRepository autorRepo; //responseEntity - alternativa EntityManager - são 2 coisaas diferentes
 	
+	//1
+	@Autowired AutorRepository autorRepo; //responseEntity - alternativa EntityManager - são 2 coisaas diferentes
+	//1
 	@Autowired
 	private EmailDuplicadoValidador emailDuplicadoValidador;
 
@@ -35,14 +37,21 @@ public class AutorController {
 	//Criando Autor
 	@CrossOrigin
 	@PostMapping
+	//1
 	public ResponseEntity<AutorDTO> insert(@Valid @RequestBody AutorDTO autorDTO){
+		//1
 		Autor obj = autorRepo.save(autorDTO.toModel()); //converte AutoprDTo em Autor - protegendo a borda
-		
+		//1
 		//salvanbdo no BD
 		if(obj instanceof Autor) {
 			return ResponseEntity.status(200).body(autorDTO);
-		 } else {
+		} 
+		//1
+		else {
 			return ResponseEntity.status(400).body(autorDTO);
-		 }
 		}
 	}
+}
+
+	
+

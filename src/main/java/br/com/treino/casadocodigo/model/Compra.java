@@ -1,5 +1,6 @@
 package br.com.treino.casadocodigo.model;
 
+import br.com.treino.casadocodigo.request.NovoPedidoRequest;
 import br.com.treino.casadocodigo.validations.CpfOuCnpj;
 import br.com.treino.casadocodigo.validations.ExistId;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.*;
 
 public class Compra {
 
+    private Long id;
     private @NotBlank String nome;
     private @NotBlank String sobrenome;
     private @Email @NotBlank String email;
@@ -27,14 +29,21 @@ public class Compra {
     @NotBlank
     private String cep;
     private @NotBlank String complemento;
+    @NotNull
+    private Pedido pedido;
+
+    //private @NotNull Pedido pedido;
 
     public Compra(){}
 
-    public Compra(@NotBlank String nome, @NotBlank String sobrenome, @Email @NotBlank String email,
-                  @NotBlank String documento, @Pattern(regexp = "\\(\\d{2}\\)\\d{4,5}\\-\\d{4}$",
-            message = "Telefone inválido") @NotBlank String telefone, @NotNull Pais pais, @NotBlank String cidade, @NotBlank String endereco,
-                  @Pattern(regexp = "\\d{5}\\-\\d{3}", message = "CEP inválido") @NotBlank String cep,
-                  @NotBlank String complemento) {
+    public Compra(@NotBlank String nome, @NotBlank String sobrenome,
+                  @Email @NotBlank String email, @NotBlank String documento,
+                  @Pattern(regexp = "\\(\\d{2}\\)\\d{4,5}\\-\\d{4}$",
+                          message = "Telefone inválido") @NotBlank String telefone,
+                  @NotNull Pais pais, @NotBlank String cidade,
+                  @NotBlank String endereco, @Pattern(regexp = "\\d{5}\\-\\d{3}",
+            message = "CEP inválido") @NotBlank String cep,
+                  @NotBlank String complemento, @NotNull Pedido pedido) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
@@ -45,7 +54,10 @@ public class Compra {
         this.endereco = endereco;
         this.cep = cep;
         this.complemento = complemento;
+        this.pedido = pedido;
     }
+
+    //public Long getId(){return id;}
 
     public String getNome() {
         return nome;
@@ -93,5 +105,9 @@ public class Compra {
 
     public String getCep() {
         return cep;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
     }
 }

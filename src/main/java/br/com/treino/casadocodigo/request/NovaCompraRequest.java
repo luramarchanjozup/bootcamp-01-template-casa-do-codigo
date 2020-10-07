@@ -3,6 +3,7 @@ package br.com.treino.casadocodigo.request;
 import br.com.treino.casadocodigo.model.Compra;
 import br.com.treino.casadocodigo.model.Estado;
 import br.com.treino.casadocodigo.model.Pais;
+import br.com.treino.casadocodigo.model.Pedido;
 import br.com.treino.casadocodigo.validations.CpfOuCnpj;
 import br.com.treino.casadocodigo.validations.ExistId;
 
@@ -26,16 +27,16 @@ public class NovaCompraRequest {
     @NotNull
     @ExistId(className = Pais.class, fieldName = "id", message = "Esse país não foi encontrado")
     private Long idPais;
-
     @ExistId(className = Estado.class, fieldName = "id", message = "Esse estado não foi encontrado")
     private Long idEstado;
-
     private @NotBlank String cidade;
     private @NotBlank String endereco;
     @Pattern(regexp = "\\d{5}\\-\\d{3}" ,message = "CEP inválido")
     @NotBlank
     private String cep;
     private @NotBlank String complemento;
+    @NotNull
+    private NovoPedidoRequest novoPedido;
 
     public NovaCompraRequest(@NotBlank String nome, @NotBlank String sobrenome,
                              @Email @NotBlank String email, @NotBlank String documento,
@@ -43,7 +44,8 @@ public class NovaCompraRequest {
                                      message = "Telefone inválido") @NotBlank String telefone,
                              @NotNull Long idPais, Long idEstado, @NotBlank String cidade,
                              @NotBlank String endereco, @Pattern(regexp = "\\d{5}\\-\\d{3}",
-            message = "CEP inválido") @NotBlank String cep, @NotBlank String complemento) {
+            message = "CEP inválido") @NotBlank String cep,
+                             @NotBlank String complemento, @NotNull NovoPedidoRequest novoPedido) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
@@ -55,14 +57,17 @@ public class NovaCompraRequest {
         this.endereco = endereco;
         this.cep = cep;
         this.complemento = complemento;
+        this.novoPedido = novoPedido;
     }
 
     public Compra toModel(EntityManager entityManager){ //3
 
         @NotNull Pais pais = entityManager.find(Pais.class, idPais); //1
 
+        Pedido pedido = novoPedido.toModel(entityManager);
+
         Compra compra = new Compra(this.nome, this.sobrenome,this.email, this.documento, this.telefone,
-                pais, this.cidade, this.endereco, this.cep, this.complemento);
+                pais, this.cidade, this.endereco, this.cep, this.complemento, pedido);
 
         if(idEstado != null){ //4
             compra.setEstado(entityManager.find(Estado.class, idEstado)); //2

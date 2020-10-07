@@ -1,5 +1,7 @@
 package br.com.treino.casadocodigo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -18,7 +20,7 @@ public class Livro {
     private @NotNull @Min(20) BigDecimal preco;
     private @NotNull @Min(100)  Integer numPaginas;
     private @NotBlank String isbn;
-
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private @Future @NotNull LocalDate dataPublicacao;
     private @NotNull @ManyToOne @Valid Categoria categoria;
     private @NotNull @ManyToOne @Valid Autor autor;
@@ -83,9 +85,11 @@ public class Livro {
 
     public LocalDate getDataPublicacao() { return dataPublicacao; }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public void setDataPublicacao(LocalDate dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
     }
+
+    //public Categoria getCategoria() { return categoria; }
 
     public Autor getAutor() {
         return autor;

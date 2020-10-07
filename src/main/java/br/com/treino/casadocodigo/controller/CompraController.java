@@ -18,9 +18,10 @@ public class CompraController {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @PostMapping(value = "/clientes")
-    public void novoCliente(@RequestBody @Valid NovaCompraRequest request) {
+    @PostMapping(value = "/compra")
+    public ResponseEntity novoCliente(@RequestBody @Valid NovaCompraRequest request) {
         Compra compra = request.toModel(entityManager);
-        //return new ResponseEntity<>(compra, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
+
 }

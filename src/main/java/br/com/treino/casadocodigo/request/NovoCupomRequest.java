@@ -1,39 +1,34 @@
-package br.com.treino.casadocodigo.model;
+package br.com.treino.casadocodigo.request;
 
+import br.com.treino.casadocodigo.model.Cupom;
 import br.com.treino.casadocodigo.validations.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-public class Cupom {
+public class NovoCupomRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @NotBlank
+    @UniqueValue(className = Cupom.class, fieldName = "codigo",
+    message = "Esse código já foi cadastrado")
     private String codigo;
-    @NotNull
-    @Positive
+    @NotNull @Positive
     private BigDecimal percentualDesconto;
-    @NotNull @Future
+    @NotNull
+    @Future
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate validade;
 
     @Deprecated
-    public Cupom(){}
+    public NovoCupomRequest(){}
 
-    public Cupom(@NotBlank String codigo, @Positive BigDecimal percentualDesconto,
-                 @Future LocalDate validade) {
+    public NovoCupomRequest(@NotBlank String codigo,
+                            @Positive BigDecimal percentualDesconto,
+                            @Future LocalDate validade) {
         this.codigo = codigo;
         this.percentualDesconto = percentualDesconto;
         this.validade = validade;
@@ -43,8 +38,11 @@ public class Cupom {
 
     public BigDecimal getPercentualDesconto() { return percentualDesconto; }
 
-    public void setValidade(LocalDate validade) { this.validade = validade; }
-
     public LocalDate getValidade() { return validade; }
 
+    public void setValidade(LocalDate validade) { this.validade = validade; }
+
+    public Cupom toModel(){
+        return new Cupom(this.codigo, this.percentualDesconto,this.validade);
+    }
 }

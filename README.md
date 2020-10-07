@@ -14,19 +14,13 @@
 
 > CountryController (pci = 4)
 
-> BookController (pci = 6)
+> BookController (pci = 8)
 
 > StateController (pci = 4)
 
 > CouponController (pci = 7)
 
-> ShopController (pci = 8)
-
-
-2. Services
-
-
-> CouponApplyService (pci = 6)
+> ShopController (pci = 6)
 
 
 3. Validation 
@@ -34,6 +28,10 @@
 > Unique (pci = 2)
 
 > UniqueValidator (pci = 8)
+
+> ExistsById (pci = 2)
+
+> ExistsByIdValidator (pci = 8)
 
 
 ### Documentando a API

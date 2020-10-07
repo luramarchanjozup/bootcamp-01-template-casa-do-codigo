@@ -26,7 +26,7 @@ public class BookController {
     @Transactional
     public ResponseEntity<?> createBook(@RequestBody @Valid BookForm bookForm){
 
-        //+1
+                                         //+1
         entityManager.persist(bookForm.toEntity(entityManager));
 
         return ResponseEntity.ok().build();
@@ -47,6 +47,7 @@ public class BookController {
                     .createQuery("SELECT b FROM Book b", Book.class)
                     .getResultList()
                     .forEach(book -> booksDtos.add(new BookDto(book)));
+                                                          // +1
 
             return ResponseEntity.ok(booksDtos);
 

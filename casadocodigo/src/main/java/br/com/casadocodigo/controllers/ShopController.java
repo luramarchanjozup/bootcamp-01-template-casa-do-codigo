@@ -26,10 +26,7 @@ public class ShopController {
 
         // +1
         return ResponseEntity.ok(
-                new ShopDto(
-                        entityManager.find(UserData.class, userDataId),
-                        entityManager.find(ShoppingCartPrice.class, id)
-                )
+                new ShopDto(entityManager.find(UserData.class, userDataId), entityManager.find(ShoppingCartPrice.class, id))
         );
 
     }
@@ -57,7 +54,6 @@ public class ShopController {
 
         entityManager.persist(userDataCart);
 
-        // +1
         return ResponseEntity.ok().build();
 
     }

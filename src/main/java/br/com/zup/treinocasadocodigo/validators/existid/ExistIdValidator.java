@@ -7,6 +7,11 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
+/**
+ * Contagem de carga intrínseca da classe: 2
+ */
+
+//1
 public class ExistIdValidator implements ConstraintValidator<ExistId, Long> {
     private String nomeCampo;
     Class<?> dominioClasse;

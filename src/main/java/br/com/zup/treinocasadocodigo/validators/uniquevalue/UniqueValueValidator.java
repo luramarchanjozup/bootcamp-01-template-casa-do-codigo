@@ -9,6 +9,11 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
+/**
+ * Contagem de carga intrínseca da classe: 1
+ */
+
+//1
 public class UniqueValueValidator implements ConstraintValidator<UniqueValue, String> {
 
     private String nomeCampo;

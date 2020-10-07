@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.validators;
+package br.com.zup.treinocasadocodigo.validators.cpfcnpj;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

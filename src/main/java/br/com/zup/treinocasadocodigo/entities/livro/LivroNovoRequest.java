@@ -2,8 +2,8 @@ package br.com.zup.treinocasadocodigo.entities.livro;
 
 import br.com.zup.treinocasadocodigo.entities.autor.Autor;
 import br.com.zup.treinocasadocodigo.entities.categoria.Categoria;
-import br.com.zup.treinocasadocodigo.validators.ExistId;
-import br.com.zup.treinocasadocodigo.validators.UniqueValue;
+import br.com.zup.treinocasadocodigo.validators.existid.ExistId;
+import br.com.zup.treinocasadocodigo.validators.uniquevalue.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.util.Assert;
 

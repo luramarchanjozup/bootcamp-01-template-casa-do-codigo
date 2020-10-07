@@ -1,6 +1,6 @@
 package br.com.zup.treinocasadocodigo.entities.autor;
 
-import br.com.zup.treinocasadocodigo.validators.UniqueValue;
+import br.com.zup.treinocasadocodigo.validators.uniquevalue.UniqueValue;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

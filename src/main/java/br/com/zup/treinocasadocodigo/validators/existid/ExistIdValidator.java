@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.validators;
+package br.com.zup.treinocasadocodigo.validators.existid;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

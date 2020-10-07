@@ -1,8 +1,8 @@
 package br.com.zup.treinocasadocodigo.entities.estado;
 
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
-import br.com.zup.treinocasadocodigo.validators.ExistId;
-import br.com.zup.treinocasadocodigo.validators.UniqueValue;
+import br.com.zup.treinocasadocodigo.validators.existid.ExistId;
+import br.com.zup.treinocasadocodigo.validators.uniquevalue.UniqueValue;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;

@@ -2,8 +2,8 @@ package br.com.zup.treinocasadocodigo.entities;
 
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
-import br.com.zup.treinocasadocodigo.validators.CpfCnpj;
-import br.com.zup.treinocasadocodigo.validators.ExistId;
+import br.com.zup.treinocasadocodigo.validators.cpfcnpj.CpfCnpj;
+import br.com.zup.treinocasadocodigo.validators.existid.ExistId;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -42,4 +42,14 @@ public class CompraItemTest {
         assertThat(compraItem.getCadastradoEm()).isEqualTo(timestamp);
         assertThat(compraItem.getCompra()).isEqualTo(compra);
     }
+
+    @Test
+    public void equals_deveSerPorId() {
+        var id = 1L;
+
+        var compraItem1 = new CompraItem().setId(id);
+        var compraItem2 = new CompraItem().setId(id);
+
+        assertThat(compraItem1).isEqualTo(compraItem2);
+    }
 }

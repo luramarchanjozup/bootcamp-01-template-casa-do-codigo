@@ -41,4 +41,14 @@ public class AutorTest {
     public void cadastradoEm_deveSerGeradoAoCriarOObjeto() {
         assertThat(new Autor().getCadastradoEm()).isNotNull();
     }
+
+    @Test
+    public void equals_deveSerPorId() {
+        var id = 1L;
+
+        var autor1 = new Autor().setId(id);
+        var autor2 = new Autor().setId(id);
+
+        assertThat(autor1).isEqualTo(autor2);
+    }
 }

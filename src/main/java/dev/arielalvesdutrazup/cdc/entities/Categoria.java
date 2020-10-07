@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @Entity
 public class Categoria {
@@ -12,6 +14,7 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{nome.notempty}")
     private String nome;
     private OffsetDateTime cadastradoEm = OffsetDateTime.now();
 
@@ -40,5 +43,18 @@ public class Categoria {
     public Categoria setCadastradoEm(OffsetDateTime cadastradoEm) {
         this.cadastradoEm = cadastradoEm;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Categoria categoria = (Categoria) o;
+        return Objects.equals(id, categoria.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

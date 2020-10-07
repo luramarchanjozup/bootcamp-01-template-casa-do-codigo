@@ -41,4 +41,14 @@ public class PaisTest {
     public void cadastradoEm_deveSerGeradoAoCriarOObjeto() {
         assertThat(new Pais().getCadastradoEm()).isNotNull();
     }
+
+    @Test
+    public void equals_deveSerPorId() {
+        var id = 1L;
+
+        var pais1 = new Pais().setId(id);
+        var pais2 = new Pais().setId(id);
+
+        assertThat(pais1).isEqualTo(pais2);
+    }
 }

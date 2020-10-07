@@ -1,10 +1,12 @@
 package dev.arielalvesdutrazup.cdc.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @Entity
 public class Autor {
@@ -12,8 +14,14 @@ public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{nome.notempty}")
     private String nome;
+    @Email(message = "{email.email}")
+    @NotBlank(message = "{email.notempty}")
     private String email;
+    @Column(columnDefinition = "TEXT")
+    @Size(max = 400, message = "{descricao.max}")
+    @NotBlank(message = "{descricao.notempty}")
     private String descricao;
     private OffsetDateTime cadastradoEm = OffsetDateTime.now();
 
@@ -71,5 +79,18 @@ public class Autor {
                 ", descricao='" + descricao + '\'' +
                 ", criadoEm=" + cadastradoEm +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Autor autor = (Autor) o;
+        return Objects.equals(id, autor.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

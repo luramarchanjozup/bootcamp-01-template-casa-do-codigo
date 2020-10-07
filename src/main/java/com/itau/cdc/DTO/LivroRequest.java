@@ -14,10 +14,10 @@ import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.itau.cdc.configuration.exception.ApiErroException;
 import com.itau.cdc.entity.Autor;
 import com.itau.cdc.entity.Categoria;
 import com.itau.cdc.entity.Livro;
-import com.itau.cdc.exception.ApiErroException;
 
 public class LivroRequest {
 

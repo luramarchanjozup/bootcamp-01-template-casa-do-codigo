@@ -10,8 +10,8 @@ import javax.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.itau.cdc.configuration.exception.ApiErroException;
 import com.itau.cdc.entity.Cupom;
-import com.itau.cdc.exception.ApiErroException;
 
 public class CupomRequest {
 

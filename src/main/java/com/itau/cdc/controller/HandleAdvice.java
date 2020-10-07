@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.itau.cdc.DTO.ErroPadronizado;
-import com.itau.cdc.exception.ApiErroException;
+import com.itau.cdc.configuration.exception.ApiErroException;
 
 @RestControllerAdvice
+//2
 public class HandleAdvice {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
+	//1
 	public ResponseEntity<ErroPadronizado> handle(MethodArgumentNotValidException methodArgumentNotValidException){
 		
 		Collection<String> mensagens = new ArrayList<>();
@@ -36,6 +38,7 @@ public class HandleAdvice {
 	}
 	
 	@ExceptionHandler(ApiErroException.class)
+	//1
 	public ResponseEntity<ErroPadronizado> handleApiErroException(ApiErroException apiErroException) {
 	    Collection<String> mensagens = new ArrayList<>();
 	    mensagens.add(apiErroException.getReason());

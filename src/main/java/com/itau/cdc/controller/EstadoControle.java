@@ -19,14 +19,16 @@ import com.itau.cdc.service.EstadoService;
 public class EstadoControle {
 
 	@Autowired
+	//1
 	private EstadoService estadoService;
 	
 	@PostMapping("/v1/estados")
 	@Transactional
+	//1
 	public ResponseEntity<?> CriaEstado(@RequestBody @Valid EstadoRequest request, UriComponentsBuilder builder){
-		
+		//1
 		Long idEstado = estadoService.IncluirEstado(request);
-		
+		//1
 		URI enderecoConsulta = builder.path("/v1/estados/{id}").build(idEstado);
 		
 		return ResponseEntity.created(enderecoConsulta).build();

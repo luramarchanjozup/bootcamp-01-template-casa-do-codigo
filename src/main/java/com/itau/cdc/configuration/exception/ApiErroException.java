@@ -1,4 +1,4 @@
-package com.itau.cdc.exception;
+package com.itau.cdc.configuration.exception;
 
 import org.springframework.http.HttpStatus;
 

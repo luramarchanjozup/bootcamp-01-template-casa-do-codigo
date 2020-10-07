@@ -23,14 +23,16 @@ import com.sun.istack.NotNull;
 public class NovaCompraController {
 
 	@Autowired
+	//1
 	private NovaCompraService novaCompraService;
 	
 	@PostMapping("/v1/compras")
 	@Transactional
+	//1
 	public ResponseEntity<?> NovaCompra (@RequestBody @Valid CompraRequest request,  UriComponentsBuilder builder){
-		
+		//1
 		Long idCompra = novaCompraService.NovaCompra(request);
-		
+		//1
 		URI enderecoConsulta = builder.path("/v1/compras/{id}").build(idCompra);
 		
 		return ResponseEntity.created(enderecoConsulta).build();
@@ -38,10 +40,11 @@ public class NovaCompraController {
 	
 	@GetMapping("/v1/compras/{id_compra}")
 	@Transactional
+	//1
 	public ResponseEntity<?> ConsultaCompra (@PathVariable("id_compra") @NotNull Long id_compra){
-		
+		//1
 		CompraResponse compra = novaCompraService.consultaCompra(id_compra);
-		
+		//1
 		if(compra == null) {
 			return ResponseEntity.notFound().build();
 		}else {

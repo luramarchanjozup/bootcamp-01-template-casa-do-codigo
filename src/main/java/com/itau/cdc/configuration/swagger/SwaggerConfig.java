@@ -1,4 +1,4 @@
-package com.itau.cdc;
+package com.itau.cdc.configuration.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

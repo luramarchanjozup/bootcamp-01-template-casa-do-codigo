@@ -14,20 +14,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.itau.cdc.DTO.AutorRequest;
 import com.itau.cdc.service.AutorService;
-
+//4
 @RestController
 public class AutorController {
-
+	//1
 	@Autowired
 	private AutorService autorService;
 
-	//1
 	@PostMapping("/v1/autores")
 	@Transactional
+	//1
 	public ResponseEntity<?> CriaAutor(@RequestBody @Valid AutorRequest request, UriComponentsBuilder builder){
 		//1
 		Long idAutor = autorService.IncluirAutor(request);
-		
+		//1
 		URI enderecoConsulta = builder.path("/v1/autores/{id}").build(idAutor);
 		
 		return ResponseEntity.created(enderecoConsulta).build();

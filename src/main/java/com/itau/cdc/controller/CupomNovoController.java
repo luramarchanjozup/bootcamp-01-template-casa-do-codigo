@@ -12,27 +12,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.itau.cdc.DTO.PaisRequest;
-import com.itau.cdc.service.PaisService;
+import com.itau.cdc.DTO.CupomRequest;
+import com.itau.cdc.service.CupomNovoService;
 
 @RestController
-public class PaisController {
+//4
+public class CupomNovoController {
 
 	@Autowired
 	//1
-	private PaisService paisService;
+	private CupomNovoService novoCupomService;
 	
-	@PostMapping("/v1/paises")
+	@PostMapping("/v1/cupons")
 	@Transactional
 	//1
-	public ResponseEntity<?> CriaPais(@RequestBody @Valid PaisRequest request, UriComponentsBuilder builder){
+	private ResponseEntity<?> NovoCupom(@RequestBody @Valid CupomRequest request, UriComponentsBuilder builder){
 		//1
-		Long idPais = paisService.IncluirPais(request);
+		Long idCupom = novoCupomService.NovoCupom(request);
 		//1
-		URI enderecoConsulta = builder.path("/v1/paises/{id}").build(idPais);
+		URI enderecoConsulta = builder.path("/v1/cupons/{id}").build(idCupom);
 		
 		return ResponseEntity.created(enderecoConsulta).build();
-		
 	}
+	
+	
 	
 }

@@ -19,17 +19,20 @@ import com.itau.cdc.DTO.LivroResponse;
 import com.itau.cdc.service.LivroService;
 
 @RestController
+//7
 public class LivrosController {
 
 	@Autowired
+	//1
 	private LivroService livroService;
 	
 	@PostMapping("/v1/livros")
 	@Transactional
+	//1
 	public ResponseEntity<?> CriaLivro(@RequestBody @Valid LivroRequest request, UriComponentsBuilder builder){
-		
+		//1
 		Long idLivro = livroService.IncluirLivro(request);
-		
+		//1
 		URI enderecoConsulta = builder.path("/v1/livros/{id}").build(idLivro);
 		
 		return ResponseEntity.created(enderecoConsulta).build();
@@ -37,9 +40,11 @@ public class LivrosController {
 	
 	@GetMapping("/v1/livros")
 	@Transactional
+	//1
 	public ResponseEntity<?> RetornaListaLivros(UriComponentsBuilder builder){
-
+		//1
 		List<LivroResponse> livros = livroService.ListaLivros();
+		//1
 		if(livros==null) {
 			return ResponseEntity.notFound().build();
 		}

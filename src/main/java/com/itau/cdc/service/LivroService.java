@@ -15,10 +15,11 @@ import org.springframework.stereotype.Service;
 import com.itau.cdc.DTO.LivroRequest;
 import com.itau.cdc.DTO.LivroResponse;
 import com.itau.cdc.Repository.LivroJpaRepository;
+import com.itau.cdc.configuration.exception.ApiErroException;
 import com.itau.cdc.entity.Livro;
-import com.itau.cdc.exception.ApiErroException;
 
 @Service
+//6
 public class LivroService {
 
 	@Autowired
@@ -27,38 +28,28 @@ public class LivroService {
 	@PersistenceContext
 	private EntityManager manager;
 
+	//1
 	public Long IncluirLivro(@Valid LivroRequest request) {
-
+		//1
 		if ((livroJpaRepository.findByTitulo(request.getTitulo()).isPresent())) {
 			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe um outro livro com o mesmo titulo " + request.getTitulo());
 		}
-
+		//1	
 		Livro novoLivro = request.toModel(manager);
 
 		novoLivro = livroJpaRepository.save(novoLivro);
 
 		return novoLivro.getId();
 	}
-
+	//1
 	public List<LivroResponse> ListaLivros() {
-
+		//1
 		Iterable<Livro> listaLivros = livroJpaRepository.findAll();
-
+		//1
 		List<LivroResponse> listaLivrosResponse = StreamSupport.stream(listaLivros.spliterator(), false)
 				.map(livro -> livro.toResponse()).collect(Collectors.toList());
 
 		return listaLivrosResponse;
-	}
-
-	public LivroResponse ConsultaLivro(Long idLivro) {
-
-		Livro livro = manager.find(Livro.class, idLivro);
-		
-		if(livro.equals(null)) {
-			return null;
-		}
-		
-		return livro.toResponse();
 	}
 
 }

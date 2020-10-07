@@ -8,22 +8,25 @@ import org.springframework.stereotype.Service;
 
 import com.itau.cdc.DTO.CategoriaRequest;
 import com.itau.cdc.Repository.CategoriaJpaRepository;
+import com.itau.cdc.configuration.exception.ApiErroException;
 import com.itau.cdc.entity.Categoria;
-import com.itau.cdc.exception.ApiErroException;
 
 @Service
+//3
 public class CategoriaService {
 
 	@Autowired
 	private CategoriaJpaRepository categoriaJpaRepository;
 	
+	//1
 	public Long IncluirCategoria(@Valid CategoriaRequest request) {
-		
+		//1
 		if((categoriaJpaRepository.findByNome(request.getNome()).isPresent())) {
 			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma outra categoria com o mesmo nome " + request.getNome());
 		}
 		
 		@Valid
+		//1
 		Categoria novaCategoria = request.toModel();
 		
 		novaCategoria = categoriaJpaRepository.save(novaCategoria);

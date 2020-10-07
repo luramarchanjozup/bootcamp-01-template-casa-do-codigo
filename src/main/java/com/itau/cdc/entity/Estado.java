@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 
-import com.itau.cdc.exception.ApiErroException;
+import com.itau.cdc.configuration.exception.ApiErroException;
 
 @Entity
 public class Estado {

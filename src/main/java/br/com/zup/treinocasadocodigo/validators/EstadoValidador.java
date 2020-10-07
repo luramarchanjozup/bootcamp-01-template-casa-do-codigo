@@ -1,6 +1,6 @@
 package br.com.zup.treinocasadocodigo.validators;
 
-import br.com.zup.treinocasadocodigo.entities.DadosCompradorRequest;
+import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 
@@ -23,7 +23,7 @@ public class EstadoValidador implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return DadosCompradorRequest.class.isAssignableFrom(clazz);
+        return CompraRequest.class.isAssignableFrom(clazz);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class EstadoValidador implements Validator {
         }
 
         //1
-        DadosCompradorRequest dadosComprador = (DadosCompradorRequest) o;
+        CompraRequest dadosComprador = (CompraRequest) o;
 
         //1
         if (dadosComprador.getIdEstado() == null) {

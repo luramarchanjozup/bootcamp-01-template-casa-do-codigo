@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-// Intrinsic charge = 3
+// Intrinsic charge = 6
 @Entity
 public class Purchase implements Serializable {
 

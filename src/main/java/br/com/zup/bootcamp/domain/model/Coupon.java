@@ -7,8 +7,9 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
-// Intrinsic charge = 1
+// Intrinsic charge = 2
 @Entity
 public class Coupon implements Serializable {
 
@@ -68,5 +69,14 @@ public class Coupon implements Serializable {
 
     public boolean isExpired() {
         return this.expirationDate != null && this.expirationDate.isBefore(LocalDate.now());
+    }
+
+    public boolean codeExist(EntityManager manager, String code){
+        if(this.code.equals(code)) return false;
+
+        Query query = manager.createQuery("select code from " + Coupon.class.getName() + " b where code = :value");
+        query.setParameter("value", code);
+        List coupon = query.getResultList();
+        return !coupon.isEmpty();
     }
 }

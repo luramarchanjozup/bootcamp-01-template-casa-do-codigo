@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
-// Intrinsic charge = 9
+// Intrinsic charge = 10
 @RestController
 @RequestMapping("/buy")
 public class BuyerController {
@@ -59,9 +60,16 @@ public class BuyerController {
 
     @GetMapping("/{id}")
     @Transactional
-    public ResponseEntity<BuyerResponse> consultOne(@PathVariable String id){
-        Buyer buyer = (Buyer) manager.find(Buyer.class, id);
-        BuyerResponse response = new BuyerResponse(buyer);
+    public ResponseEntity<GenericResponse> consultOne(@PathVariable String id){
+        GenericResponse response;
+        Optional<Buyer> buyer = Optional.ofNullable(manager.find(Buyer.class, id));
+
+        if(buyer.isEmpty()){
+            response = new GenericResponse("Purchase not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        response = new GenericResponse(new BuyerResponse(buyer.get()));
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import java.util.Optional;
 
 // Intrinsic charge = 6
 @RestController
@@ -27,6 +27,7 @@ public class CouponController {
     public ResponseEntity<GenericResponse> register(@Validated @RequestBody CouponRequest request){
         Coupon coupon = request.convert();
         manager.persist(coupon);
+
         GenericResponse response = new GenericResponse("Coupon was registered");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -37,24 +38,23 @@ public class CouponController {
             @PathVariable String id, @Validated @RequestBody CouponUpdateRequest request
     ){
         GenericResponse response;
-        Coupon coupon = (Coupon) manager.find(Coupon.class, id);
-        if(coupon == null){
+        Optional<Coupon> couponOPT = Optional.ofNullable(manager.find(Coupon.class, id));
+
+        if(couponOPT.isEmpty()){
             response = new GenericResponse("Coupon not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
-        if(!coupon.getCode().equals(request.getCode())){
-            Query query = manager.createQuery("select code from " + Coupon.class.getName() + " b where code = :value");
-            query.setParameter("value", request.getCode());
-            if(!query.getResultList().isEmpty()){
-                response = new GenericResponse("Coupon code already exist");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-            }
-        }
-        coupon.setCode(request.getCode());
-        coupon.setExpirationDate(request.getExpirationDate());
-        coupon.setPercentage(request.getPercentage());
 
+        Coupon coupon = couponOPT.get();
+
+        if(coupon.codeExist(manager, request.getCode())){
+            response = new GenericResponse("Coupon code already exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+
+        request.convert(coupon);
         manager.merge(coupon);
+
         response = new GenericResponse("Coupon was updated");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

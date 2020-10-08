@@ -6,7 +6,7 @@ import br.com.zup.bootcamp.domain.model.Purchase;
 import java.util.ArrayList;
 import java.util.Collection;
 
-// Intrinsic charge = 3
+// Intrinsic charge = 4
 public class PurchaseResponse {
     private String id;
     private float total;

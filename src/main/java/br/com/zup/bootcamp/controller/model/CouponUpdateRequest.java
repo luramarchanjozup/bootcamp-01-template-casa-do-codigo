@@ -1,11 +1,12 @@
 package br.com.zup.bootcamp.controller.model;
 
+import br.com.zup.bootcamp.domain.model.Coupon;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
-// Intrinsic charge = 0
+// Intrinsic charge = 1
 public class CouponUpdateRequest {
     @NotBlank(message = "Code is mandatory")
     private String code;
@@ -42,5 +43,11 @@ public class CouponUpdateRequest {
 
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public void convert(Coupon coupon) {
+        coupon.setCode(this.code);
+        coupon.setExpirationDate(this.expirationDate);
+        coupon.setPercentage(this.percentage);
     }
 }

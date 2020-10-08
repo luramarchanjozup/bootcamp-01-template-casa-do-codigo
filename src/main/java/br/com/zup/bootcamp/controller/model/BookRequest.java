@@ -8,12 +8,13 @@ import br.com.zup.bootcamp.domain.model.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-// Intrinsic charge = 5
+// Intrinsic charge = 3
 public class BookRequest {
     @NotBlank(message = "Isbn is mandatory")
     @Unique(message = "Isbn already registered", fieldName = "isbn", domainClass = Book.class)
@@ -37,6 +38,7 @@ public class BookRequest {
     @NotNull(message = "Pages is mandatory")
     private int pages;
 
+    @Future(message = "Publication date needs to be in the future")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate publicationDate;
 

@@ -5,7 +5,7 @@ import br.com.zup.bootcamp.domain.model.Country;
 
 import javax.validation.constraints.NotBlank;
 
-// Intrinsic charge = 2
+// Intrinsic charge = 1
 public class CountryRequest {
     @NotBlank(message = "Name is mandatory")
     @Unique(message = "Country already registered", fieldName = "name", domainClass = Country.class)

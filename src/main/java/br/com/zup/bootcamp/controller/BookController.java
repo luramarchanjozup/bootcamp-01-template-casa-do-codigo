@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.time.LocalDate;
+import java.util.Optional;
 
-// Intrinsic charge = 5
+// Intrinsic charge = 4
 @RestController
 @RequestMapping("/book")
 public class BookController {
@@ -25,17 +25,10 @@ public class BookController {
     @PostMapping
     @Transactional
     public ResponseEntity<GenericResponse> register(@Validated @RequestBody BookRequest request){
-        GenericResponse response;
-
-        if(request.getPublicationDate().isEqual(LocalDate.now())){
-            response = new GenericResponse("Publication date needs to be in the future");
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
-        }
-
         Book newBook = request.convert();
         manager.persist(newBook);
 
-        response = new GenericResponse("The book was registered");
+        GenericResponse response = new GenericResponse("The book was registered");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -52,14 +45,14 @@ public class BookController {
     @Transactional
     public ResponseEntity<GenericResponse> consultOne(@PathVariable("id") String id){
         GenericResponse response;
-        Book book = manager.find(Book.class, id);
+        Optional<Book> book = Optional.of(manager.find(Book.class, id));
 
-        if(book == null){
+        if(book.isEmpty()){
             response = new GenericResponse("Book not found");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
 
-        response = new GenericResponse(book);
+        response = new GenericResponse(book.get());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

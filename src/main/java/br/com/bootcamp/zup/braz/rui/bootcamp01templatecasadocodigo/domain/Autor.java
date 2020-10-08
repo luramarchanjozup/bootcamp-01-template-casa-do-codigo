@@ -1,5 +1,8 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnico;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -24,10 +24,10 @@ public class NovaCategoriaController {
     @Autowired
     CategoriaUnicaValidator categoriaUnicaValidator;
 
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(categoriaUnicaValidator);
-    }
+//    @InitBinder
+//    public void init(WebDataBinder binder){
+//        binder.addValidators(categoriaUnicaValidator);
+//    }
 
     //Cadastrar uma nova Categoria
     @PostMapping

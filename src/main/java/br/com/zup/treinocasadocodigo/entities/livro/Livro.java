@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * Contagem de carga intrínseca da classe: 0
+ * Contagem de carga intrínseca da classe: 2
  */
 
 @Entity
@@ -47,11 +47,13 @@ public class Livro {
     @NotNull
     @ManyToOne
     @Valid
+    //1
     private Categoria categoria;
 
     @NotNull
     @ManyToOne
     @Valid
+    //1
     private Autor autor;
 
     protected Livro(){}

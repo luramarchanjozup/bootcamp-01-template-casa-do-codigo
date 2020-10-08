@@ -8,7 +8,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contagem de carga intrínseca da classe: 1
+ */
+
 @Repository
+//1
 public interface EstadoRepository extends CrudRepository<Estado, Long> {
     Optional<Estado> findById(Long id);
     List<Estado> findByPais(Pais pais);

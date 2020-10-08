@@ -5,12 +5,13 @@ import br.com.zup.treinocasadocodigo.validators.uniquevalue.UniqueValue;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Contagem de carga intrínseca da classe: 1
+ * Contagem de carga intrínseca da classe: 2
  */
 
 public class CategoriaNovoRequest {
 
     @NotBlank
+    //1
     @UniqueValue(dominioClasse = Categoria.class, nomeCampo = "nome")
     private String nome;
 

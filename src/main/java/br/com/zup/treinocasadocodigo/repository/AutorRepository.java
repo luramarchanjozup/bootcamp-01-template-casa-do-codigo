@@ -6,7 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Contagem de carga intrínseca da classe: 1
+ */
+
 @Repository
+//1
 public interface AutorRepository extends CrudRepository<Autor, Long> {
 
     Optional<Autor> findByEmail(String email);

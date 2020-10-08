@@ -7,12 +7,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * Contagem de carga intrínseca da classe: 1
+ * Contagem de carga intrínseca da classe: 2
  */
 
 public class AutorNovoRequest {
     @Email
     @NotBlank
+    //1
     @UniqueValue(dominioClasse = Autor.class, nomeCampo = "email")
     private String email;
 

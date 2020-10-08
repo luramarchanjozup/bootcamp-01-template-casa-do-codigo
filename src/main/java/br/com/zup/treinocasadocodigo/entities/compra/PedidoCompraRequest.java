@@ -7,6 +7,10 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Contagem de carga intrínseca da classe: 1
+ */
+
 public class PedidoCompraRequest {
 
     @Positive
@@ -15,6 +19,7 @@ public class PedidoCompraRequest {
 
     @NotEmpty
     @Valid
+    //1
     List<ItensCompraRequest> itens;
 
     public PedidoCompraRequest(@Positive @NotNull BigDecimal total, @NotEmpty @Valid List<ItensCompraRequest> itens) {

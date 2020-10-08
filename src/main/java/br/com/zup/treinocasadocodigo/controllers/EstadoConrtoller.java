@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 /**
- * Contagem de carga intrínseca da classe: 1
+ * Contagem de carga intrínseca da classe: 2
  */
 
 @RestController
@@ -23,6 +23,7 @@ public class EstadoConrtoller {
 
     @PostMapping("/estados")
     @Transactional
+    //1
     public String cadastroEstado(@RequestBody @Valid EstadoNovoRequest novoEstado) {
         //1
         Estado estado = novoEstado.toModel(manager);

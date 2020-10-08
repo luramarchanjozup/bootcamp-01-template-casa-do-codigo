@@ -21,7 +21,9 @@ public class LivroRetornoDetalhes {
     private String isbn;
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate dataPublicacao;
+    //1
     private CategoriaRetorno categoria;
+    //1
     private AutorRetorno autor;
 
     //1
@@ -33,9 +35,7 @@ public class LivroRetornoDetalhes {
         this.nPaginas = livro.getnPaginas();
         this.isbn = livro.getIsbn();
         this.dataPublicacao = livro.getDataPublicacao();
-        //1
         this.categoria = new CategoriaRetorno(livro.getCategoria());
-        //1
         this.autor = new AutorRetorno(livro.getAutor());
     }
 

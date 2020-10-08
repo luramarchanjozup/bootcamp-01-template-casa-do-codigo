@@ -1,7 +1,5 @@
 package br.com.zup.treinocasadocodigo.entities.livro;
 
-import br.com.zup.treinocasadocodigo.entities.livro.Livro;
-
 /**
  * Contagem de carga intrínseca da classe: 1
  */

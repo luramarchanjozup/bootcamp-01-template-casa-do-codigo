@@ -1,16 +1,20 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
 import br.com.zup.treinocasadocodigo.entities.livro.Livro;
-import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 import br.com.zup.treinocasadocodigo.validators.existid.ExistId;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+/**
+ * Contagem de carga intrínseca da classe: 3
+ */
+
 public class ItensCompraRequest {
 
     @NotNull
+    //1
     @ExistId(dominioClasse = Livro.class, nomeCampo = "id")
     private Long idLivro;
     @NotNull
@@ -38,6 +42,7 @@ public class ItensCompraRequest {
                 '}';
     }
 
+    //1
     public ItensCompra toModel(EntityManager manager) {
         //1
         Livro livro = manager.find(Livro.class, this.idLivro);

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * Contagem de carga intrínseca da classe: 0
+ * Contagem de carga intrínseca da classe: 1
  */
 
 @Entity
@@ -22,6 +22,7 @@ public class Estado {
 
     @NotNull
     @ManyToOne
+    //1
     private Pais pais;
 
     protected Estado(){}

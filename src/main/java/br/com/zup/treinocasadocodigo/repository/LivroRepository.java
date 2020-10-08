@@ -6,7 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Contagem de carga intrínseca da classe: 1
+ */
+
 @Repository
+//1
 public interface LivroRepository extends CrudRepository<Livro, Long> {
     List<Livro> findAll();
 }

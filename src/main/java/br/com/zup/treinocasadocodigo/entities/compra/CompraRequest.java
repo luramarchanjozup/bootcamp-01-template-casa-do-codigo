@@ -1,20 +1,21 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
-import br.com.zup.treinocasadocodigo.entities.livro.Livro;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 import br.com.zup.treinocasadocodigo.validators.cpfcnpj.CpfCnpj;
 import br.com.zup.treinocasadocodigo.validators.existid.ExistId;
-import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
+
+/**
+ * Contagem de carga intrínseca da classe: 8
+ */
 
 public class CompraRequest {
 
@@ -27,6 +28,7 @@ public class CompraRequest {
     @NotBlank
     private String sobrenome;
     @NotBlank
+    //1
     @CpfCnpj
     private String documento;
     @NotBlank
@@ -36,6 +38,7 @@ public class CompraRequest {
     @NotBlank
     private String cidade;
     @NotNull
+    //1
     @ExistId(dominioClasse = Pais.class, nomeCampo = "id")
     private Long idPais;
     @ExistId(dominioClasse = Estado.class, nomeCampo = "id")
@@ -48,6 +51,7 @@ public class CompraRequest {
     //Dados da compra
     @NotNull
     @Valid
+    //1
     private PedidoCompraRequest pedido;
 
     public CompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long idPais, Long idEstado, @NotBlank String telefone, @NotBlank String cep, @NotNull @Valid PedidoCompraRequest pedido) {
@@ -136,7 +140,15 @@ public class CompraRequest {
     }
 
     //1
-    public Compra toModel(EntityManager manager, List<ItensCompra> itens){
+    public List<ItensCompra> ItenstoModel(EntityManager manager) {
+        return this.pedido.getItens()
+                .stream()
+                .map(itemRequest -> itemRequest.toModel(manager))
+                .collect(Collectors.toList());
+    }
+
+    //1
+    public Compra toModel(EntityManager manager){
 
         //1
         Pais pais = manager.find(Pais.class, this.idPais);
@@ -147,7 +159,8 @@ public class CompraRequest {
             estado = manager.find(Estado.class, this.idEstado);
         }
 
-        //1
+        List<ItensCompra> itens = this.ItenstoModel(manager);
+
         return new Compra(this.email, this.nome, this.sobrenome, this.documento,
                 this.endereco, this.complemento, this.cidade, pais, estado,
                 this.telefone, this.cep, itens, this.pedido.getTotal());

@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.validators;
+package br.com.zup.treinocasadocodigo.validators.validarcompras;
 
 import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;

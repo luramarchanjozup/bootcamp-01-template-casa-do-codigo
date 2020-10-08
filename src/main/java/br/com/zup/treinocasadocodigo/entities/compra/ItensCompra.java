@@ -1,11 +1,14 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
 import br.com.zup.treinocasadocodigo.entities.livro.Livro;
-import br.com.zup.treinocasadocodigo.validators.existid.ExistId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+/**
+ * Contagem de carga intrínseca da classe: 1
+ */
 
 @Entity
 public class ItensCompra {
@@ -16,6 +19,7 @@ public class ItensCompra {
 
     @NotNull
     @ManyToOne
+    //1
     private Livro livro;
 
     @NotNull

@@ -5,13 +5,16 @@ import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 import br.com.zup.treinocasadocodigo.validators.cpfcnpj.CpfCnpj;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.List;
+
+/**
+ * Contagem de carga intrínseca da classe: 2
+ */
 
 @Entity
 public class Compra {
@@ -29,6 +32,7 @@ public class Compra {
     @NotBlank
     private String sobrenome;
     @NotBlank
+    //1
     @CpfCnpj
     private String documento;
     @NotBlank
@@ -50,12 +54,15 @@ public class Compra {
     //Dados da compra
     @NotNull
     @OneToMany
-    private List<ItensCompra> pedido;
+    //1
+    private List<ItensCompra> itens;
     @NotNull
     @Positive
     private BigDecimal total;
 
-    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItensCompra> pedido, @NotNull @Positive BigDecimal total) {
+    protected Compra(){}
+
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItensCompra> itens, @NotNull @Positive BigDecimal total) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -67,7 +74,7 @@ public class Compra {
         this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
-        this.pedido = pedido;
+        this.itens = itens;
         this.total = total;
     }
 
@@ -163,12 +170,12 @@ public class Compra {
         this.cep = cep;
     }
 
-    public List<ItensCompra> getPedido() {
-        return pedido;
+    public List<ItensCompra> getItens() {
+        return itens;
     }
 
-    public void setPedido(List<ItensCompra> pedido) {
-        this.pedido = pedido;
+    public void setItens(List<ItensCompra> itens) {
+        this.itens = itens;
     }
 
     public BigDecimal getTotal() {
@@ -194,7 +201,7 @@ public class Compra {
                 ", estado=" + estado +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
-                ", pedido=" + pedido +
+                ", pedido=" + itens +
                 ", total=" + total +
                 '}';
     }

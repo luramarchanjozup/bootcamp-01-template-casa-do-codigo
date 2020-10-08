@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 /**
- * Contagem de carga intrínseca da classe: 1
+ * Contagem de carga intrínseca da classe: 2
  */
 
 @RestController
@@ -23,6 +23,7 @@ public class PaisController {
 
     @PostMapping("/paises")
     @Transactional
+    //1
     public String cadastroPais(@RequestBody @Valid PaisNovoRequest novoPais) {
         //1
         Pais pais = novoPais.toModel();

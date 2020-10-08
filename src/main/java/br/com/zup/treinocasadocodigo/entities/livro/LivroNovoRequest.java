@@ -13,12 +13,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * Contagem de carga intrínseca da classe: 3
+ * Contagem de carga intrínseca da classe: 5
  */
 
 public class LivroNovoRequest {
 
     @NotBlank
+    //1
     @UniqueValue(dominioClasse = Livro.class, nomeCampo = "titulo")
     private String titulo;
 
@@ -46,6 +47,7 @@ public class LivroNovoRequest {
     private LocalDate dataPublicacao;
 
     @NotNull
+    //1
     @ExistId(dominioClasse = Categoria.class, nomeCampo = "id")
     private Long idCategoria;
 
@@ -89,6 +91,7 @@ public class LivroNovoRequest {
         return idAutor;
     }
 
+    //1
     public Livro toModel(EntityManager manager){
         //1
         Autor autor = manager.find(Autor.class, idAutor);
@@ -98,7 +101,6 @@ public class LivroNovoRequest {
         Assert.notNull(autor, "O Autor não existe");
         Assert.notNull(categoria, "A categoria não existe");
 
-        //1
         return new Livro(titulo, resumo, sumario, preco, nPaginas, isbn, dataPublicacao, categoria, autor);
     }
 }

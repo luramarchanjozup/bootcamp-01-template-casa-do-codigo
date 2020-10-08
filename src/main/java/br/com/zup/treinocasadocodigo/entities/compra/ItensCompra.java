@@ -50,4 +50,13 @@ public class ItensCompra {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    @Override
+    public String toString() {
+        return "ItensCompra{" +
+                "id=" + id +
+                ", livro=" + livro +
+                ", quantidade=" + quantidade +
+                '}';
+    }
 }

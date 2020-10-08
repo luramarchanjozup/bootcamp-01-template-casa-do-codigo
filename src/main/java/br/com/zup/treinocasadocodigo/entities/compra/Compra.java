@@ -55,14 +55,14 @@ public class Compra {
     @NotNull
     @OneToMany
     //1
-    private List<ItensCompra> itens;
+    private List<ItensCompra> listaItens;
     @NotNull
     @Positive
     private BigDecimal total;
 
     protected Compra(){}
 
-    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItensCompra> itens, @NotNull @Positive BigDecimal total) {
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull @Positive BigDecimal total) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -74,7 +74,6 @@ public class Compra {
         this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
-        this.itens = itens;
         this.total = total;
     }
 
@@ -170,12 +169,12 @@ public class Compra {
         this.cep = cep;
     }
 
-    public List<ItensCompra> getItens() {
-        return itens;
+    public List<ItensCompra> getListaItens() {
+        return listaItens;
     }
 
-    public void setItens(List<ItensCompra> itens) {
-        this.itens = itens;
+    public void setListaItens(List<ItensCompra> listaItens) {
+        this.listaItens = listaItens;
     }
 
     public BigDecimal getTotal() {
@@ -201,7 +200,7 @@ public class Compra {
                 ", estado=" + estado +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
-                ", pedido=" + itens +
+                ", pedido=" + listaItens +
                 ", total=" + total +
                 '}';
     }

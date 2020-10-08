@@ -12,7 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 /**
- * Contagem de carga intrínseca da classe: 5
+ * Contagem de carga intrínseca da classe: 6
  */
 
 @Component
@@ -22,8 +22,8 @@ public class EstadoValidador implements Validator {
     private EntityManager manager;
 
     @Override
-    public boolean supports(Class<?> clazz) {
-        return CompraRequest.class.isAssignableFrom(clazz);
+    public boolean supports(Class<?> aClass) {
+        return CompraRequest.class.isAssignableFrom(aClass);
     }
 
     @Override
@@ -34,20 +34,21 @@ public class EstadoValidador implements Validator {
         }
 
         //1
-        CompraRequest dadosComprador = (CompraRequest) o;
+        CompraRequest compra = (CompraRequest) o;
 
         //1
-        if (dadosComprador.getIdEstado() == null) {
+        if (compra.getIdEstado() == null) {
             return;
         }
 
         //1
-        Pais pais = manager.find(Pais.class, dadosComprador.getIdPais());
-        Estado estado = manager.find(Estado.class, dadosComprador.getIdEstado());
+        Pais pais = manager.find(Pais.class, compra.getIdPais());
+        //1
+        Estado estado = manager.find(Estado.class, compra.getIdEstado());
 
         //1
         if(!estado.pertenceAPais(pais)) {
-            errors.rejectValue("idEstado","Comprador.estado","este estado não é o do país selecionado");
+            errors.rejectValue("idEstado","Compra.estado","este estado não é o do país selecionado");
         }
 
     }

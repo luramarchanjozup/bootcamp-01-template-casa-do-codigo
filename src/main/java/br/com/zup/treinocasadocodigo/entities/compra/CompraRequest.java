@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 8
+ * Contagem de carga intrínseca da classe: 9
  */
 
 public class CompraRequest {
@@ -141,6 +141,7 @@ public class CompraRequest {
 
     //1
     public List<ItensCompra> ItenstoModel(EntityManager manager) {
+        //1
         return this.pedido.getItens()
                 .stream()
                 .map(itemRequest -> itemRequest.toModel(manager))
@@ -148,21 +149,15 @@ public class CompraRequest {
     }
 
     //1
-    public Compra toModel(EntityManager manager){
+    public Compra toModelSemItens(EntityManager manager){
 
         //1
         Pais pais = manager.find(Pais.class, this.idPais);
-        //1
-        Estado estado = null;
-        //1
-        if(this.idEstado != null) {
-            estado = manager.find(Estado.class, this.idEstado);
-        }
-
-        List<ItensCompra> itens = this.ItenstoModel(manager);
+        //2
+        Estado estado = this.idEstado == null ? null : manager.find(Estado.class, this.idEstado);
 
         return new Compra(this.email, this.nome, this.sobrenome, this.documento,
                 this.endereco, this.complemento, this.cidade, pais, estado,
-                this.telefone, this.cep, itens, this.pedido.getTotal());
+                this.telefone, this.cep, this.pedido.getTotal());
     }
 }

@@ -1,5 +1,6 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
+import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 import br.com.zup.treinocasadocodigo.validators.cpfcnpj.CpfCnpj;
@@ -140,15 +141,6 @@ public class CompraRequest {
     }
 
     //1
-    public List<ItensCompra> ItenstoModel(EntityManager manager) {
-        //1
-        return this.pedido.getItens()
-                .stream()
-                .map(itemRequest -> itemRequest.toModel(manager))
-                .collect(Collectors.toList());
-    }
-
-    //1
     public Compra toModelSemItens(EntityManager manager){
 
         //1
@@ -156,8 +148,14 @@ public class CompraRequest {
         //2
         Estado estado = this.idEstado == null ? null : manager.find(Estado.class, this.idEstado);
 
+        //2
+        List<ItemCompra> itens = this.pedido.getItens()
+                .stream()
+                .map(itemRequest -> itemRequest.toModel(manager))
+                .collect(Collectors.toList());
+
         return new Compra(this.email, this.nome, this.sobrenome, this.documento,
                 this.endereco, this.complemento, this.cidade, pais, estado,
-                this.telefone, this.cep, this.pedido.getTotal());
+                this.telefone, this.cep, itens, this.pedido.getTotal());
     }
 }

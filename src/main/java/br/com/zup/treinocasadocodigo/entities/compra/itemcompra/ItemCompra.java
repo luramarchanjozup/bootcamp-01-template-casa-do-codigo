@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entities.compra;
+package br.com.zup.treinocasadocodigo.entities.compra.itemcompra;
 
 import br.com.zup.treinocasadocodigo.entities.livro.Livro;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive;
  */
 
 @Entity
-public class ItensCompra {
+public class ItemCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +26,9 @@ public class ItensCompra {
     @Positive
     private int quantidade;
 
-    public ItensCompra(@NotNull Livro livro, @NotNull @Positive int quantidade) {
+    public ItemCompra(){}
+
+    public ItemCompra(@NotNull Livro livro, @NotNull @Positive int quantidade) {
         this.livro = livro;
         this.quantidade = quantidade;
     }

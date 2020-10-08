@@ -1,5 +1,6 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
+import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 import br.com.zup.treinocasadocodigo.validators.cpfcnpj.CpfCnpj;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Contagem de carga intrínseca da classe: 2
+ * Contagem de carga intrínseca da classe: 4
  */
 
 @Entity
@@ -43,8 +44,10 @@ public class Compra {
     private String cidade;
     @NotNull
     @ManyToOne
+    //1
     private Pais pais;
     @ManyToOne
+    //1
     private Estado estado;
     @NotBlank
     private String telefone;
@@ -53,16 +56,17 @@ public class Compra {
 
     //Dados da compra
     @NotNull
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "compra_id")
     //1
-    private List<ItensCompra> listaItens;
+    private List<ItemCompra> listaItens;
     @NotNull
     @Positive
     private BigDecimal total;
 
     protected Compra(){}
 
-    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull @Positive BigDecimal total) {
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItemCompra> listaItens, @NotNull @Positive BigDecimal total) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -74,6 +78,7 @@ public class Compra {
         this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
+        this.listaItens = listaItens;
         this.total = total;
     }
 
@@ -169,11 +174,11 @@ public class Compra {
         this.cep = cep;
     }
 
-    public List<ItensCompra> getListaItens() {
+    public List<ItemCompra> getListaItens() {
         return listaItens;
     }
 
-    public void setListaItens(List<ItensCompra> listaItens) {
+    public void setListaItens(List<ItemCompra> listaItens) {
         this.listaItens = listaItens;
     }
 

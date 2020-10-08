@@ -1,4 +1,4 @@
-package br.com.zup.treinocasadocodigo.entities.compra;
+package br.com.zup.treinocasadocodigo.entities.compra.itemcompra;
 
 import br.com.zup.treinocasadocodigo.entities.livro.Livro;
 import br.com.zup.treinocasadocodigo.validators.existid.ExistId;
@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive;
  * Contagem de carga intrínseca da classe: 3
  */
 
-public class ItensCompraRequest {
+public class ItemCompraRequest {
 
     @NotNull
     //1
@@ -21,7 +21,7 @@ public class ItensCompraRequest {
     @Positive
     private int quantidade;
 
-    public ItensCompraRequest(Long idLivro, int quantidade) {
+    public ItemCompraRequest(Long idLivro, int quantidade) {
         this.idLivro = idLivro;
         this.quantidade = quantidade;
     }
@@ -43,9 +43,9 @@ public class ItensCompraRequest {
     }
 
     //1
-    public ItensCompra toModel(EntityManager manager) {
+    public ItemCompra toModel(EntityManager manager) {
         //1
         Livro livro = manager.find(Livro.class, this.idLivro);
-        return new ItensCompra(livro, this.quantidade);
+        return new ItemCompra(livro, this.quantidade);
     }
 }

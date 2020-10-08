@@ -2,59 +2,78 @@ package br.com.zup.treinocasadocodigo.controllers;
 
 import br.com.zup.treinocasadocodigo.entities.compra.Compra;
 import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
-import br.com.zup.treinocasadocodigo.entities.compra.ItensCompra;
-import br.com.zup.treinocasadocodigo.validators.validarcompras.EstadoValidador;
-import br.com.zup.treinocasadocodigo.validators.validarcompras.TotalValorValidador;
+import br.com.zup.treinocasadocodigo.entities.compra.CompraRetorno;
+import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
+import br.com.zup.treinocasadocodigo.repository.ItemCompraRepository;
+import br.com.zup.treinocasadocodigo.validators.validarcompras.CompraValidador;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 7
  */
 
 @RestController
+@RequestMapping("/compras")
 public class CompraController {
 
     @Autowired
     //1
-    private EstadoValidador estadoValidador;
-
-    @Autowired
-    //1
-    private TotalValorValidador totalValorValidador;
+    private CompraValidador compraValidador;
 
     @PersistenceContext
     private EntityManager manager;
 
+    @Autowired
+    //1
+    private ItemCompraRepository itemCompraRepository;
+
     @InitBinder
     public void init(WebDataBinder binder) {
-        binder.addValidators(estadoValidador, totalValorValidador);
+        binder.addValidators(compraValidador);
     }
 
-    @PostMapping("/compra")
+    @PostMapping()
     @Transactional
     //1
-    public String dadosComprador(@RequestBody @Valid CompraRequest dadosComprador) {
+    public ResponseEntity<Object> cadastroCompra(@RequestBody @Valid CompraRequest novaCompra) {
 
         //1
-        List<ItensCompra> itens = dadosComprador.ItenstoModel(manager);
-        //1
-        itens.forEach(manager::persist);
-
-        //1
-        Compra compra = dadosComprador.toModelSemItens(manager);
-        compra.setListaItens(itens);
+        Compra compra = novaCompra.toModelSemItens(manager);
         manager.persist(compra);
-        return compra.toString();
+
+        URI location = URI.create(String.format("/compras/%d", compra.getId()));
+        return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/{id}")
+    //1
+    public ResponseEntity<CompraRetorno> detalhesCompra(@PathVariable("id") Long id) {
+
+        Compra compra = manager.find(Compra.class, id);
+
+        //1
+        if (compra == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        //1
+        List<ItemCompra> listaItens = new ArrayList<>(itemCompraRepository
+                .findByCompraId(compra.getId()));
+        compra.setListaItens(listaItens);
+
+
+        return ResponseEntity.ok(new CompraRetorno(compra));
     }
 }

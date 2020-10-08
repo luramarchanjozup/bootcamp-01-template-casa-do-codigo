@@ -1,5 +1,7 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
+import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompraRequest;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -20,9 +22,9 @@ public class PedidoCompraRequest {
     @NotEmpty
     @Valid
     //1
-    List<ItensCompraRequest> itens;
+    List<ItemCompraRequest> itens;
 
-    public PedidoCompraRequest(@Positive @NotNull BigDecimal total, @NotEmpty @Valid List<ItensCompraRequest> itens) {
+    public PedidoCompraRequest(@Positive @NotNull BigDecimal total, @NotEmpty @Valid List<ItemCompraRequest> itens) {
         this.total = total;
         this.itens = itens;
     }
@@ -31,7 +33,7 @@ public class PedidoCompraRequest {
         return total;
     }
 
-    public List<ItensCompraRequest> getItens() {
+    public List<ItemCompraRequest> getItens() {
         return itens;
     }
 

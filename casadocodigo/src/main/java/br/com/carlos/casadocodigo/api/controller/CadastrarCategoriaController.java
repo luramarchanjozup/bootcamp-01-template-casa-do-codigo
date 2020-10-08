@@ -21,8 +21,8 @@ public class CadastrarCategoriaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseCategoriaDto salvar(@Valid @RequestBody RequestCategoriaDto request){
-        Categoria categoria = mapper.map(request, Categoria.class);
+    public ResponseCategoriaDto adicionar(@Valid @RequestBody RequestCategoriaDto request){
+        var categoria = mapper.map(request, Categoria.class);
         return mapper.map(repository.save(categoria),ResponseCategoriaDto.class);
     }
 }

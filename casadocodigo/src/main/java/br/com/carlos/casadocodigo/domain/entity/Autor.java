@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "autores")
 public class Autor {
 
-    @Id
+    @Id @Getter @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -38,5 +38,4 @@ public class Autor {
         this.email = email;
         this.descricao = descricao;
     }
-
 }

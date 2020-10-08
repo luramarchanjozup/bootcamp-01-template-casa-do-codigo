@@ -12,7 +12,6 @@ COPY /target/casadocodigo*.jar casadocodigo.jar
 
 SHELL ["/bin/sh","-c"]
 
-EXPOSE 5005
 EXPOSE 8080
 
 CMD java ${ADDITIONAL_OPTS} -jar casadocodigo.jar --spring.profiles.active=${PROFILE}

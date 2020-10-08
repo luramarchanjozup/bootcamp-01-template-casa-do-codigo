@@ -14,7 +14,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/autor")
 public class CadastrarAutorController {
-
     @Autowired
     private ModelMapper mapper;
     @Autowired
@@ -23,7 +22,7 @@ public class CadastrarAutorController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseAutorDto adicionar(@Valid @RequestBody RequestAutorDto request) {
-        Autor autor = mapper.map(request, Autor.class);
+        var autor = mapper.map(request, Autor.class);
         return  mapper.map(repository.save(autor), ResponseAutorDto.class);
     }
 }

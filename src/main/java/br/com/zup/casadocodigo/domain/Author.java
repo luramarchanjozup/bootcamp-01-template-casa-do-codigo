@@ -15,24 +15,20 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 @Entity(name = "authors")
-public class Author implements Serializable {
+public class Author {
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 80, nullable = false)
     private String name;
 
-    @Column(length = 50, nullable = false, unique=true)
     private String email;
 
-    @Column(length = 400, nullable = false)
     private String description;
 
-    @Column(name = "instant_registration")
     private LocalDateTime instantRegistration = LocalDateTime.now();
 
 

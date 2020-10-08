@@ -40,4 +40,8 @@ public class State {
 		return "State [id=" + id + ", name=" + name + ", country=" + country + "]";
 	}
 
+	public boolean belongToCountry(@Valid Country country) {
+		return this.country.equals(country);
+	}
+
 }

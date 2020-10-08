@@ -1,5 +1,6 @@
 package com.casadocodigo.requests;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.EntityManager;
@@ -33,7 +34,7 @@ public class BookRequest {
 
 	@NotNull
 	@Min(20)
-	private Double price;
+	private BigDecimal price;
 
 	@Min(100)
 	private int numberOfPages;
@@ -56,7 +57,7 @@ public class BookRequest {
 	private Long idAuthor;
 
 	public BookRequest(@NotBlank String title, @NotBlank @Size(max = 500) String summary, String abstractBook,
-			@NotNull @Min(20) Double price, @Min(100) int numberOfPages, @NotBlank String isbn,
+			@NotNull @Min(20) BigDecimal price, @Min(100) int numberOfPages, @NotBlank String isbn,
 			@NotNull Long idCategory, @NotNull Long idAuthor) {
 		super();
 		this.title = title;

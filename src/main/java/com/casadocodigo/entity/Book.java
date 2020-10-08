@@ -1,5 +1,6 @@
 package com.casadocodigo.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -32,7 +34,8 @@ public class Book {
 
 	@NotNull
 	@Min(20)
-	private Double price;
+	@Positive
+	private BigDecimal price;
 
 	@NotNull
 	@Min(100)
@@ -61,7 +64,7 @@ public class Book {
 	}
 
 	public Book(@NotBlank String title, @NotBlank @Size(max = 500) String summary, String abstractBook,
-			@NotNull @Min(20) Double price, @NotNull @Min(100) Integer numberOfPages, @NotNull String isbn,
+			@NotNull @Min(20) BigDecimal price, @NotNull @Min(100) Integer numberOfPages, @NotNull String isbn,
 			@Future @NotNull LocalDate publishDate, @NotNull @Valid Author author,
 			@NotNull @Valid Categories categorie) {
 		super();
@@ -75,6 +78,12 @@ public class Book {
 		this.author = author;
 		this.categorie = categorie;
 	}
+	
+
+	public @Positive BigDecimal getPrice() {
+		return price;
+	}
+
 
 	@Override
 	public String toString() {

@@ -1,25 +1,21 @@
 package br.com.zup.bootcamp.controller;
 
 import br.com.zup.bootcamp.controller.model.BuyerRequest;
+import br.com.zup.bootcamp.controller.model.BuyerResponse;
 import br.com.zup.bootcamp.controller.model.GenericResponse;
-import br.com.zup.bootcamp.controller.model.ItemRequest;
-import br.com.zup.bootcamp.domain.model.*;
+import br.com.zup.bootcamp.domain.model.Buyer;
+import br.com.zup.bootcamp.domain.model.Coupon;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.Collection;
 
-// Intrinsic charge = 15
+// Intrinsic charge = 9
 @RestController
 @RequestMapping("/buy")
 public class BuyerController {
@@ -31,63 +27,41 @@ public class BuyerController {
     @Transactional
     public ResponseEntity<GenericResponse> register(@Validated @RequestBody BuyerRequest request){
         GenericResponse response;
-        Buyer newBuyer = request.convert();
-        Purchase newPurchase = request.getCart().convert(newBuyer);
-        newBuyer.setPurchase(newPurchase);
 
-        Coupon coupon;
-        if(request.getCart().getCoupon() != null){
-            Query query = manager.createQuery("select b from " + Coupon.class.getName() + " b where code = :value");
-            query.setParameter("value", request.getCart().getCoupon());
-            coupon = (Coupon) query.getResultList().get(0);
-            if(coupon.isValid()){
-                response = new GenericResponse("Coupon is expired");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-            }
-            newPurchase.setCoupon(coupon);
-        }else{
-            coupon = new Coupon();
-            coupon.setPercentage(0);
+        Buyer newBuyer = request.convertBuyer();
+        Coupon coupon = request.getCart().convertCoupon(manager, newBuyer.getPurchase());
+
+        if(coupon.isExpired()){
+            response = new GenericResponse("Coupon is expired");
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
         }
 
-        if(request.getCart().getTotal() <= 0){
+        if(newBuyer.getPurchase().isTotalInvalid()){
             response = new GenericResponse("Total must to be greater than 0");
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
         }
 
-        Collection<Item> items = new ArrayList<>();
-        float total = 0;
-        for (ItemRequest itemRequest : request.getCart().getItems()) {
-            Item item = itemRequest.convert();
-            Book book = manager.find(Book.class, item.getBook().getIsbn());
-            total += book.getPrice() * item.getAmount();
-            item.setPurchase(newPurchase);
-            items.add(item);
-        }
-        newPurchase.setItems(items);
-        total = total - ( (total * coupon.getPercentage()) / 100 );
-
-        if(total != newPurchase.getTotal()){
+        if(newBuyer.getPurchase().isRequestTotalNotEquals(manager)){
             response = new GenericResponse("The total request is different from the calculated");
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
         }
 
-        if(newBuyer.getState() != null){
-            Query query = manager.createQuery(
-                    "select b.country from " + State.class.getName() + " b where country_id = :value"
-            );
-            query.setParameter("value", newBuyer.getCountry().getId());
-            Collection<State> resultList = query.getResultList();
-
-            if(resultList.isEmpty()){
-                response = new GenericResponse("Country not have this state");
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
-            }
+        if(newBuyer.isStateInvalid(manager)){
+            response = new GenericResponse("Country not have this state");
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
         }
 
         manager.persist(newBuyer);
 
         response = new GenericResponse("Buyer was registered");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<BuyerResponse> consultOne(@PathVariable String id){
+        Buyer buyer = (Buyer) manager.find(Buyer.class, id);
+        BuyerResponse response = new BuyerResponse(buyer);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

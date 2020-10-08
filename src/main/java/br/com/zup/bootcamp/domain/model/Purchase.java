@@ -22,6 +22,9 @@ public class Purchase implements Serializable {
     @Column(nullable = false)
     private float total;
 
+    @Column(nullable = false)
+    private float finalPrice;
+
     @ManyToOne
     @JoinColumn(name = "coupon_id", referencedColumnName = "id")
     private Coupon coupon;
@@ -39,6 +42,10 @@ public class Purchase implements Serializable {
 
     public float getTotal() {
         return total;
+    }
+
+    public float getFinalPrice() {
+        return finalPrice;
     }
 
     public Collection<Item> getItems() {
@@ -65,11 +72,34 @@ public class Purchase implements Serializable {
         this.items = items;
     }
 
+    public void setFinalPrice(float finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+
     public void setCoupon(Coupon coupon) {
         this.coupon = coupon;
     }
 
     public void addItem(Item item){
         this.items.add(item);
+    }
+
+    public boolean isTotalInvalid() {
+        return this.total <= 0;
+    }
+
+    public boolean isRequestTotalNotEquals(EntityManager manager) {
+        float total = 0;
+
+        for (Item item : items){
+            Book book = manager.find(Book.class, item.getBook().getIsbn());
+            total += book.getPrice() * item.getAmount();
+        }
+
+        return total != this.total;
+    }
+
+    public void applyDiscount() {
+        if(this.coupon != null) this.finalPrice = this.total - ((this.total * this.coupon.getPercentage()) / 100 );
     }
 }

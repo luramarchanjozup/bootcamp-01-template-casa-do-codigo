@@ -3,6 +3,7 @@ package br.com.zup.bootcamp.controller.model;
 import br.com.zup.bootcamp.controller.validator.annotation.Exist;
 import br.com.zup.bootcamp.domain.model.Buyer;
 import br.com.zup.bootcamp.domain.model.Country;
+import br.com.zup.bootcamp.domain.model.Purchase;
 import br.com.zup.bootcamp.domain.model.State;
 
 import javax.validation.Valid;
@@ -10,7 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-// Intrinsic charge = 6
+// Intrinsic charge = 5
 public class BuyerRequest {
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email invalid")
@@ -147,7 +148,7 @@ public class BuyerRequest {
         this.cart = cart;
     }
 
-    public Buyer convert(){
+    public Buyer convertBuyer(){
         State state = null;
         if(this.state != null && !this.state.isEmpty() && !this.state.isBlank()){
             state = new State();
@@ -156,7 +157,13 @@ public class BuyerRequest {
 
         Country country = new Country();
         country.setId(this.country);
-        return new Buyer(this.email, this.name, this.lastname, this.document, this.address, this.complement, this.city,
-                state, country, this.phone, this.cep);
+
+        Buyer buyer = new Buyer(
+                this.email, this.name, this.lastname, this.document, this.address, this.complement, this.city,
+                state, country, this.phone, this.cep
+        );
+        Purchase purchase = this.getCart().convert(buyer);
+
+        return buyer;
     }
 }

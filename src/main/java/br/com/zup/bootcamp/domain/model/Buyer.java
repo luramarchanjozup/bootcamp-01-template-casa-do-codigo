@@ -7,8 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Collection;
 
-// Intrinsic charge = 3
+// Intrinsic charge = 4
 @Entity
 public class Buyer implements Serializable {
 
@@ -177,4 +178,18 @@ public class Buyer implements Serializable {
     public void setPurchase(Purchase purchase) {
         this.purchase = purchase;
     }
+
+    public boolean isStateInvalid(EntityManager manager) {
+        if(this.state == null) return false;
+
+        Query query = manager.createQuery(
+                "select b.country from " + State.class.getName() + " b where country_id = :value"
+        );
+        query.setParameter("value", this.country.getId());
+        Collection<State> resultList = query.getResultList();
+
+        return resultList.isEmpty();
+    }
+
+
 }

@@ -66,7 +66,7 @@ public class Coupon implements Serializable {
         this.expirationDate = expirationDate;
     }
 
-    public boolean isValid() {
-        return !this.expirationDate.isAfter(LocalDate.now());
+    public boolean isExpired() {
+        return this.expirationDate != null && this.expirationDate.isBefore(LocalDate.now());
     }
 }

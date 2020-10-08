@@ -1,16 +1,18 @@
 package br.com.zup.bootcamp.controller.model;
 
 import br.com.zup.bootcamp.controller.validator.annotation.Exist;
-import br.com.zup.bootcamp.domain.model.Buyer;
-import br.com.zup.bootcamp.domain.model.Coupon;
-import br.com.zup.bootcamp.domain.model.Purchase;
+import br.com.zup.bootcamp.domain.model.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
-// Intrinsic charge = 2
+// Intrinsic charge = 6
 public class CartRequest {
     @NotNull(message = "Total is mandatory")
     private float total;
@@ -29,8 +31,8 @@ public class CartRequest {
         return items;
     }
 
-    public String getCoupon() {
-        return coupon;
+    public Optional<String> getCoupon() {
+        return Optional.of(this.coupon);
     }
 
     public void setTotal(float total) {
@@ -49,7 +51,38 @@ public class CartRequest {
         Purchase purchase = new Purchase();
         purchase.setBuyer(buyer);
         purchase.setTotal(this.total);
+        buyer.setPurchase(purchase);
+        purchase.setItems(this.convertItems(purchase));
 
         return purchase;
+    }
+
+    public Coupon convertCoupon(EntityManager manager, Purchase purchase){
+        Coupon coupon;
+
+        if(this.getCoupon().isPresent()){
+            Query query = manager.createQuery("select b from " + Coupon.class.getName() + " b where code = :value");
+            query.setParameter("value", this.coupon);
+            coupon = (Coupon) query.getResultList().get(0);
+            purchase.setCoupon(coupon);
+            purchase.applyDiscount();
+        }else{
+            coupon = new Coupon();
+            coupon.setPercentage(0);
+        }
+
+        return coupon;
+    }
+
+    public Collection<Item> convertItems(Purchase purchase) {
+        Collection<Item> items = new ArrayList<>();
+
+        for (ItemRequest itemRequest : this.items) {
+            Item item = itemRequest.convert();
+            item.setPurchase(purchase);
+            items.add(item);
+        }
+
+        return items;
     }
 }

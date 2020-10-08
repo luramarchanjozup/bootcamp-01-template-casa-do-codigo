@@ -12,11 +12,12 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotEmpty(message = "o nome do pais deve ser preenchido")
-    private final String name;
+    private String name;
 
     public Country(String name) {
         this.name = name;
     }
+    public Country() {}
 
     public long getId() {
         return id;

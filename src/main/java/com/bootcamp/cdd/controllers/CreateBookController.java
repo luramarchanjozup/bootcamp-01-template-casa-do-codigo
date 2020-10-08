@@ -7,14 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/book")
-public class BookController {
+public class CreateBookController {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -25,12 +23,5 @@ public class BookController {
         Book book = request.toModel(entityManager);
         entityManager.persist(book);
         return book;
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<?> listBooks () {
-        Query query = entityManager.createQuery("SELECT b FROM Book b", Book.class);
-        return query.getResultList();
     }
 }

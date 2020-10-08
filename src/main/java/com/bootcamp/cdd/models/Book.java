@@ -23,7 +23,7 @@ public class Book {
     private int quantidadePaginas;
     @NotBlank(message = "resumo é obrigatório") @Length(min = 1, max = 500, message = "O resumo deve ter entre 1 e 500 caracteres")
     private String resumo;
-   @Min(value = 20, message = "o preço minimo é de 20 reais")
+    @Min(value = 20, message = "o preço minimo é de 20 reais")
     private double preco;
     @NotBlank(message = "Isnb é obrigatorio")
     private String isnb;
@@ -87,5 +87,9 @@ public class Book {
 
     public Category getCategory() {
         return category;
+    }
+
+    public long getAuthorId() {
+        return this.author.getId();
     }
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import com.guiferrini.CasaCodigo.model.ValorUnico;
 
 public class AutorDTO {
 	
@@ -13,6 +14,7 @@ public class AutorDTO {
 	
 	@NotBlank(message = "Email obrigatório")
 	@Email (message = "Favor digitar um Email válido")
+	@ValorUnico(domainClass = Autor.class, fieldName = "email", message = "Email já existente")
 	private String email;
 	
 	@NotBlank(message = "Descrição obrigatório")

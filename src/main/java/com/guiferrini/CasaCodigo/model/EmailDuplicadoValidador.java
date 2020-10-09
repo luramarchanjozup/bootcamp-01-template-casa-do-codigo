@@ -1,3 +1,22 @@
+/*
+ * Para ficar de Historico, exemplo futuro...
+ * Parte retirada de AutorController
+ * 
+ * import org.springframework.web.bind.WebDataBinder;
+ * import org.springframework.web.bind.annotation.InitBinder;
+ *  import com.guiferrini.CasaCodigo.model.EmailDuplicadoValidador;
+ * 
+ * 	@Autowired
+	private EmailDuplicadoValidador emailDuplicadoValidador;
+
+	@InitBinder
+	public void init(WebDataBinder webDataBinder) {
+		webDataBinder.addValidators(emailDuplicadoValidador);
+	}
+ * */
+
+/*
+ * Parte retirada de EmailDuplicado
 package com.guiferrini.CasaCodigo.model;
 
 import java.util.Optional;
@@ -6,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.guiferrini.CasaCodigo.repository.AutorRepository;
 
@@ -41,3 +62,4 @@ public class EmailDuplicadoValidador implements Validator {
 		}
 	}
 }
+*/

@@ -5,10 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.Valid;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -26,6 +23,7 @@ public class Cupom {
     private String codigo;
     @NotNull
     @Positive
+    @DecimalMax(value = "1", inclusive = false)
     private BigDecimal desconto;
     @NotNull
     @Future

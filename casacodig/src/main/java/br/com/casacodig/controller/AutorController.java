@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,22 +41,15 @@ public class AutorController {
 	@PersistenceContext
 	private EntityManager manager;
 
-	@PostMapping("/v1/autor")
+	@PostMapping(value = "/v1/autor", produces = "application/json")
 	@Transactional
-	//public ResponseEntity<?> cadastrarAutor(@Valid @RequestBody AutorDTO autordto, BindingResult result){
-	public String cadastrarAutor(@Valid @RequestBody AutorDTO autordto, BindingResult result){
+	public ResponseEntity<?> cadastrarAutor(@Valid @RequestBody AutorDTO autordto){
 		try {
-			autorService.validarEmail(autordto);
 			Autor autor = autorService.salvar(autordto);
 			manager.persist(autor);
-			return autor.toString();
+			return new ResponseEntity<>(autor,HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ApiErroException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
-	}
-	
-	@GetMapping("/teste")
-	public String teste(){
-		return "Teste";
 	}
 }

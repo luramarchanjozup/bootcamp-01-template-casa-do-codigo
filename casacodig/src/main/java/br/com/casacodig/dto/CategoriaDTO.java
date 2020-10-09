@@ -1,13 +1,15 @@
 package br.com.casacodig.dto;
 
 import javax.validation.constraints.NotBlank;
+
 import br.com.casacodig.model.Categoria;
+import br.com.casacodig.validator.ValorUnico;
 
 //Contagem de Pontos - TOTAL:0
 
 public class CategoriaDTO {
 
-	@NotBlank
+	@NotBlank @ValorUnico(classe = Categoria.class, campo = "nome")
 	private String nome;
 	
 	@Deprecated
@@ -23,8 +25,6 @@ public class CategoriaDTO {
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
-
-	
 }

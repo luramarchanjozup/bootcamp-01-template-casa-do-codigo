@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiHandlerAdvice {
 	
-	@ExceptionHandler(ApiErroException.class)
+	@ExceptionHandler({
+		ApiErroException.class,
+		ValidationException.class
+	 })
+	//@ExceptionHandler(ApiErroException.class)
 	public ResponseEntity<ErroPadronizado> handleApiErroException(ApiErroException apiErroException) {
 	    Collection<String> mensagens = new ArrayList<>();
 	    mensagens.add(apiErroException.getReason());

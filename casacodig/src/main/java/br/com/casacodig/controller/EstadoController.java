@@ -8,42 +8,38 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.casacodig.dto.CategoriaDTO;
+import br.com.casacodig.dto.EstadoDTO;
+import br.com.casacodig.dto.PaisDTO;
 import br.com.casacodig.error.ApiErroException;
-import br.com.casacodig.model.Categoria;
-import br.com.casacodig.services.CategoriaServices;
-
-
-//Contagem de Pontos - TOTAL:3
-//1 - CategoriaServices
-//1 - CategoriaDTO
-//1 - Categoria
+import br.com.casacodig.model.Estado;
+import br.com.casacodig.model.Pais;
+import br.com.casacodig.services.EstadoServices;
+import br.com.casacodig.services.LivroServices;
 
 @RestController
-public class CategoriaController {
+public class EstadoController {
 
 	@Autowired
-	private CategoriaServices categoriaservice;
+	private EstadoServices estadoservice;
 	
 	@PersistenceContext
 	private EntityManager manager;
-
-	@PostMapping(value = "/v1/categoria", produces = "application/json")
+	
+	@PostMapping(value = "/v1/estado")
 	@Transactional
-	public ResponseEntity<?> cria(@Valid @RequestBody CategoriaDTO categoriadto) {
+	public ResponseEntity<?> cria(@Valid @RequestBody EstadoDTO estadodto) {
 		try {
-			Categoria categoria = categoriaservice.salvar(categoriadto);
-			manager.persist(categoria);
-			return new ResponseEntity<>(categoria,HttpStatus.OK);
+			Estado estado = estadoservice.salvar(estadodto);
+			//System.out.println("-------------PAIS CONTROLLER------------------");
+			//System.out.println(pais.toString());
+			manager.persist(estado);
+			return new ResponseEntity<>(estado,HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ApiErroException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
-	
 }

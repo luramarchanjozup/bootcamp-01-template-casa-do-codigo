@@ -10,9 +10,9 @@ import br.com.casacodig.validator.ValorUnico;
 
 public class AutorDTO {
 	
-	@NotBlank
+	@NotBlank(message = "Coloque o nome, campo Obrigatório.")
 	private String nome;
-	@NotBlank @Email @ValorUnico(classe = Autor.class,campo = "email")
+	@NotBlank @Email @ValorUnico(classe = Autor.class, campo = "email")
 	private String email;
 	@NotBlank @Size(max = 400)
 	private String descricao;

@@ -18,11 +18,11 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 //Especifica quais os tipos de elementos a anotação pode ser utilizada para marcar
 //Field declaration (includes enum constants)
-@Target(ElementType.FIELD)
-
+//@Target(ElementType.FIELD)
+@Target( { ElementType.PARAMETER, ElementType.FIELD })
 public @interface ValorUnico {
 
-	String message() default "{com.deveficiente.beanvalidation.uniquevalue}";
+	String message() default "Falha por estar utilizando um valor já existente no banco de dados";
 	Class<?>[] groups() default { };
 	Class<? extends Payload>[] payload() default { };
 	

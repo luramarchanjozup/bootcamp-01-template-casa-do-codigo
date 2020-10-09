@@ -5,37 +5,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-
-
-//Contagem de Pontos - TOTAL:0
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Categoria {
-
+public class Estado {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id") 
 	private Long id;
 	@NotBlank
 	private String nome;
+	@ManyToOne @NotNull
+	private Pais pais;
 	
 	@Deprecated
-	public Categoria() {
-
+	public Estado() {
 	}
-
-	public Categoria(@NotBlank String nome) {
+	
+	public Estado(@NotBlank String nome, @NotNull Pais pais) {
 		this.nome = nome;
+		this.pais = pais;
 	}
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nome=" + nome + "]";
+		return "Estado [id=" + id + ", nome=" + nome + ", pais=" + pais + "]";
 	}
 
 	public String getNome() {
 		return nome;
 	}
+
+	public Pais getPais() {
+		return pais;
+	}
+	
+	
 	
 }

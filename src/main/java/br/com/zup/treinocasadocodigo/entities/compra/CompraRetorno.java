@@ -1,5 +1,6 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
+import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
 import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompraRetorno;
 import br.com.zup.treinocasadocodigo.entities.estado.EstadoRetorno;
 import br.com.zup.treinocasadocodigo.entities.pais.PaisRetorno;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 3
+ * Contagem de carga intrínseca da classe: 6
  */
 
 public class CompraRetorno {
@@ -31,8 +32,10 @@ public class CompraRetorno {
     //Dados da compra
     //1
     private List<ItemCompraRetorno> listaItens;
-    private BigDecimal total;
+    private BigDecimal totalSemDesconto;
+    private BigDecimal totalCompra;
 
+    //1
     public CompraRetorno(Compra compra) {
         this.email = compra.getEmail();
         this.nome = compra.getNome();
@@ -48,7 +51,22 @@ public class CompraRetorno {
         this.listaItens = compra.getListaItens()
                 .stream().map(ItemCompraRetorno::new)
                 .collect(Collectors.toList());
-        this.total = compra.getTotal();
+        this.totalCompra = compra.getTotal();
+        this.totalSemDesconto = calculaTotalSemDesconto(compra);
+    }
+
+    private BigDecimal calculaTotalSemDesconto(Compra compra) {
+
+        BigDecimal valorCalculado = new BigDecimal("0");
+
+        //2
+        for(ItemCompra item : compra.getListaItens()) {
+            BigDecimal valorItem = item.getLivro().getPreco()
+                    .multiply(new BigDecimal(item.getQuantidade()));
+            valorCalculado = valorCalculado.add(valorItem);
+        }
+        return valorCalculado;
+
     }
 
     public String getEmail() {
@@ -99,7 +117,11 @@ public class CompraRetorno {
         return listaItens;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public BigDecimal getTotalSemDesconto() {
+        return totalSemDesconto;
+    }
+
+    public BigDecimal getTotalCompra() {
+        return totalCompra;
     }
 }

@@ -59,9 +59,6 @@ public class CompraController {
         if (compra == null) {
             return ResponseEntity.notFound().build();
         }
-        //O find do manager não está retornando a lista de itens,
-        // então chamamos a função que adiciona a lista sozinho
-        compra.setListaItens();
         return ResponseEntity.ok(new CompraRetorno(compra));
     }
 }

@@ -4,9 +4,7 @@ import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
 import br.com.zup.treinocasadocodigo.entities.cupom.Cupom;
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
-import br.com.zup.treinocasadocodigo.repository.ItemCompraRepository;
 import br.com.zup.treinocasadocodigo.validators.cpfcnpj.CpfCnpj;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -14,19 +12,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contagem de carga intrínseca da classe: 8
+ * Contagem de carga intrínseca da classe: 6
  */
 
 @Entity
 public class Compra {
-
-    @Autowired
-    //1
-    private static ItemCompraRepository itemCompraRepository;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -193,10 +186,6 @@ public class Compra {
 
     public void setListaItens(List<ItemCompra> listaItens) {
         this.listaItens = listaItens;
-    }
-
-    public void setListaItens() {
-        this.listaItens = new ArrayList<>(itemCompraRepository.findByCompraId(this.id));
     }
 
     public BigDecimal getTotal() {

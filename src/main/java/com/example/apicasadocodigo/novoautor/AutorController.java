@@ -1,5 +1,6 @@
 package com.example.apicasadocodigo.novoautor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,6 @@ public class AutorController {
     public String criarAutor(@Valid @RequestBody NovoAutorRequest request) {
         Autor novoAutor = request.toModel();
         manager.persist(novoAutor);
-        return "Autor(a) " + novoAutor.getNome() + " criado(a).";
+        return "Autor(a) de email " + novoAutor.getEmail() + " criado(a).";
     }
 }

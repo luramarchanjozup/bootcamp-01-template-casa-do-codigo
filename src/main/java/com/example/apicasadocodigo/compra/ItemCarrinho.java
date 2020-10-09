@@ -11,17 +11,21 @@ import java.math.BigDecimal;
 @Embeddable
 public class ItemCarrinho {
     private @ManyToOne @NotNull Livro livro;
-    private @Positive int quantidade;
+    private @Positive @NotNull int quantidade;
     private @Positive BigDecimal preco;
 
     @Deprecated
     public ItemCarrinho() {
     }
 
-    public ItemCarrinho(@NotNull Livro livro, @Positive int quantidade) {
+    public ItemCarrinho(@NotNull Livro livro, @Positive @NotNull int quantidade) {
         this.livro = livro;
         this.quantidade = quantidade;
         this.preco = livro.getPreco();
+    }
+
+    public BigDecimal total() {
+        return preco.multiply(new BigDecimal(quantidade));
     }
 
     public Livro getLivro() {

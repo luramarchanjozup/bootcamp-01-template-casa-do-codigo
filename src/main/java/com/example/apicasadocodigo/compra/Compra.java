@@ -1,5 +1,6 @@
 package com.example.apicasadocodigo.compra;
 
+import com.example.apicasadocodigo.cupom.Cupom;
 import com.example.apicasadocodigo.localidade.Estado;
 import com.example.apicasadocodigo.localidade.Pais;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.function.Function;
 
 @Entity
@@ -28,6 +30,7 @@ public class Compra {
     private @NotBlank String telefone;
     private @NotBlank String cep;
     private @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST) @NotNull @Valid Pedido pedido;
+    private @Embedded CupomAplicado cupom;
 
     @Deprecated
     public Compra() {
@@ -50,6 +53,19 @@ public class Compra {
         this.telefone = telefone;
         this.cep = cep;
         this.pedido = funcaoCriacaoPedido.apply(this);
+    }
+
+    public void aplicarCupom(Cupom cupom) {
+        this.cupom = new CupomAplicado(cupom);
+    }
+
+    public BigDecimal total() {
+        return pedido.calcularTotal();
+    }
+
+    public BigDecimal calcularTotalComDesconto() {
+        BigDecimal desconto = cupom.getDesconto();
+        return total().subtract(desconto.divide(new BigDecimal(100)).multiply(total()));
     }
 
     public Long getId() {
@@ -154,5 +170,13 @@ public class Compra {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public CupomAplicado getCupom() {
+        return cupom;
+    }
+
+    public void setCupom(CupomAplicado cupom) {
+        this.cupom = cupom;
     }
 }

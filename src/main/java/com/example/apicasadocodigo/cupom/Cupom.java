@@ -5,8 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -14,18 +16,22 @@ public class Cupom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private @NotNull String codigo;
-    private @Positive @NotNull int desconto;
+    private @NotBlank String codigo;
+    private @Positive @NotNull BigDecimal desconto;
     private @Future @NotNull LocalDate validade;
 
     @Deprecated
     public Cupom() {
     }
 
-    public Cupom(@NotNull String codigo, @Positive @NotNull int desconto, @Future @NotNull LocalDate validade) {
+    public Cupom(@NotNull String codigo, @Positive @NotNull BigDecimal desconto, @Future @NotNull LocalDate validade) {
         this.codigo = codigo;
         this.desconto = desconto;
         this.validade = validade;
+    }
+
+    public boolean valido() {
+        return LocalDate.now().compareTo(this.validade) <= 0;
     }
 
     public Long getId() {
@@ -44,11 +50,11 @@ public class Cupom {
         this.codigo = codigo;
     }
 
-    public int getDesconto() {
+    public BigDecimal getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(int desconto) {
+    public void setDesconto(BigDecimal desconto) {
         this.desconto = desconto;
     }
 

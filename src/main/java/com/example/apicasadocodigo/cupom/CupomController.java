@@ -1,26 +1,34 @@
 package com.example.apicasadocodigo.cupom;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/cupons")
 public class CupomController {
-    @PersistenceContext
-    private EntityManager manager;
+    @Autowired
+    private CupomRepository cupomRepository;
 
     @PostMapping
     @Transactional
-    public String criarCupon(@Valid @RequestBody NovoCupomRequest request) {
+    public String criarCupom(@Valid @RequestBody NovoCupomRequest request) {
         Cupom novoCupom = request.toModel();
-        manager.persist(novoCupom);
+        cupomRepository.save(novoCupom);
         return "O cupom de código " + novoCupom.getCodigo() + " foi criado.";
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public String alterarCupom(@PathVariable Long id, @Valid @RequestBody NovoCupomRequest request) {
+        Cupom novoCupom = request.toModel();
+        Cupom cupomASerAlterado = cupomRepository.getOne(id);
+        cupomASerAlterado.setCodigo(novoCupom.getCodigo());
+        cupomASerAlterado.setDesconto(novoCupom.getDesconto());
+        cupomASerAlterado.setValidade(novoCupom.getValidade());
+        cupomRepository.save(cupomASerAlterado);
+        return "Cupom de id " + id + " alterado";
     }
 }

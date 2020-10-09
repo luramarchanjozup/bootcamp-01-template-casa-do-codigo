@@ -25,7 +25,7 @@ public class NovoLivroRequest {
     @Min(100)
     private int numeroDePaginas;
     @NotBlank
-    @UniqueValue(domainClass = Livro.class, fieldName = "isbn")
+    @UniqueValue(domainClass = Livro.class, fieldName = "isbn", message = "Este identificador já existe.")
     private String isbn;
     @Future
     @NotNull

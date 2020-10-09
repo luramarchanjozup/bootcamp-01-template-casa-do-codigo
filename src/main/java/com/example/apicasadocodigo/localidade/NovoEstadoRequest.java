@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 public class NovoEstadoRequest {
     @NotBlank
-    @UniqueValue(domainClass = Estado.class, fieldName = "nome")
+    @UniqueValue(domainClass = Estado.class, fieldName = "nome", message = "Este estado já está cadastrado.")
     private String nome;
     @NotNull
     @ExistsId(domainClass = Pais.class, fieldName = "id")

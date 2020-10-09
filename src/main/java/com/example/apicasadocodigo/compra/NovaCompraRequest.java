@@ -1,10 +1,13 @@
 package com.example.apicasadocodigo.compra;
 
 import com.example.apicasadocodigo.compartilhado.ExistsId;
+import com.example.apicasadocodigo.cupom.Cupom;
+import com.example.apicasadocodigo.cupom.CupomRepository;
 import com.example.apicasadocodigo.localidade.Estado;
 import com.example.apicasadocodigo.localidade.Pais;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -41,8 +44,10 @@ public class NovaCompraRequest {
     @Valid
     @NotNull
     private NovoPedidoRequest pedido;
+    @ExistsId(domainClass = Cupom.class, fieldName = "codigo")
+    private String codigoCupom;
 
-    public Compra toModel(EntityManager manager) {
+    public Compra toModel(EntityManager manager, CupomRepository cupomRepository) {
         @NotNull Pais pais = manager.find(Pais.class, idPais);
 
         Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
@@ -52,6 +57,11 @@ public class NovaCompraRequest {
         if (idEstado != null) {
             compra.setEstado(manager.find(Estado.class, idEstado));
         }
+        if (StringUtils.hasText(codigoCupom)) {
+            Cupom cupom = cupomRepository.findByCodigo(codigoCupom);
+            compra.aplicarCupom(cupom);
+        }
+
         return compra;
     }
 
@@ -159,5 +169,13 @@ public class NovaCompraRequest {
 
     public void setPedido(NovoPedidoRequest pedido) {
         this.pedido = pedido;
+    }
+
+    public String getCodigoCupom() {
+        return codigoCupom;
+    }
+
+    public void setCodigoCupom(String codigoCupom) {
+        this.codigoCupom = codigoCupom;
     }
 }

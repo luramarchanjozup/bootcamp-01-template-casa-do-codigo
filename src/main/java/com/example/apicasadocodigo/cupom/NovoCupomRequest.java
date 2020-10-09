@@ -1,18 +1,22 @@
 package com.example.apicasadocodigo.cupom;
 
+import com.example.apicasadocodigo.compartilhado.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class NovoCupomRequest {
-    @NotNull
+    @NotBlank
+    @UniqueValue(domainClass = Cupom.class, fieldName = "codigo", message = "Um cupom com este código já existe")
     private String codigo;
     @Positive
     @NotNull
-    private int desconto;
+    private BigDecimal desconto;
     @Future
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
@@ -30,11 +34,11 @@ public class NovoCupomRequest {
         this.codigo = codigo;
     }
 
-    public int getDesconto() {
+    public BigDecimal getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(int desconto) {
+    public void setDesconto(BigDecimal desconto) {
         this.desconto = desconto;
     }
 

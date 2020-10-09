@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 public class NovoPaisRequest {
     @NotBlank
-    @UniqueValue(domainClass = Pais.class, fieldName = "nome")
+    @UniqueValue(domainClass = Pais.class, fieldName = "nome", message = "Este país já está cadastrado.")
     private String nome;
 
     public Pais toModel() {

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 8
  */
 
 @Entity
@@ -79,7 +79,7 @@ public class Compra {
 
     protected Compra(){}
 
-    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItemCompra> listaItens, @NotNull @Positive BigDecimal total, Cupom cupom) {
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItemCompra> listaItens, @NotNull @Positive BigDecimal total) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -93,7 +93,6 @@ public class Compra {
         this.cep = cep;
         this.listaItens = listaItens;
         this.total = total;
-        this.cupom = cupom;
     }
 
     public Long getId() {
@@ -234,5 +233,17 @@ public class Compra {
                 ", pedido=" + listaItens +
                 ", total=" + total +
                 '}';
+    }
+
+    public void setCupom(String codigoCupom, EntityManager manager) {
+        //1
+        List<Cupom> listaCupom =  manager
+                .createQuery("SELECT c FROM Cupom c WHERE c.codigo = :codigo", Cupom.class)
+                .setParameter("codigo", codigoCupom)
+                .setMaxResults(1)
+                .getResultList();
+
+        //1
+        this.cupom = listaCupom.isEmpty() ? null : listaCupom.get(0);
     }
 }

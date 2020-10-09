@@ -141,7 +141,7 @@ public class CompraRequest {
     }
 
     //1
-    public Compra toModelSemCupom(EntityManager manager){
+    public Compra toModel(EntityManager manager){
 
         //1
         Pais pais = manager.find(Pais.class, this.idPais);
@@ -154,8 +154,11 @@ public class CompraRequest {
                 .map(itemRequest -> itemRequest.toModel(manager))
                 .collect(Collectors.toList());
 
-        return new Compra(this.email, this.nome, this.sobrenome, this.documento,
+        Compra compra = new Compra(this.email, this.nome, this.sobrenome, this.documento,
                 this.endereco, this.complemento, this.cidade, pais, estado,
-                this.telefone, this.cep, itens, this.pedido.getTotal(), null);
+                this.telefone, this.cep, itens, this.pedido.getTotal());
+        compra.setCupom(this.pedido.getCodigoCupom(), manager);
+
+        return compra;
     }
 }

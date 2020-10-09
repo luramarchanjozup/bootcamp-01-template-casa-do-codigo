@@ -1,9 +1,12 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
 import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
+import br.com.zup.treinocasadocodigo.entities.cupom.Cupom;
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
+import br.com.zup.treinocasadocodigo.repository.ItemCompraRepository;
 import br.com.zup.treinocasadocodigo.validators.cpfcnpj.CpfCnpj;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,14 +14,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contagem de carga intrínseca da classe: 4
+ * Contagem de carga intrínseca da classe: 6
  */
 
 @Entity
 public class Compra {
+
+    @Autowired
+    //1
+    private static ItemCompraRepository itemCompraRepository;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,9 +72,14 @@ public class Compra {
     @Positive
     private BigDecimal total;
 
+    @OneToOne
+    @JoinColumn(name = "cupom_id")
+    //1
+    private Cupom cupom;
+
     protected Compra(){}
 
-    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItemCompra> listaItens, @NotNull @Positive BigDecimal total) {
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep, @NotNull List<ItemCompra> listaItens, @NotNull @Positive BigDecimal total, Cupom cupom) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -80,6 +93,7 @@ public class Compra {
         this.cep = cep;
         this.listaItens = listaItens;
         this.total = total;
+        this.cupom = cupom;
     }
 
     public Long getId() {
@@ -182,12 +196,24 @@ public class Compra {
         this.listaItens = listaItens;
     }
 
+    public void setListaItens() {
+        this.listaItens = new ArrayList<>(itemCompraRepository.findByCompraId(this.id));
+    }
+
     public BigDecimal getTotal() {
         return total;
     }
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public Cupom getCupom() {
+        return cupom;
+    }
+
+    public void setCupom(Cupom cupom) {
+        this.cupom = cupom;
     }
 
     @Override

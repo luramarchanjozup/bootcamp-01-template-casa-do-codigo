@@ -24,9 +24,12 @@ public class PedidoCompraRequest {
     //1
     List<ItemCompraRequest> itens;
 
-    public PedidoCompraRequest(@Positive @NotNull BigDecimal total, @NotEmpty @Valid List<ItemCompraRequest> itens) {
+    private String codigoCupom;
+
+    public PedidoCompraRequest(@Positive @NotNull BigDecimal total, @NotEmpty @Valid List<ItemCompraRequest> itens, String codigoCupom) {
         this.total = total;
         this.itens = itens;
+        this.codigoCupom = codigoCupom;
     }
 
     public BigDecimal getTotal() {
@@ -37,11 +40,16 @@ public class PedidoCompraRequest {
         return itens;
     }
 
+    public String getCodigoCupom() {
+        return codigoCupom;
+    }
+
     @Override
     public String toString() {
-        return "Pedido{" +
+        return "PedidoCompraRequest{" +
                 "total=" + total +
                 ", itens=" + itens +
+                ", codigoCupom='" + codigoCupom + '\'' +
                 '}';
     }
 }

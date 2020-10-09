@@ -141,7 +141,7 @@ public class CompraRequest {
     }
 
     //1
-    public Compra toModelSemItens(EntityManager manager){
+    public Compra toModelSemCupom(EntityManager manager){
 
         //1
         Pais pais = manager.find(Pais.class, this.idPais);
@@ -156,6 +156,6 @@ public class CompraRequest {
 
         return new Compra(this.email, this.nome, this.sobrenome, this.documento,
                 this.endereco, this.complemento, this.cidade, pais, estado,
-                this.telefone, this.cep, itens, this.pedido.getTotal());
+                this.telefone, this.cep, itens, this.pedido.getTotal(), null);
     }
 }

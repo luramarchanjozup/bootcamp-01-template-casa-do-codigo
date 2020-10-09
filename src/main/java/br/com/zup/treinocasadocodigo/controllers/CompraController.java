@@ -3,8 +3,8 @@ package br.com.zup.treinocasadocodigo.controllers;
 import br.com.zup.treinocasadocodigo.entities.compra.Compra;
 import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
 import br.com.zup.treinocasadocodigo.entities.compra.CompraRetorno;
-import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
-import br.com.zup.treinocasadocodigo.repository.ItemCompraRepository;
+import br.com.zup.treinocasadocodigo.entities.cupom.Cupom;
+import br.com.zup.treinocasadocodigo.repository.CupomRepository;
 import br.com.zup.treinocasadocodigo.validators.validarcompras.CompraValidador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,10 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contagem de carga intrínseca da classe: 7
+ * Contagem de carga intrínseca da classe: 8
  */
 
 @RestController
@@ -31,12 +30,12 @@ public class CompraController {
     //1
     private CompraValidador compraValidador;
 
-    @PersistenceContext
-    private EntityManager manager;
-
     @Autowired
     //1
-    private ItemCompraRepository itemCompraRepository;
+    private CupomRepository cupomRepository;
+
+    @PersistenceContext
+    private EntityManager manager;
 
     @InitBinder
     public void init(WebDataBinder binder) {
@@ -49,7 +48,15 @@ public class CompraController {
     public ResponseEntity<Object> cadastroCompra(@RequestBody @Valid CompraRequest novaCompra) {
 
         //1
-        Compra compra = novaCompra.toModelSemItens(manager);
+        Compra compra = novaCompra.toModelSemCupom(manager);
+
+        //1
+        List<Cupom> listaCupom = cupomRepository.findByCodigo(novaCompra.getPedido().getCodigoCupom());
+        //1
+        if (!listaCupom.isEmpty()){
+            compra.setCupom(listaCupom.get(0));
+        }
+
         manager.persist(compra);
 
         URI location = URI.create(String.format("/compras/%d", compra.getId()));
@@ -66,13 +73,9 @@ public class CompraController {
         if (compra == null) {
             return ResponseEntity.notFound().build();
         }
-
-        //1
-        List<ItemCompra> listaItens = new ArrayList<>(itemCompraRepository
-                .findByCompraId(compra.getId()));
-        compra.setListaItens(listaItens);
-
-
+        //O find do manager não está retornando a lista de itens,
+        // então chamamos a função que adiciona a lista sozinho
+        compra.setListaItens();
         return ResponseEntity.ok(new CompraRetorno(compra));
     }
 }

@@ -29,11 +29,10 @@ public class EmailDuplicadoValidador implements Validator {
 		}  
 		//1
 		//valida se email é duplicado
-		AutorDTO autor = (AutorDTO) target;
+		AutorDTO autor = (AutorDTO) target; //cast
 		//CategoriaDTO categoria = (CategoriaDTO) target;
 		//1
 		Optional<Autor> validando = autorRepo.findByEmail(autor.getEmail());
-		//Optional<Categoria> cat = autorRepo.findByEmail(categoria.getNome());
 		//1
 		if (validando.isPresent()) {
 			errors.rejectValue("email", null,

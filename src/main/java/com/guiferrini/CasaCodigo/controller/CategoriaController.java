@@ -1,12 +1,13 @@
 package com.guiferrini.CasaCodigo.controller;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,29 +23,26 @@ import com.guiferrini.CasaCodigo.model.CategoriaDuplicadoValidador;
 
 @RequestMapping("/categoria")
 public class CategoriaController {
-	
+
 	@PersistenceContext
 	EntityManager entityManager;
-	
+
 	@Autowired
 	private CategoriaDuplicadoValidador categoriaDuplicadoValidador;
-	
+
 	@InitBinder
 	public void init(WebDataBinder webDataBinder) {
 		webDataBinder.addValidators(categoriaDuplicadoValidador);
 	}
-	
-	@PostMapping
+ 
+	@PostMapping 
 	@Transactional
 	public String criarNovaCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
+
 		Categoria obj = new Categoria(categoriaDTO.getNome());
-		//if(categoriaDTO.getNome() == entityManager.getReference(categoriaDTO.getNome(), primaryKey)) {
-			//return "Categoria já acdastrada";
-		//}
-		entityManager.getTransaction().begin();
+
 		entityManager.persist(obj);
-		entityManager.getTransaction().commit();
-		//entityManager.close();
-		return obj.toString();
+
+		return obj.toString(); 
 	}	
 }

@@ -59,6 +59,10 @@ public class AutorDTO {
 		this.descricao = descricao;
 	} 
 	
+	public String buscaEmail() {
+		return this.email;
+	}
+	
 	public Autor toModel() {
 		Autor obj = new Autor(nome, email, descricao);
 		return obj; 

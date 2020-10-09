@@ -7,6 +7,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
+/**
+ * Carga Intrínseca máxima permitida - 9
+ * Carga Intrínseca da classe - 0
+ * */
+
 @Entity
 @Table(name = "cupom")
 public class CupomDesconto {
@@ -19,14 +24,14 @@ public class CupomDesconto {
     private String codigo;
     @NotNull
     @Positive
-    private Integer desconto;
+    private Double desconto;
     @Future
     private LocalDate validade;
 
     public CupomDesconto() {
     }
 
-    public CupomDesconto(@NotEmpty String codigo, @NotNull @Positive Integer desconto, @Future LocalDate validade) {
+    public CupomDesconto(@NotEmpty String codigo, @NotNull @Positive Double desconto, @Future LocalDate validade) {
         this.codigo = codigo;
         this.desconto = desconto;
         this.validade = validade;
@@ -40,11 +45,23 @@ public class CupomDesconto {
         return codigo;
     }
 
-    public Integer getDesconto() {
+    public Double getDesconto() {
         return desconto;
     }
 
     public LocalDate getValidade() {
         return validade;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setDesconto(Double desconto) {
+        this.desconto = desconto;
+    }
+
+    public void setValidade(LocalDate validade) {
+        this.validade = validade;
     }
 }

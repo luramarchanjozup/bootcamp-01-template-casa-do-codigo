@@ -3,6 +3,7 @@ package br.com.ecommerce.cdc.controller;
 import br.com.ecommerce.cdc.domain.model.Compra;
 import br.com.ecommerce.cdc.domain.request.CompraRequest;
 import br.com.ecommerce.cdc.domain.response.CompraResponse;
+import br.com.ecommerce.cdc.repository.CupomDescontoRepository;
 import br.com.ecommerce.cdc.validation.EstadoPertecePaisValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,10 @@ public class CompraController {
 
     @Autowired
     // +1
+    private CupomDescontoRepository cupomDescontoRepository;
+
+    @Autowired
+    // +1
     private EstadoPertecePaisValidator estadoPertecePaisValidator;
 
     @InitBinder
@@ -44,7 +49,7 @@ public class CompraController {
     // +1
     public ResponseEntity<?> criaCadastro(@RequestBody @Validated CompraRequest compraRequest) throws URISyntaxException {
         // +1
-        Compra compra = compraRequest.toModel(manager);
+        Compra compra = compraRequest.toModel(manager, cupomDescontoRepository);
         double valorTotal = compra.getValorTotal();
         Assert.isTrue(compraRequest.compraTotal() == valorTotal, "Valor total diferente do valor recebido.");
         manager.persist(compra);

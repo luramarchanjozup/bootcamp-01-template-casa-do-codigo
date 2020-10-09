@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 /**
  * Carga Intrínseca máxima permitida - 9
- * Carga Intrínseca da classe - 0
+ * Carga Intrínseca da classe - 1
  * */
 
 @Entity
@@ -35,6 +35,14 @@ public class CupomDesconto {
         this.codigo = codigo;
         this.desconto = desconto;
         this.validade = validade;
+    }
+
+    public boolean cupomValido(){
+        // +1
+        if (this.getValidade().isAfter(LocalDate.now())){
+            return true;
+        }
+        return false;
     }
 
     public Long getId() {

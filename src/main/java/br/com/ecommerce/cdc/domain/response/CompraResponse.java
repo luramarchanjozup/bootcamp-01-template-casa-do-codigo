@@ -1,9 +1,7 @@
 package br.com.ecommerce.cdc.domain.response;
 
-import br.com.ecommerce.cdc.domain.model.CarrinhoCompra;
-import br.com.ecommerce.cdc.domain.model.Compra;
-import br.com.ecommerce.cdc.domain.model.Estado;
-import br.com.ecommerce.cdc.domain.model.Pais;
+import br.com.ecommerce.cdc.domain.model.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Carga Intrínseca máxima permitida - 9
@@ -27,11 +25,13 @@ public class CompraResponse {
     private String cep;
     // +1
     private CarrinhoCompra carrinhoCompra;
+    @JsonIgnore
+    private CupomDesconto cupomDesconto;
 
     public CompraResponse() {
     }
 
-    public CompraResponse(Long id, String email, String nome, String sobrenome, String cpfOuCnpj, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep, CarrinhoCompra carrinhoCompra) {
+    public CompraResponse(Long id, String email, String nome, String sobrenome, String cpfOuCnpj, String endereco, String complemento, String cidade, Pais pais, Estado estado, String telefone, String cep, CarrinhoCompra carrinhoCompra, CupomDesconto cupomDesconto) {
         this.id = id;
         this.email = email;
         this.nome = nome;
@@ -45,6 +45,7 @@ public class CompraResponse {
         this.telefone = telefone;
         this.cep = cep;
         this.carrinhoCompra = carrinhoCompra;
+        this.cupomDesconto = cupomDesconto;
     }
 
     public CompraResponse(Compra compra){
@@ -61,6 +62,7 @@ public class CompraResponse {
         this.telefone = compra.getTelefone();
         this.cep = compra.getCep();
         this.carrinhoCompra = compra.getCarrinhoCompra();
+        this.cupomDesconto = compra.getCupomDesconto();
     }
 
     public Long getId() {
@@ -165,5 +167,13 @@ public class CompraResponse {
 
     public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
         this.carrinhoCompra = carrinhoCompra;
+    }
+
+    public CupomDesconto getCupomDesconto() {
+        return cupomDesconto;
+    }
+
+    public void setCupomDesconto(CupomDesconto cupomDesconto) {
+        this.cupomDesconto = cupomDesconto;
     }
 }

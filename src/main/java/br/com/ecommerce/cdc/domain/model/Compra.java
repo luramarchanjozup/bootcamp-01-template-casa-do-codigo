@@ -1,11 +1,10 @@
 package br.com.ecommerce.cdc.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 /**
@@ -54,8 +53,9 @@ public class Compra {
     // +1
     private CarrinhoCompra carrinhoCompra;
 
-    public Compra() {
-    }
+    @JsonIgnore
+    @ManyToOne
+    private CupomDesconto cupomDesconto;
 
     public Compra(@NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, @NotNull Estado estado, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8, max = 14) @PositiveOrZero String cep, CarrinhoCompra carrinhoCompra) {
         this.email = email;
@@ -122,6 +122,18 @@ public class Compra {
 
     public CarrinhoCompra getCarrinhoCompra() {
         return carrinhoCompra;
+    }
+
+    public CupomDesconto getCupomDesconto() {
+        return cupomDesconto;
+    }
+
+    public void setCupomDesconto(CupomDesconto cupomDesconto) {
+        this.cupomDesconto = cupomDesconto;
+    }
+
+    public void aplicaCupomDesconto(CupomDesconto cupomDesconto){
+        setCupomDesconto(cupomDesconto);
     }
 
     public double getValorTotal(){

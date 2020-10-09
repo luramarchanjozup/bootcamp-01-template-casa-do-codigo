@@ -2,15 +2,15 @@ package br.com.ecommerce.cdc.domain.request;
 
 import br.com.ecommerce.cdc.anotacao.CPFouCNPJ;
 import br.com.ecommerce.cdc.anotacao.ExistInDataBase;
-import br.com.ecommerce.cdc.anotacao.NotDuplicated;
-import br.com.ecommerce.cdc.domain.model.CarrinhoCompra;
-import br.com.ecommerce.cdc.domain.model.Compra;
-import br.com.ecommerce.cdc.domain.model.Estado;
-import br.com.ecommerce.cdc.domain.model.Pais;
+import br.com.ecommerce.cdc.domain.model.*;
+import br.com.ecommerce.cdc.repository.CupomDescontoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.Optional;
 
 /**
  * Carga Intrínseca máxima permitida - 9
@@ -22,7 +22,6 @@ public class CompraRequest {
 
     @Email
     @NotBlank
-    @NotDuplicated(fieldName = "email", nameClass = "Compra")
     private String email;
     @NotBlank
     private String nome;
@@ -31,7 +30,6 @@ public class CompraRequest {
     @NotBlank
     @Size(min = 11, max = 14)
     @CPFouCNPJ
-    @NotDuplicated(nameClass = "Compra", fieldName = "cpfOuCnpj")
     private String cpfOuCnpj;
     @NotBlank
     private String endereco;
@@ -55,10 +53,13 @@ public class CompraRequest {
     // +1
     private CarrinhoCompraRequest carrinhoCompra;
 
+    @Valid
+    private CupomDescontoAplicadoRequest aplicandoDesconto;
+
     public CompraRequest() {
     }
 
-    public CompraRequest(@Email @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8) String cep, CarrinhoCompraRequest carrinhoCompra) {
+    public CompraRequest(@Email @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8) String cep, CarrinhoCompraRequest carrinhoCompra, CupomDescontoAplicadoRequest aplicandoDesconto) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -71,17 +72,25 @@ public class CompraRequest {
         this.telefone = telefone;
         this.cep = cep;
         this.carrinhoCompra = carrinhoCompra;
+        this.aplicandoDesconto = aplicandoDesconto;
     }
     // +1
-    public Compra toModel(EntityManager manager){
+    public Compra toModel(EntityManager manager, CupomDescontoRepository cupomDescontoRepository){
         // +1
         Pais pais = manager.find(Pais.class, paisId);
         // +1
         Estado estado = manager.find(Estado.class, estadoId);
         // +1
         CarrinhoCompra carrinhoCompra = this.carrinhoCompra.toModel(manager);
+        Compra compra = new Compra(email, nome, sobrenome, cpfOuCnpj, endereco, complemento, cidade, pais, estado, telefone, cep, carrinhoCompra);
+        Optional<CupomDescontoAplicadoRequest> aplicandoDesconto = Optional.ofNullable(this.aplicandoDesconto);
+        if (aplicandoDesconto.isPresent() && aplicandoDesconto.get().getCodigo() != null){
+            // +1
+            Optional<CupomDesconto> cupomDescontoByCodigo = cupomDescontoRepository.findByCodigo(aplicandoDesconto.get().getCodigo());
+            compra.aplicaCupomDesconto(cupomDescontoByCodigo.get());
+        }
 
-        return new Compra(email,nome,sobrenome,cpfOuCnpj,endereco,complemento,cidade,pais, estado,telefone,cep, carrinhoCompra);
+        return compra;
     }
 
     public double compraTotal(){
@@ -182,6 +191,14 @@ public class CompraRequest {
 
     public void setCarrinhoCompra(CarrinhoCompraRequest carrinhoCompra) {
         this.carrinhoCompra = carrinhoCompra;
+    }
+
+    public CupomDescontoAplicadoRequest getAplicandoDesconto() {
+        return aplicandoDesconto;
+    }
+
+    public void setAplicandoDesconto(CupomDescontoAplicadoRequest aplicandoDesconto) {
+        this.aplicandoDesconto = aplicandoDesconto;
     }
 
     @Override

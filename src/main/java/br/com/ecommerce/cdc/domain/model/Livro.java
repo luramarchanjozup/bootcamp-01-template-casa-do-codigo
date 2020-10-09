@@ -3,6 +3,7 @@ package br.com.ecommerce.cdc.domain.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "livro")
@@ -75,5 +76,34 @@ public class Livro {
 
     public Categoria getCategoria() {
         return categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", sumario='" + sumario + '\'' +
+                ", preco=" + preco +
+                ", numPagina=" + numPagina +
+                ", isbn='" + isbn + '\'' +
+                ", dataPublicacao=" + dataPublicacao +
+                ", autor=" + autor +
+                ", categoria=" + categoria +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Livro livro = (Livro) o;
+        return id.equals(livro.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

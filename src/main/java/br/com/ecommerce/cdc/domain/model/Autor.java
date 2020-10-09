@@ -4,6 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
+/**
+ * Carga Intrínseca máxima permitida - 9
+ * Carga Intrínseca da classe - 0
+ *
+ */
+
 @Entity
 @Table(name = "author")
 public class Autor {

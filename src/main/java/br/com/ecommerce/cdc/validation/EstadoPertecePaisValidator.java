@@ -1,6 +1,6 @@
 package br.com.ecommerce.cdc.validation;
 
-import br.com.ecommerce.cdc.domain.request.CadastroRequest;
+import br.com.ecommerce.cdc.domain.request.CompraRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -24,17 +24,17 @@ public class EstadoPertecePaisValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return CadastroRequest.class.isAssignableFrom(aClass);
+        return CompraRequest.class.isAssignableFrom(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
         // +1
-        CadastroRequest cadastroRequest = (CadastroRequest) o;
+        CompraRequest compraRequest = (CompraRequest) o;
 
         Query query = manager.createQuery("select c from Estado c where c.id =:estado and c.pais.id =:value");
-        query.setParameter("estado", cadastroRequest.getEstadoId())
-                .setParameter("value",cadastroRequest.getPaisId());
+        query.setParameter("estado", compraRequest.getEstadoId())
+                .setParameter("value", compraRequest.getPaisId());
         // +1
         List<?> estadoBusca = query.getResultList();
 

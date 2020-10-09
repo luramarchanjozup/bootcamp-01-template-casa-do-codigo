@@ -1,19 +1,28 @@
 package br.com.ecommerce.cdc.domain.request;
 
+import br.com.ecommerce.cdc.anotacao.CPFouCNPJ;
 import br.com.ecommerce.cdc.anotacao.ExistInDataBase;
 import br.com.ecommerce.cdc.anotacao.NotDuplicated;
+import br.com.ecommerce.cdc.domain.model.CarrinhoCompra;
+import br.com.ecommerce.cdc.domain.model.Compra;
 import br.com.ecommerce.cdc.domain.model.Estado;
 import br.com.ecommerce.cdc.domain.model.Pais;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 
+import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
-public class CadastroRequest {
+/**
+ * Carga Intrínseca máxima permitida - 9
+ * Carga Intrínseca da classe - 5
+ *
+ */
+
+public class CompraRequest {
 
     @Email
     @NotBlank
-    @NotDuplicated(fieldName = "email", nameClass = "Cadastro")
+    @NotDuplicated(fieldName = "email", nameClass = "Compra")
     private String email;
     @NotBlank
     private String nome;
@@ -21,7 +30,8 @@ public class CadastroRequest {
     private String sobrenome;
     @NotBlank
     @Size(min = 11, max = 14)
-    @NotDuplicated(nameClass = "Cadastro", fieldName = "cpfOuCnpj")
+    @CPFouCNPJ
+    @NotDuplicated(nameClass = "Compra", fieldName = "cpfOuCnpj")
     private String cpfOuCnpj;
     @NotBlank
     private String endereco;
@@ -39,12 +49,16 @@ public class CadastroRequest {
     private String telefone;
     @NotBlank
     @Size(min = 8)
+    @PositiveOrZero
     private String cep;
+    @Valid
+    // +1
+    private CarrinhoCompraRequest carrinhoCompra;
 
-    public CadastroRequest() {
+    public CompraRequest() {
     }
 
-    public CadastroRequest(@Email @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8) String cep) {
+    public CompraRequest(@Email @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8) String cep, CarrinhoCompraRequest carrinhoCompra) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -56,11 +70,23 @@ public class CadastroRequest {
         this.estadoId = estadoId;
         this.telefone = telefone;
         this.cep = cep;
+        this.carrinhoCompra = carrinhoCompra;
+    }
+    // +1
+    public Compra toModel(EntityManager manager){
+        // +1
+        Pais pais = manager.find(Pais.class, paisId);
+        // +1
+        Estado estado = manager.find(Estado.class, estadoId);
+        // +1
+        CarrinhoCompra carrinhoCompra = this.carrinhoCompra.toModel(manager);
+
+        return new Compra(email,nome,sobrenome,cpfOuCnpj,endereco,complemento,cidade,pais, estado,telefone,cep, carrinhoCompra);
     }
 
-    /*    public Cadastro toModel(){
-        return new Cadastro(email,nome,sobrenome,cpfOuCnpj,endereco,complemento,cidade,paisId, estadoId,telefone,cep);
-    }*/
+    public double compraTotal(){
+        return this.carrinhoCompra.getTotal().doubleValue();
+    }
 
     public String getEmail() {
         return email;
@@ -104,6 +130,10 @@ public class CadastroRequest {
 
     public String getCep() {
         return cep;
+    }
+
+    public CarrinhoCompraRequest getCarrinhoCompra() {
+        return carrinhoCompra;
     }
 
     public void setEmail(String email) {
@@ -150,9 +180,13 @@ public class CadastroRequest {
         this.cep = cep;
     }
 
+    public void setCarrinhoCompra(CarrinhoCompraRequest carrinhoCompra) {
+        this.carrinhoCompra = carrinhoCompra;
+    }
+
     @Override
     public String toString() {
-        return "CadastroRequest{" +
+        return "CompraRequest{" +
                 "email='" + email + '\'' +
                 ", nome='" + nome + '\'' +
                 ", sobrenome='" + sobrenome + '\'' +
@@ -164,6 +198,7 @@ public class CadastroRequest {
                 ", estadoId=" + estadoId +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
+                ", carrinhoCompra=" + carrinhoCompra +
                 '}';
     }
 }

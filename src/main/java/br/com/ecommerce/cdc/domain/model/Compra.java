@@ -1,17 +1,22 @@
 package br.com.ecommerce.cdc.domain.model;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
-
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+
+/**
+ * Carga Intrínseca máxima permitida - 9
+ * Carga Intrínseca da classe - 4
+ *
+ */
 
 @Entity
-@Table(name = "cadastro")
-public class Cadastro {
+@Table(name = "compra")
+public class Compra {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
@@ -30,23 +35,29 @@ public class Cadastro {
     @NotBlank
     private String cidade;
     @NotNull
-    @OneToOne
+    @ManyToOne
+    // +1
     private Pais pais;
     @NotNull
-    @OneToOne
+    @ManyToOne
+    // +1
     private Estado estado;
     @NotBlank @PositiveOrZero
     @Size(min = 8)
     private String telefone;
     @NotBlank
-    @Size(min = 8, max = 14) @PositiveOrZero
+    @Size(min = 8, max = 14)
+    @PositiveOrZero
     private String cep;
+    @Valid
+    @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
+    // +1
+    private CarrinhoCompra carrinhoCompra;
 
-    public Cadastro() {
+    public Compra() {
     }
 
-    public Cadastro(Long id, @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, @NotNull Estado estado, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8, max = 14) @PositiveOrZero String cep) {
-        this.id = id;
+    public Compra(@NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, @NotNull Estado estado, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8, max = 14) @PositiveOrZero String cep, CarrinhoCompra carrinhoCompra) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -58,6 +69,7 @@ public class Cadastro {
         this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
+        this.carrinhoCompra=carrinhoCompra;
     }
 
     public Long getId() {
@@ -106,5 +118,36 @@ public class Cadastro {
 
     public String getCep() {
         return cep;
+    }
+
+    public CarrinhoCompra getCarrinhoCompra() {
+        return carrinhoCompra;
+    }
+
+    public double getValorTotal(){
+        return this.carrinhoCompra.getItens().stream()
+                // +1
+                .mapToDouble(itensPedido -> {
+                    return itensPedido.getValorTotal().doubleValue();
+                }).sum();
+    }
+
+    @Override
+    public String toString() {
+        return "Compra{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", cpfOuCnpj='" + cpfOuCnpj + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", pais=" + pais +
+                ", estado=" + estado +
+                ", telefone='" + telefone + '\'' +
+                ", cep='" + cep + '\'' +
+                ", carrinhoCompra=" + carrinhoCompra +
+                '}';
     }
 }

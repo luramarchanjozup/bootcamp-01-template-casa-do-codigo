@@ -1,7 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.controller;
 
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Livro;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests.NovoLivroRequest;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests.NovoPaisRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
+import javax.swing.text.html.parser.Entity;
 
 @RestController
-@RequestMapping(value = "/novoLivro")
-public class NovoLivroController {
+@RequestMapping(value = "/novoPais")
+public class NovoPaisController {
 
     @Autowired
     EntityManager entityManager;
 
-    //Cadastra um novo Livro
     @PostMapping
     @Transactional
-    public ResponseEntity<Livro> cadastrarLivro(@Validated @RequestBody NovoLivroRequest novoLivroRequest){
+    public ResponseEntity<Pais> novoPais(@Validated @RequestBody NovoPaisRequest novoPaisRequest){
 
-        Livro novoLivro = novoLivroRequest.toModel(entityManager);
-        entityManager.persist(novoLivro);
-        return ResponseEntity.status(HttpStatus.OK).body(novoLivro);
+        Pais novoPais = novoPaisRequest.toModel();
+
+        entityManager.persist(novoPais);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoPais);
     }
-
 }

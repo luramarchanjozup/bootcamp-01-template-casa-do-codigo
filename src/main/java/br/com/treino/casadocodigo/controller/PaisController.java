@@ -24,7 +24,7 @@ public class PaisController {
     public ResponseEntity novoPais(@RequestBody @Valid NovoPaisRequest request){ //1
         Pais pais = new Pais(request.getNome()); //2
         entityManager.persist(pais);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
 }

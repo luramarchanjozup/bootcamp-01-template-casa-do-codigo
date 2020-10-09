@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
@@ -46,6 +47,7 @@ public class LivroController {
                     new DetalheLivroRequest(optionalLivro.get());
             return new ResponseEntity<>(detalheLivroRequest, HttpStatus.OK);
         }
+
             return ResponseEntity.notFound().build();
     }
 
@@ -58,7 +60,7 @@ public class LivroController {
 
         livroRepository.save(novoLivro);
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
 }

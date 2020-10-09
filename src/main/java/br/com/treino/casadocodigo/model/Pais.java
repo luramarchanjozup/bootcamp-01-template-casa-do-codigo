@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Entity
 public class Pais {
@@ -25,4 +26,19 @@ public class Pais {
     public String getNome() {
         return nome;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pais)) return false;
+        Pais pais = (Pais) o;
+        return getNome().equals(pais.getNome());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNome());
+    }
+
+
 }

@@ -24,6 +24,6 @@ public class EstadoController {
     public ResponseEntity<Estado> novoEstado(@RequestBody @Valid NovoEstadoRequest request){ //1
         Estado estado = request.toModel(entityManager); //2
         entityManager.persist(estado);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }

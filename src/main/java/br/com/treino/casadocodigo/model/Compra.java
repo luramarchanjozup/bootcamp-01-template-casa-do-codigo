@@ -1,13 +1,20 @@
 package br.com.treino.casadocodigo.model;
 
-import br.com.treino.casadocodigo.request.NovoPedidoRequest;
+import br.com.treino.casadocodigo.request.CupomAplicado;
 import br.com.treino.casadocodigo.validations.CpfOuCnpj;
 import br.com.treino.casadocodigo.validations.ExistId;
-
+import org.springframework.util.StringUtils;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Compra {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private @NotBlank String nome;
     private @NotBlank String sobrenome;
@@ -30,10 +37,11 @@ public class Compra {
     private String cep;
     private @NotBlank String complemento;
     @NotNull
-    private Pedido pedido;
+    private Pedido pedido; //1
+    private CupomAplicado cupomAplicado; //2
+    private BigDecimal totalComDesconto;
 
-    //private @NotNull Pedido pedido;
-
+    @Deprecated
     public Compra(){}
 
     public Compra(@NotBlank String nome, @NotBlank String sobrenome,
@@ -57,7 +65,7 @@ public class Compra {
         this.pedido = pedido;
     }
 
-    //public Long getId(){return id;}
+    public Long getId(){return id;}
 
     public String getNome() {
         return nome;
@@ -110,4 +118,26 @@ public class Compra {
     public Pedido getPedido() {
         return pedido;
     }
+
+    /*public CupomAplicado getCupomAplicado() {
+        return cupomAplicado;
+    }*/
+
+    public BigDecimal getTotalComDesconto() {
+        BigDecimal total = pedido.getTotal();
+
+        if (!StringUtils.isEmpty(cupomAplicado)){  //3
+            return total.subtract(pedido.getTotal().
+                    multiply(cupomAplicado.getPercentualDesconto())
+                    .setScale(2, RoundingMode.CEILING));
+        }
+        return this.totalComDesconto = BigDecimal.ZERO;
+    }
+
+    public void aplicarCupom(Cupom cupom){
+        this.cupomAplicado = new CupomAplicado(cupom);
+    }
+
+
+
 }

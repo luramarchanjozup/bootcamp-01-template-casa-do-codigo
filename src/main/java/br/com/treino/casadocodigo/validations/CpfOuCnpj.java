@@ -13,5 +13,4 @@ public @interface CpfOuCnpj {
     String message() default "{br.com.treino.casadocodigo.CpfOuCnpj}";
     Class<?>[] groups() default{};
     Class<? extends Payload>[] payload() default {};
-
 }

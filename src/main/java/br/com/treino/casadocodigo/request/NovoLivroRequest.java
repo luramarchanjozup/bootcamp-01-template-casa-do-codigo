@@ -62,4 +62,5 @@ public class NovoLivroRequest {
     public void setDataPublicacao(LocalDate dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
+
 }

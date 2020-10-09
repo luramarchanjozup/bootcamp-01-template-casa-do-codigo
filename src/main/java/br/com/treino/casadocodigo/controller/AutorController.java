@@ -22,7 +22,7 @@ public class AutorController {
     public ResponseEntity novoAutor(@RequestBody @Valid NovoAutorRequest request){ //1
         Autor autor = request.toModel(); //2
         entityManager.persist(autor);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
 

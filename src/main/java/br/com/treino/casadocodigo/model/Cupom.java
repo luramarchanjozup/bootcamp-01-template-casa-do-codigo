@@ -1,5 +1,6 @@
 package br.com.treino.casadocodigo.model;
 
+import br.com.treino.casadocodigo.validations.ExistId;
 import br.com.treino.casadocodigo.validations.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
@@ -39,12 +40,21 @@ public class Cupom {
         this.validade = validade;
     }
 
+    public void setCodigo(String codigo) { this.codigo = codigo; }
+
     public String getCodigo() { return codigo; }
+
+    public void setPercentualDesconto(BigDecimal percentualDesconto) {
+        this.percentualDesconto = percentualDesconto; }
 
     public BigDecimal getPercentualDesconto() { return percentualDesconto; }
 
     public void setValidade(LocalDate validade) { this.validade = validade; }
 
     public LocalDate getValidade() { return validade; }
+
+    public Boolean cupomValido(){
+        return LocalDate.now().compareTo(this.validade) <= 0;
+    }
 
 }

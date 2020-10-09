@@ -27,6 +27,7 @@ public class Pedido {
         this.itemPedidos = itemPedidos;
     }
 
+
     public BigDecimal getTotal() {
 
         //itemPedidos.stream().map(i -> i.valorTotal()).reduce(

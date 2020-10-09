@@ -25,7 +25,7 @@ public class CategoriaController {
     public ResponseEntity novaCategoria(@RequestBody @Valid NovaCategoriaRequest request){ //1
         Categoria categoria = new Categoria(request.getNome()); //2
         entityManager.persist(categoria);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
 }

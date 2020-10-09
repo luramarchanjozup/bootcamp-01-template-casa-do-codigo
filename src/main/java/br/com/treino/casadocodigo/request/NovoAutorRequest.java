@@ -25,12 +25,12 @@ public class NovoAutorRequest {
         this.descricao = descricao;
     }
 
-    public Autor toModel(){
-        return new Autor(this.nome, this.email, this.descricao);
-    }
-
     public String getEmail(){
         return this.email;
+    }
+
+    public Autor toModel(){
+        return new Autor(this.nome, this.email, this.descricao);
     }
 
 

@@ -4,6 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class ItemPedido {
 
@@ -35,6 +36,19 @@ public class ItemPedido {
 
     public BigDecimal valorTotal(){
         return this.precoLivro.multiply(new BigDecimal(this.quantidade));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemPedido)) return false;
+        ItemPedido that = (ItemPedido) o;
+        return getLivro().equals(that.getLivro());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getLivro());
     }
 
 }

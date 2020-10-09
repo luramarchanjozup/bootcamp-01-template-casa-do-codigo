@@ -4,9 +4,7 @@ import br.com.treino.casadocodigo.model.ItemPedido;
 import br.com.treino.casadocodigo.model.Pedido;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,13 +32,15 @@ public class NovoPedidoRequest {
 
     public Pedido toModel(EntityManager entityManager){ //2
 
-        /*Set<ItemPedido> itemCauculados = itemPedidos.stream().map(item ->
-                item.toModel(entityManager)).collect(Collectors.toSet());*/
+        /*Set<ItemPedido> itemCauculado = itemPedidos.stream().map(item ->
+                item.toModel(entityManager))
+                .collect(Collectors.toSet());*/
 
         Set<ItemPedido> itemCauculados = new HashSet<>();
 
-        for (NovoItemPedidoRequest item : itemPedidos) { //3 //4
-            ItemPedido itemPedido = item.toModel(entityManager);
+        for (NovoItemPedidoRequest item : itemPedidos) { //3
+            ItemPedido itemPedido = item.toModel(entityManager); //4
+
             itemCauculados.add(itemPedido);
         }
 

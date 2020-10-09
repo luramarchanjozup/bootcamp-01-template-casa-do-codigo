@@ -21,7 +21,7 @@ public class MeuHandlerAdvice {
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         fieldErrors.forEach(fieldError -> {
-            String message = String.format("Campo %s %s", fieldError.getField(), fieldError.getDefaultMessage());
+            String message = String.format("Falha: Valor de '%s' %s", fieldError.getField().toUpperCase(), fieldError.getDefaultMessage());
             mensagens.add(message);
         });
         ErroParonizado erroParonizado = new ErroParonizado(mensagens);

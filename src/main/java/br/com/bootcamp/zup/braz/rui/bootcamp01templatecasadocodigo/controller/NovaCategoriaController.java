@@ -4,6 +4,8 @@ import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Catego
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests.NovaCategoriaRequest;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.CategoriaUnicaValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,21 +21,13 @@ public class NovaCategoriaController {
     @Autowired
     EntityManager entityManager;
 
-    @Autowired
-    CategoriaUnicaValidator categoriaUnicaValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(categoriaUnicaValidator);
-    }
-
     //Cadastrar uma nova Categoria
     @PostMapping
     @Transactional
-    public String novaCategoria(@Validated @RequestBody NovaCategoriaRequest novaCategoriaRequest){
+    public ResponseEntity<Categoria> novaCategoria(@Validated @RequestBody NovaCategoriaRequest novaCategoriaRequest){
 
         Categoria novaCategoria = novaCategoriaRequest.toModel();
         entityManager.persist(novaCategoria);
-        return novaCategoria.toString();
+        return ResponseEntity.status(HttpStatus.OK).body(novaCategoria);
     }
 }

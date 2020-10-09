@@ -1,6 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Autor;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnico;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ public class NovoAutorRequest {
     private String nome;
     @NotBlank(message = "Preenchimento obrigatório.")
     @Email(message = "Formado de email inválido")
+    @ObjetoUnico(domainClass = Autor.class, fieldName = "email")
     private String email;
     @NotBlank(message = "Preenchimento obrigatório.")
     @Size(max = 400)

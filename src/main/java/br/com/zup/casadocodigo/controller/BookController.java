@@ -1,7 +1,7 @@
 package br.com.zup.casadocodigo.controller;
 
-import br.com.zup.casadocodigo.domain.Author;
-import br.com.zup.casadocodigo.dto.AuthorDTO;
+import br.com.zup.casadocodigo.domain.Book;
+import br.com.zup.casadocodigo.dto.BookDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,18 +15,20 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value="authors")
-public class AuthorController {
+@RequestMapping(value="books")
+public class BookController {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> create(@RequestBody @Valid AuthorDTO authorDto) {
 
-        Author createAuthor = authorDto.transformAuthor();
-        entityManager.persist(createAuthor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createAuthor);
+    public ResponseEntity<?> create(@RequestBody @Valid BookDTO bookDto) {
+        Book createdBook = bookDto.toModel(entityManager);
+        entityManager.persist(createdBook);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
     }
+
+
 }

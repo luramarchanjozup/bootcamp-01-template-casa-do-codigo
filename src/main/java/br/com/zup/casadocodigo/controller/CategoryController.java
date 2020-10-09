@@ -21,7 +21,7 @@ public class CategoryController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> save(@RequestBody @Valid CategoryDTO categoryDto) {
+    public ResponseEntity<?> create(@RequestBody @Valid CategoryDTO categoryDto) {
 
         Category createCategory = categoryDto.transformCategory();
         entityManager.persist(createCategory);

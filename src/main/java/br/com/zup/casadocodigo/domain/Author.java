@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,18 +16,13 @@ import java.time.LocalDateTime;
 @Entity(name = "authors")
 public class Author {
 
-    //private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
     private String email;
-
     private String description;
-
     private LocalDateTime instantRegistration = LocalDateTime.now();
 
 
@@ -37,7 +31,7 @@ public class Author {
 
     }
 
-    public Author(@NotNull String name,
+    public Author(@NotBlank String name,
                   @NotBlank @Email String email,
                   @NotBlank @Size(max = 400) String description) {
         this.name = name;

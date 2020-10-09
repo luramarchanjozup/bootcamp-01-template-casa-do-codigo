@@ -1,7 +1,8 @@
 package br.com.zup.casadocodigo.dto;
 
+import br.com.zup.casadocodigo.annotations.UniqueValue;
 import br.com.zup.casadocodigo.domain.Category;
-import br.com.zup.casadocodigo.utils.UniqueValue;
+import br.com.zup.casadocodigo.annotations.ExistsValue;
 import lombok.Getter;
 import lombok.Setter;
 

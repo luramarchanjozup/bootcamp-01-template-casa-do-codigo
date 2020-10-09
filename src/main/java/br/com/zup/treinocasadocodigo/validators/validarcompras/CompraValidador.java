@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 8
  */
 
 @Component
@@ -43,6 +43,10 @@ public class CompraValidador implements Validator {
             errors.rejectValue("pedido.total","Compra.pedido.total","não está calculado corretamente");
         }
 
-
+        //2
+        if(!CupomValidador.cupomValido(compra, manager)){
+            errors.rejectValue("pedido.codigoCupom","Compra.pedido.codigoCupom","inválido. " +
+                    "Cupom é inválido quando: não existe, está vencido ou já foi utilizado");
+        }
     }
 }

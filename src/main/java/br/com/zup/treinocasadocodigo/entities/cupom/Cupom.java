@@ -82,4 +82,9 @@ public class Cupom {
         this.desconto = cupomAtualizado.getDesconto();
         this.validade = cupomAtualizado.getValidade();
     }
+
+    public boolean vencido(){
+        LocalDate hoje = LocalDate.now();
+        return this.validade.isBefore(hoje);
+    }
 }

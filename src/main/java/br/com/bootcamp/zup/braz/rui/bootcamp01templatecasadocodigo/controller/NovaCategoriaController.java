@@ -21,14 +21,6 @@ public class NovaCategoriaController {
     @Autowired
     EntityManager entityManager;
 
-    @Autowired
-    CategoriaUnicaValidator categoriaUnicaValidator;
-
-//    @InitBinder
-//    public void init(WebDataBinder binder){
-//        binder.addValidators(categoriaUnicaValidator);
-//    }
-
     //Cadastrar uma nova Categoria
     @PostMapping
     @Transactional

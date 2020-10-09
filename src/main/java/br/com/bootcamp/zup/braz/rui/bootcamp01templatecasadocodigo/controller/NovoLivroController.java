@@ -22,17 +22,12 @@ public class NovoLivroController {
     @Autowired
     EntityManager entityManager;
 
-    @Autowired
-    LivroService livroService;
-
     //Cadastra um novo Livro
     @PostMapping
     @Transactional
     public ResponseEntity<Livro> cadastrarLivro(@Validated @RequestBody NovoLivroRequest novoLivroRequest){
 
-        livroService.validaNovoLivro(novoLivroRequest);
-
-        Livro novoLivro = novoLivroRequest.toModel();
+        Livro novoLivro = novoLivroRequest.toModel(entityManager);
         entityManager.persist(novoLivro);
         return ResponseEntity.status(HttpStatus.OK).body(novoLivro);
     }

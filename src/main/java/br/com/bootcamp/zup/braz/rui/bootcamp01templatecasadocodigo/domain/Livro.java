@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Entity
+@Table(name = "t_livro")
 public class Livro {
 
     @Id

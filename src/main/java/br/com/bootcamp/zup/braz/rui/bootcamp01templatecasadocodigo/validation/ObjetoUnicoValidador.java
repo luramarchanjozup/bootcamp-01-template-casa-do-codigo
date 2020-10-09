@@ -29,7 +29,7 @@ public class ObjetoUnicoValidador implements ConstraintValidator<ObjetoUnico, St
         Query customQuery = entityManager.createQuery("select 1 from " + classe.getName() + " where " + campo + " = :valor");
         customQuery.setParameter("valor", valor);
         List<?> resultadoConsulta = customQuery.getResultList();
-        //Assert.state(resultadoConsulta.size() <=1, "Foi encontrado mais de um "+classe+" com o atributo "+campo+" = "+valor); //Não entendi a necessidade
+        Assert.state(resultadoConsulta.size() <=1, "Foi encontrado mais de um "+classe+" com o atributo "+campo+" = "+valor);
 
         return resultadoConsulta.isEmpty();
     }

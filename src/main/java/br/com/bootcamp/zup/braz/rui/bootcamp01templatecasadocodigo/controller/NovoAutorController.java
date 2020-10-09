@@ -21,14 +21,6 @@ public class NovoAutorController {
     @Autowired
     EntityManager entityManager;
 
-    @Autowired
-    EmailDuplicadoValidator emailDuplicadoValidator;
-
-//    @InitBinder
-//    public void init(WebDataBinder binder){
-//        binder.addValidators(emailDuplicadoValidator);
-//    }
-
     //Cadastrar um novo Autor
     @PostMapping
     @Transactional

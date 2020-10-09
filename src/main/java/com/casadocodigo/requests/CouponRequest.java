@@ -15,8 +15,8 @@ import java.util.Date;
 public class CouponRequest {
 
     @NotBlank
-    @UniqueValue(domainClass = Coupon.class, fieldName = "codeCoupon", message = "O cupom deve ser único")
-    private String codeCoupon;
+    @UniqueValue(domainClass = Coupon.class, fieldName = "code", message = "O cupom deve ser único")
+    private String code;
 
     @Positive
     @NotNull
@@ -26,8 +26,8 @@ public class CouponRequest {
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate couponValidity;
 
-    public CouponRequest(@NotBlank String codeCoupon, @Positive @NotNull BigDecimal descount) {
-        this.codeCoupon = codeCoupon;
+    public CouponRequest(@NotBlank String code, @Positive @NotNull BigDecimal descount) {
+        this.code = code;
         this.descount = descount;
     }
 
@@ -35,8 +35,8 @@ public class CouponRequest {
         this.couponValidity = couponValidity;
     }
 
-    public String getCodeCoupon() {
-        return codeCoupon;
+    public String getCode() {
+        return code;
     }
 
     public BigDecimal getDescount() {
@@ -48,6 +48,6 @@ public class CouponRequest {
     }
 
     public Coupon toModel() {
-        return new Coupon(codeCoupon, descount, couponValidity);
+        return new Coupon(code, descount, couponValidity);
     }
 }

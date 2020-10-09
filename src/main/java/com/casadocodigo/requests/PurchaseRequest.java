@@ -1,5 +1,6 @@
 package com.casadocodigo.requests;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -9,14 +10,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.casadocodigo.annotations.ExistsValue;
+import com.casadocodigo.entity.*;
+import com.casadocodigo.repository.CouponRepository;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 
-import com.casadocodigo.entity.Cart;
-import com.casadocodigo.entity.Country;
-import com.casadocodigo.entity.Purchase;
-import com.casadocodigo.entity.State;
+import org.springframework.util.StringUtils;
 
 public class PurchaseRequest {
 
@@ -55,6 +55,10 @@ public class PurchaseRequest {
 	
 	private CartRequest cart;
 
+	@ExistsValue(domainClass = Coupon.class, fieldName = "code", message = "Cumpo inválido")
+	private String coupon;
+	
+
 	public PurchaseRequest(@NotBlank @Email String email, @NotBlank String name, @NotBlank String lastName,
 			@NotBlank String document, @NotBlank String adress, @NotBlank String complement, @NotNull Long phone,
 			@NotNull Long cep, @NotNull Long idCountry, @NotNull Long idState, @Valid @NotNull CartRequest cart) {
@@ -89,7 +93,15 @@ public class PurchaseRequest {
 		return idState != null;
 	}
 
-	public Purchase toModel(EntityManager manager) {
+	public void setCoupon(String coupon) {
+		this.coupon = coupon;
+	}
+
+	public Optional<String> getCoupon() {
+		return Optional.ofNullable(coupon);
+	}
+
+	public Purchase toModel(EntityManager manager, CouponRepository couponRepository) {
 		@NotNull
 		Country country = manager.find(Country.class, idCountry);
 		
@@ -99,6 +111,11 @@ public class PurchaseRequest {
 		
 		if(idState != null) {
 			purchase.setState(manager.find(State.class, idState));
+		}
+
+		if (StringUtils.hasText(coupon)){
+			Coupon couponToFind = couponRepository.getByCode(coupon);
+			purchase.applyCoupon(couponToFind);
 		}
 		
 		return purchase;

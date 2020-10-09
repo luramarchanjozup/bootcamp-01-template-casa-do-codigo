@@ -41,7 +41,7 @@ public class CouponController {
 			return ResponseEntity.notFound().build();
 		}
 
-		coupon.setCodeCoupon(request.getCodeCoupon());
+		coupon.setCode(request.getCode());
 		coupon.setCouponValidity(request.getCouponValidity());
 		coupon.setDescount(request.getDescount());
 

@@ -1,19 +1,15 @@
 package com.casadocodigo.entity;
 
+import java.util.Optional;
 import java.util.function.Function;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.casadocodigo.annotations.ExistsValue;
 import org.springframework.util.Assert;
 
 @Entity
@@ -59,7 +55,8 @@ public class Purchase {
 	@OneToOne(mappedBy = "purchase", cascade = CascadeType.PERSIST)
 	private Cart cart;
 
-
+	@Embedded
+	private CouponApplied couponApplied;
 
 	public Purchase(@NotBlank @Email String email, @NotBlank String name, @NotBlank String lastName,
 			@NotBlank String document, @NotBlank String adress, @NotBlank String complement, @NotNull Long phone,
@@ -92,6 +89,7 @@ public class Purchase {
 				", country=" + country +
 				", state=" + state +
 				", cart=" + cart +
+				", couponApplied=" + couponApplied +
 				'}';
 	}
 
@@ -101,4 +99,9 @@ public class Purchase {
 		this.state = state;
 	}
 
+	public void applyCoupon(Coupon coupon) {
+		Assert.isTrue(coupon.valid(), "o cupom não é válido ");
+		Assert.isNull(couponApplied, "O cupom deve ser o mesmo");
+		this.couponApplied = new CouponApplied(coupon);
+	}
 }

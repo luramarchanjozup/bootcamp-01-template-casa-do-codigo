@@ -21,7 +21,7 @@ public class Coupon {
 	private Long id;
 
 	@NotBlank
-	private String codeCoupon;
+	private String code;
 
 	@Positive
 	@NotNull
@@ -36,8 +36,8 @@ public class Coupon {
 
 	}
 
-	public Coupon(@NotBlank String codeCoupon, @Positive @NotNull BigDecimal descount, @Future LocalDate couponValidity) {
-		this.codeCoupon = codeCoupon;
+	public Coupon(@NotBlank String code, @Positive @NotNull BigDecimal descount, @Future LocalDate couponValidity) {
+		this.code = code;
 		this.descount = descount;
 		this.couponValidity = couponValidity;
 	}
@@ -46,8 +46,8 @@ public class Coupon {
 		this.id = id;
 	}
 
-	public void setCodeCoupon(String codeCoupon) {
-		this.codeCoupon = codeCoupon;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public void setDescount(BigDecimal descount) {
@@ -62,12 +62,24 @@ public class Coupon {
 		return id;
 	}
 
+	public BigDecimal getDescount() {
+		return descount;
+	}
+
+	public LocalDate getCouponValidity() {
+		return couponValidity;
+	}
+
 	@Override
 	public String toString() {
 		return "Coupon{" +
-				"codeCoupon='" + codeCoupon + '\'' +
+				"code='" + code + '\'' +
 				", descount=" + descount +
 				", couponValidity=" + couponValidity +
 				'}';
+	}
+
+	public boolean valid (){
+		return LocalDate.now().compareTo(this.couponValidity) <= 0;
 	}
 }

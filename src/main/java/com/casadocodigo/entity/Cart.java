@@ -31,10 +31,18 @@ public class Cart {
 	@Size(min = 1)
 	private Set<ItemCart> itensCart = new HashSet<>();
 
+	@Deprecated
+	public Cart (){
+
+	}
 	public Cart(@Valid Purchase purchase, @Size(min = 1) Set<ItemCart> itensCart) {
 		Assert.isTrue(!itensCart.isEmpty(),	"O pedido deve ter ao menos 1 item");
 		this.purchase = purchase;
 		this.itensCart.addAll(itensCart);
+	}
+
+	public Set<ItemCart> getItensCart() {
+		return itensCart;
 	}
 
 	@Override

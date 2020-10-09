@@ -35,6 +35,10 @@ public class State {
 		this.country = country;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public String toString() {
 		return "State [id=" + id + ", name=" + name + ", country=" + country + "]";

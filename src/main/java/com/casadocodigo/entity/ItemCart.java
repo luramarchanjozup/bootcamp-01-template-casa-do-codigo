@@ -39,6 +39,15 @@ public class ItemCart {
 		return price.multiply(new BigDecimal(quantity));
 	}
 
+
+	public int getId() {
+		return id;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
 	public Book getBook() {
 		return book;
 	}

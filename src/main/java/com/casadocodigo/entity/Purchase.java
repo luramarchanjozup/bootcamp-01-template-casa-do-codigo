@@ -58,6 +58,11 @@ public class Purchase {
 	@Embedded
 	private CouponApplied couponApplied;
 
+	@Deprecated
+	public Purchase(){
+
+	}
+
 	public Purchase(@NotBlank @Email String email, @NotBlank String name, @NotBlank String lastName,
 			@NotBlank String document, @NotBlank String adress, @NotBlank String complement, @NotNull Long phone,
 			@NotNull Long cep, @Valid Country country, Function<Purchase, Cart> newCart) {
@@ -91,6 +96,54 @@ public class Purchase {
 				", cart=" + cart +
 				", couponApplied=" + couponApplied +
 				'}';
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getDocument() {
+		return document;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public String getComplement() {
+		return complement;
+	}
+
+	public Long getPhone() {
+		return phone;
+	}
+
+	public Long getCep() {
+		return cep;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public CouponApplied getCouponApplied() {
+		return couponApplied;
 	}
 
 	public void setState(@NotNull @Valid State state) {

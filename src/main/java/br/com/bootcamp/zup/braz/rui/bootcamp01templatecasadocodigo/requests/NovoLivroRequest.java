@@ -1,23 +1,18 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoValido;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Autor;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Categoria;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Livro;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnico;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.persistence.EntityManager;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Query;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 public class NovoLivroRequest {
     @NotBlank
@@ -39,7 +34,9 @@ public class NovoLivroRequest {
     @NotNull
     private Date dataLancamento;
     @NotNull
+    @ObjetoValido(domainsClass = Categoria.class, fieldName = "id")
     private Integer idCategoria;
+    @ObjetoValido(domainsClass = Autor.class, fieldName = "id")
     @NotNull
     private Integer idAutor;
 

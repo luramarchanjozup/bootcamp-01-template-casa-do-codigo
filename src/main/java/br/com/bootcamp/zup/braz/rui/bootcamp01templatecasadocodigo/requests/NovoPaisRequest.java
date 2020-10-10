@@ -1,27 +1,27 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Categoria;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.validation.constraints.NotBlank;
 
-public class NovaCategoriaRequest {
+public class NovoPaisRequest {
 
     @NotBlank
-    @ObjetoUnico(domainClass = Categoria.class, fieldName = "nome")
+    @ObjetoUnico(domainClass = Pais.class, fieldName = "nome")
     private String nome;
 
     @Deprecated
-    public NovaCategoriaRequest(){
+    public NovoPaisRequest(){
 
     }
 
-    public NovaCategoriaRequest(@NotBlank String nome){
+    public NovoPaisRequest(@NotBlank String nome){
         this.nome = nome;
     }
 
-    public Categoria toModel(){
-        return new Categoria(this.nome);
+    public Pais toModel() {
+        return new Pais(this.nome = nome);
     }
 
     public String getNome(){
@@ -31,4 +31,6 @@ public class NovaCategoriaRequest {
     public void setNome(String nome) {
         this.nome = nome.toLowerCase();
     }
+
+
 }

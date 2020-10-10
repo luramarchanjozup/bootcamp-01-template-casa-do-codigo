@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "t_categoria")
-public class Categoria {
+@Table(name = "t_pais")
+public class Pais {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,11 +15,11 @@ public class Categoria {
     private String nome;
 
     @Deprecated
-    public Categoria(){
+    public Pais(){
 
     }
 
-    public Categoria(@NotBlank String nome) {
+    public Pais(@NotBlank String nome) {
         this.nome = nome;
     }
 
@@ -36,13 +36,6 @@ public class Categoria {
     }
 
     public void setNome(String nome) {
-        this.nome = nome.toLowerCase();
-    }
-
-    @Override
-    public String toString() {
-        return "Categoria criada: [" +
-                "Nome: '" + nome + '\'' +
-                ']';
+        this.nome = nome;
     }
 }

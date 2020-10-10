@@ -1,7 +1,5 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnico;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -35,10 +33,12 @@ public class Livro {
     private Date dataLancamento;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "id_autor")
     private Autor autor;
 

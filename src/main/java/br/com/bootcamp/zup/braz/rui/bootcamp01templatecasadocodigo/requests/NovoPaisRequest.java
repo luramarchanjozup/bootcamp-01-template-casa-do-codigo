@@ -1,7 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnico;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.validation.constraints.NotBlank;
 

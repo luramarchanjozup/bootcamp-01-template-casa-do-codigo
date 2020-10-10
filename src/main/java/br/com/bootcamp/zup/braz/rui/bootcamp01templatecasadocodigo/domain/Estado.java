@@ -1,6 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +16,7 @@ public class Estado {
     private String nome;
 
     @NotNull
+    @Valid
     @ManyToOne
     @JoinColumn(name = "id_pais")
     private Pais pais;
@@ -24,7 +26,7 @@ public class Estado {
 
     }
 
-    public Estado(@NotBlank String nome, @NotNull Pais pais) {
+    public Estado(@NotBlank String nome, @NotNull @Valid Pais pais) {
         this.nome = nome;
         this.pais = pais;
     }

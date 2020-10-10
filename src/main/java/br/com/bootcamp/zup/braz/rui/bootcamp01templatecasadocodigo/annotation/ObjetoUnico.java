@@ -1,4 +1,6 @@
-package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation;
+package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation;
+
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnicoValidador;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -1,9 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Autor;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Categoria;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnico;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.validation.constraints.NotBlank;
 

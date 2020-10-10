@@ -1,7 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation;
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

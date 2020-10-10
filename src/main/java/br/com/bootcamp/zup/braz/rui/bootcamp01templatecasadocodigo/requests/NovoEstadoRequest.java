@@ -1,8 +1,9 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoValido;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Estado;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.ObjetoUnico;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ public class NovoEstadoRequest {
     @ObjetoUnico(domainClass = Estado.class, fieldName = "nome")
     private String nome;
     @NotNull
+    @ObjetoValido(fieldName = "id", domainsClass = Pais.class)
     private Integer idPais;
 
     @Deprecated
@@ -43,7 +45,7 @@ public class NovoEstadoRequest {
     }
 
     public Estado toModel(EntityManager entityManager) {
-        @NotNull Pais pais = entityManager.find(Pais.class, idPais);
-        return new Estado(nome, pais);
+
+        return new Estado(nome, entityManager.find(Pais.class, idPais));
     }
 }

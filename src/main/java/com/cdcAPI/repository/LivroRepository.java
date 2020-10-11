@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, String> {
 
-    Optional<Livro> findById(String id);
+    Optional<Livro> findById(Long id);
 }

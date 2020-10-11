@@ -1,4 +1,4 @@
-package com.cdcAPI.api.model;
+package com.cdcAPI.api.model.Request;
 
 import com.cdcAPI.model.Autor;
 import com.cdcAPI.validator.EntradaUnica;

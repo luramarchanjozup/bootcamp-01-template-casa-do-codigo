@@ -1,4 +1,4 @@
-package com.cdcAPI.api.model;
+package com.cdcAPI.api.model.Request;
 
 import com.cdcAPI.model.Autor;
 import com.cdcAPI.model.Categoria;
@@ -10,9 +10,8 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-//Complexidade
+//Complexidade = ?
 //EntradaUnica, Autor, Categoria, Livro, 2 if
-//Total = 6
 
 public class LivroRequest {
 
@@ -69,7 +68,6 @@ public class LivroRequest {
     //Usar Entity mananger para puxar id's e validar se pode criar livro
     public Livro toModel(EntityManager manager) throws Exception {
 
-
         @NotBlank
         Autor autor = manager.find(Autor.class, autorId);
         @NotBlank
@@ -85,8 +83,6 @@ public class LivroRequest {
         return new Livro(titulo, resumo, sumario, preco, n_paginas, isbn,
                 dataPublicacao, autor, categoria);
     }
-
-
 
     //get e set
 

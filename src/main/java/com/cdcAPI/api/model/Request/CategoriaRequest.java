@@ -1,13 +1,12 @@
-package com.cdcAPI.api.model;
+package com.cdcAPI.api.model.Request;
 
 import com.cdcAPI.model.Categoria;
 import com.cdcAPI.validator.EntradaUnica;
 
 import javax.validation.constraints.NotBlank;
 
-//Complexidade
+//Complexidade = 2
 //EntradaUnica, Categoria
-//Total = 2
 
 public class CategoriaRequest {
 
@@ -20,7 +19,7 @@ public class CategoriaRequest {
 
     }
 
-    public CategoriaRequest (@NotBlank String nome){
+    public CategoriaRequest(@NotBlank String nome){
         this.nome = nome;
     }
 

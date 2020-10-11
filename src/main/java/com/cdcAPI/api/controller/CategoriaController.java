@@ -1,37 +1,32 @@
 package com.cdcAPI.api.controller;
 
-import com.cdcAPI.api.model.CategoriaRequest;
+import com.cdcAPI.api.model.Request.CategoriaRequest;
 import com.cdcAPI.model.Categoria;
-import com.cdcAPI.repository.CategoriaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 //Complexidade
-//CategoriaRequest, Categoria, CategoriaRepository
+//CategoriaRequest, Categoria
 //Total = 3
 
 @RestController
+@RequestMapping("/categorias")
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    EntityManager manager;
 
-    //Criar categoria
-    @PostMapping("/categorias")
+    @PostMapping
     @Transactional
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> criarCategoria(@Valid @RequestBody CategoriaRequest categoriaRequest) {
         Categoria categoria = categoriaRequest.toModel();
-        categoriaRepository.save(categoria);
+        manager.persist(categoria);
 
         return ResponseEntity.ok().build();
     }

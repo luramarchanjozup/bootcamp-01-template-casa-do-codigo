@@ -1,34 +1,31 @@
 package com.cdcAPI.api.controller;
 
-import com.cdcAPI.api.model.AutorRequest;
+import com.cdcAPI.api.model.Request.AutorRequest;
 import com.cdcAPI.model.Autor;
-import com.cdcAPI.repository.AutorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-//Complexidade
-//AutorRequest, Autor, AutorRepository
-//Total = 3
+//Complexidade = 2
+//AutorRequest, Autor
 
 @RestController
+@RequestMapping("/autores")
 public class AutorController {
 
     @Autowired
-    private AutorRepository autorRepository;
+    EntityManager manager;
 
-    //Criar autor
-    @PostMapping("/autores")
-    @Transactional // Garantir processo completo, tudo ou nada. (com o .persiste)
-    @ResponseStatus(HttpStatus.OK)
+    @PostMapping
+    @Transactional
     public ResponseEntity<Void> criarAutor(@Valid @RequestBody AutorRequest autorRequest) {
-        Autor autor = autorRequest.toModel(); //Request da entidade para Model
-        autorRepository.save(autor);
+        Autor autor = autorRequest.toModel();
+        manager.persist(autor);
 
         return ResponseEntity.ok().build();
     }

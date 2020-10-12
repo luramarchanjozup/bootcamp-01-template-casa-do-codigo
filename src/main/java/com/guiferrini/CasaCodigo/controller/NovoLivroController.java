@@ -21,18 +21,17 @@ public class NovoLivroController {
 	@PersistenceContext
 	EntityManager entityManager;
 	
-	
-	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<NovoLivro> criaNovoLivro(@Valid @RequestBody NovoLivroDTO novoLivroDTO) {
-		NovoLivro obj = novoLivroDTO.toModel();
+		
+		NovoLivro obj = novoLivroDTO.toModel(entityManager);
 		entityManager.persist(obj);
 		
 		if(obj instanceof NovoLivro) {
 			return ResponseEntity.status(201).body(obj);
 		} else {
-			return ResponseEntity.status(400).body(obj);
+			return ResponseEntity.status(400).body(obj); 
 		}
 		
 	}

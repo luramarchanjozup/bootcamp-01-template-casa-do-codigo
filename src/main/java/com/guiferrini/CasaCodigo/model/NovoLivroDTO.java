@@ -1,18 +1,23 @@
 package com.guiferrini.CasaCodigo.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.Assert;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 public class NovoLivroDTO {
+	
+	//@PersistenceContext
+	//EntityManager entityManager;
 	
 	@NotBlank(message="Título obrigatório")
 	@ValorUnico(domainClass=NovoLivro.class, fieldName="titulo", message="Título já existente")
@@ -41,15 +46,24 @@ public class NovoLivroDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate date;
 	
-	public NovoLivroDTO() {
-	}
-
-	public NovoLivroDTO(@NotBlank(message = "Título obrigatório") String titulo,
-			@NotBlank(message = "Resumo obrigatório") @Size(max = 500) String resumo, String sumario,
-			@NotNull(message = "Preço obrigatório") @Min(20) Double preco,
-			@NotNull(message = "Número de paginas obrigatório") @Min(100) Integer paginas,
-			@NotBlank(message = "Identificador obirgatório") String identificador, @Future
-			@NotNull LocalDate date) {
+	//@NotNull(message = "Autor obrigatório")
+	@IdUnico(domainClass = Autor.class, fieldName = "id", message = "O ID do Autor é obrigatório e tem ser válido")
+	private String idAutor;
+	
+	//@NotNull(message = "Categoria obrigatória")
+	@IdUnico(domainClass = Categoria.class, fieldName = "id", message = "O ID da Categoria é obrigatório e tem ser válido")
+	private String idCategoria;
+	
+	public NovoLivroDTO() { 
+	} 
+ 
+	public NovoLivroDTO(@NotBlank String titulo,
+			@NotBlank @Size(max = 500) String resumo, String sumario,
+			@NotNull @Min(20) Double preco,
+			@NotNull @Min(100) Integer paginas,
+			@NotBlank String identificador, @Future
+			@NotNull LocalDate date, @NotNull String idCategoria,
+			@NotNull String idAutor) {
 		super();
 		this.titulo = titulo;
 		this.resumo = resumo;
@@ -58,6 +72,8 @@ public class NovoLivroDTO {
 		this.paginas = paginas;
 		this.identificador = identificador;
 		this.date = date;
+		this.idAutor = idAutor;
+		this.idCategoria = idCategoria;
 	}
 
 	public String getTitulo() {
@@ -115,9 +131,33 @@ public class NovoLivroDTO {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
-	public NovoLivro toModel() {
-		NovoLivro obj = new NovoLivro(titulo, resumo, sumario, preco, paginas, identificador, date);
-		return obj;
+
+	public String getIdAutor() {
+		return idAutor;
 	}
+
+	public void setIdAutor(String idAutor) {
+		this.idAutor = idAutor;
+	}
+
+	public String getIdCategoria() {
+		return idCategoria;
+	}
+
+	public void setIdCategoria(String idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	public NovoLivro toModel(EntityManager entityManager) {
+		
+		@NotNull Autor autor = entityManager.find(Autor.class, idAutor);
+		@NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria);
+		
+		//isTrue
+		Assert.state(autor != null, "Favor verificar nome do Autor, este nome não está cadastrado.");
+		Assert.state(categoria != null, "Favor verificar nome da Categoria, este nome não está cadastrado");
+		
+		return new NovoLivro(titulo, resumo, sumario, preco, paginas, identificador, date, autor, categoria);
+		//return obj;
+	} 
 }

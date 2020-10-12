@@ -1,13 +1,13 @@
 package com.guiferrini.CasaCodigo.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -22,12 +22,12 @@ public class NovoLivro {
 	@Id
 	@Column(name="id", nullable=false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private Long id;
 	
 	@NotBlank(message="Título obrigatório")
 	private String titulo;
 	
-	@NotBlank(message="Resumo obrigatório")
+	@NotBlank(message="Resumo obrigatório") 
 	@Size(max=500)
 	private String resumo;
 
@@ -48,16 +48,24 @@ public class NovoLivro {
 	@Future
 	private LocalDate date;
 	
+	@ManyToOne
+	@NotNull
+	private Autor autor;
+	
+	@ManyToOne
+	@NotNull
+	private Categoria categoria;  
+	
 	@Deprecated
 	public NovoLivro() {
 	}
 
-	public NovoLivro(@NotBlank(message = "Título obrigatório") String titulo,
-			@NotBlank(message = "Resumo obrigatório") @Size(max = 500) String resumo, String sumario,
-			@NotNull(message = "Preço obrigatório") @Min(20) Double preco,
-			@NotNull(message = "Número de paginas obrigatório") @Min(100) Integer paginas,
-			@NotBlank(message = "Identificador obirgatório") String identificador, @NotNull
-			@Future LocalDate date) {
+	public NovoLivro(@NotBlank String titulo,
+			@NotBlank @Size(max = 500) String resumo, String sumario,
+			@NotNull @Min(20) Double preco,
+			@NotNull @Min(100) Integer paginas,
+			@NotBlank String identificador, @NotNull
+			@Future LocalDate date, Autor autor, Categoria categoria) {
 		super();
 		this.titulo = titulo;
 		this.resumo = resumo;
@@ -66,13 +74,15 @@ public class NovoLivro {
 		this.paginas = paginas;
 		this.identificador = identificador;
 		this.date = date;
+		this.autor = autor;
+		this.categoria = categoria;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -130,5 +140,21 @@ public class NovoLivro {
 
 	public void setDate(LocalDate date) {
 		this.date = date;
-	}	
+	}
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 }

@@ -2,7 +2,6 @@ package br.com.zup.casadocodigo.autor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +35,11 @@ public class Autor implements Serializable {
 	
 	@Column(name = "DATA_REGISTRO")
 	private LocalDate dataRegistro;
+	
+	@Deprecated
+	public Autor() {
+	
+	}
 
 	public Autor(String nome, String email, String descricao) {
 		this.nome = nome;

@@ -3,6 +3,10 @@ package br.com.zup.casadocodigo.autor;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class AutorDTO implements Serializable{
 
 	/**
@@ -12,10 +16,15 @@ public class AutorDTO implements Serializable{
 
 	private Integer idAutor;
 	
+	@NotBlank
 	private String nome;
 	
+	@NotBlank
+	@Email
 	private String email;
 	
+	@NotBlank
+	@Size(max = 400)
 	private String descricao;
 	
 	private Date dataRegistro;

@@ -15,7 +15,6 @@ public class Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private @NotBlank String nome;
     private @NotBlank String sobrenome;
     private @Email @NotBlank String email;
@@ -35,7 +34,7 @@ public class Compra {
     private @NotBlank String cep;
     private @NotBlank String complemento;
 
-    @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private @NotNull Pedido pedido; //1
 
     @Embedded
@@ -123,21 +122,29 @@ public class Compra {
 
     public CupomAplicado getCupomAplicado() { return cupomAplicado; }
 
+    public void setTotalComDesconto(BigDecimal totalComDesconto) {
+        this.totalComDesconto = totalComDesconto;
+    }
+
     public BigDecimal getTotalComDesconto() {
+        return totalComDesconto;
+    }
 
-        BigDecimal total = pedido.getTotal();
-
+    public void caucularTotalComDesconto(){
         if (!StringUtils.isEmpty(cupomAplicado)){  //3
-            return total.subtract(pedido.getTotal().
+
+            BigDecimal total = pedido.getTotal();
+
+            totalComDesconto = total.subtract(pedido.getTotal().
                     multiply(cupomAplicado.getPercentualDesconto())
                     .setScale(2, RoundingMode.CEILING));
         }
-        return this.totalComDesconto = BigDecimal.ZERO;
+
     }
 
     public void aplicarCupom(Cupom cupom){
         this.cupomAplicado = new CupomAplicado(cupom);
-        this.totalComDesconto = getTotalComDesconto();
+        caucularTotalComDesconto();
     }
 
 }

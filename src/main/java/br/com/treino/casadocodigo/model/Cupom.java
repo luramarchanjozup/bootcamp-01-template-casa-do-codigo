@@ -36,8 +36,7 @@ public class Cupom {
 
     public String getCodigo() { return codigo; }
 
-    public void setPercentualDesconto(BigDecimal percentualDesconto) {
-        this.percentualDesconto = percentualDesconto; }
+    public void setPercentualDesconto(BigDecimal percentualDesconto) { this.percentualDesconto = percentualDesconto; }
 
     public BigDecimal getPercentualDesconto() { return percentualDesconto; }
 

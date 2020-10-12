@@ -2,6 +2,7 @@ package br.com.treino.casadocodigo.controller;
 
 import br.com.treino.casadocodigo.model.Compra;
 import br.com.treino.casadocodigo.repository.CupomRepositoy;
+import br.com.treino.casadocodigo.request.DetalheCompraRequest;
 import br.com.treino.casadocodigo.request.NovaCompraRequest;
 import br.com.treino.casadocodigo.validations.CupomValidoValidator;
 import br.com.treino.casadocodigo.validations.EstadoPertenceAoPaisValidator;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
@@ -35,9 +37,21 @@ public class CompraController {
     }
 
     @GetMapping(value = "/{id}")
-    public String consultarCompra(@PathVariable Long id){
+    public ResponseEntity<Compra> consultarCompra(@PathVariable("id") Long id){
 
-        return "Controller GET";
+        Compra novaCompra = entityManager.find(Compra.class, id);
+
+        if (!ObjectUtils.isEmpty(novaCompra)){
+
+            DetalheCompraRequest detalheCompraRequest =
+                    new DetalheCompraRequest(novaCompra);
+
+            return new ResponseEntity(detalheCompraRequest,
+                    HttpStatus.OK);
+        }
+
+        return ResponseEntity.notFound().build();
+
     }
 
     @PostMapping

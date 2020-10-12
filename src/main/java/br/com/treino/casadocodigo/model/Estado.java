@@ -20,6 +20,8 @@ public class Estado {
         this.pais = pais;
     }
 
+    public String getNome() { return nome; }
+
     public Boolean perteceAoPais(Pais pais){
         return this.pais.equals(pais);
     }

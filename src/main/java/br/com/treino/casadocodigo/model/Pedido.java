@@ -14,13 +14,12 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
     private @Positive BigDecimal total;
     @ElementCollection
     private @Size(min = 1) Set<ItemPedido> itemPedidos;
 
-    @OneToOne
-    private @Valid Compra compra;
+    //@OneToOne
+    //private @Valid Compra compra;
 
     @Deprecated
     public Pedido(){}
@@ -29,7 +28,11 @@ public class Pedido {
         this.itemPedidos = itemPedidos;
     }
 
-    public Long getId() { return id; }
+    //public Long getId() { return id; }
+
+     /*public Compra getCompra() {
+        return compra;
+    }*/
 
     public void setTotal(BigDecimal total) {
         this.total = total;

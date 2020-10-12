@@ -7,7 +7,7 @@ import com.guiferrini.CasaCodigo.model.ValorUnico;
 public class CategoriaDTO {
 
 	@NotBlank(message = "Nome obrigatório")
-	@ValorUnico(domainClass = Categoria.class, fieldName = "nome", message = "Nome da Categoria já existente")
+	//@ValorUnico(domainClass = Categoria.class, fieldName = "nome", message = "Nome da Categoria já existente")
 	private String nome;
 	
 	@Deprecated

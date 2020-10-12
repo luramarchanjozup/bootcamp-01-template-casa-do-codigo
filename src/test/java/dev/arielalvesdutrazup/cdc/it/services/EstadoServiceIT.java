@@ -52,7 +52,7 @@ public class EstadoServiceIT {
     public void cadastrar_deveFuncionar() {
         var estadoParaCadastrar = EstadoFactory.paraPersistir(pais);
 
-        var estadoCadastrado = estadoService.cadastrar(estadoParaCadastrar);
+        var estadoCadastrado = estadoService.cadastrar(pais.getId(), estadoParaCadastrar);
 
         assertThat(estadoCadastrado).isNotNull();
         assertThat(estadoCadastrado.getId()).isNotNull();
@@ -73,7 +73,7 @@ public class EstadoServiceIT {
             var estadoParaCadastrar = EstadoFactory.paraPersistir(pais);
             estadoParaCadastrar.setNome(null);
 
-            estadoService.cadastrar(estadoParaCadastrar);
+            estadoService.cadastrar(pais.getId(), estadoParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Nome é obrigatório!', propertyPath=nome");
@@ -85,8 +85,8 @@ public class EstadoServiceIT {
         try {
             var estadoParaCadastrar = EstadoFactory.paraPersistir(pais);
 
-            estadoService.cadastrar(estadoParaCadastrar);
-            estadoService.cadastrar(estadoParaCadastrar);
+            estadoService.cadastrar(pais.getId(), estadoParaCadastrar);
+            estadoService.cadastrar(pais.getId(), estadoParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (RuntimeException e) {
             assertThat(e.getMessage()).contains("Nome duplicado!");
@@ -99,10 +99,10 @@ public class EstadoServiceIT {
             var estadoParaCadastrar = EstadoFactory.paraPersistir(pais);
             estadoParaCadastrar.setPais(null);
 
-            estadoService.cadastrar(estadoParaCadastrar);
+            estadoService.cadastrar(null , estadoParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (ConstraintViolationException e) {
-            assertThat(e.getMessage()).contains("interpolatedMessage='País é obrigatório!', propertyPath=pais");
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).contains("O ID do país não pode ser nulo!");
         }
     }
 
@@ -110,12 +110,11 @@ public class EstadoServiceIT {
     public void cadastrar_comPaisNaoCadastroNoBanco_deveLancarException() {
         try {
             var estadoParaCadastrar = EstadoFactory.paraPersistir(pais);
-            estadoParaCadastrar.setPais(new Pais().setId(212000L));
 
-            estadoService.cadastrar(estadoParaCadastrar);
+            estadoService.cadastrar(212000L, estadoParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (DataIntegrityViolationException e) {
-            assertThat(e.getMessage()).contains("could not execute statement;");
+        } catch (EntityNotFoundException e) {
+            assertThat(e.getMessage()).contains("Pais com id 212000 não localizado!");
         }
     }
 

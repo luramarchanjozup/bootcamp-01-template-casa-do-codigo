@@ -1,6 +1,6 @@
-package dev.arielalvesdutrazup.cdc.anotacoes.validators;
+package dev.arielalvesdutrazup.cdc.annotations.validators;
 
-import dev.arielalvesdutrazup.cdc.anotacoes.Documento;
+import dev.arielalvesdutrazup.cdc.annotations.Documento;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 

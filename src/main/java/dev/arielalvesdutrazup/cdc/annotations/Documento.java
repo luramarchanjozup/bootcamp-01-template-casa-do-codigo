@@ -1,6 +1,6 @@
-package dev.arielalvesdutrazup.cdc.anotacoes;
+package dev.arielalvesdutrazup.cdc.annotations;
 
-import dev.arielalvesdutrazup.cdc.anotacoes.validators.DocumentoValidator;
+import dev.arielalvesdutrazup.cdc.annotations.validators.DocumentoValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -15,11 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
-
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,7 +62,7 @@ public class LivroServiceIT {
     public void cadastrar_deveFuncionar() {
         var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
 
-        var livroCadatrado = livroService.cadastrar(livroParaCadastrar);
+        var livroCadatrado = livroService.cadastrar(autor.getId(), categoria.getId(), livroParaCadastrar);
 
         assertThat(livroCadatrado).isNotNull();
         assertThat(livroCadatrado.getId()).isNotNull();
@@ -89,7 +88,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setTitulo(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Título é obrigatório!', propertyPath=titulo");
@@ -101,8 +100,9 @@ public class LivroServiceIT {
         try {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
 
-            livroService.cadastrar(livroParaCadastrar);
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
+            livroParaCadastrar.setIsbn("1371292112321");
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (RuntimeException e) {
             assertThat(e.getMessage()).contains("Título duplicado!");
@@ -115,7 +115,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setResumo(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Resumo é obrigatório!', propertyPath=resumo");
@@ -129,7 +129,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setResumo(resumoGrande);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Tamanho máximo é de 500 caracteres!', propertyPath=resumo");
@@ -142,7 +142,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setPreco(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Preço é obrigatório!', propertyPath=preco");
@@ -155,7 +155,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setPreco(new BigDecimal("10.00"));
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Preço mínimo é de 20!', propertyPath=preco");
@@ -168,7 +168,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setNumeroDePaginas(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Número de páginas é obrigatório!', propertyPath=numeroDePaginas");
@@ -181,7 +181,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setNumeroDePaginas(80);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
 
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
@@ -195,7 +195,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setIsbn(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='ISBN é obrigatório!', propertyPath=isbn");
@@ -207,12 +207,12 @@ public class LivroServiceIT {
         try {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             livroParaCadastrar.setTitulo("Outro título");
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (Exception e) {
-            assertThat(e.getMessage()).contains("ISBN duplicado!");
+            assertThat(e.getMessage()).contains("Isbn duplicado!");
         }
     }
 
@@ -222,7 +222,7 @@ public class LivroServiceIT {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
             livroParaCadastrar.setDataPublicacao(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (ConstraintViolationException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Data de publicação é obrigatória!', propertyPath=dataPublicacao");
@@ -233,12 +233,11 @@ public class LivroServiceIT {
     public void cadastrar_semAutor_deveLancarException() {
         try {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
-            livroParaCadastrar.setAutor(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(null, categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (ConstraintViolationException e) {
-            assertThat(e.getMessage()).contains("interpolatedMessage='Autor é obrigatório!', propertyPath=autor");
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).contains("Id é obrigatório para a consulta!");
         }
     }
 
@@ -246,12 +245,11 @@ public class LivroServiceIT {
     public void cadastrar_comAutorNaoCadastrado_deveLancarException() {
         try {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
-            livroParaCadastrar.setAutor(new Autor().setId(20000L));
 
-            livroService.cadastrar(livroParaCadastrar);
+            livroService.cadastrar(20000L, categoria.getId(),livroParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (DataIntegrityViolationException e) {
-            assertThat(e.getMessage()).contains("could not execute statement;");
+        } catch (EntityNotFoundException e) {
+            assertThat(e.getMessage()).contains("Autor com id 20000 não localizado!");
         }
     }
 
@@ -259,19 +257,19 @@ public class LivroServiceIT {
     public void cadastrar_semCategoria_deveLancarException() {
         try {
             var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
-            livroParaCadastrar.setCategoria(null);
 
-            livroService.cadastrar(livroParaCadastrar);
+
+            livroService.cadastrar(autor.getId(), null,livroParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (ConstraintViolationException e) {
-            assertThat(e.getMessage()).contains("interpolatedMessage='Categoria é obrigatória!', propertyPath=categoria");
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).contains("Id é obrigatório para a consulta!");
         }
     }
 
     @Test
     public void buscaTodos_deveFuncionar() {
         var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
-        var livroCadastrado = livroService.cadastrar(livroParaCadastrar);
+        var livroCadastrado = livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
 
         var livroLista = livroService.buscaTodos();
 
@@ -282,7 +280,7 @@ public class LivroServiceIT {
     @Test
     public void buscaPorId_deveFuncionar() {
         var livroParaCadastrar = LivroFactory.paraPersistir(autor, categoria);
-        var livroCadastrado = livroService.cadastrar(livroParaCadastrar);
+        var livroCadastrado = livroService.cadastrar(autor.getId(), categoria.getId(),livroParaCadastrar);
 
         var livroBuscado = livroService.buscaPeloId(livroCadastrado.getId());
 

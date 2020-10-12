@@ -4,7 +4,9 @@ import dev.arielalvesdutrazup.cdc.entities.Autor;
 import dev.arielalvesdutrazup.cdc.repositories.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -18,10 +20,17 @@ public class AutorService {
     public Autor cadastrar(Autor autorParaCadastrar) {
         try {
             buscaPeloEmail(autorParaCadastrar.getEmail());
-            throw new RuntimeException("E-mail duplicado!");
+            throw new EntityExistsException("E-mail duplicado!");
         } catch (EntityNotFoundException e) {
             return autorRepository.save(autorParaCadastrar);
         }
+    }
+
+    public Autor buscaPeloId(Long autorId) {
+        Assert.notNull(autorId, "Id é obrigatório para a consulta!");
+        return autorRepository.findById(autorId).
+                orElseThrow(() ->
+                        new EntityNotFoundException("Autor com id " + autorId + " não localizado!"));
     }
 
     public Autor buscaPeloEmail(String email) {

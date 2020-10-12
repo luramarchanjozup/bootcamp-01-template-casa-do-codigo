@@ -1,7 +1,8 @@
 package dev.arielalvesdutrazup.cdc.entities;
 
-import dev.arielalvesdutrazup.cdc.anotacoes.CEP;
-import dev.arielalvesdutrazup.cdc.anotacoes.Documento;
+import dev.arielalvesdutrazup.cdc.annotations.CEP;
+import dev.arielalvesdutrazup.cdc.annotations.Documento;
+import dev.arielalvesdutrazup.cdc.entities.embedded.CupomAplicado;
 import dev.arielalvesdutrazup.cdc.utils.BigDecimalUtils;
 import org.springframework.util.Assert;
 
@@ -11,6 +12,8 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
+import static dev.arielalvesdutrazup.cdc.utils.BigDecimalUtils.discontaPorcentagemDe;
 
 @Entity
 public class Compra {
@@ -45,10 +48,14 @@ public class Compra {
     @ManyToOne
     @NotNull(message = "{pais.notnull}")
     private Pais pais;
+    @ManyToOne
+    private Estado estado;
     @NotNull(message = "{itens.notnull}")
     @Size(min = 1, message = "{itens.size}")
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CompraItem> itens = new HashSet<>();
+    @Embedded
+    private CupomAplicado cupomAplicado;
 
     public Long getId() {
         return id;
@@ -149,6 +156,15 @@ public class Compra {
         return this;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public Compra setEstado(Estado estado) {
+        this.estado = estado;
+        return this;
+    }
+
     public Set<CompraItem> getItens() {
         return itens;
     }
@@ -188,6 +204,15 @@ public class Compra {
         return this;
     }
 
+    public CupomAplicado getCupomAplicado() {
+        return cupomAplicado;
+    }
+
+    public Compra setCupomAplicado(CupomAplicado cupomAplicado) {
+        this.cupomAplicado = cupomAplicado;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Compra{" +
@@ -197,19 +222,27 @@ public class Compra {
                 ", email='" + email + '\'' +
                 ", documento='" + documento + '\'' +
                 ", telefone='" + telefone + '\'' +
+                ", cidade='" + cidade + '\'' +
                 ", cep='" + cep + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", complemento='" + complemento + '\'' +
                 ", total=" + total +
                 ", totalSemDesconto=" + totalSemDesconto +
                 ", cadastradoEm=" + cadastradoEm +
+                ", cupomAplicado=" + cupomAplicado +
                 '}';
     }
 
     public BigDecimal getTotalDosItens() {
-        return itens.stream()
+        var totalDosItens = itens.stream()
                 .map(CompraItem::getTotalCompraItem)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (cupomAplicado != null) {
+            return discontaPorcentagemDe(cupomAplicado.getPercentualDeDesconto(), totalDosItens);
+        }
+
+        return totalDosItens;
     }
 
     public void validaTotalComTotalDosItens() {
@@ -234,5 +267,14 @@ public class Compra {
     @PreUpdate
     private void beforeSave() {
         validaTotalComTotalDosItens();
+    }
+
+    public CupomAplicado aplicaCupom(Cupom cupom) {
+        Assert.notNull(cupom, "Cupom inválido para a aplicação de desconto!");
+
+        total = discontaPorcentagemDe(cupom.getPercentualDeDesconto(), total);
+        cupomAplicado = new CupomAplicado(cupom);
+
+        return cupomAplicado;
     }
 }

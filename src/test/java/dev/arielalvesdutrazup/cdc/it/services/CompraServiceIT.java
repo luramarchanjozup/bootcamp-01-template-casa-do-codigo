@@ -14,8 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +43,12 @@ public class CompraServiceIT {
     private PaisService paisService;
 
     @Autowired
+    private EstadoService estadoService;
+
+    @Autowired
+    private CupomService cupomService;
+
+    @Autowired
     private CompraService compraService;
 
     @Autowired
@@ -59,12 +67,14 @@ public class CompraServiceIT {
         pais = paisService.cadastrar(PaisFactory.paraPersistir());
         autor = autorService.cadastrar(AutorFactory.paraPersistir());
         categoria = categoriaService.cadastrar(CategoriaFactory.paraPersistir());
-        livro = livroService.cadastrar(LivroFactory.paraPersistir(autor, categoria));
+        livro = livroService.cadastrar(autor.getId(), categoria.getId(), LivroFactory.paraPersistir(autor, categoria));
     }
 
     @AfterEach
     public void tearDown() {
         compraRepository.deleteAll();
+        estadoService.removeTodos();
+        cupomService.removeTodos();
         livroService.removeTodos();
         categoriaService.removeTodos();
         autorService.removeTodos();
@@ -73,7 +83,7 @@ public class CompraServiceIT {
 
     @Test
     public void fecharCompra_comCPF_deveFuncionar() {
-        var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+        var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
 
         var compraCadastrada = compraService.fecharCompra(compraParaCadastrar);
 
@@ -94,7 +104,7 @@ public class CompraServiceIT {
         assertThat(compraBuscada.getCep()).isEqualTo(compraParaCadastrar.getCep());
         assertThat(compraBuscada.getEndereco()).isEqualTo(compraParaCadastrar.getEndereco());
         assertThat(compraBuscada.getComplemento()).isEqualTo(compraParaCadastrar.getComplemento());
-        assertThat(compraBuscada.getPais()).isEqualTo(compraParaCadastrar.getPais());
+        assertThat(compraBuscada.getPais()).isEqualTo(compraCadastrada.getPais());
         assertThat(compraBuscada.getTotal()).isEqualTo(compraParaCadastrar.getTotal());
         assertThat(compraBuscada.getCadastradoEm()).isNotNull();
         assertThat(compraItensBuscadoSet).isEqualTo(compraCadastrada.getItens());
@@ -103,7 +113,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_comCNPJ_deveFuncionar() {
         var cnpjFake = "48225592000176";
-        var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+        var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
         compraParaCadastrar.setDocumento(cnpjFake);
 
         var compraCadastrada = compraService.fecharCompra(compraParaCadastrar);
@@ -121,7 +131,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semEmail_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setEmail(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -134,7 +144,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_comEmailInvalido_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setEmail("emailinvalido");
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -147,7 +157,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semNome_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setNome(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -160,7 +170,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semSobrenome_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setSobrenome(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -173,7 +183,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semDocumento_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setDocumento(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -186,21 +196,8 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_comDocumentoCPFInvalido_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro, pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro, pais);
             compraParaCadastrar.setDocumento("99999");
-
-            compraService.fecharCompra(compraParaCadastrar);
-            fail("Esperando uma exceção!");
-        } catch (ConstraintViolationException e) {
-            assertThat(e.getMessage()).contains("interpolatedMessage='Documento inválido!', propertyPath=documento");
-        }
-    }
-
-    @Test
-    public void fecharCompra_comDocumentoCNPJInvalido_deveLancarException() {
-        try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
-            compraParaCadastrar.setDocumento("99999999999999");
 
             compraService.fecharCompra(compraParaCadastrar);
             fail("Esperando uma exceção!");
@@ -212,7 +209,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semEndereco_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setEndereco(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -225,7 +222,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semCidade_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setCidade(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -236,22 +233,22 @@ public class CompraServiceIT {
     }
 
     @Test
-    public void fecharCompra_semPais_deveLancarException() {
+    public void fecharCompra_comPaisNaoCadastrado_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
-            compraParaCadastrar.setPais(null);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
+            compraParaCadastrar.setPaisId(200001L);
 
             compraService.fecharCompra(compraParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (ConstraintViolationException e) {
-            assertThat(e.getMessage()).contains("interpolatedMessage='País é obrigatório!', propertyPath=pais");
+        } catch (EntityNotFoundException e) {
+            assertThat(e.getMessage()).contains("Pais com id 200001 não localizado!");
         }
     }
 
     @Test
     public void fecharCompra_semTelefone_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setTelefone(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -264,7 +261,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semCep_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setCep(null);
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -277,7 +274,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_comCepInvalido_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setCep("1232220");
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -290,12 +287,12 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_semItens_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setItens(null);
 
             compraService.fecharCompra(compraParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (InvalidDataAccessApiUsageException e) {
+        } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).contains("É obrigatório ao menos 1 item de compra!");
         }
     }
@@ -303,7 +300,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_comItensVazio_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setItens(new HashSet<>());
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -316,7 +313,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_comTotalIgualOuMenorAZero_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setTotal(new BigDecimal("0.00"));
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -329,7 +326,7 @@ public class CompraServiceIT {
     @Test
     public void fecharCompra_comTotalDiferenteDeCompraItems_deveLancarException() {
         try {
-            var compraParaCadastrar = CompraFactory.paraPersistir(livro,pais);
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
             compraParaCadastrar.setTotal(new BigDecimal("36.90"));
 
             compraService.fecharCompra(compraParaCadastrar);
@@ -340,12 +337,59 @@ public class CompraServiceIT {
     }
 
     @Test
+    public void fecharCompra_comEstado_deveFuncionar() {
+        var estado = estadoService.cadastrar(pais.getId(), EstadoFactory.paraPersistir(pais));
+        var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
+        compraParaCadastrar.setEstadoId(estado.getId());
+
+        var compraCadastrada = compraService.fecharCompra(compraParaCadastrar);
+
+        assertThat(compraCadastrada).isNotNull();
+        assertThat(compraCadastrada.getId()).isNotNull();
+
+        var compraBuscada = compraRepository.findById(compraCadastrada.getId()).get();
+
+        assertThat(compraBuscada).isNotNull();
+        assertThat(compraBuscada.getId()).isEqualTo(compraCadastrada.getId());
+        assertThat(compraBuscada.getEstado()).isNotNull();
+        assertThat(compraBuscada.getEstado()).isEqualTo(compraCadastrada.getEstado());
+    }
+
+    @Test
     public void fecharCompra_comCupom_deveFuncionar() {
-        fail("Não implementado!");
+        var cupom = cupomService.cadastrar(CupomFactory.paraPersistir());
+        var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
+        compraParaCadastrar.setCupomCodigo(cupom.getCodigo());
+
+        var compraCadastrada = compraService.fecharCompra(compraParaCadastrar);
+
+        assertThat(compraCadastrada).isNotNull();
+        assertThat(compraCadastrada.getId()).isNotNull();
+
+        var compraBuscada = compraRepository.findById(compraCadastrada.getId()).get();;
+
+        assertThat(compraBuscada).isNotNull();
+        assertThat(compraBuscada.getId()).isEqualTo(compraCadastrada.getId());
+        assertThat(compraBuscada.getTotal()).isEqualTo(new BigDecimal("180.00"));
+        assertThat(compraBuscada.getTotalSemDesconto()).isEqualTo(new BigDecimal("200.00"));
+        assertThat(compraBuscada.getCupomAplicado()).isNotNull();
+
+        var cupomAplicado = compraBuscada.getCupomAplicado();
+        assertThat(cupomAplicado.getCupom()).isEqualTo(cupom);
+        assertThat(cupomAplicado.getCodigo()).isEqualTo(cupom.getCodigo());
+        assertThat(cupomAplicado.getValidade().truncatedTo(ChronoUnit.SECONDS)).isEqualTo(cupom.getValidade().truncatedTo(ChronoUnit.SECONDS));
+        assertThat(cupomAplicado.getPercentualDeDesconto()).isEqualTo(cupom.getPercentualDeDesconto());
     }
 
     @Test
     public void fecharCompra_comCupomInvalido_deveLancarException() {
-        fail("Não implementado!");
+        try {
+            var compraParaCadastrar = CompraFactory.paraFecharCompra(livro,pais);
+            compraParaCadastrar.setCupomCodigo("codigoinvalidoaqui");
+
+            compraService.fecharCompra(compraParaCadastrar);
+        } catch (EntityNotFoundException e) {
+            assertThat(e.getMessage()).contains("Cupom com cógido codigoinvalidoaqui não localizado!");
+        }
     }
 }

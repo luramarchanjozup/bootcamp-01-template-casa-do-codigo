@@ -5,6 +5,7 @@ import dev.arielalvesdutrazup.cdc.repositories.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -18,14 +19,20 @@ public class PaisService {
     public Pais cadastrar(Pais paisParaCadastrar) {
         try {
             buscaPeloNome(paisParaCadastrar.getNome());
-            throw new RuntimeException("Nome duplicado!");
+            throw new EntityExistsException("Nome duplicado!");
         } catch (EntityNotFoundException e) {
             return paisRepository.save(paisParaCadastrar);
         }
     }
 
-    public void buscaPeloNome(String nome) {
-        paisRepository.findByNome(nome)
+    public Pais buscaPeloId(Long paisId) {
+        return paisRepository.findById(paisId)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Pais com id " + paisId + " não localizado!"));
+    }
+
+    public Pais buscaPeloNome(String nome) {
+        return paisRepository.findByNome(nome)
                 .orElseThrow(() ->
                         new EntityNotFoundException("Pais com nome " + nome + " não localizado!"));
     }

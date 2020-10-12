@@ -1,19 +1,20 @@
 package br.com.treino.casadocodigo.model;
 
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Embeddable
 public class ItemPedido {
 
-    @NotNull
-    private Livro livro;
-    @NotNull @Min(1) @Positive
-    private int quantidade;
-    @NotNull @Min(20)
-    private BigDecimal precoLivro;
+    @ManyToOne
+    private @NotNull Livro livro;
+    private @NotNull @Min(1) @Positive int quantidade;
+    private @NotNull @Min(20) BigDecimal precoLivro;
 
     @Deprecated
     public ItemPedido(){}

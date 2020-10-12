@@ -1,30 +1,37 @@
 package br.com.treino.casadocodigo.request;
 
 import br.com.treino.casadocodigo.model.Cupom;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
-
-import javax.persistence.Embedded;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Embeddable
 public class CupomAplicado {
 
-    @NotBlank
-    private String codigo;
-    @NotNull
-    @Positive
-    private BigDecimal percentualDesconto;
-    @NotNull @Future
-    private LocalDate validade;
+    @ManyToOne
+    private Cupom cupom;
+    private @NotNull @Positive BigDecimal percentualDesconto;
+    private @NotNull @Future LocalDate validade;
+
+    @Deprecated
+    public CupomAplicado(){}
 
     public CupomAplicado(Cupom cupom) {
-        this.codigo = cupom.getCodigo();
+        this.cupom = cupom;
         this.percentualDesconto = cupom.getPercentualDesconto();
         this.validade = cupom.getValidade();
+    }
+
+    public Cupom getCupom() {
+        return cupom;
+    }
+
+    public LocalDate getValidade() {
+        return validade;
     }
 
     public BigDecimal getPercentualDesconto() {

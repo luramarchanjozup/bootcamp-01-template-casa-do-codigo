@@ -22,8 +22,8 @@ public class Livro {
     private @NotBlank String isbn;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private @Future @NotNull LocalDate dataPublicacao;
-    private @NotNull @ManyToOne @Valid Categoria categoria;
-    private @NotNull @ManyToOne @Valid Autor autor;
+    private @NotNull @ManyToOne @Valid Categoria categoria; //1
+    private @NotNull @ManyToOne @Valid Autor autor; //2
 
     @Deprecated
     public Livro(){}
@@ -31,7 +31,8 @@ public class Livro {
     public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo,
                  String sumario, @NotNull @Min(20) BigDecimal preco,
                  @NotNull @Min(100) Integer numPaginas, @NotBlank String isbn,
-                 @Future @NotNull LocalDate dataPublicacao, @NotNull Categoria categoria, @NotNull Autor autor) {
+                 @Future @NotNull LocalDate dataPublicacao, @NotNull Categoria categoria,
+                 @NotNull Autor autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -43,21 +44,9 @@ public class Livro {
         this.autor = autor;
     }
 
-    @Override
-    public String toString() {
-        return "Livro{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", resumo='" + resumo + '\'' +
-                ", sumario='" + sumario + '\'' +
-                ", preco=" + preco +
-                ", numPaginas=" + numPaginas +
-                ", isbn=" + isbn +
-                ", dataPublicacao=" + dataPublicacao +
-                ", categoria=" + categoria +
-                ", autor=" + autor +
-                '}';
-    }
+    /*public long getId() {
+        return id;
+    }*/
 
     public String getTitulo() {
         return titulo;
@@ -83,16 +72,36 @@ public class Livro {
         return isbn;
     }
 
-    public LocalDate getDataPublicacao() { return dataPublicacao; }
+    /*public LocalDate getDataPublicacao() {
+        return dataPublicacao;
+    }*/
 
     public void setDataPublicacao(LocalDate dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
 
-    //public Categoria getCategoria() { return categoria; }
-
     public Autor getAutor() {
         return autor;
+    }
+
+    /*public Categoria getCategoria() {
+        return categoria;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", sumario='" + sumario + '\'' +
+                ", preco=" + preco +
+                ", numPaginas=" + numPaginas +
+                ", isbn=" + isbn +
+                ", dataPublicacao=" + dataPublicacao +
+                ", categoria=" + categoria +
+                ", autor=" + autor +
+                '}';
     }
 
 }

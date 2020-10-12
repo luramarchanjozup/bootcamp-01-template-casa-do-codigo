@@ -8,7 +8,7 @@ public class NovoPaisRequest {
 
     @NotBlank
     @UniqueValue(className = Pais.class, fieldName = "nome",
-    message = "Esse páis já foi cadastrado")
+    message = "Esse páis já foi cadastrado") //1
     private String nome;
 
     public String getNome() {

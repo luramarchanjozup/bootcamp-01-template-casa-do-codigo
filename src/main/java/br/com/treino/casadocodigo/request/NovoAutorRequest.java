@@ -14,7 +14,7 @@ public class NovoAutorRequest {
 
     private @NotBlank String nome;
     @UniqueValue(className = Autor.class, fieldName = "email",
-            message = "Esse email já existe no banco de dados")
+            message = "Esse email já existe no banco de dados") //1
     private @NotBlank @Email String email;
     private @NotBlank @Size(max = 400) String descricao;
 
@@ -23,10 +23,6 @@ public class NovoAutorRequest {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
-    }
-
-    public String getEmail(){
-        return this.email;
     }
 
     public Autor toModel(){

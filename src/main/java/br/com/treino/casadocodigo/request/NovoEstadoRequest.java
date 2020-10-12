@@ -34,8 +34,8 @@ public class NovoEstadoRequest {
     }
 
     public Estado toModel(EntityManager entityManager){
-        @NotNull Pais pais = entityManager.find(Pais.class, idPais);
-        return new Estado(this.nome, pais);
+        @NotNull Pais pais = entityManager.find(Pais.class, idPais); //1
+        return new Estado(this.nome, pais); //2
     }
 
 }

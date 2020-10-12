@@ -18,25 +18,20 @@ public class NovaCompraRequest {
     private @NotBlank String nome;
     private @NotBlank String sobrenome;
     private @Email @NotBlank String email;
-    @NotBlank
     @CpfOuCnpj(message = "Documento inválido")
-    private String documento;
+    private @NotBlank String documento;
     @Pattern(regexp = "\\(\\d{2}\\)\\d{4,5}\\-\\d{4}$", message = "Telefone inválido")
-    @NotBlank
-    private String telefone;
-    @NotNull
+    private @NotBlank String telefone;
     @ExistId(className = Pais.class, fieldName = "id", message = "Esse país não foi encontrado")
-    private Long idPais;
+    private @NotNull Long idPais;
     @ExistId(className = Estado.class, fieldName = "id", message = "Esse estado não foi encontrado")
     private Long idEstado;
     private @NotBlank String cidade;
     private @NotBlank String endereco;
     @Pattern(regexp = "\\d{5}\\-\\d{3}" ,message = "CEP inválido")
-    @NotBlank
-    private String cep;
+    private @NotBlank String cep;
     private @NotBlank String complemento;
-    @NotNull
-    private NovoPedidoRequest novoPedido;
+    private @NotNull NovoPedidoRequest novoPedido;
     @ExistId(className = Cupom.class, fieldName = "codigo",
             message = "Esse cupom não existe")
     private String codigoCupom;

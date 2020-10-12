@@ -12,8 +12,6 @@ import java.util.Set;
 
 public class NovoPedidoRequest {
 
-    //@Positive @NotNull
-    //private BigDecimal total;
     @NotNull @Size(min = 1)
     private List<NovoItemPedidoRequest> itemPedidos = new ArrayList<>(); //1
 
@@ -28,11 +26,9 @@ public class NovoPedidoRequest {
         return itemPedidos;
     }
 
-    //public BigDecimal getTotal() { return total; }
-
     public Pedido toModel(EntityManager entityManager){ //2
 
-        /*Set<ItemPedido> itemCauculado = itemPedidos.stream().map(item ->
+        /*Set<ItemPedido> itemCauculados = itemPedidos.stream().map(item ->
                 item.toModel(entityManager))
                 .collect(Collectors.toSet());*/
 
@@ -45,6 +41,7 @@ public class NovoPedidoRequest {
         }
 
         Pedido pedido = new Pedido(itemCauculados);
+        pedido.calcularTotalPedido();
 
         return pedido;
     }

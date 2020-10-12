@@ -2,20 +2,20 @@ package br.com.treino.casadocodigo.model;
 
 import br.com.treino.casadocodigo.request.CupomAplicado;
 import br.com.treino.casadocodigo.validations.CpfOuCnpj;
-import br.com.treino.casadocodigo.validations.ExistId;
 import org.springframework.util.StringUtils;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Entity
 public class Compra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private @NotBlank String nome;
     private @NotBlank String sobrenome;
     private @Email @NotBlank String email;
@@ -25,20 +25,22 @@ public class Compra {
     @Pattern(regexp = "\\(\\d{2}\\)\\d{4,5}\\-\\d{4}$", message = "Telefone inválido")
     @NotBlank
     private String telefone;
-    @NotNull
-    @ExistId(className = Pais.class, fieldName = "id")
-    private  Pais pais;
-    @ExistId(className = Estado.class, fieldName = "id")
+    @ManyToOne
+    private @NotNull Pais pais;
+    @ManyToOne
     private Estado estado;
     private @NotBlank String cidade;
     private @NotBlank String endereco;
     @Pattern(regexp = "\\d{5}\\-\\d{3}" ,message = "CEP inválido")
-    @NotBlank
-    private String cep;
+    private @NotBlank String cep;
     private @NotBlank String complemento;
-    @NotNull
-    private Pedido pedido; //1
+
+    @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
+    private @NotNull Pedido pedido; //1
+
+    @Embedded
     private CupomAplicado cupomAplicado; //2
+
     private BigDecimal totalComDesconto;
 
     @Deprecated
@@ -119,11 +121,10 @@ public class Compra {
         return pedido;
     }
 
-    /*public CupomAplicado getCupomAplicado() {
-        return cupomAplicado;
-    }*/
+    public CupomAplicado getCupomAplicado() { return cupomAplicado; }
 
     public BigDecimal getTotalComDesconto() {
+
         BigDecimal total = pedido.getTotal();
 
         if (!StringUtils.isEmpty(cupomAplicado)){  //3
@@ -136,8 +137,7 @@ public class Compra {
 
     public void aplicarCupom(Cupom cupom){
         this.cupomAplicado = new CupomAplicado(cupom);
+        this.totalComDesconto = getTotalComDesconto();
     }
-
-
 
 }

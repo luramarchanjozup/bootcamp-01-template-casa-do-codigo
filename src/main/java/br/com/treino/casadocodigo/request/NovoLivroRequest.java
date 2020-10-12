@@ -15,24 +15,25 @@ import java.time.LocalDate;
 
 public class NovoLivroRequest {
 
-    @UniqueValue(fieldName = "titulo", className = Livro.class ,message = "Esse título já está cadastrado")
+    @UniqueValue(fieldName = "titulo", className = Livro.class,
+            message = "Esse título já está cadastrado")
     private @NotBlank String titulo;
     private @NotBlank @Size(max = 500) String resumo;
-    private @NotBlank String sumario; //obrigatorio?
+    private @NotBlank String sumario;
     private @NotNull @Min(20) BigDecimal preco;
     private @NotNull @Min(100)  Integer numPaginas;
-    private @NotBlank @UniqueValue(className = Livro.class, fieldName = "isbn",
-    message = "Já existe um livro com essse isbn")
-    String isbn;
-
+    @UniqueValue(className = Livro.class, fieldName = "isbn",
+            message = "Já existe um livro com essse isbn")
+    private @NotBlank String isbn;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private @Future @NotNull LocalDate dataPublicacao;
-
-    private @NotNull @ExistId(fieldName = "id", className = Categoria.class,
+    @ExistId(fieldName = "id", className = Categoria.class,
             message = "A categoria com esse ID ainda não existe")
+    private @NotNull
     Long idCategoria;
-    private @NotNull @ExistId(fieldName = "id", className = Autor.class,
+    @ExistId(fieldName = "id", className = Autor.class,
             message = "O(A) autor(a) com esse ID ainda não existe")
+    private @NotNull
     Long idAutor;
 
     public NovoLivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500)
@@ -51,10 +52,10 @@ public class NovoLivroRequest {
 
     public Livro toModel(EntityManager entityManager){
 
-        @NotNull Autor autor = entityManager.find(Autor.class, idAutor);
-        @NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria);
+        @NotNull Autor autor = entityManager.find(Autor.class, idAutor); //1
+        @NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria); //2
 
-        return new Livro(this.titulo, this.resumo, this.sumario,
+        return new Livro(this.titulo, this.resumo, this.sumario, //3
                 this.preco, this.numPaginas, this.isbn, this.dataPublicacao,
                 categoria, autor);
     }

@@ -1,24 +1,26 @@
 package br.com.treino.casadocodigo.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Set;
 
+@Entity
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Positive
-    private BigDecimal total;
-    @Size(min = 1)
-    private Set<ItemPedido> itemPedidos;
+    
+    private @Positive BigDecimal total;
+    @ElementCollection
+    private @Size(min = 1) Set<ItemPedido> itemPedidos;
+
+    @OneToOne
+    private @Valid Compra compra;
 
     @Deprecated
     public Pedido(){}
@@ -27,18 +29,13 @@ public class Pedido {
         this.itemPedidos = itemPedidos;
     }
 
+    public Long getId() { return id; }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 
     public BigDecimal getTotal() {
-
-        //itemPedidos.stream().map(i -> i.valorTotal()).reduce(
-        //        BigDecimal.ZERO, (s1, s2) -> s1.add(s2));
-
-        BigDecimal acc = BigDecimal.ZERO;
-        for (ItemPedido i : itemPedidos) {
-            BigDecimal bigDecimal = i.valorTotal();
-            acc = acc.add(bigDecimal);
-        }
-        total = acc;
         return total;
     }
 
@@ -46,5 +43,9 @@ public class Pedido {
         return itemPedidos;
     }
 
+    public void calcularTotalPedido(){
+        this.total = itemPedidos.stream().map(i -> i.valorTotal()).reduce(
+                BigDecimal.ZERO, (s1, s2) -> s1.add(s2));
+    }
 
 }

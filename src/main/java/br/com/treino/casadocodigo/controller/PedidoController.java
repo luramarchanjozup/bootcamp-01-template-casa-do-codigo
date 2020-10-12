@@ -24,7 +24,7 @@ public class PedidoController {
 
         Pedido novoPedido = request.toModel(entityManager);
 
-        System.out.println(novoPedido.getTotal());
+        entityManager.persist(novoPedido);
 
         return new ResponseEntity<>(novoPedido, HttpStatus.CREATED);
     }

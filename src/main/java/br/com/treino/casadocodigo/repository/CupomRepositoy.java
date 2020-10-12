@@ -1,10 +1,12 @@
 package br.com.treino.casadocodigo.repository;
 
 import br.com.treino.casadocodigo.model.Cupom;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CupomRepositoy  extends CrudRepository<Cupom, Long> { //1
+
+@Repository
+public interface CupomRepositoy
+        extends org.springframework.data.repository.Repository<Cupom, Long> { //1
 
     public Cupom getByCodigo(String codigo);
-
 }

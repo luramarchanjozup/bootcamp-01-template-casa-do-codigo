@@ -11,12 +11,10 @@ import javax.validation.constraints.Positive;
 
 public class NovoItemPedidoRequest {
 
-    @NotNull
     @ExistId(className = Livro.class, fieldName = "id") //1
-    private Long idLivro;
-    @NotNull
-    @Min(1) @Positive
-    private int quantidade;
+    private @NotNull Long idLivro;
+    @Min(1)
+    private @NotNull @Positive int quantidade;
 
     @Deprecated
     public NovoItemPedidoRequest(){}

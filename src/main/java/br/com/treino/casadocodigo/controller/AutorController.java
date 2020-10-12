@@ -12,18 +12,18 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(value = "/autores")
 public class AutorController {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @PostMapping(value = "/autores")
+    @PostMapping
     @Transactional
     public ResponseEntity novoAutor(@RequestBody @Valid NovoAutorRequest request){ //1
-        Autor autor = request.toModel(); //2
-        entityManager.persist(autor);
+        Autor novoautor = request.toModel(); //2
+        entityManager.persist(novoautor);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
 
 }

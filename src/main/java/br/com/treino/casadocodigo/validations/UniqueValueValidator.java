@@ -6,7 +6,7 @@ import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
+public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> { //1
 
     private Class<?> nomeClass;
     private String nomeCampo;
@@ -26,16 +26,6 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
                 " where " + nomeCampo + "=:value");
         query.setParameter("value", value);
 
-        //List<?> list = query.getResultList();
-        //if (list.size()>=1)
-            //Resultado.erro(new IllegalStateException("Foi encontrado mais de um "
-            //        +nomeClass+" com o atributo "+nomeCampo+" = " + value));
-             //throw new IllegalStateException("Foi encontrado mais de um "
-             //       +nomeClass+" com o atributo "+nomeCampo+" = " + value);
-            //Assert.state(list.size() <=1, "Foi encontrado mais de um "
-            //    +nomeClass+" com o atributo "+nomeCampo+" = " + value);
-
-        //return list.isEmpty();
         return query.getResultList().isEmpty();
     }
 }

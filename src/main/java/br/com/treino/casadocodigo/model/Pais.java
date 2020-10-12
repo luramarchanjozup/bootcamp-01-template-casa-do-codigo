@@ -40,5 +40,4 @@ public class Pais {
         return Objects.hash(getNome());
     }
 
-
 }

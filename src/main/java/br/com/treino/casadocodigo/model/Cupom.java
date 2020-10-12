@@ -1,8 +1,5 @@
 package br.com.treino.casadocodigo.model;
 
-import br.com.treino.casadocodigo.validations.ExistId;
-import br.com.treino.casadocodigo.validations.UniqueValue;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
@@ -21,14 +18,9 @@ public class Cupom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
-    private String codigo;
-    @NotNull
-    @Positive
-    private BigDecimal percentualDesconto;
-    @NotNull @Future
-    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
-    private LocalDate validade;
+    private @NotBlank String codigo;
+    private @NotNull @Positive BigDecimal percentualDesconto;
+    private @NotNull @Future LocalDate validade;
 
     @Deprecated
     public Cupom(){}

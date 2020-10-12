@@ -9,7 +9,7 @@ public class NovaCategoriaRequest {
 
     @NotBlank
     @UniqueValue(className = Categoria.class, fieldName = "nome",
-            message = "Essa categoria já foi cadastrada")
+            message = "Essa categoria já foi cadastrada") //1
     private String nome;
 
     public String getNome() {

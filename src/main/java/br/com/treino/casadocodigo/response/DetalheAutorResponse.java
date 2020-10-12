@@ -1,13 +1,13 @@
-package br.com.treino.casadocodigo.request;
+package br.com.treino.casadocodigo.response;
 
 import br.com.treino.casadocodigo.model.Autor;
 
-public class DetalheAutorRequest {
+public class DetalheAutorResponse {
 
     private String nome;
     private String descricao;
 
-    public DetalheAutorRequest(Autor autor) {
+    public DetalheAutorResponse(Autor autor) {
         this.nome = autor.getNome();
         this.descricao = autor.getDescricao();
     }

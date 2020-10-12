@@ -1,6 +1,7 @@
-package br.com.treino.casadocodigo.request;
+package br.com.treino.casadocodigo.response;
 
 import br.com.treino.casadocodigo.model.Cupom;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
@@ -30,10 +31,9 @@ public class CupomAplicado {
         return cupom;
     }
 
-    public LocalDate getValidade() {
-        return validade;
-    }
+    //public LocalDate getValidade() { return validade; }
 
+    @JsonIgnore
     public BigDecimal getPercentualDesconto() {
         return percentualDesconto.divide(new BigDecimal(100));
     }

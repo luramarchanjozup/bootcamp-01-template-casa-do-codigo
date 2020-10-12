@@ -1,5 +1,8 @@
 package br.com.treino.casadocodigo.model;
 
+import br.com.treino.casadocodigo.request.AtualizaCupomRequest;
+import br.com.treino.casadocodigo.request.NovoCupomRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
@@ -32,17 +35,31 @@ public class Cupom {
         this.validade = validade;
     }
 
-    public void setCodigo(String codigo) { this.codigo = codigo; }
-
     public String getCodigo() { return codigo; }
 
-    public void setPercentualDesconto(BigDecimal percentualDesconto) { this.percentualDesconto = percentualDesconto; }
-
+    @JsonIgnore
     public BigDecimal getPercentualDesconto() { return percentualDesconto; }
 
-    public void setValidade(LocalDate validade) { this.validade = validade; }
-
+    @JsonIgnore
     public LocalDate getValidade() { return validade; }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setPercentualDesconto(BigDecimal percentualDesconto) {
+        this.percentualDesconto = percentualDesconto;
+    }
+
+    public void setValidade(LocalDate validade) {
+        this.validade = validade;
+    }
+
+    public void atualizarCupom(AtualizaCupomRequest request){
+        this.codigo = request.getCodigo();
+        this.percentualDesconto = request.getPercentualDesconto();
+        this.validade = request.getValidade();
+    }
 
     public Boolean cupomValido(){
         return LocalDate.now().compareTo(this.validade) <= 0;

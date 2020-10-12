@@ -1,10 +1,10 @@
-package br.com.treino.casadocodigo.request;
+package br.com.treino.casadocodigo.response;
 
 import br.com.treino.casadocodigo.model.Livro;
 
 import java.math.BigDecimal;
 
-public class DetalheLivroRequest {
+public class DetalheLivroResponse {
 
     private String titulo;
     private String resumo;
@@ -12,16 +12,16 @@ public class DetalheLivroRequest {
     private BigDecimal preco;
     private Integer numPaginas;
     private String isbn;
-    private DetalheAutorRequest datalheAutor;
+    private DetalheAutorResponse datalheAutor;
 
-    public DetalheLivroRequest(Livro livro) {
+    public DetalheLivroResponse(Livro livro) {
         this.titulo = livro.getTitulo();
         this.resumo = livro.getResumo();
         this.sumario = livro.getSumario();
         this.preco = livro.getPreco();
         this.numPaginas = livro.getNumPaginas();
         this.isbn = livro.getIsbn();
-        this.datalheAutor = new DetalheAutorRequest(livro.getAutor());
+        this.datalheAutor = new DetalheAutorResponse(livro.getAutor());
     }
 
     public String getTitulo() {
@@ -48,7 +48,7 @@ public class DetalheLivroRequest {
         return isbn;
     }
 
-    public DetalheAutorRequest getDatalheAutor() {
+    public DetalheAutorResponse getDatalheAutor() {
         return datalheAutor;
     }
 

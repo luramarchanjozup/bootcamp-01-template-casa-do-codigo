@@ -1,12 +1,22 @@
-package br.com.treino.casadocodigo.request;
+package br.com.treino.casadocodigo.response;
 
 import br.com.treino.casadocodigo.model.Compra;
 import br.com.treino.casadocodigo.model.Estado;
 import br.com.treino.casadocodigo.model.Pais;
 import br.com.treino.casadocodigo.model.Pedido;
+import br.com.treino.casadocodigo.validations.CpfOuCnpj;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
-public class DetalheCompraRequest {
+public class DetalheCompraResponse {
 
     private String nome;
     private String sobrenome;
@@ -19,11 +29,11 @@ public class DetalheCompraRequest {
     private String endereco;
     private String cep;
     private String complemento;
-    private Pedido pedido;
-    private CupomAplicado cupomAplicado;
+    private Pedido pedido; //1
+    private CupomAplicado cupomAplicado; //2
     private BigDecimal totalComDesconto;
 
-    public DetalheCompraRequest(Compra compra) {
+    public DetalheCompraResponse(Compra compra) {
         this.nome = compra.getNome();
         this.sobrenome = compra.getSobrenome();
         this.email = compra.getEmail();
@@ -95,5 +105,4 @@ public class DetalheCompraRequest {
     public BigDecimal getTotalComDesconto() {
         return totalComDesconto;
     }
-
 }

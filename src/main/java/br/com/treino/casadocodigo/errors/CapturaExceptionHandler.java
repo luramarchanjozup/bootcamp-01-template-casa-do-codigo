@@ -16,18 +16,20 @@ public class CapturaExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex
             , HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<ErrorObject> errors = getErrors(ex);//1
-        ErrorResponse errorResponse = getErrorResponse(ex, status, errors); //2
+        List<ErrorObject> erros = getErrors(ex); //1
+        ErrorResponse errorResponse = getErrorResponse(ex, status, erros); //2
         return new ResponseEntity<>(errorResponse, status);
     }
 
     private ErrorResponse getErrorResponse(MethodArgumentNotValidException ex, HttpStatus status,
                                            List<ErrorObject> errors){
-        return new ErrorResponse("Requisição possui campos inválidos", status.value(),
-                status.getReasonPhrase(), ex.getBindingResult().getObjectName(), errors);
+        return new ErrorResponse("Requisição possui campos inválidos",
+                status.value(), status.getReasonPhrase(),
+                ex.getBindingResult().getObjectName(), errors);
     }
 
     private List<ErrorObject> getErrors(MethodArgumentNotValidException ex){
+
         return ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> new ErrorObject(error.getDefaultMessage(), error.getField(), //3
                         error.getRejectedValue()))

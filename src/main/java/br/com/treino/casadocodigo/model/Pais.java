@@ -17,6 +17,7 @@ public class Pais {
     private long id;
     private @NotBlank String nome;
 
+    @Deprecated
     public Pais(){}
 
     public Pais( @NotBlank String nome) {

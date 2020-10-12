@@ -1,8 +1,7 @@
 package br.com.treino.casadocodigo.model;
 
-import br.com.treino.casadocodigo.request.CupomAplicado;
+import br.com.treino.casadocodigo.response.CupomAplicado;
 import br.com.treino.casadocodigo.validations.CpfOuCnpj;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -123,7 +122,8 @@ public class Compra {
     public CupomAplicado getCupomAplicado() { return cupomAplicado; }
 
     public void setTotalComDesconto(BigDecimal totalComDesconto) {
-        this.totalComDesconto = totalComDesconto;
+        this.totalComDesconto =
+                totalComDesconto;
     }
 
     public BigDecimal getTotalComDesconto() {
@@ -131,15 +131,10 @@ public class Compra {
     }
 
     public void caucularTotalComDesconto(){
-        if (!StringUtils.isEmpty(cupomAplicado)){  //3
-
             BigDecimal total = pedido.getTotal();
-
             totalComDesconto = total.subtract(pedido.getTotal().
                     multiply(cupomAplicado.getPercentualDesconto())
                     .setScale(2, RoundingMode.CEILING));
-        }
-
     }
 
     public void aplicarCupom(Cupom cupom){

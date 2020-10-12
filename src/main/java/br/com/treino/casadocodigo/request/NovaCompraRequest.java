@@ -4,6 +4,7 @@ import br.com.treino.casadocodigo.model.*;
 import br.com.treino.casadocodigo.repository.CupomRepositoy;
 import br.com.treino.casadocodigo.validations.CpfOuCnpj;
 import br.com.treino.casadocodigo.validations.ExistId;
+import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -76,8 +77,9 @@ public class NovaCompraRequest {
 
         Pedido pedido = novoPedido.toModel(entityManager);
 
-        Compra compra = new Compra(this.nome, this.sobrenome,this.email, this.documento, this.telefone,
-                pais, this.cidade, this.endereco, this.cep, this.complemento, pedido);
+        Compra compra = new Compra(this.nome, this.sobrenome,this.email,
+                this.documento, this.telefone, pais,
+                this.cidade, this.endereco, this.cep, this.complemento, pedido);
 
         if(idEstado != null){ //4
             compra.setEstado(entityManager.find(Estado.class, idEstado)); //2

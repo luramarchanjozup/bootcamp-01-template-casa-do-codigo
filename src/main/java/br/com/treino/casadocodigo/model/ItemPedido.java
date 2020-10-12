@@ -29,14 +29,13 @@ public class ItemPedido {
         return livro;
     }
 
-    //public BigDecimal getPrecoLivro() { return precoLivro; }
-
     public int getQuantidade() {
         return quantidade;
     }
 
     public BigDecimal valorTotal(){
-        return this.precoLivro.multiply(new BigDecimal(this.quantidade));
+        return this.precoLivro.
+                multiply(new BigDecimal(this.quantidade));
     }
 
     @Override

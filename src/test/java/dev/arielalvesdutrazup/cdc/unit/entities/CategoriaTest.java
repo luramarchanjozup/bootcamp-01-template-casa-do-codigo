@@ -35,4 +35,14 @@ public class CategoriaTest {
     public void cadastradoEm_deveSerGeradoAoCriarOObjeto() {
         assertThat(new Categoria().getCadastradoEm()).isNotNull();
     }
+
+    @Test
+    public void equals_deveSerPorId() {
+        var id = 1L;
+
+        var categoria1 = new Categoria().setId(id);
+        var categoria2 = new Categoria().setId(id);
+
+        assertThat(categoria1).isEqualTo(categoria2);
+    }
 }

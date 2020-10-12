@@ -1,6 +1,8 @@
 package dev.arielalvesdutrazup.cdc.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -9,9 +11,11 @@ public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{nome.notempty}")
     private String nome;
     private String codigo;
     private OffsetDateTime cadastradoEm = OffsetDateTime.now();
+    @NotNull(message = "{pais.notnull}")
     @ManyToOne
     private Pais pais;
 

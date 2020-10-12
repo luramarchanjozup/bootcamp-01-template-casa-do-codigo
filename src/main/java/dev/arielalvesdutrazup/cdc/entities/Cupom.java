@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -12,8 +13,14 @@ public class Cupom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{codigo.notempty}")
     private String codigo;
-    private Integer percentualDeDesconto = 0;
+    @Min(value = 1, message = "{percentualDeDesconto.min}")
+    @Max(value = 100, message = "{percentualDeDesconto.max}")
+    @NotNull(message = "{percentualDeDesconto.notnull}")
+    private Integer percentualDeDesconto;
+    @Future(message = "{validade.future}")
+    @NotNull(message = "{validade.notnull}")
     private OffsetDateTime validade;
     private OffsetDateTime cadastradoEm = OffsetDateTime.now();
     private OffsetDateTime atualizadoEm;

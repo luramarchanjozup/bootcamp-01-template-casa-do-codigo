@@ -65,4 +65,14 @@ public class LivroTest {
     public void cadastradoEm_deveSerGeradoAoCriarOObjeto() {
         assertThat(new Livro().getCadastradoEm()).isNotNull();
     }
+
+    @Test
+    public void equals_deveSerPorId() {
+        var id = 1L;
+
+        var livro1 = new Livro().setId(id);
+        var livro2 = new Livro().setId(id);
+
+        assertThat(livro1).isEqualTo(livro2);
+    }
 }

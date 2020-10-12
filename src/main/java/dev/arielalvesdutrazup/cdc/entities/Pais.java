@@ -1,8 +1,11 @@
 package dev.arielalvesdutrazup.cdc.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -11,6 +14,7 @@ public class Pais {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "{nome.notempty}")
     private String nome;
     private String codigo;
     private OffsetDateTime cadastradoEm = OffsetDateTime.now();
@@ -60,5 +64,18 @@ public class Pais {
     public Pais setEstados(Set<Estado> estados) {
         this.estados = estados;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pais pais = (Pais) o;
+        return Objects.equals(id, pais.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

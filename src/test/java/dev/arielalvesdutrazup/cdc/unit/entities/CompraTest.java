@@ -8,7 +8,6 @@ import dev.arielalvesdutrazup.cdc.factories.entities.LivroFactory;
 import dev.arielalvesdutrazup.cdc.factories.entities.PaisFactory;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -28,11 +27,12 @@ public class CompraTest {
         var nome = "Usuario";
         var sobrenome = "Da Silva";
         var email = "email@exemplo.com";
-        var documento = "303.756.200-52";
-        var telefone = "(99) 99999-9999";
-        var cep = "48680-970";
+        var documento = "30375620052";
+        var telefone = "(99) 999999999";
+        var cep = "48680970";
         var endereco = "Rua Xyz, 1010";
         var complemento = "Porta 401";
+        var cidade = "Canoas";
         var pais = PaisFactory.paraPersistir();
         var livro = LivroFactory.paraPersistir(
                 AutorFactory.paraPersistir(),
@@ -53,6 +53,7 @@ public class CompraTest {
                 .setTelefone(telefone)
                 .setPais(pais)
                 .setCep(cep)
+                .setCidade(cidade)
                 .setEndereco(endereco)
                 .setComplemento(complemento)
                 .setItens(new HashSet<>(Arrays.asList(compraItem)))
@@ -69,6 +70,7 @@ public class CompraTest {
         assertThat(compra.getTotalSemDesconto()).isEqualTo(totalSemDesconto);
         assertThat(compra.getPais()).isEqualTo(pais);
         assertThat(compra.getCep()).isEqualTo(cep);
+        assertThat(compra.getCidade()).isEqualTo(cidade);
         assertThat(compra.getEndereco()).isEqualTo(endereco);
         assertThat(compra.getComplemento()).isEqualTo(complemento);
         assertThat(compra.getDocumento()).isEqualTo(documento);

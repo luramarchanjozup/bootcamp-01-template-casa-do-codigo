@@ -1,7 +1,6 @@
 package com.cdcAPI.api.model.Request;
 
 import com.cdcAPI.model.Cupom;
-import com.cdcAPI.validator.EntradaUnica;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
@@ -9,8 +8,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-//Complexidade = 2
-//EntradaUnica, Cupom
+//Complexidade = 1
+//Cupom
 
 public class CupomEditarRequest {
 

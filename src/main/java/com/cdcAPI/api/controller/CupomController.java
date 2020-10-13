@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
 
 //Complexidade = 3
-//CupomRequest, Cupom, if
+//CupomRequest, Cupom, CupomEditar
 
 @RestController
 @RequestMapping("/cupons")
@@ -25,6 +24,7 @@ public class CupomController {
 
     @PostMapping
     @Transactional
+    //1 Cupom Request
     public ResponseEntity<Void> criarCupom(@Valid @RequestBody CupomRequest request) {
         manager.persist(request.toModel());
 
@@ -33,9 +33,11 @@ public class CupomController {
 
     @PutMapping("/{cupomId}")
     @Transactional
+    //2 Cupom Editar Request
     public ResponseEntity<Void> editarCupom(@Valid @RequestBody CupomEditarRequest request,
                                             @PathVariable Long cupomId) throws Exception {
 
+        //3 Cupom
         Cupom antigoCupom = manager.find(Cupom.class, cupomId);
         if (antigoCupom == null) throw new Exception("Cupom não encontrado.");
 

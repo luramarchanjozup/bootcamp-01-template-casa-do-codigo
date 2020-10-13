@@ -16,16 +16,17 @@ public class Estado {
     private String nome;
 
     @NotNull
-    private Long paisId;
+    @ManyToOne
+    private Pais pais;
 
     @Deprecated
     public Estado() {
 
     }
 
-    public Estado(@NotBlank String nome, @NotNull @Valid Long paisId) {
+    public Estado(@NotBlank String nome, @NotNull @Valid Pais pais) {
         this.nome = nome;
-        this.paisId = paisId;
+        this.pais = pais;
     }
 
     public Long getId() {
@@ -44,11 +45,11 @@ public class Estado {
         this.nome = nome;
     }
 
-    public Long getPaisId() {
-        return paisId;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setPaisId(Long paisId) {
-        this.paisId = paisId;
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 }

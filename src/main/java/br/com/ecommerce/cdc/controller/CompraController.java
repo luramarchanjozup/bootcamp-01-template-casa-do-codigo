@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -52,6 +51,7 @@ public class CompraController {
         Compra compra = compraRequest.toModel(manager, cupomDescontoRepository);
         double valorTotal = compra.getValorTotal();
         Assert.isTrue(compraRequest.compraTotal() == valorTotal, "Valor total diferente do valor recebido.");
+
         manager.persist(compra);
 
         // +1

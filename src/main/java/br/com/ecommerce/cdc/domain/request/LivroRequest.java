@@ -11,6 +11,11 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 3
+ */
+
 public class LivroRequest {
 
     @NotBlank
@@ -139,6 +144,7 @@ public class LivroRequest {
                 '}';
     }
 
+    // +3 ( Livro, Autor, Categoria)
     public Livro toModel(Autor autor, Categoria categoria){
         return new Livro(this.getTitulo(),this.getResumo(),this.sumario,this.preco,this.numPagina,this.isbn,this.dataPublicacao, autor, categoria);
     }

@@ -5,6 +5,11 @@ import br.com.ecommerce.cdc.domain.model.Categoria;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 1
+ */
+
 public class CategoriaRequest {
     @NotBlank
     @NotDuplicated(nameClass = "Categoria", fieldName = "nome")
@@ -21,6 +26,7 @@ public class CategoriaRequest {
         return nome;
     }
 
+    // +1
     public Categoria toCategoria(){
         return new Categoria(this.getNome());
     }

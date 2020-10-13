@@ -3,6 +3,11 @@ package br.com.ecommerce.cdc.domain.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Carga Intrínseca máxima permitida - 9
+ * Carga Intrínseca da classe - 0
+ */
+
 @Entity
 @Table(name = "categoria")
 public class Categoria {
@@ -18,6 +23,10 @@ public class Categoria {
 
     public Categoria(String nome) {
         this.nome = nome;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {

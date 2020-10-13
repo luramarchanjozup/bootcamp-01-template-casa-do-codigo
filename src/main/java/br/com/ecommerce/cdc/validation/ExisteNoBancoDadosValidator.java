@@ -6,7 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+/**
+ * Carga Intrínseca máxima permitida - 7
+ * Carga Intrínseca da classe - 1
+ *
+ */
 
+// +1(ExistInDataBase)
 public class ExisteNoBancoDadosValidator implements ConstraintValidator<ExistInDataBase,Long> {
 
     private Class<?> nameClass;

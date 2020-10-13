@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 /**
  * Carga Intrínseca máxima permitida - 9
@@ -49,13 +51,17 @@ public class Compra {
     @PositiveOrZero
     private String cep;
     @Valid
-    @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     // +1
     private CarrinhoCompra carrinhoCompra;
 
     @JsonIgnore
     @ManyToOne
+    // +1
     private CupomDesconto cupomDesconto;
+
+    public Compra() {
+    }
 
     public Compra(@NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Size(min = 11, max = 14) String cpfOuCnpj, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, @NotNull Estado estado, @NotBlank @PositiveOrZero @Size(min = 8) String telefone, @NotBlank @Size(min = 8, max = 14) @PositiveOrZero String cep, CarrinhoCompra carrinhoCompra) {
         this.email = email;
@@ -142,6 +148,58 @@ public class Compra {
                 .mapToDouble(itensPedido -> {
                     return itensPedido.getValorTotal().doubleValue();
                 }).sum();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public void setCpfOuCnpj(String cpfOuCnpj) {
+        this.cpfOuCnpj = cpfOuCnpj;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
+        this.carrinhoCompra = carrinhoCompra;
     }
 
     @Override

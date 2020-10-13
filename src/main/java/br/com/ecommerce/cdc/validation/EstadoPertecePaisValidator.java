@@ -13,6 +13,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+/**
+ * Carga Intrínseca máxima permitida - 7
+ * Carga Intrínseca da classe - 3
+ *
+ */
+
 @Component
 public class EstadoPertecePaisValidator implements Validator {
 

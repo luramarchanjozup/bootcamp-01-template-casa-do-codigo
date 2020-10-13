@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 0
+ */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CupomDescontoAplicadoRequest {
 

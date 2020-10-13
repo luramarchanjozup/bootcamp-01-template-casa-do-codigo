@@ -7,6 +7,11 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 1
+ */
+
 public class AutorRequest {
     @NotBlank
     private String name;
@@ -29,6 +34,7 @@ public class AutorRequest {
         return getEmail();
     }
 
+    // +1
     public Autor toModel(){
         LocalDateTime instant = LocalDateTime.now(ZoneId.of("UTC"));
         return new Autor(this.name,this.email,this.description, instant);

@@ -12,7 +12,7 @@ import org.springframework.validation.Validator;
 import java.util.Optional;
 /**
  * Carga intrinseca máxima permitida - 7
- * Carga intrinseca da classe - 3
+ * Carga intrinseca da classe - 4
  */
 
 @Component
@@ -37,7 +37,7 @@ public class NomeUnicoCategoriaValidator implements Validator {
         CategoriaRequest categoria = (CategoriaRequest) o;
         // +1
         Optional<Categoria> categoriaByNome = categoriaRepository.findByNome(categoria.getNome());
-
+        // +1
         if (categoriaByNome.isPresent()){
             errors.rejectValue("nome",null,getMessageResource());
         }

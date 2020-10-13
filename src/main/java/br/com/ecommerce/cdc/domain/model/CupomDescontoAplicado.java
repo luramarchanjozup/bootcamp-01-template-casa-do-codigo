@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Embeddable;
 
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 0
+ */
+
 @Embeddable
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CupomDescontoAplicado {

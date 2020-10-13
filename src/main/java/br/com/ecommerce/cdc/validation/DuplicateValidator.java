@@ -13,6 +13,7 @@ import java.util.List;
  * Carga intrinseca da classe - 2
  */
 
+// +1(NotDuplicated)
 public class DuplicateValidator implements ConstraintValidator<NotDuplicated, String > {
 
     private String nameClass;
@@ -25,7 +26,6 @@ public class DuplicateValidator implements ConstraintValidator<NotDuplicated, St
     }
 
     @Override
-    // +1
     public void initialize(NotDuplicated constraintAnnotation) {
         this.nameClass = constraintAnnotation.nameClass();
         this.fieldName = constraintAnnotation.fieldName();

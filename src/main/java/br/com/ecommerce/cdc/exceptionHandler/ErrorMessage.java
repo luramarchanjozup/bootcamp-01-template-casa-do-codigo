@@ -3,6 +3,12 @@ package br.com.ecommerce.cdc.exceptionHandler;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Carga Intrínseca máxima permitida - 7
+ * Carga Intrínseca da classe - 0
+ *
+ */
+
 public class ErrorMessage {
 
     private LocalDateTime timestamp;

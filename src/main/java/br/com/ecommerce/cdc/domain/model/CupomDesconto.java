@@ -5,6 +5,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -45,6 +46,10 @@ public class CupomDesconto {
         return false;
     }
 
+    public BigDecimal desconto(){
+        return new BigDecimal(this.desconto).divide(new BigDecimal(100));
+    }
+
     public Long getId() {
         return id;
     }
@@ -72,4 +77,5 @@ public class CupomDesconto {
     public void setValidade(LocalDate validade) {
         this.validade = validade;
     }
+
 }

@@ -5,6 +5,13 @@ import br.com.ecommerce.cdc.anotacao.CPFouCNPJ;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Carga Intrínseca máxima permitida - 7
+ * Carga Intrínseca da classe - 1
+ *
+ */
+
+// +1 (CPFouCNPJ)
 public class CPFouCNPJValidator implements ConstraintValidator<CPFouCNPJ, String> {
 
 

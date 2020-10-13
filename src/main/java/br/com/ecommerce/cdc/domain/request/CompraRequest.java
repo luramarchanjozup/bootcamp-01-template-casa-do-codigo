@@ -4,8 +4,6 @@ import br.com.ecommerce.cdc.anotacao.CPFouCNPJ;
 import br.com.ecommerce.cdc.anotacao.ExistInDataBase;
 import br.com.ecommerce.cdc.domain.model.*;
 import br.com.ecommerce.cdc.repository.CupomDescontoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -14,7 +12,7 @@ import java.util.Optional;
 
 /**
  * Carga Intrínseca máxima permitida - 9
- * Carga Intrínseca da classe - 5
+ * Carga Intrínseca da classe - 7
  *
  */
 
@@ -54,6 +52,7 @@ public class CompraRequest {
     private CarrinhoCompraRequest carrinhoCompra;
 
     @Valid
+    // +1
     private CupomDescontoAplicadoRequest aplicandoDesconto;
 
     public CompraRequest() {
@@ -83,6 +82,7 @@ public class CompraRequest {
         // +1
         CarrinhoCompra carrinhoCompra = this.carrinhoCompra.toModel(manager);
         Compra compra = new Compra(email, nome, sobrenome, cpfOuCnpj, endereco, complemento, cidade, pais, estado, telefone, cep, carrinhoCompra);
+
         Optional<CupomDescontoAplicadoRequest> aplicandoDesconto = Optional.ofNullable(this.aplicandoDesconto);
         if (aplicandoDesconto.isPresent() && aplicandoDesconto.get().getCodigo() != null){
             // +1

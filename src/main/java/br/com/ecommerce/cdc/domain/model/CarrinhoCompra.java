@@ -43,6 +43,11 @@ public class CarrinhoCompra {
         this.itens = itens;
     }
 
+    public CarrinhoCompra(Compra compra){
+        this.total = compra.getCarrinhoCompra().getTotal();
+        this.itens = compra.getCarrinhoCompra().getItens();
+    }
+
     public BigDecimal getTotal() {
         return total;
     }
@@ -59,12 +64,15 @@ public class CarrinhoCompra {
         this.itens = itens;
     }
 
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
     @Override
     public String toString() {
         return "CarrinhoCompra{" +
                 "id=" + id +
                 ", total=" + total +
-                ", compra=" + compra +
                 ", itens=" + itens +
                 '}';
     }

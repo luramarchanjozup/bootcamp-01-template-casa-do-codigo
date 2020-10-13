@@ -3,6 +3,10 @@ package br.com.ecommerce.cdc.domain.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 0
+ */
 
 @Entity
 @Table(name = "estado")

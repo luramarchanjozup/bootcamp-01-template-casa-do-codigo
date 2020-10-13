@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 2
+ */
 
 @Entity
 @Table(name = "livro")
@@ -19,8 +23,10 @@ public class Livro {
     private String isbn;
     private LocalDate dataPublicacao;
     @OneToOne
+    // +1
     private Autor autor;
     @OneToOne
+    // +1
     private Categoria categoria;
 
     public Livro() {

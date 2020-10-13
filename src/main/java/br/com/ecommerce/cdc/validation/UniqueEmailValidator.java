@@ -16,7 +16,7 @@ import java.util.Optional;
 
 /**
  * Carga intrínseca máxima permitida - 7
- * Carga intrínseca da classe - 6
+ * Carga intrínseca da classe - 4
  */
 
 @Component
@@ -27,7 +27,6 @@ public class UniqueEmailValidator implements Validator {
     private AutorRepository autorRepository;
 
     @Autowired
-    //+1
     private MessageSource messageSource;
 
     @Override
@@ -40,7 +39,7 @@ public class UniqueEmailValidator implements Validator {
     public void validate(Object o, Errors errors) {
         // +1
         AutorRequest autorRequest = (AutorRequest) o;
-        // +2
+        // +1
         Optional<Autor> authorByEmail = autorRepository.findByEmail(autorRequest.email());
         String mensagem = messageSource.getMessage("email.duplicado", null
                 , LocaleContextHolder.getLocale());

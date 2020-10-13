@@ -10,13 +10,15 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.Optional;
 
 /**
- * Carga Intrínseca máxima permitida - 9
- * Carga Intrínseca da classe - 0
+ * Carga Intrínseca máxima permitida - 7
+ * Carga Intrínseca da classe - 3
  * */
 
+// +1(CupomValido)
 public class CupomValidoValidator implements ConstraintValidator<CupomValido, String> {
 
     @Autowired
+    // +1
     private CupomDescontoRepository cupomDescontoRepository;
 
     @Override
@@ -27,9 +29,10 @@ public class CupomValidoValidator implements ConstraintValidator<CupomValido, St
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
 
-        Optional<CupomDesconto> cupomDescontoByCodigp = cupomDescontoRepository.findByCodigo(value);
+        // +1
+        Optional<CupomDesconto> cupomDescontoByCodigo = cupomDescontoRepository.findByCodigo(value);
 
-        if (cupomDescontoByCodigp.isPresent() && cupomDescontoByCodigp.get().cupomValido()){
+        if (cupomDescontoByCodigo.isPresent() && cupomDescontoByCodigo.get().cupomValido()){
             return true;
         }
 

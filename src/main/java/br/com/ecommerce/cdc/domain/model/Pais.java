@@ -1,9 +1,12 @@
 package br.com.ecommerce.cdc.domain.model;
 
-import br.com.ecommerce.cdc.anotacao.NotDuplicated;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 0
+ */
 
 @Entity
 @Table(name = "pais")

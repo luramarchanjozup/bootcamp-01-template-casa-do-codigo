@@ -2,7 +2,6 @@ package br.com.treino.casadocodigo.model;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -18,24 +17,11 @@ public class Pedido {
     @ElementCollection
     private @Size(min = 1) Set<ItemPedido> itemPedidos;
 
-    //@OneToOne
-    //private @Valid Compra compra;
-
     @Deprecated
     public Pedido(){}
 
     public Pedido(Set<ItemPedido> itemPedidos) {
         this.itemPedidos = itemPedidos;
-    }
-
-    //public Long getId() { return id; }
-
-     /*public Compra getCompra() {
-        return compra;
-    }*/
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
     }
 
     public BigDecimal getTotal() {

@@ -32,7 +32,6 @@ public class Compra {
     @Pattern(regexp = "\\d{5}\\-\\d{3}" ,message = "CEP inválido")
     private @NotBlank String cep;
     private @NotBlank String complemento;
-
     @OneToOne(cascade = CascadeType.PERSIST)
     private @NotNull Pedido pedido; //1
 

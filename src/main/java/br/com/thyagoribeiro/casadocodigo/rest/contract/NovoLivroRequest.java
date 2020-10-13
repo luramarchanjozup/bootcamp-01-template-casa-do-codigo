@@ -3,38 +3,37 @@ package br.com.thyagoribeiro.casadocodigo.rest.contract;
 import br.com.thyagoribeiro.casadocodigo.domain.Autor;
 import br.com.thyagoribeiro.casadocodigo.domain.Categoria;
 import br.com.thyagoribeiro.casadocodigo.domain.Livro;
-import br.com.thyagoribeiro.casadocodigo.validator.ExistsValue;
-import br.com.thyagoribeiro.casadocodigo.validator.ValueStatus;
+import br.com.thyagoribeiro.casadocodigo.validator.Exist;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-// CDD - Total: 3
+// CDD - Total: 2
 
 public class NovoLivroRequest {
 
     @NotBlank
-    @ExistsValue(domainClass = Livro.class, fieldName = "titulo", valueStatus = ValueStatus.NOT_EXISTS) // CDD 3 - Interface @ExistsValue, classe Livro, ENUM ValueStatus
-    String titulo;
+    @Exist(domainClass = Livro.class, fieldName = "titulo", expected = false) // CDD 2 - Interface @ExistsValue e classe Livro
+    private String titulo;
 
     @NotBlank
     @Size(max = 500)
-    String resumo;
+    private String resumo;
 
-    String sumario;
+    private String sumario;
 
     @NotNull
     @Min(20)
-    BigDecimal preco;
+    private BigDecimal preco;
 
     @NotNull
     @Min(100)
-    int numeroPaginas;
+    private int numeroPaginas;
 
     @NotBlank
-    @ExistsValue(domainClass = Livro.class, fieldName = "isbn", valueStatus = ValueStatus.NOT_EXISTS)
+    @Exist(domainClass = Livro.class, fieldName = "isbn", expected = false)
     String isbn;
 
     @Future
@@ -42,11 +41,11 @@ public class NovoLivroRequest {
     Date dataPublicacao;
 
     @NotNull
-    @ExistsValue(domainClass = Categoria.class, fieldName = "id", valueStatus = ValueStatus.EXISTS)
+    @Exist(domainClass = Categoria.class, fieldName = "id", expected = true)
     Long categoriaId;
 
     @NotNull
-    @ExistsValue(domainClass = Autor.class, fieldName = "id", valueStatus = ValueStatus.EXISTS)
+    @Exist(domainClass = Autor.class, fieldName = "id", expected = true)
     Long autorId;
 
     @Deprecated

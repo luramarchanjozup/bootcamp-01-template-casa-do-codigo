@@ -7,25 +7,28 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-// CDD - Total: 3
+// CDD - Total: 4
 
-public class ContainsValueValidator implements ConstraintValidator<ExistsValue, Object> { // CDD 1 - Interface UniqueValue
+public class ExistValidator implements ConstraintValidator<Exist, Object> { // CDD 1 - Interface UniqueValue
 
     @PersistenceContext
     private EntityManager entityManager;
 
     private Class<?> domainClass;
     private String fieldName;
-    private ValueStatus valueStatus;
-
-    String messageExists = "deve existir na base";
-    String messageValueNotExists = "não deve existir na base";
+    private boolean expected;
+    private String message;
 
     @Override
-    public void initialize(ExistsValue constraintAnnotation) {
+    public void initialize(Exist constraintAnnotation) {
         domainClass = constraintAnnotation.domainClass();
         fieldName = constraintAnnotation.fieldName();
-        valueStatus = constraintAnnotation.valueStatus();
+        expected = constraintAnnotation.expected();
+
+        if (expected) // CDD 1 - branch if
+            message = "deve existir na base";
+        else // CDD 1 - branch else
+            message = "não deve existir na base";
     }
 
     @Override
@@ -35,14 +38,12 @@ public class ContainsValueValidator implements ConstraintValidator<ExistsValue, 
 
         List<?> result = query.getResultList();
         boolean exists = result.size() > 0;
+
         context.disableDefaultConstraintViolation();
+        context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
 
-        if(valueStatus.equals(ValueStatus.NOT_EXISTS)) { // CDD 2 - ENUM ValueStatus e branch if
-            context.buildConstraintViolationWithTemplate(messageValueNotExists).addConstraintViolation();
-            return !exists;
-        }
-
-        context.buildConstraintViolationWithTemplate(messageExists).addConstraintViolation();
-        return exists;
+        if(exists == expected) // CDD 1 - branch if
+            return true;
+        return false;
     }
 }

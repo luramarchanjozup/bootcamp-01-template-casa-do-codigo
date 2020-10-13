@@ -1,13 +1,13 @@
 package br.com.thyagoribeiro.casadocodigo.domain;
 
-import br.com.thyagoribeiro.casadocodigo.validator.ExistsValue;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+// CDD - Total 0
 
 @Entity
 public class Estado {

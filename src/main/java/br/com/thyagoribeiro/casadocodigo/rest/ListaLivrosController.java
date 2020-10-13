@@ -1,6 +1,5 @@
 package br.com.thyagoribeiro.casadocodigo.rest;
 
-import br.com.thyagoribeiro.casadocodigo.domain.Autor;
 import br.com.thyagoribeiro.casadocodigo.domain.Livro;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

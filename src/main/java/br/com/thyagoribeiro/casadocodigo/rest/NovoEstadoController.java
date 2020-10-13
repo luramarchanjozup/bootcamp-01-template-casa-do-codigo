@@ -12,18 +12,18 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-
+// CDD - Total: 2
 
 @RestController
 public class NovoEstadoController {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @PostMapping(value = "/api/estado")
     @Transactional
-    public ResponseEntity<?> novoEstado(@RequestBody @Valid NovoEstadoRequest novoEstadoRequest) {
-        Estado estado = novoEstadoRequest.toModel();
+    public ResponseEntity<?> novoEstado(@RequestBody @Valid NovoEstadoRequest novoEstadoRequest) { // CDD 1 - classe NovoEstadoRequest
+        Estado estado = novoEstadoRequest.toModel(); // CDD 1 - classe Estado
         entityManager.persist(estado);
         return ResponseEntity.ok().body(novoEstadoRequest);
     }

@@ -1,10 +1,15 @@
 package br.com.thyagoribeiro.casadocodigo.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+
+// CDD - Total 0
 
 @Entity
 public class Autor {

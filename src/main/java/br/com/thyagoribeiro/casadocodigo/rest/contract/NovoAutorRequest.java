@@ -1,14 +1,13 @@
 package br.com.thyagoribeiro.casadocodigo.rest.contract;
 
 import br.com.thyagoribeiro.casadocodigo.domain.Autor;
-import br.com.thyagoribeiro.casadocodigo.validator.ExistsValue;
-import br.com.thyagoribeiro.casadocodigo.validator.ValueStatus;
+import br.com.thyagoribeiro.casadocodigo.validator.Exist;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-// CDD - Total: 3
+// CDD - Total: 2
 
 public class NovoAutorRequest {
 
@@ -17,7 +16,7 @@ public class NovoAutorRequest {
 
     @NotBlank
     @Email
-    @ExistsValue(domainClass = Autor.class, fieldName = "email", valueStatus = ValueStatus.NOT_EXISTS) // CDD 3 - Interface @ExistsValue, classe Autor e ENUM ValueStatus
+    @Exist(domainClass = Autor.class, fieldName = "email", expected = false) // CDD 2 - Interface @ExistsValue e classe Autor
     private String email;
 
     @NotBlank

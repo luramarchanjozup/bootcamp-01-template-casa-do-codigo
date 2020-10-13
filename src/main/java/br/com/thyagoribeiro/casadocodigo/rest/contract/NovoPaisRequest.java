@@ -1,18 +1,16 @@
 package br.com.thyagoribeiro.casadocodigo.rest.contract;
 
 import br.com.thyagoribeiro.casadocodigo.domain.Pais;
-import br.com.thyagoribeiro.casadocodigo.validator.ExistsValue;
-import br.com.thyagoribeiro.casadocodigo.validator.ValueStatus;
+import br.com.thyagoribeiro.casadocodigo.validator.Exist;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-// CDD - Total: 3
+// CDD - Total: 2
 
 public class NovoPaisRequest {
 
     @NotBlank
-    @ExistsValue(domainClass = Pais.class, fieldName = "nome", valueStatus = ValueStatus.NOT_EXISTS) // CDD 3 - Interface @ExistsValue, classe Pais e ENUM ValueStatus
+    @Exist(domainClass = Pais.class, fieldName = "nome", expected = false) // CDD 3 - Interface @ExistsValue e classe Pais
     private String nome;
 
     @Deprecated

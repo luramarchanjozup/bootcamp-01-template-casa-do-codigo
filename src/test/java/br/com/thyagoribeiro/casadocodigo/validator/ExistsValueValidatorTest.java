@@ -10,11 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Payload;
-
 import java.lang.annotation.Annotation;
-
-import static org.mockito.Mockito.mock;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 @SpringBootTest
@@ -28,7 +24,7 @@ public class ExistsValueValidatorTest {
     private EntityManagerFactory entityManagerFactory;
 
     @InjectMocks
-    ContainsValueValidator uniqueValueValidator;
+    ExistValidator uniqueValueValidator;
 
     @Test
     @DisplayName("Verifica se retorna erro quando um campo ja existe")
@@ -36,8 +32,8 @@ public class ExistsValueValidatorTest {
 
     }
 
-    private ExistsValue criaUniqueValue() {
-        return new ExistsValue() {
+    private Exist criaUniqueValue() {
+        return new Exist() {
 
             @Override
             public Class<? extends Annotation> annotationType() {
@@ -70,7 +66,7 @@ public class ExistsValueValidatorTest {
             }
 
             @Override
-            public ValueStatus valueStatus() {return ValueStatus.NOT_EXISTS; }
+            public boolean expected() {return false; }
         };
 
     }

@@ -1,17 +1,16 @@
 package br.com.thyagoribeiro.casadocodigo.rest.contract;
 
 import br.com.thyagoribeiro.casadocodigo.domain.Categoria;
-import br.com.thyagoribeiro.casadocodigo.validator.ExistsValue;
-import br.com.thyagoribeiro.casadocodigo.validator.ValueStatus;
+import br.com.thyagoribeiro.casadocodigo.validator.Exist;
 
 import javax.validation.constraints.NotBlank;
 
-// CDD - Total: 3
+// CDD - Total: 2
 
 public class NovaCategoriaRequest {
 
     @NotBlank
-    @ExistsValue(domainClass = Categoria.class, fieldName = "nome", valueStatus = ValueStatus.NOT_EXISTS) // CDD 3 - Interface @ExistsValue, classe Categoria e ENUM ValueStatus
+    @Exist(domainClass = Categoria.class, fieldName = "nome", expected = false) // CDD 2 - Interface @ExistsValue e classe Categoria
     private String nome;
 
     @Deprecated

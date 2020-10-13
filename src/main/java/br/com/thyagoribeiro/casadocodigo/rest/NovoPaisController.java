@@ -18,7 +18,7 @@ import javax.validation.Valid;
 public class NovoPaisController {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @PostMapping(value = "/api/pais")
     @Transactional

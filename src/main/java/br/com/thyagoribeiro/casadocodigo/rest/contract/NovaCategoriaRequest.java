@@ -5,12 +5,12 @@ import br.com.thyagoribeiro.casadocodigo.validator.Exist;
 
 import javax.validation.constraints.NotBlank;
 
-// CDD - Total: 2
+// CDD - Total: 1
 
 public class NovaCategoriaRequest {
 
     @NotBlank
-    @Exist(domainClass = Categoria.class, fieldName = "nome", expected = false) // CDD 2 - Interface @ExistsValue e classe Categoria
+    @Exist(domainClass = Categoria.class, fieldName = "nome", expected = false) // CDD 1 - Classe Categoria
     private String nome;
 
     @Deprecated

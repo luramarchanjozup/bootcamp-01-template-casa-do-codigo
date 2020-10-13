@@ -13,7 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-// CDD - Total: 6
+// CDD - Total: 5
 
 public class NovaCompraRequest {
 
@@ -41,7 +41,7 @@ public class NovaCompraRequest {
     private String cidade;
 
     @NotNull
-    @Exist(domainClass = Pais.class, fieldName = "id", expected = true) // CDD 2 - Interface @Existe e Classe Pais
+    @Exist(domainClass = Pais.class, fieldName = "id", expected = true) // CDD 1 - Classe Pais
     private Long paisId;
 
     @NotNull

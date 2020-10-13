@@ -10,12 +10,12 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-// CDD - Total: 2
+// CDD - Total: 1
 
 public class NovoLivroRequest {
 
     @NotBlank
-    @Exist(domainClass = Livro.class, fieldName = "titulo", expected = false) // CDD 2 - Interface @ExistsValue e classe Livro
+    @Exist(domainClass = Livro.class, fieldName = "titulo", expected = false) // CDD 1 - classe Livro
     private String titulo;
 
     @NotBlank

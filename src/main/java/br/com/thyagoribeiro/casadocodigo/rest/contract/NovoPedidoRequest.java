@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+// CDD - Total 3
+
 public class NovoPedidoRequest {
 
     @NotNull
@@ -20,7 +22,7 @@ public class NovoPedidoRequest {
     @NotNull
     @Size(min = 1)
     @Valid
-    private List<NovoItemRequest> itens;
+    private List<NovoItemRequest> itens; // CDD 1 - Classe NovoItemRequest
 
     @Deprecated
     public NovoPedidoRequest() {
@@ -47,8 +49,8 @@ public class NovoPedidoRequest {
         this.itens = itens;
     }
 
-    public Pedido toModel(){
-        List<Item> itemList = new ArrayList<>();
+    public Pedido toModel() { // CDD 1 - Classe Pedido
+        List<Item> itemList = new ArrayList<>(); // CDD 1 - Classe Item
         itens.forEach(item -> itemList.add(item.toModel()));
         return new Pedido(itemList);
     }

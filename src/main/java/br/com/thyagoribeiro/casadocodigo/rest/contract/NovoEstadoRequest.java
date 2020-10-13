@@ -7,12 +7,12 @@ import br.com.thyagoribeiro.casadocodigo.validator.Exist;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-// CDD - Total: 3
+// CDD - Total: 2
 
 public class NovoEstadoRequest {
 
     @NotBlank
-    @Exist(domainClass = Estado.class, fieldName = "nome", expected = false) // CDD 2 - Interface @ExistsValue e classe Categoria
+    @Exist(domainClass = Estado.class, fieldName = "nome", expected = false) // CDD 2 - Classe Estado
     private String nome;
 
     @NotNull

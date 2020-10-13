@@ -7,6 +7,8 @@ import br.com.thyagoribeiro.casadocodigo.validator.Exist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+// CDD - Total 1
+
 public class NovoItemRequest {
 
     @NotNull
@@ -35,5 +37,5 @@ public class NovoItemRequest {
 
     public Item toModel(){
         return new Item(livroId, quantidade);
-    }
+    } // CDD 1 - Classe Item
 }

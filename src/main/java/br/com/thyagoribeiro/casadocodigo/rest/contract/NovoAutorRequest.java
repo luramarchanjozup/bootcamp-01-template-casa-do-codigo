@@ -16,7 +16,7 @@ public class NovoAutorRequest {
 
     @NotBlank
     @Email
-    @Exist(domainClass = Autor.class, fieldName = "email", expected = false) // CDD 2 - Interface @ExistsValue e classe Autor
+    @Exist(domainClass = Autor.class, fieldName = "email", expected = false) // CDD 1 - classe Autor
     private String email;
 
     @NotBlank

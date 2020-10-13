@@ -29,10 +29,9 @@ public class Autor {
 
     private LocalDateTime dataRegistro = LocalDateTime.now();
 
-    @Deprecated // Pede default
+    @Deprecated
     public Autor() {    }
 
-    //Construtor
     public Autor(@NotBlank String nome, @NotBlank @Email String email,
                  @NotBlank @Size(max = 400) String descricao) {
         this.nome = nome;
@@ -40,7 +39,6 @@ public class Autor {
         this.descricao = descricao;
     }
 
-    //get set
     public Long getId() {
         return id;
     }

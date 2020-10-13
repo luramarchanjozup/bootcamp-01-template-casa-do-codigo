@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.EntityManager;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -42,9 +43,11 @@ public class BookDTO {
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate datePublish;
 
+
     @NotNull(message = "is required")
     @ExistsValue(domainClass = Category.class, fieldName = "id", message = "the category does not exist")
     private Long categoryId;
+
 
     @NotNull(message = "is required")
     @ExistsValue(domainClass = Author.class, fieldName = "id", message = "the author does not exist")
@@ -78,6 +81,6 @@ public class BookDTO {
         Category category = manager.find(Category.class, this.categoryId);
 
         return new Book(this.title, this.resume, this.summary, this.price,
-                        this.numberPages, this.isbn, this.datePublish, this.categoryId, this.authorId);
+                        this.numberPages, this.isbn, this.datePublish, category, author);
     }
 }

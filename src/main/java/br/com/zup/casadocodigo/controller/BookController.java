@@ -2,6 +2,7 @@ package br.com.zup.casadocodigo.controller;
 
 import br.com.zup.casadocodigo.domain.Book;
 import br.com.zup.casadocodigo.dto.BookDTO;
+import br.com.zup.casadocodigo.dto.BookDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,17 @@ public class BookController {
         }
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> detailsBook(@PathVariable("id") Long id) {
+        Book oneBook = entityManager.find(Book.class, id);
+
+        if(oneBook == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        BookDetails bookDetails = new BookDetails(oneBook);
+
+        return ResponseEntity.ok(bookDetails);
+    }
 
 }

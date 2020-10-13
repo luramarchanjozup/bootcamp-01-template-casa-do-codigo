@@ -37,7 +37,14 @@ public class AuthorDTO {
     }
 
     public Author transformAuthor(){
-        Author author = new Author(this.name, this.email, this.description);
-        return author;
+        return new Author(this.name, this.email, this.description);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

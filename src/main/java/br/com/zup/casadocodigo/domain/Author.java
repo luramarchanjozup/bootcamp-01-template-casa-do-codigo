@@ -45,4 +45,12 @@ public class Author {
                 + ", description=" + description + ", instantRegistration="
                 + instantRegistration + "]";
     }*/
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

@@ -3,10 +3,7 @@ package br.com.zup.casadocodigo.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,8 +24,10 @@ public class Book {
     private int numberPages;
     private String isbn;
     private LocalDate datePublish;
-    private Long categoryId;
-    private Long authorId;
+    @ManyToOne
+    private Category category;
+    @ManyToOne
+    private Author author;
 
     @Deprecated
     public Book() {
@@ -39,8 +38,8 @@ public class Book {
                 @NotNull @Min(100) int numberPages,
                 @NotBlank String isbn,
                 @Future @NotNull LocalDate datePublish,
-                @NotNull Long category,
-                @NotNull Long author) {
+                @NotNull Category category,
+                @NotNull Author author) {
         this.title = title;
         this.resume = resume;
         this.summary = summary;
@@ -48,7 +47,39 @@ public class Book {
         this.numberPages = numberPages;
         this.isbn = isbn;
         this.datePublish = datePublish;
-        this.categoryId = category;
-        this.authorId = author;
+        this.category = category;
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public int getNumberPages() {
+        return numberPages;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public LocalDate getDatePublish() {
+        return datePublish;
+    }
+
+    public Author getAuthor() {
+        return author;
     }
 }

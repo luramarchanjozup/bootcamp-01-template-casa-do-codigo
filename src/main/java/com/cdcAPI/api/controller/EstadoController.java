@@ -12,8 +12,8 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-//Complexidade = 2
-//Estado, estadoRequest
+//Complexidade = 3
+//Estado, estadoRequest, if
 
 @RestController
 @RequestMapping("/estados")
@@ -24,9 +24,14 @@ public class EstadoController {
 
     @PostMapping
     @Transactional
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> criarEstado(@Valid @RequestBody EstadoRequest estadoRequest) throws Exception {
+
         Estado estado = estadoRequest.toModel(manager);
+
+        if (estado.getPais() == null) {
+            throw new Exception("Estado não pode ser cadastrado. País não encontrado.");
+        }
+
         manager.persist(estado);
 
         return ResponseEntity.ok().build();

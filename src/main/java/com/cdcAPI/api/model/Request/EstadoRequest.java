@@ -25,16 +25,13 @@ public class EstadoRequest {
         this.paisId = paisId;
     }
 
-    //Usar manager para puxar e validar criação de estado
+    //2 estado
     public Estado toModel(EntityManager manager) throws Exception {
 
-        @NotBlank
+        //3 pais
         Pais pais = manager.find(Pais.class, paisId);
 
-        if (pais == null) {
-            throw new Exception("Estado não pode ser cadastrado. País não encontrado.");
-        }
-        return new Estado(nome, paisId);
+        return new Estado(nome, pais);
     }
 
     //get set

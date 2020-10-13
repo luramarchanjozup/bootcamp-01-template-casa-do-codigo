@@ -62,6 +62,10 @@ public class Coupon {
 		return id;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
 	public BigDecimal getDescount() {
 		return descount;
 	}

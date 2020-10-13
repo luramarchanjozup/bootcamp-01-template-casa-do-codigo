@@ -2,6 +2,7 @@ package com.casadocodigo.controller;
 
 import com.casadocodigo.entity.Coupon;
 import com.casadocodigo.requests.CouponRequest;
+import com.casadocodigo.responses.CouponResponse;
 import com.google.gson.Gson;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,17 +19,16 @@ public class CouponController {
 	@PersistenceContext
 	private EntityManager manager;
 
-	Gson gson = new Gson();
-
 	@PostMapping(value = "")
 	@Transactional
 	public ResponseEntity<?> save(@Valid @RequestBody CouponRequest request) {
 
 		Coupon coupon = request.toModel();
 		manager.persist(coupon);
-		String result = gson.toJson(coupon);
 
-		return ResponseEntity.ok(result);
+		CouponResponse response = new CouponResponse(coupon);
+
+		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping(value = "/{id}")
@@ -46,9 +46,10 @@ public class CouponController {
 		coupon.setDescount(request.getDescount());
 
 		manager.merge(coupon);
-		String result = gson.toJson(coupon);
 
-		return ResponseEntity.ok(result);
+		CouponResponse response = new CouponResponse(coupon);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

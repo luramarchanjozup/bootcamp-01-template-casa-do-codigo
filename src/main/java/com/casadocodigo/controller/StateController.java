@@ -4,7 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+import com.casadocodigo.responses.StateDetailResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +27,14 @@ public class StateController {
 	@PostMapping(value = "")
 	@Transactional
 	@ResponseStatus(HttpStatus.CREATED)
-	public String save(@Valid @RequestBody StateRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody StateRequest request) {
 
 		State state = request.toModel(manager);
 		manager.persist(state);
-		return state.toString();
+
+		StateDetailResponse response = new StateDetailResponse(state);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

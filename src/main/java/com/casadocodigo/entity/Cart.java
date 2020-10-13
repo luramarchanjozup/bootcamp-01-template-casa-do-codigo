@@ -4,12 +4,10 @@ import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -54,6 +52,23 @@ public class Cart {
 		BigDecimal totalCart = itensCart.stream().map(ItemCart::total).reduce(BigDecimal.ZERO,
 				(current, next) -> current.add(next));
 		return totalCart.doubleValue() == total.doubleValue();
+	}
+
+	public BigDecimal getTotal (){
+		BigDecimal totalCart = itensCart.stream().map(ItemCart::total).reduce(BigDecimal.ZERO,
+				(current, next) -> current.add(next));
+		return totalCart;
+	}
+
+	public double getTotalWithDiscount(){
+		CouponApplied couponApplied = purchase.getCouponApplied();
+		BigDecimal totalCart = this.getTotal();
+
+		if( couponApplied != null) {
+			double totalWithDicount = totalCart.subtract(totalCart.multiply(couponApplied.getDescount())).doubleValue();
+			return totalWithDicount;
+		}
+		return totalCart.doubleValue();
 	}
 
 }

@@ -25,6 +25,14 @@ public class Categories {
 		this.name = name;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public String toString() {
 		return "Categories [id=" + id + ", name=" + name + "]";

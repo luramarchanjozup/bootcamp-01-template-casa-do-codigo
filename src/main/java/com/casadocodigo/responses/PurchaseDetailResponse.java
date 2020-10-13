@@ -1,7 +1,5 @@
 package com.casadocodigo.responses;
 
-import com.casadocodigo.entity.Cart;
-import com.casadocodigo.entity.Country;
 import com.casadocodigo.entity.Purchase;
 
 public class PurchaseDetailResponse {

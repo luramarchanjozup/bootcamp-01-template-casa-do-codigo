@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+import com.casadocodigo.responses.BookDetailResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +28,6 @@ public class BookController {
 
 	@PersistenceContext
 	private EntityManager manager;
-	
-	Gson gson = new Gson();
 
 	@PostMapping(value = "")
 	@Transactional
@@ -37,29 +36,9 @@ public class BookController {
 
 		Book book = request.toModel(manager);
 		manager.persist(book);
-		return ResponseEntity.ok(book.toString());
-	}
+		BookDetailResponse response = new BookDetailResponse(book);
 
-	@GetMapping(value = "/books")
-	public ResponseEntity<?> list() {
-		List<?> books = manager.createQuery("select b from Book b").getResultList();
-
-		String result = gson.toJson(books);
-
-		return ResponseEntity.ok(result);
-	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> details( @PathVariable(value = "id") Long id) {
-		Book book =  manager.find(Book.class, id );
-		
-		if(book == null) {
-			return ResponseEntity.notFound().build();
-		}
-
-		String result = gson.toJson(book);
-		
-		return ResponseEntity.ok(result);
+		return ResponseEntity.ok(response);
 	}
 
 }

@@ -44,6 +44,18 @@ public class Author {
 		this.description = description;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", name=" + name + ", email=" + email + ", description=" + description

@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+import com.casadocodigo.responses.PurchaseDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,8 +41,6 @@ public class PurchaseController {
 		binder.addValidators(new CpfOrCnpjValidator(), new StateBelongToCountryValidator(), couponvalidator);
 	}
 
-	Gson gson = new Gson();
-
 	@PostMapping(value = "")
 	@Transactional
 	public ResponseEntity<?> save(@Valid @RequestBody PurchaseRequest request) {
@@ -49,7 +48,9 @@ public class PurchaseController {
 		Purchase purchase = request.toModel(manager, couponRepository);
 		manager.persist(purchase);
 
-		return ResponseEntity.ok(purchase.toString());
+		PurchaseDetailResponse response = new PurchaseDetailResponse(purchase);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

@@ -34,8 +34,6 @@ public class PurchaseDetailController {
 
 		Purchase purchase = manager.find(Purchase.class, id);
 
-		System.out.println(purchase);
-
 		if (purchase == null) {
 			return ResponseEntity.notFound().build();
 		}

@@ -35,6 +35,10 @@ public class CouponApplied {
 		this.couponValidity = coupon.getCouponValidity();
 	}
 
+	public BigDecimal getDescount() {
+		return descount;
+	}
+
 	@Override
 	public String toString() {
 		return "CouponApplied{" +

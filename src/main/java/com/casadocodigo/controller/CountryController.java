@@ -4,7 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+import com.casadocodigo.responses.CountryDetailResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +27,14 @@ public class CountryController {
 	@PostMapping(value = "")
 	@Transactional
 	@ResponseStatus(HttpStatus.CREATED)
-	public String save(@Valid @RequestBody CountryRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody CountryRequest request) {
 
 		Country country = new Country(request.getName());
 		manager.persist(country);
-		return country.toString();
+
+		CountryDetailResponse response = new CountryDetailResponse(country);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

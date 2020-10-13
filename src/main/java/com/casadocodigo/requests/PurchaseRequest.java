@@ -55,9 +55,7 @@ public class PurchaseRequest {
 	
 	private CartRequest cart;
 
-	@ExistsValue(domainClass = Coupon.class, fieldName = "code", message = "Cumpo inválido")
 	private String coupon;
-	
 
 	public PurchaseRequest(@NotBlank @Email String email, @NotBlank String name, @NotBlank String lastName,
 			@NotBlank String document, @NotBlank String adress, @NotBlank String complement, @NotNull Long phone,
@@ -115,7 +113,8 @@ public class PurchaseRequest {
 
 		if (StringUtils.hasText(coupon)){
 			Coupon couponToFind = couponRepository.getByCode(coupon);
-			purchase.applyCoupon(couponToFind);
+			if (couponToFind != null)
+				purchase.applyCoupon(couponToFind);
 		}
 		
 		return purchase;

@@ -33,11 +33,12 @@ public class CouponValidator implements Validator {
 		Optional<String> codeToValidate = request.getCoupon();
 		if(codeToValidate.isPresent()) {
 			Coupon coupon = couponRepository.getByCode(codeToValidate.get());
-			if(!coupon.valid()) {
-				errors.rejectValue("codigoCupom", null, "Este cupom não é mais válido");
+			if(coupon != null){
+				if(!coupon.valid()) {
+					errors.rejectValue("codigoCupom", null, "Este cupom não é mais válido");
+				}
 			}
 		}
 	}
-
 
 }

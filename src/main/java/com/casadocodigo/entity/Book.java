@@ -88,6 +88,38 @@ public class Book {
 		return id;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public String getAbstractBook() {
+		return abstractBook;
+	}
+
+	public Integer getNumberOfPages() {
+		return numberOfPages;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public LocalDate getPublishDate() {
+		return publishDate;
+	}
+
+	public Author getAuthor() {
+		return author;
+	}
+
+	public Categories getCategorie() {
+		return categorie;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", summary=" + summary + ", abstractBook="

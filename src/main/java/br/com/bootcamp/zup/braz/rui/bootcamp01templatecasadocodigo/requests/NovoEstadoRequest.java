@@ -15,7 +15,7 @@ public class NovoEstadoRequest {
     @ObjetoUnico(domainClass = Estado.class, fieldName = "nome")
     private String nome;
     @NotNull
-    @ObjetoValido(fieldName = "id", domainsClass = Pais.class)
+    @ObjetoValido(fieldName = "id", domainClass = Pais.class)
     private Integer idPais;
 
     @Deprecated

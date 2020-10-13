@@ -22,7 +22,7 @@ public class ObjetoValidoValidator implements ConstraintValidator<ObjetoValido, 
     @Override
     public void initialize(ObjetoValido objetoValido) {
         campo = objetoValido.fieldName();
-        classe = objetoValido.domainsClass();
+        classe = objetoValido.domainClass();
 
     }
 

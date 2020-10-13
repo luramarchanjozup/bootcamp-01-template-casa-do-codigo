@@ -1,5 +1,7 @@
 package com.bootcamp.cdd.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -11,6 +13,7 @@ public class State {
     @NotBlank(message = "O nome do estado deve ser preenchido")
     private String name;
     @ManyToOne
+    @JsonIgnore
     private Country country;
 
     public State(@NotBlank(message = "O nome do estado deve ser preenchido") String name, Country country) {

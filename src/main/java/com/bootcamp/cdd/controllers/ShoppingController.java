@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/shopping")
@@ -25,20 +26,16 @@ public class ShoppingController {
     public Shopping createShopping (@Valid @RequestBody ShoppingRequest request) {
         Assert.isTrue(verifyDocs(request.getDocumento()), "o documento foi preenchido de forma incorreta");
         Country pais = entityManager.find(Country.class, request.getPais());
-        State estado = entityManager.find(State.class, request.getEstadoId());
-        Assert.state(verifyState(estado, pais, request), "A localização foi preenchida incorretamente");
-        Assert.state(pais != null, "Pais não encontrado");
         Shopping compra = request.toModel();
-        compra.setEstadoAndPais(estado, pais);
-        entityManager.persist(compra);
-        return null;
-    }
-
-    public boolean verifyState (State estado, Country pais, ShoppingRequest request) {
-        if (estado == null && request.getEstadoId() != null) {
-            return false;
+        compra.setPais(pais);
+        if (request.getEstadoId() != null) {
+            State estado = entityManager.find(State.class, request.getEstadoId());
+            compra.setEstado(estado);
         }
-        return estado == null || estado.getCountryId() == pais.getId();
+
+
+        entityManager.persist(compra);
+        return compra;
     }
 
     public boolean verifyDocs (String document) {

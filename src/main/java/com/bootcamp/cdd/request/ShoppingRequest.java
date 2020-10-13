@@ -1,7 +1,10 @@
 package com.bootcamp.cdd.request;
 
 
+import com.bootcamp.cdd.models.Country;
 import com.bootcamp.cdd.models.Shopping;
+import com.bootcamp.cdd.models.State;
+import com.bootcamp.cdd.shared.ExistsId;
 
 public class ShoppingRequest {
     private String email;
@@ -11,7 +14,9 @@ public class ShoppingRequest {
     private String endereco;
     private String complemento;
     private String cidade;
+    @ExistsId(domainClass = State.class, fieldName = "id")
     private Long estadoId;
+    @ExistsId(domainClass = Country.class, fieldName = "id")
     private long paisId;
     private String telefone;
     private String cep;

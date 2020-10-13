@@ -33,8 +33,59 @@ public class Shopping {
         this.cep = cep;
     }
 
-    public void setEstadoAndPais(State estado, Country pais) {
+    public void setEstado(State estado) {
         this.estado = estado;
+    }
+
+    public void setPais(Country pais) {
         this.pais = pais;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public State getEstado() {
+        return estado;
+    }
+
+    public Country getPais() {
+        return pais;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getCep() {
+        return cep;
     }
 }

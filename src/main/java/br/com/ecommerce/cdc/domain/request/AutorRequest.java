@@ -14,16 +14,16 @@ import java.time.ZoneId;
 
 public class AutorRequest {
     @NotBlank
-    private String name;
+    private String nome;
     @NotBlank @Email @NotDuplicated(fieldName = "email", nameClass = "Autor")
     private String email;
     @NotBlank @Size(max = 400)
-    private String description;
+    private String descricao;
 
-    public AutorRequest(String name, String email, String description) {
-        this.name = name;
+    public AutorRequest(String nome, String email, String descricao) {
+        this.nome = nome;
         this.email = email;
-        this.description = description;
+        this.descricao = descricao;
     }
 
     public String getEmail() {
@@ -37,6 +37,6 @@ public class AutorRequest {
     // +1
     public Autor toModel(){
         LocalDateTime instant = LocalDateTime.now(ZoneId.of("UTC"));
-        return new Autor(this.name,this.email,this.description, instant);
+        return new Autor(this.nome,this.email,this.descricao, instant);
     }
 }

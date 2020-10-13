@@ -11,48 +11,48 @@ import java.time.LocalDateTime;
  */
 
 @Entity
-@Table(name = "author")
+@Table(name = "autor")
 public class Autor {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    private String name;
+    private String nome;
     @NotBlank @Email
     private String email;
     @NotBlank @Size(max = 400)
-    private String description;
+    private String descricao;
     @NotNull
-    private LocalDateTime instant;
+    private LocalDateTime instante;
 
     public Autor() {
     }
 
-    public Autor(@NotBlank String name, @NotBlank String email, @NotBlank @Max(400) String description, @NotNull LocalDateTime instant) {
-        this.name = name;
+    public Autor(@NotBlank String nome, @NotBlank String email, @NotBlank @Max(400) String descricao, @NotNull LocalDateTime instante) {
+        this.nome = nome;
         this.email = email;
-        this.description = description;
-        this.instant = instant;
+        this.descricao = descricao;
+        this.instante = instante;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public LocalDateTime getInstant() {
-        return instant;
+    public LocalDateTime getInstante() {
+        return instante;
     }
 
     public Long id(){
@@ -60,7 +60,7 @@ public class Autor {
     }
 
     public String nome(){
-        return getName();
+        return getNome();
     }
 
     public String email(){
@@ -68,10 +68,10 @@ public class Autor {
     }
 
     public String descricao(){
-        return getDescription();
+        return getDescricao();
     }
 
     public LocalDateTime momento(){
-        return getInstant();
+        return getInstante();
     }
 }

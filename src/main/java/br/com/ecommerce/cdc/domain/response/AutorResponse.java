@@ -22,16 +22,16 @@ public class AutorResponse {
     @NotBlank @Email
     private String email;
     @NotBlank @Size(max = 400)
-    private String description;
+    private String descricao;
     @NotNull
-    private LocalDateTime instant;
+    private LocalDateTime instante;
     // +1
     public AutorResponse(Autor autor){
         this.id = autor.getId();
-        this.nome = autor.getName();
+        this.nome = autor.getNome();
         this.email = autor.getEmail();
-        this.description = autor.getDescription();
-        this.instant = autor.getInstant();
+        this.descricao = autor.getDescricao();
+        this.instante = autor.getInstante();
     }
 
     public Long getId() {
@@ -58,19 +58,19 @@ public class AutorResponse {
         this.email = email;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public LocalDateTime getInstant() {
-        return instant;
+    public LocalDateTime getInstante() {
+        return instante;
     }
 
-    public void setInstant(LocalDateTime instant) {
-        this.instant = instant;
+    public void setInstante(LocalDateTime instante) {
+        this.instante = instante;
     }
 }

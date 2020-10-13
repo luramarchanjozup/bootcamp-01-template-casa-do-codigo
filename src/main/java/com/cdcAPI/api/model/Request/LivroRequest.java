@@ -10,8 +10,8 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-//Complexidade = ?
-//EntradaUnica, Autor, Categoria, Livro, 2 if
+//Complexidade = 4
+//EntradaUnica, Autor, Categoria, Livro,
 
 public class LivroRequest {
 
@@ -65,20 +65,14 @@ public class LivroRequest {
         //Todo  Usar builder
     }
 
-    //Usar Entity mananger para puxar id's e validar se pode criar livro
+    //Usar Entity mananger para puxar id's e popular objetos (autor e categoria)
+    //2 livro
     public Livro toModel(EntityManager manager) throws Exception {
 
-        @NotBlank
+        //3 autor
         Autor autor = manager.find(Autor.class, autorId);
-        @NotBlank
+        //4 categoria
         Categoria categoria = manager.find(Categoria.class, categoriaId);
-
-        if (autor == null) {
-            throw new Exception("Livro não pode ser cadastrado. Autor não existe.");
-        }
-        if (categoria == null) {
-            throw new Exception("Livro não pode ser cadastrado. Categoria não existe.");
-        }
 
         return new Livro(titulo, resumo, sumario, preco, n_paginas, isbn,
                 dataPublicacao, autor, categoria);

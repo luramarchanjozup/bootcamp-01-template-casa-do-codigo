@@ -19,6 +19,7 @@ public class BookDetails {
     public BookDetails(Book book) {
 
         author = new DetailsAuthorDTO(book.getAuthor());
+        title = book.getTitle();
         isbn = book.getIsbn();
         numberPages = book.getNumberPages();
         price = book.getPrice();

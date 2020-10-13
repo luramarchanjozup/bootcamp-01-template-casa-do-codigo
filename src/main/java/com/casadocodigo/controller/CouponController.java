@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,14 +22,14 @@ public class CouponController {
 
 	@PostMapping(value = "")
 	@Transactional
-	public ResponseEntity<?> save(@Valid @RequestBody CouponRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody CouponRequest request, UriComponentsBuilder uriComponentsBuilder) {
 
 		Coupon coupon = request.toModel();
 		manager.persist(coupon);
 
-		CouponResponse response = new CouponResponse(coupon);
+		return ResponseEntity.created(uriComponentsBuilder.path("/api/coupon/{id}")
+				.buildAndExpand(coupon.getId()).toUri()).build();
 
-		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping(value = "/{id}")

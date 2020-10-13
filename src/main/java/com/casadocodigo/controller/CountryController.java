@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.casadocodigo.entity.Country;
 import com.casadocodigo.requests.CountryRequest;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/country")
@@ -27,14 +28,13 @@ public class CountryController {
 	@PostMapping(value = "")
 	@Transactional
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> save(@Valid @RequestBody CountryRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody CountryRequest request, UriComponentsBuilder uriComponentsBuilder) {
 
 		Country country = new Country(request.getName());
 		manager.persist(country);
 
-		CountryDetailResponse response = new CountryDetailResponse(country);
-
-		return ResponseEntity.ok(response);
+		return ResponseEntity.created(uriComponentsBuilder.path("/api/country/{id}")
+				.buildAndExpand(country.getId()).toUri()).build();
 	}
 
 }

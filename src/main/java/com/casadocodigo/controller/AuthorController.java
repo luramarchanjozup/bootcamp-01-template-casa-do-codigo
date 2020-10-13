@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.casadocodigo.entity.Author;
 import com.casadocodigo.requests.AuthorRequest;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/author")
@@ -26,15 +27,13 @@ public class AuthorController {
 
 	@PostMapping(value = "")
 	@Transactional
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> save(@Valid @RequestBody AuthorRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody AuthorRequest request, UriComponentsBuilder uriComponentsBuilder) {
 
 		Author author = request.toModel();
 		manager.persist(author);
 
-		AuthorBookResponse response = new AuthorBookResponse(author);
-
-		return ResponseEntity.ok(response);
+		return ResponseEntity.created(uriComponentsBuilder.path("/api/author/{id}")
+				.buildAndExpand(author.getId()).toUri()).build();
 	}
 
 }

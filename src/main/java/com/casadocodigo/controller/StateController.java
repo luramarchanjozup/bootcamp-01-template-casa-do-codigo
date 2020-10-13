@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.casadocodigo.entity.State;
 import com.casadocodigo.requests.StateRequest;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/state")
@@ -26,15 +27,13 @@ public class StateController {
 
 	@PostMapping(value = "")
 	@Transactional
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> save(@Valid @RequestBody StateRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody StateRequest request, UriComponentsBuilder uriComponentsBuilder) {
 
 		State state = request.toModel(manager);
 		manager.persist(state);
 
-		StateDetailResponse response = new StateDetailResponse(state);
-
-		return ResponseEntity.ok(response);
+		return ResponseEntity.created(uriComponentsBuilder.path("/api/state/{id}")
+				.buildAndExpand(state.getId()).toUri()).build();
 	}
 
 }

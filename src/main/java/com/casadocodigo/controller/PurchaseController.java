@@ -22,6 +22,7 @@ import com.casadocodigo.validators.CouponValidator;
 import com.casadocodigo.validators.CpfOrCnpjValidator;
 import com.casadocodigo.validators.StateBelongToCountryValidator;
 import com.google.gson.Gson;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/purchase")
@@ -43,14 +44,14 @@ public class PurchaseController {
 
 	@PostMapping(value = "")
 	@Transactional
-	public ResponseEntity<?> save(@Valid @RequestBody PurchaseRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody PurchaseRequest request, UriComponentsBuilder uriComponentsBuilder) {
 
 		Purchase purchase = request.toModel(manager, couponRepository);
 		manager.persist(purchase);
 
-		PurchaseDetailResponse response = new PurchaseDetailResponse(purchase);
+		return ResponseEntity.created(uriComponentsBuilder.path("/api/purchase/{id}")
+				.buildAndExpand(purchase.getId()).toUri()).build();
 
-		return ResponseEntity.ok(response);
 	}
 
 }

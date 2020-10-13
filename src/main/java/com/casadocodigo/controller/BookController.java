@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.casadocodigo.entity.Book;
 import com.casadocodigo.requests.BookRequest;
 import com.google.gson.Gson;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/book")
@@ -31,14 +32,13 @@ public class BookController {
 
 	@PostMapping(value = "")
 	@Transactional
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> save(@Valid @RequestBody BookRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody BookRequest request, UriComponentsBuilder uriComponentsBuilder) {
 
 		Book book = request.toModel(manager);
 		manager.persist(book);
-		BookDetailResponse response = new BookDetailResponse(book);
 
-		return ResponseEntity.ok(response);
+		return ResponseEntity.created(uriComponentsBuilder.path("/api/book/{id}")
+				.buildAndExpand(book.getId()).toUri()).build();
 	}
 
 }

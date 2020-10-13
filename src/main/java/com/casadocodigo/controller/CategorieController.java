@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.casadocodigo.entity.Categories;
 import com.casadocodigo.requests.CategoriesRequest;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/category")
@@ -27,14 +28,13 @@ public class CategorieController {
 	@PostMapping(value = "")
 	@Transactional
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> save(@Valid @RequestBody CategoriesRequest request) {
+	public ResponseEntity<?> save(@Valid @RequestBody CategoriesRequest request, UriComponentsBuilder uriComponentsBuilder) {
 
 		Categories category = new Categories(request.getName());
 		manager.persist(category);
 
-		CategoryBookResponse response = new CategoryBookResponse(category);
-
-		return ResponseEntity.ok(response);
+		return ResponseEntity.created(uriComponentsBuilder.path("/api/category/{id}")
+				.buildAndExpand(category.getId()).toUri()).build();
 	}
 
 }

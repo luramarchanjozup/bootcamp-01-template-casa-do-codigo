@@ -46,6 +46,8 @@ public class NovoLivroDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate date;
 	
+	private Autor autor;
+	
 	//@NotNull(message = "Autor obrigatório")
 	@IdUnico(domainClass = Autor.class, fieldName = "id", message = "O ID do Autor é obrigatório e tem ser válido")
 	private String idAutor;
@@ -153,7 +155,7 @@ public class NovoLivroDTO {
 		@NotNull Autor autor = entityManager.find(Autor.class, idAutor);
 		@NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria);
 		
-		//isTrue
+		//alternativa isTrue, n usar if (2ptos)
 		Assert.state(autor != null, "Favor verificar nome do Autor, este nome não está cadastrado.");
 		Assert.state(categoria != null, "Favor verificar nome da Categoria, este nome não está cadastrado");
 		

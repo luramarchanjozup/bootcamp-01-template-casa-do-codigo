@@ -29,6 +29,10 @@ public class Autor {
         this.descricao = descricao;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }

@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class NovaCompraRequest {
@@ -173,8 +174,8 @@ public class NovaCompraRequest {
         this.pedido = pedido;
     }
 
-    public String getCodigoCupom() {
-        return codigoCupom;
+    public Optional<String> getCodigoCupom() {
+        return Optional.ofNullable(codigoCupom);
     }
 
     public void setCodigoCupom(String codigoCupom) {

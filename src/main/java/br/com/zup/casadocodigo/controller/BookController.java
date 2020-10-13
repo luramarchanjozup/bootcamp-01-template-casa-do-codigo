@@ -2,7 +2,7 @@ package br.com.zup.casadocodigo.controller;
 
 import br.com.zup.casadocodigo.domain.Book;
 import br.com.zup.casadocodigo.dto.BookDTO;
-import br.com.zup.casadocodigo.dto.BookDetails;
+import br.com.zup.casadocodigo.dto.BookDetailsDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,9 +50,9 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
 
-        BookDetails bookDetails = new BookDetails(oneBook);
+        BookDetailsDTO bookDetailsDTO = new BookDetailsDTO(oneBook);
 
-        return ResponseEntity.ok(bookDetails);
+        return ResponseEntity.ok(bookDetailsDTO);
     }
 
 }

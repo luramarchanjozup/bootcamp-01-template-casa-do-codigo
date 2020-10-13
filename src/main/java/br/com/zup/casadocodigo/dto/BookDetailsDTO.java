@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class BookDetails {
+public class BookDetailsDTO {
     private DetailsAuthorDTO author;
     private String title;
     private String resume;
@@ -16,7 +16,7 @@ public class BookDetails {
     private String isbn;
     private String datePublish;
 
-    public BookDetails(Book book) {
+    public BookDetailsDTO(Book book) {
 
         author = new DetailsAuthorDTO(book.getAuthor());
         title = book.getTitle();

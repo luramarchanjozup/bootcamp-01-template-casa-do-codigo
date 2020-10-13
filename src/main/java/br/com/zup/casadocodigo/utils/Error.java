@@ -4,13 +4,13 @@ import java.util.Collection;
 
 public class Error {
 
-    private Collection<String> mensagens;
+    private Collection<String> message;
 
-    public Error(Collection<String> mensagens) {
-        this.mensagens = mensagens;
+    public Error(Collection<String> message) {
+        this.message = message;
     }
 
-    public Collection<String> getMensagens() {
-        return mensagens;
+    public Collection<String> getMessage() {
+        return message;
     }
 }

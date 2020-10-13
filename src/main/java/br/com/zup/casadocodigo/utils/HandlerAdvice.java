@@ -19,17 +19,17 @@ public class HandlerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Error> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
 
-        Collection<String> mensagens = new ArrayList<>();
+        Collection<String> message = new ArrayList<>();
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         fieldErrors.forEach(
                 fieldError -> {
-                    String message = String.format("Campo %s %s", fieldError.getField(), fieldError.getDefaultMessage());
-                    mensagens.add(message);
+                    String post = String.format("Field %s %s", fieldError.getField(), fieldError.getDefaultMessage());
+                    message.add(post);
                 }
         );
 
-        Error erroPadronizado = new Error(mensagens);
+        Error erroPadronizado = new Error(message);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroPadronizado);
 
     }

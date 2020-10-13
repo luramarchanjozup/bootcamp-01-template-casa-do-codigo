@@ -21,7 +21,7 @@ public class Shopping {
     private String telefone;
     private String cep;
 
-    public Shopping(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, State estado, Country pais, String telefone, String cpf) {
+    public Shopping(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, String telefone, String cep) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -29,9 +29,12 @@ public class Shopping {
         this.endereco = endereco;
         this.complemento = complemento;
         this.cidade = cidade;
-        this.estado = estado;
-        this.pais = pais;
         this.telefone = telefone;
         this.cep = cep;
+    }
+
+    public void setEstadoAndPais(State estado, Country pais) {
+        this.estado = estado;
+        this.pais = pais;
     }
 }

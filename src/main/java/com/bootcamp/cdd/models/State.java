@@ -29,6 +29,10 @@ public class State {
         return country;
     }
 
+    public long getCountryId() {
+        return getCountry().getId();
+    }
+
     public long getId() {
         return id;
     }

@@ -6,6 +6,7 @@ import br.com.zup.treinocasadocodigo.entities.livro.LivroRetornoLista;
 import br.com.zup.treinocasadocodigo.entities.livro.LivroRetornoDetalhes;
 import br.com.zup.treinocasadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,9 @@ public class LivroController {
     //1
     private LivroRepository livroRepository;
 
-    @PostMapping()
+    @PostMapping
     @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
     //1
     public String cadastroLivro(@RequestBody @Valid LivroNovoRequest livroNovo) {
         //1
@@ -41,7 +43,7 @@ public class LivroController {
         return livro.toString();
     }
 
-    @GetMapping()
+    @GetMapping
     //1
     public List<LivroRetornoLista> todosLivros() {
         //1

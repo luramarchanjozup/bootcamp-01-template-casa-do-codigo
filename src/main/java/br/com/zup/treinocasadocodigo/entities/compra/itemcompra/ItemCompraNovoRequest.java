@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive;
  * Contagem de carga intrínseca da classe: 3
  */
 
-public class ItemCompraRequest {
+public class ItemCompraNovoRequest {
 
     @NotNull
     //1
@@ -20,11 +20,6 @@ public class ItemCompraRequest {
     @NotNull
     @Positive
     private int quantidade;
-
-    public ItemCompraRequest(Long idLivro, int quantidade) {
-        this.idLivro = idLivro;
-        this.quantidade = quantidade;
-    }
 
     public Long getIdLivro() {
         return idLivro;

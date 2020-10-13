@@ -1,6 +1,6 @@
 package br.com.zup.treinocasadocodigo.validators.validarcompras;
 
-import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
+import br.com.zup.treinocasadocodigo.entities.compra.CompraNovoRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -20,7 +20,7 @@ public class CompraValidador implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return CompraRequest.class.isAssignableFrom(aClass);
+        return CompraNovoRequest.class.isAssignableFrom(aClass);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CompraValidador implements Validator {
         }
 
         //1
-        CompraRequest compra = (CompraRequest) o;
+        CompraNovoRequest compra = (CompraNovoRequest) o;
 
         //2
         if(!EstadoValidador.estadoValido(compra, manager)) {

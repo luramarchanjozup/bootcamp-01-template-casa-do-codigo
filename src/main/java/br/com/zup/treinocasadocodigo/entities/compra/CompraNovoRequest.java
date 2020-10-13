@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Contagem de carga intrínseca da classe: 9
  */
 
-public class CompraRequest {
+public class CompraNovoRequest {
 
     //Dados do comprador
     @NotBlank
@@ -53,22 +53,7 @@ public class CompraRequest {
     @NotNull
     @Valid
     //1
-    private PedidoCompraRequest pedido;
-
-    public CompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long idPais, Long idEstado, @NotBlank String telefone, @NotBlank String cep, @NotNull @Valid PedidoCompraRequest pedido) {
-        this.email = email;
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.documento = documento;
-        this.endereco = endereco;
-        this.complemento = complemento;
-        this.cidade = cidade;
-        this.idPais = idPais;
-        this.idEstado = idEstado;
-        this.telefone = telefone;
-        this.cep = cep;
-        this.pedido = pedido;
-    }
+    private PedidoCompraNovoRequest pedido;
 
     public String getEmail() {
         return email;
@@ -114,11 +99,11 @@ public class CompraRequest {
         return cep;
     }
 
-    public PedidoCompraRequest getPedido() {
+    public PedidoCompraNovoRequest getPedido() {
         return pedido;
     }
 
-    public void setPedido(PedidoCompraRequest pedido) {
+    public void setPedido(PedidoCompraNovoRequest pedido) {
         this.pedido = pedido;
     }
 

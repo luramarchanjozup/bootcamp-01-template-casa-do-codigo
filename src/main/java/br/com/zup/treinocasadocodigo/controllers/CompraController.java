@@ -1,7 +1,7 @@
 package br.com.zup.treinocasadocodigo.controllers;
 
 import br.com.zup.treinocasadocodigo.entities.compra.Compra;
-import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
+import br.com.zup.treinocasadocodigo.entities.compra.CompraNovoRequest;
 import br.com.zup.treinocasadocodigo.entities.compra.CompraRetorno;
 import br.com.zup.treinocasadocodigo.validators.validarcompras.CompraValidador;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +35,10 @@ public class CompraController {
         binder.addValidators(compraValidador);
     }
 
-    @PostMapping()
+    @PostMapping
     @Transactional
     //1
-    public ResponseEntity<Object> cadastroCompra(@RequestBody @Valid CompraRequest novaCompra) {
+    public ResponseEntity<Object> cadastroCompra(@RequestBody @Valid CompraNovoRequest novaCompra) {
 
         //1
         Compra compra = novaCompra.toModel(manager);

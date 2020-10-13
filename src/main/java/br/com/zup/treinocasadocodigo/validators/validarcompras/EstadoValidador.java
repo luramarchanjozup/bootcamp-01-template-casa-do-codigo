@@ -1,6 +1,6 @@
 package br.com.zup.treinocasadocodigo.validators.validarcompras;
 
-import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
+import br.com.zup.treinocasadocodigo.entities.compra.CompraNovoRequest;
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.pais.Pais;
 
@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 public class EstadoValidador{
 
     //1
-    public static boolean estadoValido(CompraRequest compra, EntityManager manager) {
+    public static boolean estadoValido(CompraNovoRequest compra, EntityManager manager) {
         //1
         if (compra.getIdEstado() == null) {
             return true;

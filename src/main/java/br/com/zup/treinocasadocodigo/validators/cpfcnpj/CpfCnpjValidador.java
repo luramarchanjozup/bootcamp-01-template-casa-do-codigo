@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * Contagem de carga intrínseca da classe: 1
+ * Contagem de carga intrínseca da classe: 2
  */
 
 //1
@@ -19,6 +19,11 @@ public class CpfCnpjValidador implements ConstraintValidator<CpfCnpj, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
+
+        //1
+        if (value == null) {
+            return true;
+        }
 
         CPFValidator cpfValidator = new CPFValidator();
         cpfValidator.initialize(null);

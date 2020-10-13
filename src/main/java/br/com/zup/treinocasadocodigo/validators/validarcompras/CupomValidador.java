@@ -1,7 +1,7 @@
 package br.com.zup.treinocasadocodigo.validators.validarcompras;
 
 import br.com.zup.treinocasadocodigo.entities.compra.Compra;
-import br.com.zup.treinocasadocodigo.entities.compra.CompraRequest;
+import br.com.zup.treinocasadocodigo.entities.compra.CompraNovoRequest;
 import br.com.zup.treinocasadocodigo.entities.cupom.Cupom;
 
 import javax.persistence.EntityManager;
@@ -14,7 +14,7 @@ import java.util.List;
 public class CupomValidador {
 
     //1
-    public static boolean cupomValido(CompraRequest compra, EntityManager manager) {
+    public static boolean cupomValido(CompraNovoRequest compra, EntityManager manager) {
 
         //1
         if (compra.getPedido().getCodigoCupom() == null){ //Não há cupom para validar
@@ -28,14 +28,14 @@ public class CupomValidador {
                 .setMaxResults(1)
                 .getResultList();
         //1
-        if(listaCupom.isEmpty()) {
+        if(listaCupom.isEmpty()) { // Código não foi localizado
             return false;
         }
 
         Cupom cupom = listaCupom.get(0);
 
         //1
-        if(cupom.vencido()) {
+        if(cupom.vencido()) { //Código vencido
             return false;
         }
 
@@ -45,6 +45,6 @@ public class CupomValidador {
                 .setParameter("cupom_id", cupom)
                 .getResultList();
 
-        return listaCompra.isEmpty();
+        return listaCompra.isEmpty(); //Código já utilizado ou não
     }
 }

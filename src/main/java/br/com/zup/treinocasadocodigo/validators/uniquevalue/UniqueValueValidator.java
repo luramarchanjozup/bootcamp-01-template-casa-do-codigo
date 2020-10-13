@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 /**
- * Contagem de carga intrínseca da classe: 1
+ * Contagem de carga intrínseca da classe: 2
  */
 
 //1
@@ -30,6 +30,12 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, St
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
+
+        //1
+        if (value == null) {
+            return true;
+        }
+
         Query query = manager.createQuery("select 1 from "+dominioClasse.getName()+" where "+nomeCampo+"=:value");
         query.setParameter("value", value);
         List<?> list = query.getResultList();

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * Contagem de carga intrínseca da classe: 0
+ * Contagem de carga intrínseca da classe: 1
  */
 
 @Entity
@@ -75,6 +75,7 @@ public class Cupom {
                 '}';
     }
 
+    //1
     public void autalizar(@Valid CupomAtualizadoRequest cupomAtualizado) {
         this.codigo = cupomAtualizado.getCodigo();
         this.desconto = cupomAtualizado.getDesconto();

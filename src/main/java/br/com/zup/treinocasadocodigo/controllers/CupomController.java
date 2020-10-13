@@ -34,7 +34,7 @@ public class CupomController {
     //1
     CupomRepository cupomRepository;
 
-    @PostMapping()
+    @PostMapping
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     //1

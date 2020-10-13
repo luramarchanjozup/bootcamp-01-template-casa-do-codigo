@@ -1,6 +1,6 @@
 package br.com.zup.treinocasadocodigo.entities.compra;
 
-import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompraRequest;
+import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompraNovoRequest;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -13,7 +13,7 @@ import java.util.List;
  * Contagem de carga intrínseca da classe: 1
  */
 
-public class PedidoCompraRequest {
+public class PedidoCompraNovoRequest {
 
     @Positive
     @NotNull
@@ -22,21 +22,15 @@ public class PedidoCompraRequest {
     @NotEmpty
     @Valid
     //1
-    List<ItemCompraRequest> itens;
+    List<ItemCompraNovoRequest> itens;
 
     private String codigoCupom;
-
-    public PedidoCompraRequest(@Positive @NotNull BigDecimal total, @NotEmpty @Valid List<ItemCompraRequest> itens, String codigoCupom) {
-        this.total = total;
-        this.itens = itens;
-        this.codigoCupom = codigoCupom;
-    }
 
     public BigDecimal getTotal() {
         return total;
     }
 
-    public List<ItemCompraRequest> getItens() {
+    public List<ItemCompraNovoRequest> getItens() {
         return itens;
     }
 

@@ -2,9 +2,8 @@ package br.com.zup.treinocasadocodigo.controllers;
 
 import br.com.zup.treinocasadocodigo.entities.estado.Estado;
 import br.com.zup.treinocasadocodigo.entities.estado.EstadoNovoRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,13 +15,15 @@ import javax.validation.Valid;
  */
 
 @RestController
+@RequestMapping("/estados")
 public class EstadoConrtoller {
 
     @PersistenceContext
     private EntityManager manager;
 
-    @PostMapping("/estados")
+    @PostMapping
     @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
     //1
     public String cadastroEstado(@RequestBody @Valid EstadoNovoRequest novoEstado) {
         //1

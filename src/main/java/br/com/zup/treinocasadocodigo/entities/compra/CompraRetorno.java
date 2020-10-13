@@ -2,6 +2,7 @@ package br.com.zup.treinocasadocodigo.entities.compra;
 
 import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
 import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompraRetorno;
+import br.com.zup.treinocasadocodigo.entities.cupom.CupomRetorno;
 import br.com.zup.treinocasadocodigo.entities.estado.EstadoRetorno;
 import br.com.zup.treinocasadocodigo.entities.pais.PaisRetorno;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 7
  */
 
 public class CompraRetorno {
@@ -22,16 +23,16 @@ public class CompraRetorno {
     private String endereco;
     private String complemento;
     private String cidade;
-    //1
-    private PaisRetorno pais;
-    //1
-    private EstadoRetorno estado;
+    private String pais;
+    private String estado;
     private String telefone;
     private String cep;
 
     //Dados da compra
     //1
     private List<ItemCompraRetorno> listaItens;
+    //1
+    private CupomRetorno cupom;
     private BigDecimal totalSemDesconto;
     private BigDecimal totalCompra;
 
@@ -44,13 +45,16 @@ public class CompraRetorno {
         this.endereco = compra.getEndereco();
         this.complemento = compra.getComplemento();
         this.cidade = compra.getCidade();
-        this.pais = new PaisRetorno(compra.getPais());
-        this.estado = new EstadoRetorno(compra.getEstado());
+        this.pais = compra.getPais().getNome();
+        //1
+        this.estado = compra.getEstado() == null ? "" : compra.getEstado().getNome();
         this.telefone = compra.getTelefone();
         this.cep = compra.getCep();
+        //1
         this.listaItens = compra.getListaItens()
                 .stream().map(ItemCompraRetorno::new)
                 .collect(Collectors.toList());
+        this.cupom = new CupomRetorno(compra.getCupom());
         this.totalCompra = compra.getTotal();
         this.totalSemDesconto = calculaTotalSemDesconto(compra);
     }
@@ -97,11 +101,11 @@ public class CompraRetorno {
         return cidade;
     }
 
-    public PaisRetorno getPais() {
+    public String getPais() {
         return pais;
     }
 
-    public EstadoRetorno getEstado() {
+    public String getEstado() {
         return estado;
     }
 
@@ -123,5 +127,9 @@ public class CompraRetorno {
 
     public BigDecimal getTotalCompra() {
         return totalCompra;
+    }
+
+    public CupomRetorno getCupom() {
+        return cupom;
     }
 }

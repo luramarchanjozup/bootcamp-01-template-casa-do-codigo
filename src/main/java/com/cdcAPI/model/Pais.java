@@ -2,8 +2,6 @@ package com.cdcAPI.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Pais {

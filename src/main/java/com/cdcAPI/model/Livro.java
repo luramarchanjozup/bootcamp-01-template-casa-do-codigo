@@ -2,10 +2,7 @@ package com.cdcAPI.model;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -35,9 +32,9 @@ public class Livro {
     private int n_paginas;
 
     @NotBlank
-    private String isbn; // Usar Long ou String?
+    private String isbn;
 
-    //ToDo apenas data futura @Future
+    @Future
     @NotNull
     private LocalDate dataPublicacao;
 

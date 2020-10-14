@@ -36,12 +36,13 @@ public class NovaCompraRequest {
     private Integer idPais;
     private Integer idEstado;
     @NotBlank
-    @Pattern(message = "Formato do telefone inválido.", regexp = "^[0-9]{2}-[0-9]{4}-[0-9]{4}$")
+    @Pattern(message = "Formato do telefone inválido.", regexp = "^[0-9]{2}-[0-9]{5}-[0-9]{4}$")
     private String telefone;
     @NotBlank
     @Pattern(message = "Formato do CEP inválido.", regexp = "^\\d{5}-\\d{3}$")
     private String cep;
 
+    @Deprecated
     public NovaCompraRequest(){
 
     }
@@ -151,7 +152,7 @@ public class NovaCompraRequest {
     public Compra toModel(EntityManager entityManager) {
         @NotNull Pais pais = entityManager.find(Pais.class, idPais);
 
-        Query customQuery = entityManager.createQuery("select 1 from " + Estado.class + " where id_pais = :idPais");
+        Query customQuery = entityManager.createQuery("select 1 from " + Estado.class.getName() + " where id_pais = :idPais");
         customQuery.setParameter("idPais", pais.getId());
 
         List<Estado> estados = customQuery.getResultList();
@@ -162,5 +163,9 @@ public class NovaCompraRequest {
         }
 
         return new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone, cep);
+    }
+
+    public boolean temEstado(){
+        return idEstado != null;
     }
 }

@@ -12,17 +12,20 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @RestController
 @RequestMapping(value = "/novaCompra")
 public class NovaCompraController {
 
-    @Autowired
+    @PersistenceContext
     EntityManager entityManager;
+    @Autowired
+    PaisComEstadoValidator paisComEstadoValidator;
 
     @InitBinder
     public void init(WebDataBinder binder){
-        binder.addValidators(new PaisComEstadoValidator());
+        binder.addValidators(paisComEstadoValidator);
     }
 
     @PostMapping

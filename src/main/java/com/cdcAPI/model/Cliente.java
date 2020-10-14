@@ -49,7 +49,7 @@ public class Cliente {
     @NotBlank
     private String cep;
 
-    @OneToOne
+    @ManyToOne
     private Cupom cupom;
 
     @Deprecated

@@ -24,7 +24,7 @@ public class Compra {
     @OneToOne(cascade = CascadeType.ALL)
     private Cliente cliente;
 
-    @OneToMany
+    @ManyToMany
     private List<Livro> livros;
 
 

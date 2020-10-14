@@ -5,13 +5,14 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guiferrini.CasaCodigo.model.Categoria;
-import com.guiferrini.CasaCodigo.model.CategoriaDTO;
+import com.guiferrini.CasaCodigo.model.Estado;
+import com.guiferrini.CasaCodigo.model.EstadoDTO;
 import com.guiferrini.CasaCodigo.model.Pais;
 import com.guiferrini.CasaCodigo.model.PaisDTO;
 
@@ -28,6 +29,16 @@ public class PaisEstadoController {
 		
 		Pais obj = new Pais(paisDTO.getNome());
 		entityManager.persist(obj);
+		
+		return obj;
+	}
+	
+	@PostMapping(value="/pais/estado")
+	@Transactional
+	public Estado criaEstado(@Valid @RequestBody EstadoDTO estadoDTO) {
+		
+		Estado obj = estadoDTO.toModel(entityManager);
+		entityManager.persist(obj); 
 		
 		return obj;
 	}

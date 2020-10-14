@@ -130,9 +130,12 @@ public class CompraNovoRequest {
 
         //1
         Pais pais = manager.find(Pais.class, this.idPais);
-        //2
-        Estado estado = this.idEstado == null ? null : manager.find(Estado.class, this.idEstado);
-
+        //1
+        Estado estado = null;
+        //1
+        if (this.idEstado != null) {
+            estado = manager.find(Estado.class, this.idEstado);
+        }
         //2
         List<ItemCompra> itens = this.pedido.getItens()
                 .stream()

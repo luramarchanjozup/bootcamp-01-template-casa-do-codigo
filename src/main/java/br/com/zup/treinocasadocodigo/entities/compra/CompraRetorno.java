@@ -3,8 +3,6 @@ package br.com.zup.treinocasadocodigo.entities.compra;
 import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompra;
 import br.com.zup.treinocasadocodigo.entities.compra.itemcompra.ItemCompraRetorno;
 import br.com.zup.treinocasadocodigo.entities.cupom.CupomRetorno;
-import br.com.zup.treinocasadocodigo.entities.estado.EstadoRetorno;
-import br.com.zup.treinocasadocodigo.entities.pais.PaisRetorno;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -46,8 +44,11 @@ public class CompraRetorno {
         this.complemento = compra.getComplemento();
         this.cidade = compra.getCidade();
         this.pais = compra.getPais().getNome();
+        this.estado = "";
         //1
-        this.estado = compra.getEstado() == null ? "" : compra.getEstado().getNome();
+        if(compra.getEstado() != null) {
+            this.estado = compra.getEstado().getNome();
+        }
         this.telefone = compra.getTelefone();
         this.cep = compra.getCep();
         //1

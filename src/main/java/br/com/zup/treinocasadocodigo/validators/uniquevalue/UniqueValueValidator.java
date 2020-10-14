@@ -36,9 +36,11 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, St
             return true;
         }
 
-        Query query = manager.createQuery("select 1 from "+dominioClasse.getName()+" where "+nomeCampo+"=:value");
-        query.setParameter("value", value);
-        List<?> list = query.getResultList();
+        List<?> list = manager
+                .createQuery("select 1 from "+dominioClasse.getName()+" where "+nomeCampo+"=:value")
+                .setParameter("value", value)
+                .getResultList();
+
         Assert.state(list.size() <=1, "Foi encontrado mais de um "+dominioClasse+" com o atributo "+nomeCampo+" = "+value);
 
         return list.isEmpty();

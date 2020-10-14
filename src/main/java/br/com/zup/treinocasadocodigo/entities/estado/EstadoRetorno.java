@@ -1,7 +1,7 @@
 package br.com.zup.treinocasadocodigo.entities.estado;
 
 /**
- * Contagem de carga intrínseca da classe: 2
+ * Contagem de carga intrínseca da classe: 3
  */
 
 public class EstadoRetorno {
@@ -10,7 +10,7 @@ public class EstadoRetorno {
 
     //1
     public EstadoRetorno(Estado estado) {
-        //1
+        //2
         this.nome = estado==null ? "" : estado.getNome();
     }
 

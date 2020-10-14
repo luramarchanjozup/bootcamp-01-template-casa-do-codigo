@@ -86,6 +86,7 @@ public class Compra {
         this.cep = cep;
         this.listaItens = listaItens;
         this.total = total;
+        this.cupom = null;
     }
 
     public Long getId() {
@@ -233,6 +234,8 @@ public class Compra {
                 .getResultList();
 
         //1
-        this.cupom = listaCupom.isEmpty() ? null : listaCupom.get(0);
+        if (!listaCupom.isEmpty()) {
+            this.cupom = listaCupom.get(0);
+        }
     }
 }

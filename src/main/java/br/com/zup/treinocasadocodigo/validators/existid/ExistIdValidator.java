@@ -32,9 +32,10 @@ public class ExistIdValidator implements ConstraintValidator<ExistId, Long> {
             return true;
         }
 
-        Query query = manager.createQuery("select 1 from "+dominioClasse.getName()+" where "+nomeCampo+"=:value");
-        query.setParameter("value", value);
-        List<?> list = query.getResultList();
+        List<?> list = manager
+                .createQuery("select 1 from "+dominioClasse.getName()+" where "+nomeCampo+"=:value")
+                .setParameter("value", value)
+                .getResultList();
 
         return !list.isEmpty();
     }

@@ -33,7 +33,7 @@ public class ValidaEmailDuplicadoAutor implements Validator {
 								.setParameter("email", autorDto.getEmail()).getResultList();
 	
 		
-		if(emailEncontrado.isEmpty() != true) {
+		if(emailEncontrado.isEmpty() == false) {
 			errors.rejectValue("email", "autorDto.email.sendo-usado",
 					"Já existe um(a) outro(a) autor(a) com o mesmo email" +
 			autorDto.getEmail());

@@ -32,8 +32,6 @@ public class ShoppingController {
             State estado = entityManager.find(State.class, request.getEstadoId());
             compra.setEstado(estado);
         }
-
-
         entityManager.persist(compra);
         return compra;
     }

@@ -10,8 +10,7 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.casacodig.model.Cupom;
-import br.com.casacodig.validator.ValorUnico;
+//Contagem de Pontos - TOTAL:0
 
 public class CupomUpdateDTO {
 

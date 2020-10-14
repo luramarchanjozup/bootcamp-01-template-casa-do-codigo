@@ -1,10 +1,8 @@
 package br.com.casacodig.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +15,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * @author gabri
- *
- */
+//Contagem de Pontos - TOTAL:3
+//1 - Autor
+//1 - Categoria
+
+
 @Entity
 public class Livro {
 

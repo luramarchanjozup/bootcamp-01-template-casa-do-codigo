@@ -4,6 +4,9 @@ import javax.validation.constraints.NotBlank;
 import br.com.casacodig.model.Pais;
 import br.com.casacodig.validator.ValorUnico;
 
+//Contagem de Pontos - TOTAL:1
+//1 - Pais
+
 public class PaisDTO {
 
 	@NotBlank @ValorUnico(classe = Pais.class, campo = "nome")

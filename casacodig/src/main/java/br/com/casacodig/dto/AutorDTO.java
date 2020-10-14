@@ -6,7 +6,8 @@ import javax.validation.constraints.Size;
 import br.com.casacodig.model.Autor;
 import br.com.casacodig.validator.ValorUnico;
 
-//Contagem de Pontos - TOTAL:0
+//Contagem de Pontos - TOTAL:1
+//1 - Autor
 
 public class AutorDTO {
 	

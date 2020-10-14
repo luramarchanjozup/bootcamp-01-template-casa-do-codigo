@@ -21,7 +21,7 @@ import javax.validation.Payload;
 @Target( { ElementType.PARAMETER, ElementType.FIELD })
 public @interface IdExistente {
 
-	String message() default "Falha por estar não exister o Autor ou Categoria informado";
+	String message() default "Falha por estar não exister o ID informado";
 	Class<?>[] groups() default { };
 	Class<? extends Payload>[] payload() default { };
 	

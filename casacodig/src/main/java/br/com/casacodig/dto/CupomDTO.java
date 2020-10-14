@@ -13,6 +13,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.casacodig.model.Cupom;
 import br.com.casacodig.validator.ValorUnico;
 
+
+//Contagem de Pontos - TOTAL:1
+//1 - Cupom
+
 public class CupomDTO {
 
 	@NotBlank @ValorUnico(classe = Cupom.class,campo = "codigo")

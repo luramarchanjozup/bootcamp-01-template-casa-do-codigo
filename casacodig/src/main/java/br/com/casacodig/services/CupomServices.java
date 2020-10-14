@@ -1,7 +1,5 @@
 package br.com.casacodig.services;
 
-import java.util.Optional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,6 +10,12 @@ import br.com.casacodig.dto.CupomDTO;
 import br.com.casacodig.dto.CupomUpdateDTO;
 import br.com.casacodig.model.Cupom;
 import br.com.casacodig.repositories.CupomRepository;
+
+//Contagem de Pontos - TOTAL:3
+//1 - AutorRepository
+//1 - CupomDTO
+//1 - Cupom
+
 
 @Service
 public class CupomServices {
@@ -24,10 +28,8 @@ public class CupomServices {
 	
 	public Cupom salvar(CupomDTO cupomdto) {
 		Cupom cupom = cupomdto.toModel();
-		manager.persist(cupom);
-		return cupom;
+		return cupomRepository.save(cupom);
 	}
-	
 	
 	public Cupom atualizar (CupomUpdateDTO cupomdto) {	
 		Cupom cupomAntigo = cupomRepository.findByCodigo(cupomdto.getCodigo());

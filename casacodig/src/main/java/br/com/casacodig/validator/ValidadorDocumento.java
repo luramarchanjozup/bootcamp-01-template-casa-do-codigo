@@ -1,16 +1,14 @@
 package br.com.casacodig.validator;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
-import org.springframework.util.Assert;
+
+
+//Contagem de Pontos - TOTAL:0
+
 
 public class ValidadorDocumento implements ConstraintValidator<DocumentoValido, String>{
 	
@@ -25,8 +23,6 @@ public class ValidadorDocumento implements ConstraintValidator<DocumentoValido, 
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		System.out.println("-------------TESTE VALIDADOR DOCUMENTO------------------");
-		System.out.println(value);
 		CPFValidator cpfValidator = new CPFValidator();
 		cpfValidator.initialize(null);
 		CNPJValidator cnpjValidator = new CNPJValidator();

@@ -8,6 +8,10 @@ import br.com.casacodig.model.ItemCarrinho;
 import br.com.casacodig.model.Livro;
 import br.com.casacodig.validator.IdExistente;
 
+//Contagem de Pontos - TOTAL:1
+//1 - ItemCarrinho
+//1 - Livro
+
 public class ItemCarrinhoDTO {
 
 	@IdExistente(classe = "Livro", campo = "id")

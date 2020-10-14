@@ -8,6 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.casacodig.model.Cupom;
 import br.com.casacodig.repositories.CupomRepository;
 
+
+//Contagem de Pontos - TOTAL:3
+//1 - CupomRepository
+//1 - Cupom
+//2 - If
+
 public class ValidadorCupom implements ConstraintValidator<CupomValido, String>{
 	
 	private String atributo;
@@ -30,7 +36,6 @@ public class ValidadorCupom implements ConstraintValidator<CupomValido, String>{
 		Cupom cupom = cupomRepository.findByCodigo(value);
 		
 		if (cupom != null && cupom.validaData() == true) {
-			System.out.println("Cupom não nulo");
 			return true;
 		}
 		

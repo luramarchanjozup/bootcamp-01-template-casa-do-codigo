@@ -38,12 +38,9 @@ public class Carrinho {
 	
 	
 	public void atualizaValor(BigDecimal desconto) {
-		System.out.println("------------- CARRINHO TESTE ATUALIZA VALOR------------------");
-		System.out.println(this.total);
 		BigDecimal valorDesconto = this.total.multiply(desconto);
 		valorDesconto = valorDesconto.setScale(2);
 		this.totalComDesconto = this.total.subtract(valorDesconto);
-		System.out.println(this.totalComDesconto);
 	}
 	
 

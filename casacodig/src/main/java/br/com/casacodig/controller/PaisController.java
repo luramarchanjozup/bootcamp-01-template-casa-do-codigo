@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.casacodig.dto.CategoriaDTO;
 import br.com.casacodig.dto.PaisDTO;
-import br.com.casacodig.error.ApiErroException;
 import br.com.casacodig.model.Pais;
-import br.com.casacodig.services.AutorServices;
 import br.com.casacodig.services.PaisServices;
+
+
+//Contagem de Pontos - TOTAL:3
+//1 - PaisServices
+//1 - PaisDTO
+//1 - Pais
 
 @RestController
 public class PaisController {
@@ -32,15 +35,8 @@ public class PaisController {
 	@PostMapping(value = "/v1/pais")
 	@Transactional
 	public ResponseEntity<?> cria(@Valid @RequestBody PaisDTO paisdto) {
-		try {
-			Pais pais = paisService.salvar(paisdto);
-			System.out.println("-------------PAIS CONTROLLER------------------");
-			System.out.println(pais.toString());
-			manager.persist(pais);
-			return new ResponseEntity<>(pais,HttpStatus.OK);
-		} catch (Exception e) {
-			throw new ApiErroException(HttpStatus.BAD_REQUEST, e.getMessage());
-		}
+		Pais pais = paisService.salvar(paisdto);
+		return new ResponseEntity<>(pais,HttpStatus.OK);	
 	}
 	
 	

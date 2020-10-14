@@ -4,11 +4,14 @@ import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import br.com.casacodig.model.Autor;
 import br.com.casacodig.model.Estado;
 import br.com.casacodig.model.Pais;
 import br.com.casacodig.validator.IdExistente;
 import br.com.casacodig.validator.ValorUnico;
+
+//Contagem de Pontos - TOTAL:2
+//1 - Pais
+//1 - Estado
 
 public class EstadoDTO {
 

@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import br.com.casacodig.model.Autor;
 
-//Contagem de Pontos - TOTAL:0
+//Contagem de Pontos - TOTAL:1
+//1 - Autor
 
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {

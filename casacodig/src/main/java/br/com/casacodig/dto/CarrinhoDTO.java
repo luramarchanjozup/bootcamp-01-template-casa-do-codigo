@@ -12,6 +12,11 @@ import javax.validation.constraints.Positive;
 import br.com.casacodig.model.Carrinho;
 import br.com.casacodig.model.ItemCarrinho;
 
+//Contagem de Pontos - TOTAL:3
+//1 - ItemCarrinho
+//1 - Carrinho
+//1 - For
+
 public class CarrinhoDTO {
 
 	@NotNull @Positive

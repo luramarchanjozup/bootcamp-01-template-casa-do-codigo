@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+//Contagem de Pontos - TOTAL:0
+
 @Entity
 public class Pais {
 

@@ -5,7 +5,8 @@ import javax.validation.constraints.NotBlank;
 import br.com.casacodig.model.Categoria;
 import br.com.casacodig.validator.ValorUnico;
 
-//Contagem de Pontos - TOTAL:0
+//Contagem de Pontos - TOTAL:1
+//1 - Categoria
 
 public class CategoriaDTO {
 

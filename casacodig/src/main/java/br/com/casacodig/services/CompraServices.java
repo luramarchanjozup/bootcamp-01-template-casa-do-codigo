@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import br.com.casacodig.dto.CompraDTO;
 import br.com.casacodig.model.Compra;
 
+//Contagem de Pontos - TOTAL:3
+//1 - CompraDTO
+//1 - Compra
+//1 - If
 
 @Service
 public class CompraServices {
@@ -18,13 +22,15 @@ public class CompraServices {
 	
 	public Compra salvar(CompraDTO compradto) throws Exception {
 		Compra compra = compradto.toModel(manager);
-		System.out.println("-------------COMPRA SERVICE------------------");
-		System.out.println(compra.toString());
 		if (compra.getEstado() == null) throw new Exception ("Estado não pertence ao pais informado");
 		compra.aplicaCupom();
-		System.out.println("-------------COMPRA SERVICE DEPOIS DESCONTO------------------");
-		System.out.println(compra.toString());
 		manager.persist(compra);
+		return compra;
+	}
+	
+	
+	public Compra listarCompras (Long id) {
+		Compra compra = manager.find(Compra.class, id);
 		return compra;
 	}
 

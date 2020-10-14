@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import br.com.casacodig.model.Cupom;
 
-
+//CupomRepository de Pontos - TOTAL:1
+//1 - Cupom
 
 @Repository
 public interface CupomRepository extends JpaRepository<Cupom, Long> {

@@ -30,6 +30,7 @@ public class ShoppingController {
         compra.setPais(pais);
         if (request.getEstadoId() != null) {
             State estado = entityManager.find(State.class, request.getEstadoId());
+            Assert.isTrue(estado.getCountryId() == pais.getId(), "O estado não faz parte do pais informado");
             compra.setEstado(estado);
         }
         entityManager.persist(compra);

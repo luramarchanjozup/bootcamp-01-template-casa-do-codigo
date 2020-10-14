@@ -1,3 +1,7 @@
-# Por favor faça um Fork desse projeto!
+# API Casa do Código
+Projeto construído para atender as funcionalidades da aplicação da Casa do Código.
 
-## Está em dúvida de como fazer um Fork? Não tem problema! [Aqui tem uma explicação do que entendemos que você deve considerar!](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
+## Tecnologias utilizadas
+
+## Endpoints e métodos 
+

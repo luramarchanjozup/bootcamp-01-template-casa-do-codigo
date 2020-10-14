@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,14 +23,14 @@ public class Pais {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	private String id;
 	
-	@NotBlank(message="Nome é obrigatório")
+	@NotNull(message="Nome é obrigatório")
 	private String nome;
 	
 	@Deprecated
 	public Pais() {
 	}
 
-	public Pais(@NotBlank(message = "Nome é obrigatório") String nome) {
+	public Pais(@NotNull(message = "Nome é obrigatório") String nome) {
 		super();
 		this.nome = nome;
 	}

@@ -32,3 +32,4 @@ public class CategoriaDTO {
 		return obj;
 	}
 }
+  

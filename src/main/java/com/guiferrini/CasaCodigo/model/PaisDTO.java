@@ -1,17 +1,17 @@
 package com.guiferrini.CasaCodigo.model;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class PaisDTO {
 	
-	@NotBlank(message="Nome é obrigatório")
+	@NotNull(message="Nome é obrigatório")
 	@ValorUnico(domainClass=Pais.class, fieldName="nome",message="Nome já existe, favor verificar.")
 	private String nome;
 	
 	public PaisDTO() {
 	}
 
-	public PaisDTO(@NotBlank(message = "Nome é obrigatório") String nome) {
+	public PaisDTO(@NotNull(message = "Nome é obrigatório") String nome) {
 		super();
 		this.nome = nome;
 	}

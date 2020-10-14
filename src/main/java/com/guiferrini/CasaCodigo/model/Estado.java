@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Estado {
 
 	@Id
-	//@Column(name="estado", nullable=false)
+	@Column(name="id", nullable=false)
 	//private Long id;
 	@GeneratedValue(generator = "UUID", strategy = GenerationType.SEQUENCE)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")

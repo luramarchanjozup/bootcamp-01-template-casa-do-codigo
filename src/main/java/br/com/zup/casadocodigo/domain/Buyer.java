@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.function.Function;
 
 @Getter @Setter
 @Entity(name = "buyer")
@@ -23,13 +24,18 @@ public class Buyer {
     private String address;
     private String complement;
     private String city;
+
     @ManyToOne
     private Country country;
 
     @ManyToOne
     private State state;
+
     private String phone;
     private String zipCode;
+
+    @OneToOne(mappedBy = "buyer",cascade = CascadeType.PERSIST)
+    private Order order;
 
     @Deprecated
     public Buyer(){
@@ -42,7 +48,7 @@ public class Buyer {
                     @NotBlank String city, @NotBlank Country country,
                    // String state,
                     @NotBlank String phone,
-                    @NotBlank String zipCode) {
+                    @NotBlank String zipCode, Function<Buyer, Order> createOrder) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -54,6 +60,7 @@ public class Buyer {
        //this.state = state;
         this.phone = phone;
         this.zipCode = zipCode;
+        this.order = createOrder.apply(this);
     }
 
     public String getName() {

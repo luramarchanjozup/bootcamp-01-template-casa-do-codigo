@@ -3,6 +3,7 @@ package br.com.zup.casadocodigo.dto;
 import br.com.zup.casadocodigo.annotations.ExistsValue;
 import br.com.zup.casadocodigo.annotations.UniqueValue;
 import br.com.zup.casadocodigo.domain.Country;
+import br.com.zup.casadocodigo.domain.Order;
 import br.com.zup.casadocodigo.domain.State;
 import br.com.zup.casadocodigo.domain.Buyer;
 import lombok.Getter;
@@ -11,9 +12,11 @@ import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 
 import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.function.Function;
 
 @Getter
 @Setter
@@ -55,6 +58,9 @@ public class BuyerDTO {
     @NotBlank(message = "is required")
     private String zipCode;
 
+    @NotNull @Valid
+    private OrderDTO order;
+
     public BuyerDTO(@NotBlank String name, @NotBlank String surname,
                     @NotBlank @Email String email,
                     @NotBlank String cpfCnpj,
@@ -64,7 +70,7 @@ public class BuyerDTO {
                     @NotNull Long countryId,
                     Long stateId,
                     @NotBlank String phone,
-                    @NotBlank String zipCode) {
+                    @NotBlank String zipCode, @NotNull @Valid OrderDTO order) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -76,7 +82,22 @@ public class BuyerDTO {
         this.stateId = stateId;
         this.phone = phone;
         this.zipCode = zipCode;
+        this.order = order;
     }
+
+
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public Long getStateId() {
+        return stateId;
+    }
+
+    public OrderDTO getOrder() {
+        return order;
+    }
+
 
     public boolean validatesCpfCnpj() {
         CPFValidator cpfValidator = new CPFValidator();
@@ -88,19 +109,13 @@ public class BuyerDTO {
         return cpfValidator.isValid(cpfCnpj, null) || cnpjValidator.isValid(cpfCnpj, null);
     }
 
-    public Long getCountryId() {
-        return countryId;
-    }
-
-    public Long getStateId() {
-        return stateId;
-    }
-
     public Buyer toModel(EntityManager manager) {
         Country country = manager.find(Country.class, countryId);
 
+        Function<Buyer, Order> createOrder = order.toModel(manager);
+
         Buyer buyer = new Buyer(this.name, this.surname, this.email, this.cpfCnpj,
-        this.address, this.complement, this.city, country, this.phone, this.zipCode);
+        this.address, this.complement, this.city, country, this.phone, this.zipCode, createOrder);
 
         if(stateId != null) {
             buyer.setState(manager.find(State.class, stateId));

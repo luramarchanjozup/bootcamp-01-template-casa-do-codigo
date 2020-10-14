@@ -2,7 +2,9 @@ package br.com.thyagoribeiro.casadocodigo.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.List;
 
 // CDD - Total 1
@@ -22,12 +24,17 @@ public class Pedido {
     @ElementCollection
     private List<Item> itemList;
 
+    @NotNull
+    @Positive
+    private BigDecimal total;
+
     @Deprecated
     public Pedido() {
     }
 
-    public Pedido(@Size(min = 1) List<Item> itemList) {
+    public Pedido(@NotNull @Positive BigDecimal total, @Size(min = 1) List<Item> itemList) {
         this.itemList = itemList;
+        this.total = total;
     }
 
     public Long getId() {
@@ -54,4 +61,11 @@ public class Pedido {
         this.itemList = itemList;
     }
 
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 }

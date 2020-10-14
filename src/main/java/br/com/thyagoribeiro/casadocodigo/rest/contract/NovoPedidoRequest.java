@@ -22,15 +22,15 @@ public class NovoPedidoRequest {
     @NotNull
     @Size(min = 1)
     @Valid
-    private List<NovoItemRequest> itens; // CDD 1 - Classe NovoItemRequest
+    private List<NovoItemRequest> novoItemRequestList; // CDD 1 - Classe NovoItemRequest
 
     @Deprecated
     public NovoPedidoRequest() {
     }
 
-    public NovoPedidoRequest(@NotNull @Positive BigDecimal total, @Size(min = 1) List<NovoItemRequest> itens) {
+    public NovoPedidoRequest(@NotNull @Positive BigDecimal total, @Size(min = 1) @Valid List<NovoItemRequest> itens) {
         this.total = total;
-        this.itens = itens;
+        this.novoItemRequestList = itens;
     }
 
     public BigDecimal getTotal() {
@@ -41,17 +41,17 @@ public class NovoPedidoRequest {
         this.total = total;
     }
 
-    public List<NovoItemRequest> getItens() {
-        return itens;
+    public List<NovoItemRequest> getNovoItemRequestList() {
+        return novoItemRequestList;
     }
 
-    public void setItens(List<NovoItemRequest> itens) {
-        this.itens = itens;
+    public void setNovoItemRequestList(List<NovoItemRequest> novoItemRequestList) {
+        this.novoItemRequestList = novoItemRequestList;
     }
 
     public Pedido toModel() { // CDD 1 - Classe Pedido
         List<Item> itemList = new ArrayList<>(); // CDD 1 - Classe Item
-        itens.forEach(item -> itemList.add(item.toModel()));
-        return new Pedido(itemList);
+        novoItemRequestList.forEach(novoItemRequest -> itemList.add(novoItemRequest.toModel()));
+        return new Pedido(total, itemList);
     }
 }

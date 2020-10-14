@@ -4,6 +4,7 @@ import br.com.thyagoribeiro.casadocodigo.domain.Compra;
 import br.com.thyagoribeiro.casadocodigo.domain.Estado;
 import br.com.thyagoribeiro.casadocodigo.domain.Pais;
 import br.com.thyagoribeiro.casadocodigo.domain.Pedido;
+import br.com.thyagoribeiro.casadocodigo.validator.CupomValido;
 import br.com.thyagoribeiro.casadocodigo.validator.Document;
 import br.com.thyagoribeiro.casadocodigo.validator.DocumentType;
 import br.com.thyagoribeiro.casadocodigo.validator.Exist;
@@ -58,12 +59,15 @@ public class NovaCompraRequest {
     @Valid
     private NovoPedidoRequest pedido; // CDD 1 - Classe NovoPedidoRequest
 
+    @CupomValido
+    private Long cupomId;
+
     @Deprecated
     public NovaCompraRequest() {
     }
 
     public NovaCompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String endereco, @NotBlank String complemento,
-                             @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank String telefone, @NotBlank String cep) {
+                             @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank String telefone, @NotBlank String cep, @NotNull @Valid NovoPedidoRequest pedido, @Valid Long cupomId) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -74,6 +78,7 @@ public class NovaCompraRequest {
         this.estadoId = estadoId;
         this.telefone = telefone;
         this.cep = cep;
+        this.cupomId = cupomId;
     }
 
     public String getEmail() {
@@ -172,9 +177,17 @@ public class NovaCompraRequest {
         this.pedido = pedido;
     }
 
+    public Long getCupomId() {
+        return cupomId;
+    }
+
+    public void setCupomId(Long cupomId) {
+        this.cupomId = cupomId;
+    }
+
     public Compra toModel(){ // CDD 1 - classe Compra
         Pedido pedido = this.pedido.toModel();
-        return new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, paisId, estadoId, telefone, cep, pedido);
+        return new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, paisId, estadoId, telefone, cep, pedido, cupomId);
     }
 
 }

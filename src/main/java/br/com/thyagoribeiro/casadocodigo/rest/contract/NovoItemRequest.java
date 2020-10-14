@@ -17,7 +17,7 @@ public class NovoItemRequest {
 
     @NotNull
     @Positive
-    private int quantidade;
+    private Long quantidade;
 
     public Long getLivroId() {
         return livroId;
@@ -27,11 +27,11 @@ public class NovoItemRequest {
         this.livroId = livroId;
     }
 
-    public int getQuantidade() {
+    public Long getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Long quantidade) {
         this.quantidade = quantidade;
     }
 

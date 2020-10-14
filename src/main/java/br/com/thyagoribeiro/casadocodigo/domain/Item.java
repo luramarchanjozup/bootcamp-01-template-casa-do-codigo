@@ -14,13 +14,13 @@ public class Item {
 
     @NotNull
     @Positive
-    private int quantidade;
+    private Long quantidade;
 
     @Deprecated
     public Item() {
     }
 
-    public Item(@NotNull Long livroId, @NotNull @Positive int quantidade) {
+    public Item(@NotNull Long livroId, @NotNull @Positive Long quantidade) {
         this.livroId = livroId;
         this.quantidade = quantidade;
     }
@@ -33,11 +33,11 @@ public class Item {
         this.livroId = livroId;
     }
 
-    public int getQuantidade() {
+    public Long getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Long quantidade) {
         this.quantidade = quantidade;
     }
 }

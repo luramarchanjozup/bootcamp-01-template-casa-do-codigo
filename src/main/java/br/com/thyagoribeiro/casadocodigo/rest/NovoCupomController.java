@@ -27,7 +27,7 @@ public class NovoCupomController {
     @PostMapping(value = "/api/cupom")
     @Transactional
     public ResponseEntity<?> novoCupom(@RequestBody @Valid NovoCupomRequest novoCupomRequest, UriComponentsBuilder builder) { // CDD 1 - Classe NovoCupomRequest
-        Cupom cupom = novoCupomRequest.toModel(); // CDD 1 - Classe Cupom
+        Cupom cupom = novoCupomRequest.toModel(); // CDD 1 - Classe CupomValido
         entityManager.persist(cupom);
         URI enderecoConsulta = builder.path("/api/cupom/{id}").build(cupom.getId());
         return ResponseEntity.created(enderecoConsulta).build();

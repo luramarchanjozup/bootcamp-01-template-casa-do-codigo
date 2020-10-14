@@ -30,7 +30,7 @@ public class EstadoPertencePaisValidator implements Validator {
 
         NovaCompraRequest novaCompraRequest = (NovaCompraRequest) target;
 
-        Query query = entityManager.createQuery("SELECT 1 FROM Estado WHERE id = :estadoId AND pais_id = :paisId");
+        Query query = entityManager.createQuery("SELECT 1 FROM Estado WHERE id = :estadoId AND paisId = :paisId");
         query.setParameter("estadoId", novaCompraRequest.getEstadoId());
         query.setParameter("paisId", novaCompraRequest.getPaisId());
 

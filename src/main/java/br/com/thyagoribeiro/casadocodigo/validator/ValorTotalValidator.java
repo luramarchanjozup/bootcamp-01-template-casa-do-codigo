@@ -36,7 +36,7 @@ public class ValorTotalValidator implements Validator {
 
         Query query  = entityManager.createQuery("SELECT l FROM Livro l WHERE id = :livroId");
 
-        for(NovoItemRequest novoItemRequest : novaCompraRequest.getPedido().getItens()) { // CDD 2 - Classe NovoItemRequest e branch for
+        for(NovoItemRequest novoItemRequest : novaCompraRequest.getPedido().getNovoItemRequestList()) { // CDD 2 - Classe NovoItemRequest e branch for
             query.setParameter("livroId", novoItemRequest.getLivroId());
             Livro livro = (Livro) query.getSingleResult(); // CDD 1 - Classe Livro
 

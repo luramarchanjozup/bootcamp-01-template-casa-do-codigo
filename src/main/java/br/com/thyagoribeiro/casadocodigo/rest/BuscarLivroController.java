@@ -21,9 +21,9 @@ public class BuscarLivroController {
     private EntityManager entityManager;
 
     @GetMapping(value = "/api/livro/{livroId}")
-    public ResponseEntity<?> buscarLivro(@PathVariable Long livroId){
-        Livro livro = entityManager.find(Livro.class, livroId); // CDD 1 - Classe Livro
+    public ResponseEntity<?> buscarLivro(@PathVariable Long livroId) {
 
+        Livro livro = entityManager.find(Livro.class, livroId); // CDD 1 - Classe Livro
         if(livro == null) // CDD 1 - branch if
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroPadronizado(Arrays.asList("ID de livro não encontrado"))); // CDD 1 - Classe ErroPadronizado
 

@@ -48,6 +48,8 @@ public class Compra {
     @NotBlank
     private String cep;
 
+    private Long cupomId;
+
     @NotNull
     @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
     private Pedido pedido; // CDD 1 - Classe Pedido
@@ -56,7 +58,7 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank String telefone, @NotBlank String cep, @NotNull Pedido pedido) {
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Long paisId, @NotNull Long estadoId, @NotBlank String telefone, @NotBlank String cep, @NotNull Pedido pedido, Long cupomId) {
         this.id = id;
         this.email = email;
         this.nome = nome;
@@ -71,6 +73,7 @@ public class Compra {
         this.cep = cep;
         this.pedido = pedido;
         this.pedido.setCompra(this);
+        this.cupomId = cupomId;
     }
 
     public Long getId() {
@@ -175,5 +178,13 @@ public class Compra {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public Long getCupomId() {
+        return cupomId;
+    }
+
+    public void setCupomId(Long cupomId) {
+        this.cupomId = cupomId;
     }
 }

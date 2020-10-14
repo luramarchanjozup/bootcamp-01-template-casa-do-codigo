@@ -12,10 +12,9 @@ import java.util.Date;
 
 // CDD - Total 1
 
-public class NovoCupomRequest {
+public class AlteraCupomRequest {
 
     @NotNull
-    @Exist(domainClass = Cupom.class, fieldName = "codigo", expected = false) // CDD 1 - Classe CupomValido
     private String codigo;
 
     @NotNull
@@ -27,10 +26,10 @@ public class NovoCupomRequest {
     private LocalDate validade;
 
     @Deprecated
-    public NovoCupomRequest() {
+    public AlteraCupomRequest() {
     }
 
-    public NovoCupomRequest(@NotNull String codigo, @NotNull @Positive Long percentual, @Future LocalDate validade) {
+    public AlteraCupomRequest(@NotNull String codigo, @NotNull @Positive Long percentual, @Future LocalDate validade) {
         this.codigo = codigo;
         this.percentual = percentual;
         this.validade = validade;
@@ -60,7 +59,11 @@ public class NovoCupomRequest {
         this.validade = validade;
     }
 
-    public Cupom toModel() {
-        return new Cupom(codigo, percentual, validade);
+    public Cupom toModel(Cupom cupom) {
+        cupom.setCodigo(codigo);
+        cupom.setPercentual(percentual);
+        cupom.setValidade(validade);
+        return cupom;
     }
+
 }

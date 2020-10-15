@@ -1,4 +1,4 @@
-package br.com.carlos.casadocodigo.api.dto;
+package br.com.carlos.casadocodigo.api.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

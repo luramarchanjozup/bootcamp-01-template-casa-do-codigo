@@ -1,4 +1,4 @@
-package br.com.carlos.casadocodigo.api.dto;
+package br.com.carlos.casadocodigo.api.dto.request;
 
 import br.com.carlos.casadocodigo.api.handler.ExistsById;
 import br.com.carlos.casadocodigo.domain.entity.Autor;

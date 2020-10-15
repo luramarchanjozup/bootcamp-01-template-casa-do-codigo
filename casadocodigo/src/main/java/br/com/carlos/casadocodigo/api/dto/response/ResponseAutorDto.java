@@ -1,4 +1,4 @@
-package br.com.carlos.casadocodigo.api.dto;
+package br.com.carlos.casadocodigo.api.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;

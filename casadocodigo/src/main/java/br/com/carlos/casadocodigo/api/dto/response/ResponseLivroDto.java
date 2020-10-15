@@ -1,9 +1,12 @@
-package br.com.carlos.casadocodigo.api.dto;
+package br.com.carlos.casadocodigo.api.dto.response;
 
+import br.com.carlos.casadocodigo.domain.entity.Autor;
+import br.com.carlos.casadocodigo.domain.entity.Categoria;
 import br.com.carlos.casadocodigo.domain.entity.Livro;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -32,6 +35,14 @@ public class ResponseLivroDto {
         livro.setAutor(ResponseAutorId.converter(l.getAutor()));
         livro.setCategoria(ResponseCategoriaId.converter(l.getCategoria()));
 
+        return livro;
+    }
+
+    public static Livro builder(Livro livro, EntityManager manager){
+        var autor = manager.find(Autor.class, livro.getAutor().getId());
+        var categorias = manager.find(Categoria.class, livro.getCategoria().getId());
+        livro.setAutor(autor);
+        livro.setCategoria(categorias);
         return livro;
     }
 

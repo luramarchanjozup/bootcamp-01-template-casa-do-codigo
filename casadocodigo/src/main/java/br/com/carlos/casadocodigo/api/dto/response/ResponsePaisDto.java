@@ -1,10 +1,9 @@
-package br.com.carlos.casadocodigo.api.dto;
+package br.com.carlos.casadocodigo.api.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ResponseCategoriaDto {
-
+public class ResponsePaisDto {
     private String nome;
 }

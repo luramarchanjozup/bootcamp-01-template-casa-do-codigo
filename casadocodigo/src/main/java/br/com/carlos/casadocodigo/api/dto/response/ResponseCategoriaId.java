@@ -1,4 +1,4 @@
-package br.com.carlos.casadocodigo.api.dto;
+package br.com.carlos.casadocodigo.api.dto.response;
 
 import br.com.carlos.casadocodigo.domain.entity.Categoria;
 import lombok.Data;

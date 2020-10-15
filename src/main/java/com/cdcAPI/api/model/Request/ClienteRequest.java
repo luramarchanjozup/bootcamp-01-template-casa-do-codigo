@@ -10,8 +10,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-//Complexidade = 4
-//Cliente, pais, estado, cupom
+//Complexidade = 5
+//Cliente, pais, estado, cupom, if
 
 public class ClienteRequest {
 

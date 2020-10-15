@@ -1,20 +1,15 @@
 package br.com.carlos.casadocodigo.domain.entity;
 
-
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "categorias")
 public class Categoria {
 
-    @Id @Getter @Setter
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter @Setter
     @Column(nullable=false, length=100, unique=true)
     private String nome;
 
@@ -25,4 +20,19 @@ public class Categoria {
         this.nome = nome;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

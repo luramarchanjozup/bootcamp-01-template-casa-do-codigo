@@ -1,7 +1,5 @@
 package br.com.carlos.casadocodigo.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,39 +11,30 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter @Setter
     @Column(nullable = false, unique = true)
     private String titulo;
 
-    @Getter @Setter
     @Column(nullable = false, length = 500)
     private String resumo;
 
-    @Getter @Setter
     @Column(columnDefinition="TEXT")
     private String sumario;
 
-    @Getter @Setter
     @Column(nullable = false)
     private BigDecimal preco;
 
-    @Getter @Setter
     @Column(nullable = false)
     private int paginas;
 
-    @Getter @Setter
     @Column(nullable = false, unique = true)
     private String isbn;
 
-    @Getter @Setter
     @Column(nullable = false)
     private LocalDate publicao;
 
-    @Getter @Setter
     @ManyToOne
     private  Autor autor;
 
-    @Getter @Setter
     @ManyToOne
     private Categoria categoria;
 
@@ -62,6 +51,82 @@ public class Livro {
         this.isbn = isbn;
         this.publicao = publicao;
         this.autor = autor;
+        this.categoria = categoria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public void setSumario(String sumario) {
+        this.sumario = sumario;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public int getPaginas() {
+        return paginas;
+    }
+
+    public void setPaginas(int paginas) {
+        this.paginas = paginas;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public LocalDate getPublicao() {
+        return publicao;
+    }
+
+    public void setPublicao(LocalDate publicao) {
+        this.publicao = publicao;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 }

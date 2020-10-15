@@ -1,8 +1,5 @@
 package br.com.carlos.casadocodigo.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +11,6 @@ public class Pais {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @Getter @Setter
     private String nome;
 
     @Deprecated
@@ -36,5 +32,21 @@ public class Pais {
         if (nome == null) {
             return other.nome == null;
         } else return nome.equals(other.nome);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

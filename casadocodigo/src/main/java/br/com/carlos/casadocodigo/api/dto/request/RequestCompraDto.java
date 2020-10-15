@@ -3,8 +3,7 @@ package br.com.carlos.casadocodigo.api.dto.request;
 import br.com.carlos.casadocodigo.api.handler.ExistsById;
 import br.com.carlos.casadocodigo.domain.entity.*;
 import br.com.carlos.casadocodigo.domain.repository.CupomRepository;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
@@ -16,7 +15,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
-@Getter @Setter
 public class RequestCompraDto {
 
     @Email @NotBlank
@@ -44,6 +42,8 @@ public class RequestCompraDto {
     @Valid @NotNull
     private RequestPedidoDto pedido;
     private String codigoCupom;
+
+    public RequestCompraDto(){}
                                                                     //1
     public Compra toEntity(EntityManager manager, CupomRepository cupomRepository) {
                                       //1
@@ -68,6 +68,110 @@ public class RequestCompraDto {
         cnpjValidator.initialize(null);
 
         return cpfValidator.isValid(documento, null) || cnpjValidator.isValid(documento, null);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public Long getIdPais() {
+        return idPais;
+    }
+
+    public void setIdPais(Long idPais) {
+        this.idPais = idPais;
+    }
+
+    public Long getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public RequestPedidoDto getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(RequestPedidoDto pedido) {
+        this.pedido = pedido;
+    }
+
+    public String getCodigoCupom() {
+        return codigoCupom;
+    }
+
+    public void setCodigoCupom(String codigoCupom) {
+        this.codigoCupom = codigoCupom;
     }
 
     @Override

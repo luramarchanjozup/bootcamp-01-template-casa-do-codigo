@@ -5,8 +5,6 @@ import br.com.carlos.casadocodigo.domain.entity.Autor;
 import br.com.carlos.casadocodigo.domain.entity.Categoria;
 import br.com.carlos.casadocodigo.domain.entity.Livro;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -14,7 +12,6 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter @Setter
 public class RequestLivroDto {
 
     @NotBlank(message = "é obrigatorio") @Unique(domainClass = Livro.class, fieldName = "titulo")
@@ -46,6 +43,81 @@ public class RequestLivroDto {
     @Valid
     @NotNull(message = "é obrigatorio")
     private RequestCategoriaId categoria;
+
+    public RequestLivroDto() {
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
+    public String getSumario() {
+        return sumario;
+    }
+
+    public void setSumario(String sumario) {
+        this.sumario = sumario;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public int getPaginas() {
+        return paginas;
+    }
+
+    public void setPaginas(int paginas) {
+        this.paginas = paginas;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public LocalDate getPublicao() {
+        return publicao;
+    }
+
+    public void setPublicao(LocalDate publicao) {
+        this.publicao = publicao;
+    }
+
+    public RequestAutorId getAutor() {
+        return autor;
+    }
+
+    public void setAutor(RequestAutorId autor) {
+        this.autor = autor;
+    }
+
+    public RequestCategoriaId getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(RequestCategoriaId categoria) {
+        this.categoria = categoria;
+    }
 
     public Livro toEntity(EntityManager manager) {
         var autor = manager.find(Autor.class, this.autor.getId());

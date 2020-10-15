@@ -7,9 +7,19 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter @Setter
 public class RequestPaisDto {
 
     @NotBlank @Unique(domainClass = Pais.class, fieldName = "nome")
     private String nome;
+
+    public RequestPaisDto() {
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

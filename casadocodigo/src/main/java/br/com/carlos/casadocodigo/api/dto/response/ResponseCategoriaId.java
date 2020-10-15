@@ -1,9 +1,7 @@
 package br.com.carlos.casadocodigo.api.dto.response;
 
 import br.com.carlos.casadocodigo.domain.entity.Categoria;
-import lombok.Data;
 
-@Data
 public class ResponseCategoriaId {
 
     private String nome;
@@ -12,5 +10,16 @@ public class ResponseCategoriaId {
         var categoria = new ResponseCategoriaId();
         categoria.setNome(c.getNome());
         return categoria;
+    }
+
+    public ResponseCategoriaId() {
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

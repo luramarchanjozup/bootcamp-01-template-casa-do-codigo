@@ -18,6 +18,8 @@ public class RequestCupomUpdateDto {
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate validade;
 
+    public RequestCupomUpdateDto(){}
+
     public String getCodigo() {
         return codigo;
     }

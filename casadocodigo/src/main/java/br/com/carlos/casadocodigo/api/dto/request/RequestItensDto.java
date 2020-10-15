@@ -22,5 +22,22 @@ public class RequestItensDto {
         return new ItemPedido(livro, getQuantidade());
     }
 
+    public RequestItensDto() {
+    }
 
+    public Long getIdLivro() {
+        return idLivro;
+    }
+
+    public void setIdLivro(Long idLivro) {
+        this.idLivro = idLivro;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 }

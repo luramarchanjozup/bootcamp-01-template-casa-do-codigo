@@ -27,14 +27,13 @@ public class LivroController {
     @PersistenceContext
     private EntityManager manager;
 
+
     @Transactional
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-                                                        //1
-    private ResponseEntity<?> adicionar(@Valid @RequestBody RequestLivroDto request, UriComponentsBuilder uriComponentsBuilder){
+    @ResponseStatus(HttpStatus.CREATED)                       //1
+    public ResponseEntity<?> adicionar(@Valid @RequestBody RequestLivroDto request, UriComponentsBuilder uriComponentsBuilder){
                                             //1             //1
         Livro livro = mapper.map(request.toEntity(manager), Livro.class);
-                                            //1
         manager.persist(ResponseLivroDto.builder(livro, manager));
         return ResponseEntity.created(uriComponentsBuilder.path("/livros/{id}").
                 buildAndExpand(livro.getId()).toUri()).build();

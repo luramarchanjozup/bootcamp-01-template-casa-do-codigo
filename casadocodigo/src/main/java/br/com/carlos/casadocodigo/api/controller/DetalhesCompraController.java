@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 
 @RestController    
 public class DetalhesCompraController {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
-
     @Autowired                  //1
     private PedidoRepository pedidoRepository;
-
     @Autowired
     private ModelMapper mapper;
 

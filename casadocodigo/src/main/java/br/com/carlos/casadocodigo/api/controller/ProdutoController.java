@@ -18,18 +18,17 @@ public class ProdutoController {
     @Autowired
     private ModelMapper mapper;
     @PersistenceContext
-    EntityManager manager;
-
+    private EntityManager manager;
 
     @Transactional
-    @GetMapping(value="produto/{id}")
-                                //1
+    @GetMapping(value="produtos/{id}") //1
     private ResponseEntity<ResponseLivroDto> detalhe(@PathVariable("id") Long id){
-    var livro = manager.find(Livro.class, id);
+    Livro livro = manager.find(Livro.class, id);
 
     if(livro == null){
         return ResponseEntity.notFound().build();
-    }                                                       //1
+    }
+                                                         //1
     return ResponseEntity.ok(mapper.map(ResponseLivroDto.builder(livro, manager), ResponseLivroDto.class));
     }
 

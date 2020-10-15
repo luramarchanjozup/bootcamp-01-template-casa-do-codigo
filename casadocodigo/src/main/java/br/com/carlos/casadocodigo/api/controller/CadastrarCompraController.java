@@ -1,7 +1,6 @@
 package br.com.carlos.casadocodigo.api.controller;
 
 import br.com.carlos.casadocodigo.api.dto.request.RequestCompraDto;
-import br.com.carlos.casadocodigo.api.dto.response.ResponseCompraDto;
 import br.com.carlos.casadocodigo.api.handler.CupomValidoValidator;
 import br.com.carlos.casadocodigo.api.handler.EstadoPertenceAPaisValidator;
 import br.com.carlos.casadocodigo.api.handler.VerificaDocumentoCpfCnpjValidator;
@@ -10,8 +9,10 @@ import br.com.carlos.casadocodigo.domain.repository.CupomRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,12 +42,12 @@ public class CadastrarCompraController {
 
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("compras")
-            //1                                                     //1
-    public ResponseCompraDto adicionarCompra(@Valid @RequestBody RequestCompraDto request){
-                                                                                    //1
+    @PostMapping("compras")                                             //1
+    public ResponseEntity<?> adicionarCompra(@Valid @RequestBody RequestCompraDto request, UriComponentsBuilder uriComponentsBuilder){
+                                                    //1                               //1
         var compra = mapper.map(request.toEntity(manager, cupomRepository), Compra.class);
         manager.persist(compra);
-        return mapper.map(compra, ResponseCompraDto.class);
+        return ResponseEntity.created(uriComponentsBuilder.path("/produtos/{id}").
+                buildAndExpand(compra.getId()).toUri()).build();
     }
 }

@@ -3,7 +3,6 @@ package br.com.carlos.casadocodigo.api.dto.request;
 import br.com.carlos.casadocodigo.domain.entity.Compra;
 import br.com.carlos.casadocodigo.domain.entity.ItemPedido;
 import br.com.carlos.casadocodigo.domain.entity.Pedido;
-import lombok.Getter;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -19,9 +18,9 @@ import java.util.stream.Collectors;
 
 public class RequestPedidoDto {
     @Positive @NotNull
-    private final BigDecimal total;
-    @Size(min = 1) @Valid @Getter
-    private final List<RequestItensDto> itens;
+    private BigDecimal total;
+    @Size(min = 1) @Valid
+    private List<RequestItensDto> itens;
 
     public RequestPedidoDto(BigDecimal total, List<RequestItensDto> itens) {
         this.total = total;
@@ -39,4 +38,14 @@ public class RequestPedidoDto {
 
     }
 
+    public RequestPedidoDto() {
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public List<RequestItensDto> getItens() {
+        return itens;
+    }
 }

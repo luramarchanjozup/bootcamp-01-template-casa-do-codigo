@@ -26,8 +26,7 @@ public class CadastrarRegiaoController {
 
     @PostMapping("pais")
     @ResponseStatus(HttpStatus.CREATED)
-    @Transactional
-                //1                                             //1
+    @Transactional  //1                                             //1
     public ResponsePaisDto adicionarPais(@Valid @RequestBody RequestPaisDto request) {
                                                 //1
         var pais = mapper.map(request, Pais.class);

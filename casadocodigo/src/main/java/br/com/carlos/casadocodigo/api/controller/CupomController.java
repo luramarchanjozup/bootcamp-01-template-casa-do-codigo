@@ -20,14 +20,12 @@ public class CupomController {
 
     @PersistenceContext
     private EntityManager manager;
-    
     @Autowired
     private ModelMapper mapper;
 
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-                //1                                              //1
+    @PostMapping //1                                              //1
     public ResponseCupomDto adicionar(@Valid @RequestBody RequestCupomDto request) {
                                                 //1
         var cupom = mapper.map(request, Cupom.class);

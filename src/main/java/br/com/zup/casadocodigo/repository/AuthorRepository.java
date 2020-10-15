@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+/*@Repository
 public interface AuthorRepository extends CrudRepository<Author, Long> {
     Optional<Author> findByEmail(String email);
-}
+}*/

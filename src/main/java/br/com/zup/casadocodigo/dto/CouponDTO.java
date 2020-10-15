@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter @Setter
 public class CouponDTO {
@@ -34,8 +35,8 @@ public class CouponDTO {
     }
 
     public CouponDTO(@NotBlank(message = "is required") String code,
-                            @NotNull(message = "is required") @Positive BigDecimal percentage,
-                            @Future LocalDate expirationDate) {
+                     @NotNull(message = "is required") @Positive BigDecimal percentage,
+                     @Future LocalDate expirationDate) {
         this.code = code;
         this.percentage = percentage;
         this.expirationDate = expirationDate;
@@ -55,5 +56,21 @@ public class CouponDTO {
 
     public Coupon toModel(EntityManager manager) {
         return new Coupon(this.code, this.percentage, this.expirationDate);
+    }
+
+    public Coupon toModelSet(Coupon coupon) {
+        coupon.setCode(code);
+        coupon.setPercentage(percentage);
+        coupon.setExpirationDate(expirationDate);
+        return coupon;
+    }
+
+
+    public List<Coupon> ValidatesDuplicity(Long id, EntityManager manager){
+        List<Coupon> exists = manager.createQuery("SELECT c from coupon c WHERE code=:code AND id !=:id", Coupon.class)
+                .setParameter("code", code)
+                .setParameter("id", id)
+                .getResultList();
+        return exists;
     }
 }

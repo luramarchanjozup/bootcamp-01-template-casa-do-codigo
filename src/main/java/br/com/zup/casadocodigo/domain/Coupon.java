@@ -39,15 +39,39 @@ public class Coupon {
         this.expirationDate = expirationDate;
     }
 
+    public Coupon(Long id, String code, BigDecimal percentage, LocalDate expirationDate) {
+        this.id = id;
+        this.code = code;
+        this.percentage = percentage;
+        this.expirationDate = expirationDate;
+    }
+
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public BigDecimal getPercentage() {
         return percentage;
     }
 
+    public void setPercentage(BigDecimal percentage) {
+        this.percentage = percentage;
+    }
+
     public LocalDate getExpirationDate() {
         return expirationDate;
     }
+
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
 }

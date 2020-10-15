@@ -21,15 +21,6 @@ public class CategorioController {
 	@PersistenceContext
 	private EntityManager bancoDados;
 	
-	@Autowired
-	private ValidaNomeCategoria validaNomeCategoria;
-	
-	@InitBinder
-	public void init(WebDataBinder binder) {
-		binder.addValidators(validaNomeCategoria);
-		
-	}
-	
 	
 	@PostMapping(value = "/categoria", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional

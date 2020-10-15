@@ -7,6 +7,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import br.com.zup.casadocodigo.validacao.ValorUnico;
+
 public class AutorDTO implements Serializable{
 
 	/**
@@ -21,6 +23,7 @@ public class AutorDTO implements Serializable{
 	
 	@NotBlank
 	@Email
+	@ValorUnico(classeDominio = Autor.class, nomeCampo = "email")
 	private String email;
 	
 	@NotBlank

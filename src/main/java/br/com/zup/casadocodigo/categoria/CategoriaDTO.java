@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
+import br.com.zup.casadocodigo.validacao.ValorUnico;
+
 public class CategoriaDTO implements Serializable{
 	
 	/**
@@ -11,7 +13,8 @@ public class CategoriaDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@NotBlank 
+	@NotBlank
+	@ValorUnico(classeDominio = Categoria.class, nomeCampo = "nome")
 	private String nome;
 	
 	@Deprecated

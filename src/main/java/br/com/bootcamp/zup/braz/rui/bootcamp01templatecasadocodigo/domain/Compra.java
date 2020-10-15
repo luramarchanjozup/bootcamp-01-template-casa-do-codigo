@@ -1,11 +1,11 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.function.Function;
 
 @Entity
 @Table(name = "t_compra")
@@ -40,12 +40,14 @@ public class Compra {
     private String telefone;
     @NotBlank
     private String cep;
+    @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
+    Pedido pedido;
 
     public Compra (){
 
     }
 
-    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep) {
+    public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Pais pais, @NotBlank String telefone, @NotBlank String cep, Function<Compra, Pedido> funcaoCriacaoPedido) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -54,9 +56,9 @@ public class Compra {
         this.complemento = complemento;
         this.cidade = cidade;
         this.pais = pais;
-        this.estado = estado;
         this.telefone = telefone;
         this.cep = cep;
+        this.pedido = funcaoCriacaoPedido.apply(this);
     }
 
     public Integer getId() {

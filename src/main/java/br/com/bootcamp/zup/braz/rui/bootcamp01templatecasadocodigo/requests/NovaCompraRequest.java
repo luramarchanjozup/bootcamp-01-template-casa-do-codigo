@@ -4,14 +4,17 @@ import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.Ob
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Compra;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Estado;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pedido;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.function.Function;
 
 public class NovaCompraRequest {
 
@@ -41,13 +44,16 @@ public class NovaCompraRequest {
     @NotBlank
     @Pattern(message = "Formato do CEP inválido.", regexp = "^\\d{5}-\\d{3}$")
     private String cep;
+    @Valid
+    @NotNull
+    private NovoPedidoRequest novoPedidoRequest;
 
     @Deprecated
     public NovaCompraRequest(){
 
     }
 
-    public NovaCompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Pattern(message = "Formato do documento inválido.", regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})") String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Integer idPais, Integer idEstado, @NotBlank @Pattern(message = "Formato do telefone inválido", regexp = "^[0-9]{2}-[0-9]{4}-[0-9]{4}$") String telefone, @NotBlank @Pattern(message = "Formato do CEP inválido", regexp = "^\\d{5}-\\d{3}$") String cep) {
+    public NovaCompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank @Pattern(message = "Formato do documento inválido.", regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})") String documento, @NotBlank String endereco, @NotBlank String complemento, @NotBlank String cidade, @NotNull Integer idPais, Integer idEstado, @NotBlank @Pattern(message = "Formato do telefone inválido", regexp = "^[0-9]{2}-[0-9]{4}-[0-9]{4}$") String telefone, @NotBlank @Pattern(message = "Formato do CEP inválido", regexp = "^\\d{5}-\\d{3}$") String cep, @Valid @NotNull NovoPedidoRequest novoPedidoRequest) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -59,6 +65,7 @@ public class NovaCompraRequest {
         this.idEstado = idEstado;
         this.telefone = telefone;
         this.cep = cep;
+        this.novoPedidoRequest = novoPedidoRequest;
     }
 
     public String getEmail() {
@@ -149,20 +156,27 @@ public class NovaCompraRequest {
         this.cep = cep;
     }
 
+    public NovoPedidoRequest getNovoPedidoRequest() {
+        return novoPedidoRequest;
+    }
+
+    public void setNovoPedidoRequest(NovoPedidoRequest novoPedidoRequest) {
+        this.novoPedidoRequest = novoPedidoRequest;
+    }
+
     public Compra toModel(EntityManager entityManager) {
         @NotNull Pais pais = entityManager.find(Pais.class, idPais);
 
-        Query customQuery = entityManager.createQuery("select 1 from " + Estado.class.getName() + " where id_pais = :idPais");
-        customQuery.setParameter("idPais", pais.getId());
+        Function<Compra, Pedido> funcaoCriacaoPedido = novoPedidoRequest.toModel(entityManager);
 
-        List<Estado> estados = customQuery.getResultList();
-        Estado estado = null;
+        Compra compra = new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, telefone, cep, funcaoCriacaoPedido);
 
-        if (!estados.isEmpty()){
-
+        if (idEstado != null){
+            compra.setEstado(entityManager.find(Estado.class, idEstado));
         }
 
-        return new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone, cep);
+
+        return compra;
     }
 
     public boolean temEstado(){

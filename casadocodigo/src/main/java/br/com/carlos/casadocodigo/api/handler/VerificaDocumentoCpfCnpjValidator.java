@@ -1,9 +1,11 @@
 package br.com.carlos.casadocodigo.api.handler;
 
-import br.com.carlos.casadocodigo.api.dto.RequestCompraDto;
+import br.com.carlos.casadocodigo.api.dto.request.RequestCompraDto;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class VerificaDocumentoCpfCnpjValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {

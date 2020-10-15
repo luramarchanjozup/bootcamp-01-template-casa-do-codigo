@@ -5,11 +5,15 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.guiferrini.CasaCodigo.model.EstadoPaisValidador;
 import com.guiferrini.CasaCodigo.model.FluxoPagto;
 import com.guiferrini.CasaCodigo.model.FluxoPagtoDTO;
 
@@ -19,6 +23,15 @@ public class FluxoPagtoController {
 	
 	@PersistenceContext
 	EntityManager entityManager;
+	
+	//Validando se o Estado pertence ao Pais
+	@Autowired
+	EstadoPaisValidador estadoPaisValidador;
+	
+	@InitBinder
+	public void init(WebDataBinder webDataBinder) {
+		webDataBinder.addValidators(estadoPaisValidador);
+	}
 	
 	@PostMapping
 	@Transactional
@@ -30,6 +43,3 @@ public class FluxoPagtoController {
 		return obj;
 	}
 }
-//validar Qdo não tem Estado, esta com erro - @IdUnico(FluxoPagto) esse é o erro, pois no 'body' está sem id - duvida: onde fazer esta validação?
-//feito a classe, o DTO, efetuar o POST
-//feito: postman e controller inicial com rota

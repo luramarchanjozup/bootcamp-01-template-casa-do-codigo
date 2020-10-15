@@ -30,11 +30,12 @@ public class FluxoPagtoDTO {
 	private String cidade;
 	
 	@NotNull(message = "Pais é obrigatorio")
-	@IdUnico(domainClass = Pais.class, fieldName="id")
+	@IdUnico(domainClass = Pais.class, fieldName="id", message = "ID do Pais é obrigatorio.")
 	private String idPais;
 	
+	//criar validado/classe p´check entre pais e estado, com anotação - -p estudar: dev eficiente sobre validação
 	//@NotBlank(message = "Se tem um Pais, o Estado é obrigatorio")
-	@IdUnico(domainClass = Estado.class, fieldName="id")
+	@IdUnico(domainClass = Estado.class, fieldName="id", message = "ERRO. Favor verificar o ID do Estado.")
 	private String idEstado;
 	
 	@NotBlank(message = "Telefone é obrigatorio")
@@ -154,13 +155,13 @@ public class FluxoPagtoDTO {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
+		
 	public FluxoPagto toModel(EntityManager entityManager) {
 	
 		@NotNull Pais pais =  entityManager.find(Pais.class, idPais);
 		Estado estado = entityManager.find(Estado.class, idEstado);
-		System.out.println(estado);
 		
+		//if(idEstado == null) {
 		if(estado == null) {
 			return new FluxoPagto(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, telefone, cep);
 			//return obj;

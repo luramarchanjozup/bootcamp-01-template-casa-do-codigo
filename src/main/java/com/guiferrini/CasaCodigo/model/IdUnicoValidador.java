@@ -25,6 +25,13 @@ public class IdUnicoValidador implements ConstraintValidator<IdUnico, String> {
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
+		
+		
+		//Aceita valor Null, pois tem validador EstadoPais, qdo NUll sig Pais não tem estado
+		if(value == null) {
+			return true;
+		}
+		
 		Query query = entityManager.createQuery("select 1 from "+klass.getName()+" where "+domainAttribute+"=:value");
 		query.setParameter("value", value);	
 

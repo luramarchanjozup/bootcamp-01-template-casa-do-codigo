@@ -63,4 +63,8 @@ public class Estado {
 	public void setPais(Pais pais) {
 		this.pais = pais;
 	}
+	
+	public boolean validandoSePretencePais(Pais pais) {
+		return this.pais.equals(pais);
+	}
 }

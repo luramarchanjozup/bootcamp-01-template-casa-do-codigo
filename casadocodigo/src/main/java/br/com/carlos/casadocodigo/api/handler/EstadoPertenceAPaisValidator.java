@@ -1,14 +1,16 @@
 package br.com.carlos.casadocodigo.api.handler;
 
-import br.com.carlos.casadocodigo.api.dto.RequestCompraDto;
+import br.com.carlos.casadocodigo.api.dto.request.RequestCompraDto;
 import br.com.carlos.casadocodigo.domain.entity.Estado;
 import br.com.carlos.casadocodigo.domain.entity.Pais;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Component
 public class EstadoPertenceAPaisValidator implements Validator {
 
     @PersistenceContext
@@ -27,8 +29,8 @@ public class EstadoPertenceAPaisValidator implements Validator {
 
         RequestCompraDto request = (RequestCompraDto) target;
 
-        Pais pais = manager.find(Pais.class, request.getPais().getId());
-        Estado estado = manager.find(Estado.class, request.getEstado().getId());
+        Pais pais = manager.find(Pais.class, request.getIdPais());
+        Estado estado = manager.find(Estado.class, request.getIdEstado());
 
         if(!estado.pertenceAPais(pais)) {
             errors.rejectValue("idEstado",null,"este estado não é o do país selecionado");

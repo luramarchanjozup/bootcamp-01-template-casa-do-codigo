@@ -31,19 +31,23 @@ public class CompraRequest {
             total = total.add(livro.getPreco().multiply(quantidade));
             livros.add(livro);
         }
-
         if (!total.equals(carrinho.getTotal())) throw new Exception("Valores não condizentes");
 
         Cupom cupom = manager.find(Cupom.class, cliente.getCupomId());
+        validaCupom(cupom);
+
+        BigDecimal porcentagem = (cupom.getPorcentagem()).divide(BigDecimal.valueOf(100), RoundingMode.UP);
+        BigDecimal totalComDesconto = total.subtract(total.multiply(porcentagem));
+
+        return new Compra(cliente.toModel(manager), livros, total, totalComDesconto);
+    }
+
+    private void validaCupom(Cupom cupom) throws Exception {
         if (cupom == null) {
             throw new Exception("Compra não pode ser efetuada. Cupom não existe.");
         } else if (!cupom.getValidade().isAfter(LocalDate.now())) {
             throw new Exception("Compra não pode ser efetuada. Cupom expirou.");
         }
-        BigDecimal porcentagem = (cupom.getPorcentagem()).divide(BigDecimal.valueOf(100), RoundingMode.UP);
-        BigDecimal totalComDesconto = total.subtract(total.multiply(porcentagem));
-
-        return new Compra(cliente.toModel(manager), livros, total, totalComDesconto);
     }
 
     //get set

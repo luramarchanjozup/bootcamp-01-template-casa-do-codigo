@@ -1,7 +1,5 @@
 package br.com.carlos.casadocodigo.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
@@ -13,11 +11,9 @@ public class Estado {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @Getter @Setter
     private String nome;
 
     @ManyToOne
-    @Getter @Setter
     private Pais pais;
 
     @Deprecated
@@ -29,5 +25,17 @@ public class Estado {
     }
     public boolean pertenceAPais(Pais pais) {
         return this.pais.equals(pais);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Pais getPais() {
+        return pais;
     }
 }

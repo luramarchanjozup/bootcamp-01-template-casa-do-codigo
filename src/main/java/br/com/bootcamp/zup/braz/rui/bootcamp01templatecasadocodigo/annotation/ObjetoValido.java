@@ -19,5 +19,5 @@ public @interface ObjetoValido {
 
     String fieldName();
 
-    Class<?> domainsClass();
+    Class<?> domainClass();
 }

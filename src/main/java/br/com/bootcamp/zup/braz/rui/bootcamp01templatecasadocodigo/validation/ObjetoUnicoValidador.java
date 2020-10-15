@@ -26,6 +26,9 @@ public class ObjetoUnicoValidador implements ConstraintValidator<ObjetoUnico, St
 
     @Override
     public boolean isValid(String valor, ConstraintValidatorContext constraintValidatorContext) {
+        if (valor == null){
+            return true;
+        }
         Query customQuery = entityManager.createQuery("select 1 from " + classe.getName() + " where " + campo + " = :valor");
         customQuery.setParameter("valor", valor);
         List<?> resultadoConsulta = customQuery.getResultList();

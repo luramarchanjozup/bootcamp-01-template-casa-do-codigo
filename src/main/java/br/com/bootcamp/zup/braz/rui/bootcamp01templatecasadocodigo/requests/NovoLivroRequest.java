@@ -7,10 +7,7 @@ import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Livro;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.persistence.EntityManager;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -32,11 +29,12 @@ public class NovoLivroRequest {
     @ObjetoUnico(domainClass = Livro.class, fieldName = "isbn")
     private String isbn;
     @NotNull
+    @Future
     private Date dataLancamento;
     @NotNull
-    @ObjetoValido(domainsClass = Categoria.class, fieldName = "id")
+    @ObjetoValido(domainClass = Categoria.class, fieldName = "id")
     private Integer idCategoria;
-    @ObjetoValido(domainsClass = Autor.class, fieldName = "id")
+    @ObjetoValido(domainClass = Autor.class, fieldName = "id")
     @NotNull
     private Integer idAutor;
 

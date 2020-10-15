@@ -3,6 +3,7 @@ package com.bootcamp.cdd.models;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.function.Function;
 
 @Entity
 public class Shopping {
@@ -32,8 +33,10 @@ public class Shopping {
     private String telefone;
     @NotBlank(message = "O cep deve ser preenchido")
     private String cep;
+    @OneToOne(mappedBy = "compra",cascade = CascadeType.ALL)
+    private Pedido pedido;
 
-    public Shopping(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, String telefone, String cep) {
+    public Shopping(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, String telefone, String cep, Function<Shopping, Pedido> shoppingPedidoFunction  ) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -43,6 +46,7 @@ public class Shopping {
         this.cidade = cidade;
         this.telefone = telefone;
         this.cep = cep;
+        this.pedido = shoppingPedidoFunction.apply(this);
     }
 
     public void setEstado(State estado) {
@@ -99,5 +103,9 @@ public class Shopping {
 
     public String getCep() {
         return cep;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
     }
 }

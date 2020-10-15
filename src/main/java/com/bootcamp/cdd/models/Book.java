@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -24,7 +25,7 @@ public class Book {
     @NotBlank(message = "resumo é obrigatório") @Length(min = 1, max = 500, message = "O resumo deve ter entre 1 e 500 caracteres")
     private String resumo;
     @Min(value = 20, message = "o preço minimo é de 20 reais")
-    private double preco;
+    private BigDecimal preco;
     @NotBlank(message = "Isnb é obrigatorio")
     private String isnb;
     @Future
@@ -34,7 +35,7 @@ public class Book {
     @ManyToOne
     private Category category;
 
-    public Book(String titulo, String sumario, int quantidadePaginas, String resumo, double preco, String isnb, LocalDate dataPublicacao, Author author, Category category) {
+    public Book(String titulo, String sumario, int quantidadePaginas, String resumo, BigDecimal preco, String isnb, LocalDate dataPublicacao, Author author, Category category) {
         this.titulo = titulo;
         this.sumario = sumario;
         this.quantidadePaginas = quantidadePaginas;
@@ -69,7 +70,7 @@ public class Book {
         return resumo;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 

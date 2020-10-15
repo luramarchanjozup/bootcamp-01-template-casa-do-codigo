@@ -26,7 +26,7 @@ public class ShoppingController {
     public Shopping createShopping (@Valid @RequestBody ShoppingRequest request) {
         Assert.isTrue(verifyDocs(request.getDocumento()), "o documento foi preenchido de forma incorreta");
         Country pais = entityManager.find(Country.class, request.getPais());
-        Shopping compra = request.toModel();
+        Shopping compra = request.toModel(entityManager);
         compra.setPais(pais);
         if (request.getEstadoId() != null) {
             State estado = entityManager.find(State.class, request.getEstadoId());

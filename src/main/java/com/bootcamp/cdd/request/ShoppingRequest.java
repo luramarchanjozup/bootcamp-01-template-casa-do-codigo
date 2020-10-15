@@ -2,12 +2,17 @@ package com.bootcamp.cdd.request;
 
 
 import com.bootcamp.cdd.models.Country;
+import com.bootcamp.cdd.models.Pedido;
 import com.bootcamp.cdd.models.Shopping;
 import com.bootcamp.cdd.models.State;
 import com.bootcamp.cdd.shared.ExistsId;
 
+import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.function.Function;
 
 public class ShoppingRequest {
     @NotBlank(message = "O email deve ser preenchido")
@@ -33,8 +38,9 @@ public class ShoppingRequest {
     private String telefone;
     @NotBlank(message = "O cep deve ser preenchido")
     private String cep;
+    private PedidoRequest pedido;
 
-    public ShoppingRequest(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long estadoId, long paisId, String telefone, String cep) {
+    public ShoppingRequest(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long estadoId, long paisId, String telefone, String cep, @Valid @NotNull PedidoRequest pedido) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -46,6 +52,7 @@ public class ShoppingRequest {
         this.paisId = paisId;
         this.telefone = telefone;
         this.cep = cep;
+        this.pedido = pedido;
     }
 
     public String getDocumento() {
@@ -60,7 +67,8 @@ public class ShoppingRequest {
         return paisId;
     }
 
-    public Shopping toModel () {
-        return new Shopping(this.email, this.nome, this. sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.telefone, this.cep);
+    public Shopping toModel (EntityManager manager) {
+        Function<Shopping, Pedido> shoppingPedidoFunction = pedido.toModel(manager);
+        return new Shopping(this.email, this.nome, this. sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.telefone, this.cep, shoppingPedidoFunction);
     }
 }

@@ -1,16 +1,18 @@
 package com.bootcamp.cdd.response;
 
+import java.math.BigDecimal;
+
 public class BookDetailsResponse {
     private String titulo;
     private String resumo;
     private String sumario;
     private int quantPaginas;
-    private double preco;
+    private BigDecimal preco;
     private String isnb;
     private String nomeAutor;
     private String descAutor;
 
-    public BookDetailsResponse(String titulo, String resumo, String sumario, int quantPaginas, double preco, String isnb, String nomeAutor, String descAutor) {
+    public BookDetailsResponse(String titulo, String resumo, String sumario, int quantPaginas, BigDecimal preco, String isnb, String nomeAutor, String descAutor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -37,7 +39,7 @@ public class BookDetailsResponse {
         return quantPaginas;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 

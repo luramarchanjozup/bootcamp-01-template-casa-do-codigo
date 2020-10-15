@@ -38,13 +38,6 @@ public class Author {
         this.email = email;
         this.description = description;
     }
-/*
-    @Override
-    public String toString() {
-        return "Autor [id=" + id + ", name=" + name + ", email=" + email
-                + ", description=" + description + ", instantRegistration="
-                + instantRegistration + "]";
-    }*/
 
     public String getName() {
         return name;

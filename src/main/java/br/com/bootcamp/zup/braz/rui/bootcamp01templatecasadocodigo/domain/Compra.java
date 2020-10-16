@@ -1,6 +1,8 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -155,5 +157,10 @@ public class Compra {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public void aplicaCupom(Cupom cupom) {
+        Assert.isTrue(cupom.isValido(), "Cupom ja passou da data de validade.");
+
     }
 }

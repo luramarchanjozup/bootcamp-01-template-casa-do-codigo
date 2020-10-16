@@ -1,10 +1,8 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoValido;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Compra;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Estado;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pedido;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -47,6 +45,8 @@ public class NovaCompraRequest {
     @Valid
     @NotNull
     private NovoPedidoRequest novoPedidoRequest;
+    @Nullable
+    private Integer idCupom;
 
     @Deprecated
     public NovaCompraRequest(){
@@ -175,9 +175,16 @@ public class NovaCompraRequest {
             compra.setEstado(entityManager.find(Estado.class, idEstado));
         }
 
+        if (idCupom != null){
+            Cupom cupom = entityManager.find(Cupom.class, idCupom);
+            compra.aplicaCupom(cupom);
+        }
+
 
         return compra;
     }
+
+
 
     public boolean temEstado(){
         return idEstado != null;

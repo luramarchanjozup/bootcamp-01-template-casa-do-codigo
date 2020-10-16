@@ -1,10 +1,8 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoValido;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Compra;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Estado;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pedido;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class NovaCompraRequest {
@@ -47,6 +46,8 @@ public class NovaCompraRequest {
     @Valid
     @NotNull
     private NovoPedidoRequest novoPedidoRequest;
+    @ObjetoValido(domainClass = Cupom.class, fieldName = "id")
+    private Integer idCupom;
 
     @Deprecated
     public NovaCompraRequest(){
@@ -164,6 +165,14 @@ public class NovaCompraRequest {
         this.novoPedidoRequest = novoPedidoRequest;
     }
 
+    public Optional<Integer> getIdCupom() {
+        return Optional.ofNullable(idCupom);
+    }
+
+    public void setIdCupom(@Nullable Integer idCupom) {
+        this.idCupom = idCupom;
+    }
+
     public Compra toModel(EntityManager entityManager) {
         @NotNull Pais pais = entityManager.find(Pais.class, idPais);
 
@@ -175,9 +184,14 @@ public class NovaCompraRequest {
             compra.setEstado(entityManager.find(Estado.class, idEstado));
         }
 
-
+        if (idCupom != null){
+            Cupom cupom = entityManager.find(Cupom.class, idCupom);
+            compra.aplicaCupom(cupom);
+        }
         return compra;
     }
+
+
 
     public boolean temEstado(){
         return idEstado != null;

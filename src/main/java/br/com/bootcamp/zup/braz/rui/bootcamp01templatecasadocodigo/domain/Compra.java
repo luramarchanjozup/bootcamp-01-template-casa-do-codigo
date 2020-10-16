@@ -1,6 +1,8 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -42,7 +44,10 @@ public class Compra {
     private String cep;
     @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
     Pedido pedido;
+    @Embedded
+    CupomAplicado cupomAplicado;
 
+    @Deprecated
     public Compra (){
 
     }
@@ -59,6 +64,7 @@ public class Compra {
         this.telefone = telefone;
         this.cep = cep;
         this.pedido = funcaoCriacaoPedido.apply(this);
+
     }
 
     public Integer getId() {
@@ -155,5 +161,26 @@ public class Compra {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public CupomAplicado getCupomAplicado() {
+        return cupomAplicado;
+    }
+
+    public void setCupomAplicado(CupomAplicado cupomAplicado) {
+        this.cupomAplicado = cupomAplicado;
+    }
+
+    public void aplicaCupom(Cupom cupom) {
+        Assert.isTrue(cupom.isValido(), "Cupom ja passou da data de validade.");
+        this.cupomAplicado = new CupomAplicado(cupom);
     }
 }

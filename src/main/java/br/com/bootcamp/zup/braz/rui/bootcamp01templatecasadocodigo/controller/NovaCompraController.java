@@ -2,6 +2,7 @@ package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.controller;
 
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Compra;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests.NovaCompraRequest;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.CupomValidator;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.validation.PaisComEstadoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ public class NovaCompraController {
     EntityManager entityManager;
     @Autowired
     PaisComEstadoValidator paisComEstadoValidator;
+    @Autowired
+    private CupomValidator cupomValidator;
 
     @InitBinder
     public void init(WebDataBinder binder){
-        binder.addValidators(paisComEstadoValidator);
+        binder.addValidators(paisComEstadoValidator, cupomValidator);
     }
 
     @PostMapping

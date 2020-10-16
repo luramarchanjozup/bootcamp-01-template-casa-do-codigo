@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class NovaCompraRequest {
@@ -45,7 +46,7 @@ public class NovaCompraRequest {
     @Valid
     @NotNull
     private NovoPedidoRequest novoPedidoRequest;
-    @Nullable
+    @ObjetoValido(domainClass = Cupom.class, fieldName = "id")
     private Integer idCupom;
 
     @Deprecated
@@ -164,6 +165,14 @@ public class NovaCompraRequest {
         this.novoPedidoRequest = novoPedidoRequest;
     }
 
+    public Optional<Integer> getIdCupom() {
+        return Optional.ofNullable(idCupom);
+    }
+
+    public void setIdCupom(@Nullable Integer idCupom) {
+        this.idCupom = idCupom;
+    }
+
     public Compra toModel(EntityManager entityManager) {
         @NotNull Pais pais = entityManager.find(Pais.class, idPais);
 
@@ -179,8 +188,6 @@ public class NovaCompraRequest {
             Cupom cupom = entityManager.find(Cupom.class, idCupom);
             compra.aplicaCupom(cupom);
         }
-
-
         return compra;
     }
 

@@ -1,9 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.response;
 
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Autor;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Livro;
 
-import javax.persistence.EntityManager;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

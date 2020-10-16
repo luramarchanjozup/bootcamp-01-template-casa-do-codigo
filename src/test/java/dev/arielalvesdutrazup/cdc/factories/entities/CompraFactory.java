@@ -1,5 +1,7 @@
 package dev.arielalvesdutrazup.cdc.factories.entities;
 
+import dev.arielalvesdutrazup.cdc.controllers.dtos.CompraItemRequestDTO;
+import dev.arielalvesdutrazup.cdc.controllers.dtos.CompraRequestDTO;
 import dev.arielalvesdutrazup.cdc.entities.Compra;
 import dev.arielalvesdutrazup.cdc.entities.CompraItem;
 import dev.arielalvesdutrazup.cdc.entities.Livro;
@@ -32,6 +34,26 @@ public class CompraFactory {
                 .setComplemento("Porta 508")
                 .setItens(new HashSet<>(Arrays.asList(compraItem)))
                 .setPais(pais)
-                .setTotal(compraItem.getTotalCompraItem());
+                .setTotal(compraItem.getTotalCompraItem())
+                .setTotalSemDesconto(compraItem.getTotalCompraItem());
+    }
+
+    public static CompraRequestDTO paraFecharCompra(Livro livro, Pais pais) {
+        var compra = paraPersistir(livro, pais);
+
+        return new CompraRequestDTO()
+                .setNome(compra.getNome())
+                .setSobrenome(compra.getSobrenome())
+                .setEmail(compra.getEmail())
+                .setTelefone(compra.getTelefone())
+                .setCep(compra.getCep())
+                .setCidade(compra.getCidade())
+                .setDocumento(compra.getDocumento())
+                .setEndereco(compra.getEndereco())
+                .setComplemento(compra.getComplemento())
+                .setItens(CompraItemRequestDTO.paraDTO(compra.getItens()))
+                .setPaisId(pais.getId())
+                .setTotal(compra.getTotalDosItens());
+
     }
 }

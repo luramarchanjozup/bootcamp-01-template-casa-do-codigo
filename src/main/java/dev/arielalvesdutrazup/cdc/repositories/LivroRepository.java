@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface LivroRepository extends JpaRepository<Livro, Long> {
-    Optional<Livro> findByTitulo(String titulo);
+    Optional<Livro> findByTituloOrIsbn(String titulo, String isbn);
 }

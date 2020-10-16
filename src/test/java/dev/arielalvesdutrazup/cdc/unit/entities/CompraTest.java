@@ -2,10 +2,7 @@ package dev.arielalvesdutrazup.cdc.unit.entities;
 
 import dev.arielalvesdutrazup.cdc.entities.Compra;
 import dev.arielalvesdutrazup.cdc.entities.CompraItem;
-import dev.arielalvesdutrazup.cdc.factories.entities.AutorFactory;
-import dev.arielalvesdutrazup.cdc.factories.entities.CategoriaFactory;
-import dev.arielalvesdutrazup.cdc.factories.entities.LivroFactory;
-import dev.arielalvesdutrazup.cdc.factories.entities.PaisFactory;
+import dev.arielalvesdutrazup.cdc.factories.entities.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
@@ -34,6 +31,7 @@ public class CompraTest {
         var complemento = "Porta 401";
         var cidade = "Canoas";
         var pais = PaisFactory.paraPersistir();
+        var estado = EstadoFactory.paraPersistir(pais);
         var livro = LivroFactory.paraPersistir(
                 AutorFactory.paraPersistir(),
                 CategoriaFactory.paraPersistir());
@@ -52,6 +50,7 @@ public class CompraTest {
                 .setDocumento(documento)
                 .setTelefone(telefone)
                 .setPais(pais)
+                .setEstado(estado)
                 .setCep(cep)
                 .setCidade(cidade)
                 .setEndereco(endereco)
@@ -69,6 +68,7 @@ public class CompraTest {
         assertThat(compra.getTotal()).isEqualTo(total);
         assertThat(compra.getTotalSemDesconto()).isEqualTo(totalSemDesconto);
         assertThat(compra.getPais()).isEqualTo(pais);
+        assertThat(compra.getEstado()).isEqualTo(estado);
         assertThat(compra.getCep()).isEqualTo(cep);
         assertThat(compra.getCidade()).isEqualTo(cidade);
         assertThat(compra.getEndereco()).isEqualTo(endereco);

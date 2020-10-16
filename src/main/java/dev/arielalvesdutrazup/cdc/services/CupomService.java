@@ -5,6 +5,7 @@ import dev.arielalvesdutrazup.cdc.repositories.CupomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -13,6 +14,21 @@ public class CupomService {
 
     @Autowired
     private CupomRepository cupomRepository;
+
+    @Transactional
+    public Cupom alterar(Long id, Cupom cupomParametro) {
+        Cupom cupom = buscaPeloId(id);
+
+        try {
+            buscaPeloCodigo(cupomParametro.getCodigo());
+            throw new EntityExistsException("Já existe um cupom com este código!");
+        } catch (EntityNotFoundException e) {
+            cupom.setCodigo(cupomParametro.getCodigo());
+            cupom.setPercentualDeDesconto(cupomParametro.getPercentualDeDesconto());
+            cupom.setValidade(cupomParametro.getValidade());
+            return cupom;
+        }
+    }
 
     @Transactional
     public Cupom cadastrar(Cupom cupomParaCadatrar) {
@@ -29,4 +45,18 @@ public class CupomService {
                 .orElseThrow(() ->
                         new EntityNotFoundException("Cupom com cógido " + codigo + " não localizado!"));
     }
+
+    private Cupom buscaPeloId(Long id) {
+        return cupomRepository.findById(id)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Cupom com id " + id + " não localizado!"));
+    }
+
+
+    @Transactional
+    public void removeTodos() {
+        cupomRepository.deleteAll();
+    }
+
+
 }

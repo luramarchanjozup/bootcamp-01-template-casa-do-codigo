@@ -1,6 +1,6 @@
-package dev.arielalvesdutrazup.cdc.anotacoes.validators;
+package dev.arielalvesdutrazup.cdc.annotations.validators;
 
-import dev.arielalvesdutrazup.cdc.anotacoes.CEP;
+import dev.arielalvesdutrazup.cdc.annotations.CEP;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

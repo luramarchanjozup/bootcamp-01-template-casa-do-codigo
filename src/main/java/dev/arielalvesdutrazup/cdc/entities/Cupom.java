@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @Entity
 public class Cupom {
@@ -77,5 +78,29 @@ public class Cupom {
     public Cupom setAtualizadoEm(OffsetDateTime atualizadoEm) {
         this.atualizadoEm = atualizadoEm;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Cupom{" +
+                "id=" + id +
+                ", codigo='" + codigo + '\'' +
+                ", percentualDeDesconto=" + percentualDeDesconto +
+                ", validade=" + validade +
+                ", cadastradoEm=" + cadastradoEm +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cupom cupom = (Cupom) o;
+        return Objects.equals(id, cupom.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

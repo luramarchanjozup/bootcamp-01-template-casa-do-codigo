@@ -42,4 +42,8 @@ public class ShoppingController {
         boolean isCnpj = document.length() == 14;
         return isCpf || isCnpj;
     }
+
+    public void addCumpom (Shopping compra) {
+
+    }
 }

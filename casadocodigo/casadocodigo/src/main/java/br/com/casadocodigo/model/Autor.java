@@ -28,10 +28,10 @@ public class Autor {
 
     private LocalDateTime instanteRegistro = LocalDateTime.now();
 
+
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -39,7 +39,6 @@ public class Autor {
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -47,7 +46,6 @@ public class Autor {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -55,7 +53,6 @@ public class Autor {
     public String getDescricao() {
         return descricao;
     }
-
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
@@ -63,7 +60,6 @@ public class Autor {
     public LocalDateTime getInstanteRegistro() {
         return instanteRegistro;
     }
-
     public void setInstanteRegistro(LocalDateTime instanteRegistro) {
         this.instanteRegistro = instanteRegistro;
     }

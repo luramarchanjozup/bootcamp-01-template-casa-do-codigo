@@ -11,12 +11,15 @@ import javax.validation.Valid;
 @RequestMapping(value = "/api")
 public class AutorController {
 
+    //+ 1
     @Autowired
     AutorRepository autorRepository;
 
 
     @PostMapping("/autor")
+    // + 1
     public Autor criaAutor(@Valid @RequestBody Autor autor){
+
         return autorRepository.save(autor);
     }
 }

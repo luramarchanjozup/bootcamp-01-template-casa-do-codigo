@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.time.OffsetDateTime;
 
+// 1 Cupom.java
 @Embeddable
 public class CupomAplicado {
 

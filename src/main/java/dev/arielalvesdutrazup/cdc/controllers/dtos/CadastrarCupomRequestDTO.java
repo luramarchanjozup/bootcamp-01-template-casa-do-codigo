@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+// 1 Cupom.java
 public class CadastrarCupomRequestDTO {
 
     @NotBlank(message = "{codigo.notempty")

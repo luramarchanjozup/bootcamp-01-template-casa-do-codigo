@@ -7,10 +7,24 @@ import dev.arielalvesdutrazup.cdc.repositories.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
+
+// Entities
+// 1 Autor.java
+// 2 Categoria.java
+// 3 Livro.java
+
+// Repositories
+// 4 LivroRepository.java
+
+// Function as parameter
+// 5 livroRepsitory.findById(id).orElseThrow(()
+
+// Services
+// 6 AutorService.java
+// 7 CategoriaService.java
 
 @Service
 public class LivroService {
@@ -29,29 +43,18 @@ public class LivroService {
         Autor autor = autorService.buscaPeloId(autorId);
         Categoria categoria = categoriaService.buscaPeloId(categoriaId);
 
-        try {
-            var livroBuscado = buscaPeloTituloOuIsbn(livroParaCadastrar.getTitulo(), livroParaCadastrar.getIsbn());
-            if (livroBuscado.getIsbn().equals(livroParaCadastrar.getIsbn()))
-                throw  new EntityExistsException("Isbn duplicado!");
-            throw new EntityExistsException("Título duplicado!");
-        } catch (EntityNotFoundException e) {
-            livroParaCadastrar.setAutor(autor);
-            livroParaCadastrar.setCategoria(categoria);
+        Livro.verificaSeJaExisteUmLivro(livroRepository, livroParaCadastrar);
 
-            return livroRepository.save(livroParaCadastrar);
-        }
+        livroParaCadastrar.setAutor(autor);
+        livroParaCadastrar.setCategoria(categoria);
+
+        return livroRepository.save(livroParaCadastrar);
     }
 
     public Livro buscaPeloId(Long id) {
         return livroRepository.findById(id)
                 .orElseThrow(() ->
                         new EntityNotFoundException("Livro com id " + id + " não localizado!"));
-    }
-
-    public Livro buscaPeloTituloOuIsbn(String titulo, String isbn) {
-        return livroRepository.findByTituloOrIsbn(titulo, isbn)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Livro com título " + titulo + " não localizado!"));
     }
 
     public List<Livro> buscaTodos() {

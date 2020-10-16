@@ -10,6 +10,13 @@ import java.util.Set;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+// 1 Compra.java
+// 2 CompraItemResponseDTO.java
+// 3 CupomAplicadoDTO.java
+// 4 if (compra.getEstado() != null)
+// 5 if (compra.getCupomAplicado() != null)
+// 6 PaisResponseDTO.java
+// 7 EstadoResponseDTO.java
 @JsonInclude(NON_NULL)
 public class CompraResponseDTO {
 

@@ -10,8 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import javax.validation.ConstraintViolationException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
@@ -56,8 +54,8 @@ public class CategoriaServiceIT {
 
             categoriaService.cadastrar(categoriaParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (ConstraintViolationException e) {
-            assertThat(e.getMessage()).contains("interpolatedMessage='Nome é obrigatório!', propertyPath=nome");
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).contains("Nome é obrigatório para a consulta!");
         }
     }
     @Test

@@ -10,6 +10,15 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+// 1 Categoria.java
+// 2 CategoriaRepository.java
+
+// 3 try { buscaPeloNome(categoriaParaCadastrar.getNome()); ...
+// 4 catch (EntityNotFoundException e) { return categoriaRepository.save ...
+
+// 5 categoriaRepository.findById(categoriaId).orElseThrow(() ->
+
+// 6 categoriaRepository.findByNome(nome).orElseThrow(() ->
 @Service
 public class CategoriaService {
 
@@ -34,16 +43,14 @@ public class CategoriaService {
     }
 
     public Categoria buscaPeloNome(String nome) {
+        Assert.notNull(nome, "Nome é obrigatório para a consulta!");
         return categoriaRepository.findByNome(nome)
                 .orElseThrow(() ->
                         new EntityNotFoundException("Categoria com nome " + nome + " não localizada!"));
     }
 
-
     @Transactional
     public void removeTodos() {
         categoriaRepository.deleteAll();
     }
-
-
 }

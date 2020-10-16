@@ -17,4 +17,13 @@ public class CupomFactory {
                 .setPercentualDeDesconto(10)
                 .setValidade(validate);
     }
+
+    public static Cupom paraPersistir2() {
+        var validate = OffsetDateTime.now().plusDays(40);
+
+        return new Cupom()
+                .setCodigo("ZUP20")
+                .setPercentualDeDesconto(20)
+                .setValidade(validate);
+    }
 }

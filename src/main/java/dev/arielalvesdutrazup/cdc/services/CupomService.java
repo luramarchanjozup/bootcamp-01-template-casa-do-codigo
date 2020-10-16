@@ -9,6 +9,14 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+// 1 Cupom.java
+// 2 CupomRepository.java
+
+// 3 if (existePeloCodigo &&
+// 4 if (existeCupom) throw new EntityExistsException("Cupom duplicado!");
+
+// 5 cupomRepository.findById(id).orElseThrow(() ->
+// 6 cupomRepository.findByCodigo(id).orElseThrow(() ->
 @Service
 public class CupomService {
 
@@ -17,27 +25,29 @@ public class CupomService {
 
     @Transactional
     public Cupom alterar(Long id, Cupom cupomParametro) {
-        Cupom cupom = buscaPeloId(id);
+        Cupom cupomExistente = buscaPeloId(id);
+        var existeCupomComEsseCodigo = existePeloCodigo(cupomParametro.getCodigo());
 
-        try {
-            buscaPeloCodigo(cupomParametro.getCodigo());
-            throw new EntityExistsException("Já existe um cupom com este código!");
-        } catch (EntityNotFoundException e) {
-            cupom.setCodigo(cupomParametro.getCodigo());
-            cupom.setPercentualDeDesconto(cupomParametro.getPercentualDeDesconto());
-            cupom.setValidade(cupomParametro.getValidade());
-            return cupom;
+        if (existeCupomComEsseCodigo
+                && cupomExistente.naoTemMesmoCodigo(cupomParametro.getCodigo())) {
+            throw new EntityExistsException("Já existe outro cupom com este código!");
         }
+
+        cupomExistente.setCodigo(cupomParametro.getCodigo());
+        cupomExistente.setPercentualDeDesconto(cupomParametro.getPercentualDeDesconto());
+        cupomExistente.setValidade(cupomParametro.getValidade());
+
+        return cupomExistente;
     }
 
     @Transactional
     public Cupom cadastrar(Cupom cupomParaCadatrar) {
-        try {
-            buscaPeloCodigo(cupomParaCadatrar.getCodigo());
-            throw new RuntimeException("Cupom duplicado!");
-        } catch (EntityNotFoundException e) {
-            return cupomRepository.save(cupomParaCadatrar);
-        }
+
+        var existeCupom = existePeloCodigo(cupomParaCadatrar.getCodigo());
+
+        if (existeCupom) throw new EntityExistsException("Cupom duplicado!");
+
+        return cupomRepository.save(cupomParaCadatrar);
     }
 
     public Cupom buscaPeloCodigo(String codigo) {
@@ -52,11 +62,12 @@ public class CupomService {
                         new EntityNotFoundException("Cupom com id " + id + " não localizado!"));
     }
 
+    public boolean existePeloCodigo(String codigo) {
+        return cupomRepository.existsByCodigo(codigo);
+    }
 
     @Transactional
     public void removeTodos() {
         cupomRepository.deleteAll();
     }
-
-
 }

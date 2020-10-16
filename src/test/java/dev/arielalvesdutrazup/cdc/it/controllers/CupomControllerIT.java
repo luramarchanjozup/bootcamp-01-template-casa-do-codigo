@@ -115,13 +115,14 @@ public class CupomControllerIT {
     }
 
     @Test
-    public void alterar_comCodigoDuplicado_deveRetornar400() {
+    public void alterar_comCodigoDuplicadoDeOutroCupom_deveRetornar400() {
         Cupom cupomCadastrado = cupomService.cadastrar(CupomFactory.paraPersistir());
+        Cupom cupomCadastrado2 = cupomService.cadastrar(CupomFactory.paraPersistir2());
+        var url = URL_BASE + "/" + cupomCadastrado2.getId();
         AlterarCupomRequestDTO requestDTO = new AlterarCupomRequestDTO()
                 .setCodigo(cupomCadastrado.getCodigo())
                 .setValidade(LocalDateTime.now().plusDays(30))
                 .setPercentualDeDesconto(15);
-        var url = URL_BASE + "/" + cupomCadastrado.getId();
         var httpHeaders = new HttpHeaders();
         var httpEntity = new HttpEntity<>(requestDTO, httpHeaders);
 
@@ -137,6 +138,6 @@ public class CupomControllerIT {
         ErroResponseDTO responseDTO = responseEntity.getBody();
 
         assertThat(responseDTO).isNotNull();
-        assertThat(responseDTO.getMensagem()).isEqualTo("Já existe um cupom com este código!");
+        assertThat(responseDTO.getMensagem()).isEqualTo("Já existe outro cupom com este código!");
     }
 }

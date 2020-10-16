@@ -4,6 +4,8 @@ import dev.arielalvesdutrazup.cdc.entities.Cupom;
 
 import java.time.OffsetDateTime;
 
+// 1 Cupom.java
+
 public class CupomResponseDTO {
 
     private Long id;

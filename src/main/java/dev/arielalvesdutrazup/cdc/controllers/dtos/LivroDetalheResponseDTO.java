@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
+// 1 Livro.java
+// 2 AutorResponseDTO.java
+// 3 CategoriaResponseDTO.java
 public class LivroDetalheResponseDTO {
 
     private Long id;

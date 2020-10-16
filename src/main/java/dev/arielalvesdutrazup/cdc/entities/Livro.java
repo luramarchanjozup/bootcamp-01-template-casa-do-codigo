@@ -1,9 +1,13 @@
 package dev.arielalvesdutrazup.cdc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.arielalvesdutrazup.cdc.repositories.LivroRepository;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -11,6 +15,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+// 1 Autor.java
+// 2 Categoria.java
+
+// 3 LivroRepository.java
 @Entity
 public class Livro {
 
@@ -171,5 +179,23 @@ public class Livro {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    /**
+     * Valida a existencia de livro conforme os critérios de unicidade de um livro.
+     *
+     * @param livroRepository
+     * @param livro
+     *
+     * @throws EntityExistsException caso exista uma livro
+     */
+    public static void verificaSeJaExisteUmLivro(
+            LivroRepository livroRepository,
+            Livro livro) {
+
+        if (livroRepository.existsByIsbn(livro.getIsbn()))
+            throw new EntityExistsException("Isbn duplicado!");
+        if (livroRepository.existsByTitulo(livro.getTitulo()))
+            throw new EntityExistsException("Título duplicado!");
     }
 }

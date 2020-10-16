@@ -1,5 +1,6 @@
 package dev.arielalvesdutrazup.cdc.it.services;
 
+import dev.arielalvesdutrazup.cdc.entities.Cupom;
 import dev.arielalvesdutrazup.cdc.factories.entities.CupomFactory;
 import dev.arielalvesdutrazup.cdc.repositories.CupomRepository;
 import dev.arielalvesdutrazup.cdc.services.CupomService;
@@ -48,7 +49,7 @@ public class CupomServiceIT {
         assertThat(cupomBuscado.getId()).isEqualTo(cupomCadastrado.getId());
         assertThat(cupomBuscado.getCodigo()).isEqualTo(cupomParaCadatrar.getCodigo());
         assertThat(cupomBuscado.getValidade().truncatedTo(ChronoUnit.SECONDS))
-                .isEqualTo(cupomParaCadatrar.getValidade().truncatedTo(ChronoUnit.SECONDS));;
+                .isEqualTo(cupomParaCadatrar.getValidade().truncatedTo(ChronoUnit.SECONDS));
         assertThat(cupomBuscado.getPercentualDeDesconto()).isEqualTo(cupomParaCadatrar.getPercentualDeDesconto());
         assertThat(cupomBuscado.getCadastradoEm()).isNotNull();
     }
@@ -154,6 +155,45 @@ public class CupomServiceIT {
             fail("Esperando uma exceção!");
         } catch (RuntimeException e) {
             assertThat(e.getMessage()).contains("interpolatedMessage='Data de validade deve ser maior que a data de cadastro!', propertyPath=validade");
+        }
+    }
+
+    @Test
+    public void alterar_comMesmoCodigoEId_deveFuncionar() {
+        var cupomParaCadatrar = CupomFactory.paraPersistir();
+        var cupomCadastrado = cupomService.cadastrar(cupomParaCadatrar);
+
+        var cupomParaAlterar = new Cupom()
+                .setCodigo(cupomCadastrado.getCodigo())
+                .setPercentualDeDesconto(30)
+                .setValidade(OffsetDateTime.now().plusDays(40));
+
+        var cupomAlterado = cupomService.alterar(cupomCadastrado.getId(), cupomParaAlterar);
+
+        assertThat(cupomAlterado).isNotNull();
+        assertThat(cupomAlterado.getCodigo()).isEqualTo(cupomParaAlterar.getCodigo());
+        assertThat(cupomAlterado.getPercentualDeDesconto()).isEqualTo(cupomParaAlterar.getPercentualDeDesconto());
+    }
+
+    @Test
+    public void alterar_comMesmoCodigoEIdsDiferentes_deveLancarException() {
+        try {
+            var cupomParaCadatrar1 = CupomFactory.paraPersistir();
+            var cupomParaCadatrar2 = CupomFactory.paraPersistir();
+            cupomParaCadatrar2.setCodigo("NOVOCODIGO");
+
+            cupomService.cadastrar(cupomParaCadatrar1);
+            var cupomCadastrado2 = cupomService.cadastrar(cupomParaCadatrar2);
+
+            var cupomParaAlterar = new Cupom()
+                    .setCodigo(cupomParaCadatrar1.getCodigo())
+                    .setPercentualDeDesconto(cupomParaCadatrar2.getPercentualDeDesconto())
+                    .setValidade(cupomParaCadatrar2.getValidade());
+
+            cupomService.alterar(cupomCadastrado2.getId(), cupomParaAlterar);
+            fail("Esperando uma exceção!");
+        } catch (RuntimeException e) {
+            assertThat(e.getMessage()).isEqualTo("Já existe outro cupom com este código!");
         }
     }
 }

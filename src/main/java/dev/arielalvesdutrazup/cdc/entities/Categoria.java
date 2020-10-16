@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+// ZERO
 @Entity
 public class Categoria {
 

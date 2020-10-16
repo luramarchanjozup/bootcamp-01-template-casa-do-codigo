@@ -2,12 +2,12 @@ package dev.arielalvesdutrazup.cdc.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+// 1 Estado.java
 @Entity
 public class Pais {
 

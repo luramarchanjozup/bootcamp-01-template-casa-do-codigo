@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+// 1 Pais.java
 @Entity
 public class Estado {
 

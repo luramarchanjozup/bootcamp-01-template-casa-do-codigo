@@ -3,11 +3,25 @@ package dev.arielalvesdutrazup.cdc.controllers.dtos;
 import dev.arielalvesdutrazup.cdc.annotations.CEP;
 import dev.arielalvesdutrazup.cdc.annotations.Documento;
 import dev.arielalvesdutrazup.cdc.entities.Compra;
+import dev.arielalvesdutrazup.cdc.entities.Estado;
+import dev.arielalvesdutrazup.cdc.entities.Pais;
+import dev.arielalvesdutrazup.cdc.services.GerenciadorDeServico;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
+// 1 @Cep
+// 2 @Documento
+// 3 Compra.java
+// 4 CompraItemRequestDTO.java
+
+// 5 Pais.java
+// 6 Estado.java
+// 7 PaisService.java
+// 8 EstadoService.java
+// 9 ServiceManager.java
 
 public class CompraRequestDTO {
 
@@ -193,5 +207,24 @@ public class CompraRequestDTO {
                 .setTelefone(telefone)
                 .setTotal(total)
                 .setTotalSemDesconto(total);
+    }
+
+    public Compra paraEntidade(GerenciadorDeServico gerenciadorDeServico) {
+
+        var compra = paraEntidade();
+        var paisService = gerenciadorDeServico.instanciaDePaisService();
+        var estadoService = gerenciadorDeServico.instanciaDeEstadoService();
+
+        Pais pais = paisService.buscaPeloId(getPaisId());
+        compra.setPais(pais);
+
+        if (getEstadoId() != null) {
+            Estado estado = estadoService.buscaPeloIdEPaisId(getEstadoId(), pais.getId());
+            compra.setEstado(estado);
+        }
+
+        compra.setItens(CompraItemRequestDTO.paraEntidade(gerenciadorDeServico, getItens()));
+
+        return compra;
     }
 }

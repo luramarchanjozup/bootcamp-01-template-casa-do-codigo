@@ -27,17 +27,20 @@ public class CompraItemTest {
         var quantidade = 3;
         var timestamp = OffsetDateTime.now();
         var compra = new Compra().setId(1L);
+        var preco = livro.getPreco();
 
         var compraItem = new CompraItem()
                 .setId(id)
                 .setLivro(livro)
                 .setQuantidade(quantidade)
+                .setPreco(livro.getPreco())
                 .setCadastradoEm(timestamp)
                 .setCompra(compra);
 
         assertThat(compraItem).isNotNull();
         assertThat(compraItem.getId()).isEqualTo(id);
         assertThat(compraItem.getLivro()).isEqualTo(livro);
+        assertThat(compraItem.getPreco()).isEqualTo(preco);
         assertThat(compraItem.getQuantidade()).isEqualTo(quantidade);
         assertThat(compraItem.getCadastradoEm()).isEqualTo(timestamp);
         assertThat(compraItem.getCompra()).isEqualTo(compra);

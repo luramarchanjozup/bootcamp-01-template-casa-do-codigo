@@ -15,6 +15,12 @@ import java.net.URI;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+// 1 CupomService.java
+// 2 CadastrarCupomRequestDTO.java
+// 3 Cupom.java
+// 4 CupomResponseDTO.java
+// 5 AlterarCupomRequestDTO.java
+
 @RequestMapping("/cupons")
 @RestController
 public class CupomController {

@@ -16,6 +16,11 @@ import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+// 1 EstadoService.java
+// 2 CadastrarEstadoRequestDTO.java
+// 3 Estaao.java
+// 4 EstadoResponseDTO.java
+
 @RestController
 public class EstadoController {
 

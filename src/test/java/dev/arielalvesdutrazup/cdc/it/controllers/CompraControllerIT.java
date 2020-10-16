@@ -39,8 +39,10 @@ public class CompraControllerIT {
     private PaisService paisService;
 
     @Autowired
-    private CompraService compraService;
+    private BuscarCompraService buscarCompraService;
 
+    @Autowired
+    private FecharCompraService fecharCompraService;
 
     @Autowired
     private CupomService cupomService;
@@ -97,7 +99,7 @@ public class CompraControllerIT {
 
 
         CompraResponseDTO responseDTO = responseEntity.getBody();
-        Compra compraBuscada = compraService.buscaPeloId(responseDTO.getId());
+        Compra compraBuscada = buscarCompraService.buscaPeloId(responseDTO.getId());
 
         assertThat(compraBuscada).isNotNull();
         assertThat(responseDTO).isNotNull();
@@ -136,9 +138,29 @@ public class CompraControllerIT {
 
     @Test
     public void detalhe_deveRetornar200() {
-        var compraCadastrada = compraService.fecharCompra(CompraFactory.paraFecharCompra(livro, pais));
+        var compraCadastrada = fecharCompraService.fecharCompra(CompraFactory.paraFecharCompra(livro, pais));
         var url = URL_BASE + "/" + compraCadastrada.getId();
 
+        ResponseEntity<CompraResponseDTO> responseEntity = restTemplate.getForEntity(
+                url,
+                CompraResponseDTO.class);
+
+        assertThat(responseEntity).isNotNull();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(HttpStatus.OK.value());
+
+        CompraResponseDTO responseDTO = responseEntity.getBody();
+
+        assertThat(responseDTO).isNotNull();
+        assertThat(responseDTO.getId()).isEqualTo(compraCadastrada.getId());
+        assertThat(responseDTO.getTotal()).isEqualTo(compraCadastrada.getTotal());
+        assertThat(responseDTO.getTotalSemDesconto()).isEqualTo(compraCadastrada.getTotalSemDesconto());
+    }
+
+    @Test
+    public void detalhe_comMaisDeUmaCompra_deveRetornar200() {
+        fecharCompraService.fecharCompra(CompraFactory.paraFecharCompra(livro, pais));
+        var compraCadastrada = fecharCompraService.fecharCompra(CompraFactory.paraFecharCompra2(livro, pais));
+        var url = URL_BASE + "/" + compraCadastrada.getId();
 
         ResponseEntity<CompraResponseDTO> responseEntity = restTemplate.getForEntity(
                 url,
@@ -160,7 +182,7 @@ public class CompraControllerIT {
         var cupom = cupomService.cadastrar(CupomFactory.paraPersistir());
         var compraParaCadastrar = CompraFactory.paraFecharCompra(livro, pais);
         compraParaCadastrar.setCupomCodigo(cupom.getCodigo());
-        var compraCadastrada = compraService.fecharCompra(compraParaCadastrar);
+        var compraCadastrada = fecharCompraService.fecharCompra(compraParaCadastrar);
         var url = URL_BASE + "/" + compraCadastrada.getId();
 
 

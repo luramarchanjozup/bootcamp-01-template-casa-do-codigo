@@ -43,4 +43,8 @@ public class PedidoRequest {
             return pedido;
         };
     }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
 }

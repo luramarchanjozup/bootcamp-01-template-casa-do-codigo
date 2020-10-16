@@ -69,6 +69,6 @@ public class ShoppingRequest {
 
     public Shopping toModel (EntityManager manager) {
         Function<Shopping, Pedido> shoppingPedidoFunction = pedido.toModel(manager);
-        return new Shopping(this.email, this.nome, this. sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.telefone, this.cep, shoppingPedidoFunction);
+        return new Shopping(this.email, this.nome, this. sobrenome, this.documento, this.endereco, this.complemento, this.cidade, this.telefone, this.cep, shoppingPedidoFunction, this.pedido.getTotal());
     }
 }

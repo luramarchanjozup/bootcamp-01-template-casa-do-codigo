@@ -24,4 +24,4 @@ public class CreateCupomController {
         manager.persist(cupom);
         return cupom;
     }
-}
+    }

@@ -3,6 +3,7 @@ package com.bootcamp.cdd.models;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 import java.util.function.Function;
 
 @Entity
@@ -35,8 +36,11 @@ public class Shopping {
     private String cep;
     @OneToOne(mappedBy = "compra",cascade = CascadeType.ALL)
     private Pedido pedido;
+    private BigDecimal valorTotal;
+    private String cupom;
+    private BigDecimal valorComDesconto;
 
-    public Shopping(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, String telefone, String cep, Function<Shopping, Pedido> shoppingPedidoFunction  ) {
+    public Shopping(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, String telefone, String cep, Function<Shopping, Pedido> shoppingPedidoFunction, BigDecimal valorTotal) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -47,6 +51,10 @@ public class Shopping {
         this.telefone = telefone;
         this.cep = cep;
         this.pedido = shoppingPedidoFunction.apply(this);
+        this.valorTotal = valorTotal;
+    }
+
+    public Shopping() {
     }
 
     public void setEstado(State estado) {
@@ -107,5 +115,26 @@ public class Shopping {
 
     public Pedido getPedido() {
         return pedido;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public String getCupom() {
+        return cupom;
+    }
+
+    public void setCupom(String cupom, BigDecimal valorComDesconto) {
+        this.cupom = cupom;
+        this.valorComDesconto = valorComDesconto;
+    }
+
+    public BigDecimal getValorComDesconto() {
+        return valorComDesconto;
     }
 }

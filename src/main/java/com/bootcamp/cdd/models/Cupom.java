@@ -19,11 +19,11 @@ public class Cupom {
     @NotBlank(message = "O codigo precisa ser preenchido")
     private String codigo;
     @NotNull(message = "A porcentagem precisa ser preenchida") @Positive(message = "O valor precisa ser positivo")
-    private BigDecimal porcentagem;
+    private double porcentagem;
     @Future(message = "a data precisa ser no futuro")
     private LocalDate dataValidade;
 
-    public Cupom(String codigo, BigDecimal porcentagem, LocalDate dataValidade) {
+    public Cupom(String codigo, double porcentagem, LocalDate dataValidade) {
         this.codigo = codigo;
         this.porcentagem = porcentagem;
         this.dataValidade = dataValidade;
@@ -40,7 +40,7 @@ public class Cupom {
         return codigo;
     }
 
-    public BigDecimal getPorcentagem() {
+    public double getPorcentagem() {
         return porcentagem;
     }
 

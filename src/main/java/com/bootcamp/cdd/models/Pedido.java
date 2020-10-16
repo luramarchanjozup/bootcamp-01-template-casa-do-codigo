@@ -31,6 +31,8 @@ public class Pedido {
         this.items.addAll(items);
     }
 
+    public Pedido() {
+    }
 
     public boolean totalIgual (@Positive @NotNull BigDecimal total) {
         BigDecimal pedido = items.stream().map(Item::total).reduce(BigDecimal.ZERO, BigDecimal::add);

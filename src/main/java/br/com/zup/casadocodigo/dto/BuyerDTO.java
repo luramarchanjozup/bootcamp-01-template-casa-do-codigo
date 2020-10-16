@@ -2,20 +2,20 @@ package br.com.zup.casadocodigo.dto;
 
 import br.com.zup.casadocodigo.annotations.ExistsValue;
 import br.com.zup.casadocodigo.annotations.UniqueValue;
-import br.com.zup.casadocodigo.domain.Country;
-import br.com.zup.casadocodigo.domain.Order;
-import br.com.zup.casadocodigo.domain.State;
-import br.com.zup.casadocodigo.domain.Buyer;
+import br.com.zup.casadocodigo.domain.*;
+import br.com.zup.casadocodigo.repository.CouponRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Getter
@@ -61,6 +61,10 @@ public class BuyerDTO {
     @NotNull @Valid
     private OrderDTO order;
 
+    @ExistsValue(domainClass = Coupon.class,fieldName = "code")
+    private String codeCoupon;
+
+
     public BuyerDTO(@NotBlank String name, @NotBlank String surname,
                     @NotBlank @Email String email,
                     @NotBlank String cpfCnpj,
@@ -98,6 +102,9 @@ public class BuyerDTO {
         return order;
     }
 
+    public void setCodeCoupon(String codeCoupon) {
+        this.codeCoupon = codeCoupon;
+    }
 
     public boolean validatesCpfCnpj() {
         CPFValidator cpfValidator = new CPFValidator();
@@ -109,7 +116,7 @@ public class BuyerDTO {
         return cpfValidator.isValid(cpfCnpj, null) || cnpjValidator.isValid(cpfCnpj, null);
     }
 
-    public Buyer toModel(EntityManager manager) {
+    public Buyer toModel(EntityManager manager, CouponRepository couponRepository) {
         Country country = manager.find(Country.class, countryId);
 
         Function<Buyer, Order> createOrder = order.toModel(manager);
@@ -121,6 +128,15 @@ public class BuyerDTO {
             buyer.setState(manager.find(State.class, stateId));
         }
 
+        if(StringUtils.hasText(codeCoupon)) {
+            Coupon coupon = couponRepository.findByCode(codeCoupon);
+            buyer.applyCoupon(coupon);
+        }
+
         return buyer;
+    }
+
+    public Optional<String> getCodeCoupon() {
+        return Optional.ofNullable(codeCoupon);
     }
 }

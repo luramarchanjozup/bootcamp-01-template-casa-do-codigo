@@ -74,4 +74,8 @@ public class Coupon {
         return id;
     }
 
+    public boolean valid() {
+        return LocalDate.now().compareTo(this.expirationDate) <= 0;
+    }
+
 }

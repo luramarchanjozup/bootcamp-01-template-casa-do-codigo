@@ -3,6 +3,7 @@ package br.com.zup.casadocodigo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -36,6 +37,9 @@ public class Buyer {
 
     @OneToOne(mappedBy = "buyer",cascade = CascadeType.PERSIST)
     private Order order;
+
+    @Embedded
+    private ApplyingCoupon applyingCoupon;
 
     @Deprecated
     public Buyer(){
@@ -109,5 +113,11 @@ public class Buyer {
 
     public String getZipCode() {
         return zipCode;
+    }
+
+    public void applyCoupon (Coupon coupon) {
+        Assert.isTrue(coupon.valid(),"the coupon being applied is no longer valid");
+        Assert.isNull(applyingCoupon,"cannot exchange a coupon for a purchase");
+        this.applyingCoupon = new ApplyingCoupon(coupon);
     }
 }

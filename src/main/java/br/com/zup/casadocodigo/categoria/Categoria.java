@@ -21,7 +21,7 @@ public class Categoria implements Serializable {
 	@Id
 	@Column(name = "ID_CATEGORIA")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer idCategoria;
 
 	@Column(name = "NOME")
 	private String nome;
@@ -36,15 +36,7 @@ public class Categoria implements Serializable {
 
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNome() {
+		public String getNome() {
 		return nome;
 	}
 
@@ -52,11 +44,12 @@ public class Categoria implements Serializable {
 		this.nome = nome;
 	}
 
-	public CategoriaDTO converteCategoriaDTO() {
-		CategoriaDTO categoriaConvertida = new CategoriaDTO(nome);
-		
-		return categoriaConvertida;
-		
+	public Integer getIdCategoria() {
+		return idCategoria;
+	}
+
+	public void setIdCategoria(Integer idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 	
 }

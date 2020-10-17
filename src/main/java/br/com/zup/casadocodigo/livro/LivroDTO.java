@@ -15,10 +15,13 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import br.com.zup.casadocodigo.autor.Autor;
 import br.com.zup.casadocodigo.categoria.Categoria;
+import br.com.zup.casadocodigo.validacao.IdExiste;
+import br.com.zup.casadocodigo.validacao.ValorUnico;
 
 public class LivroDTO {
 
 	@NotBlank
+	@ValorUnico(classeDominio = Livro.class, nomeCampo = "titulo")
 	private String titulo;
 	
 	@NotBlank
@@ -36,6 +39,7 @@ public class LivroDTO {
 	private int numeroPaginas;
 	
 	@NotBlank
+	@ValorUnico(classeDominio = Livro.class, nomeCampo = "isbn")
 	private String isbn;
 	
 	@NotNull
@@ -44,10 +48,12 @@ public class LivroDTO {
 	private LocalDate dataPublicacao;
 	
 	@NotNull
+	@IdExiste(domainClass = Categoria.class, fieldName = "idCategoria", message = "Categoria inexistente")
 	private Integer idCategoria;
 	
 	
 	@NotNull
+	@IdExiste(domainClass = Autor.class, fieldName = "idAutor", message = "Autor Inexistente" )
 	private Integer idAutor;
 	
 	

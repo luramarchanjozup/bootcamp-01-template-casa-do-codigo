@@ -1,7 +1,6 @@
 package br.com.zup.casadocodigo.autor;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +14,7 @@ public class ValidaEmailDuplicadoAutor implements Validator {
 
 	@PersistenceContext
 	private EntityManager bancoDados;
-	
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return AutorDTO.class.isAssignableFrom(clazz);
@@ -26,21 +25,18 @@ public class ValidaEmailDuplicadoAutor implements Validator {
 		if (errors.hasErrors()) {
 			return;
 		}
-		
+
 		AutorDTO autorDto = (AutorDTO) target;
-		
-		List<Autor> emailEncontrado = bancoDados.createQuery("SELECT a FROM Autor a WHERE a.email = :email", Autor.class)
-								.setParameter("email", autorDto.getEmail()).getResultList();
-	
-		
-		if(emailEncontrado.isEmpty() == false) {
+
+		List<Autor> emailEncontrado = bancoDados
+				.createQuery("SELECT a FROM Autor a WHERE a.email = :email", Autor.class)
+				.setParameter("email", autorDto.getEmail()).getResultList();
+
+		if (emailEncontrado.isEmpty() == false) {
 			errors.rejectValue("email", "autorDto.email.sendo-usado",
-					"Já existe um(a) outro(a) autor(a) com o mesmo email" +
-			autorDto.getEmail());
+					"Já existe um(a) outro(a) autor(a) com o mesmo email" + autorDto.getEmail());
 		}
-		
+
 	}
-
-
 
 }

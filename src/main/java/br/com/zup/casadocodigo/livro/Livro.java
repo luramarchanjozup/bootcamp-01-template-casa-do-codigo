@@ -24,59 +24,60 @@ public class Livro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idLivro;
-		
+
 	@NotBlank
 	private String titulo;
-	
-	@NotBlank  
+
+	@NotBlank
 	@Size(max = 500)
 	private String resumo;
-	
+
 	@NotBlank
 	private String sumario;
-	
+
 	@NotNull
 	@Min(20)
 	private BigDecimal preco;
-	
+
 	@Min(100)
 	private int numeroPaginas;
-	
+
 	@NotBlank
 	private String isbn;
 
 	@NotNull
 	@Future
 	private LocalDate dataPublicacao;
-	
+
 	@ManyToOne
 	@NotNull
 	@Valid
 	private Autor autor;
-	
+
 	@ManyToOne
 	@NotNull
 	@Valid
 	private Categoria categoria;
-	
+
 	@Deprecated
 	public Livro() {
-		
+
 	}
-	
-	public Livro(@NotBlank String titulo,@NotBlank @Size(max = 500) String resumo,@NotBlank String sumario, @NotNull @Min(20) BigDecimal preco,
-			@Min(100) int numeroPaginas, @NotBlank String isbn, @Future @NotNull LocalDate dataPublicacao,
-			@NotBlank @Valid Autor autor, @NotNull @Valid Categoria categoria) {
-					this.titulo = titulo;
-					this.resumo = resumo;
-					this.sumario = sumario;
-					this.preco = preco;
-					this.numeroPaginas = numeroPaginas;
-					this.isbn = isbn;
-					this.dataPublicacao = dataPublicacao;
-					this.autor = autor;
-					this.categoria = categoria;
-				
+
+	public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, @NotBlank String sumario,
+			@NotNull @Min(20) BigDecimal preco, @Min(100) int numeroPaginas, @NotBlank String isbn,
+			@Future @NotNull LocalDate dataPublicacao, @NotBlank @Valid Autor autor,
+			@NotNull @Valid Categoria categoria) {
+		this.titulo = titulo;
+		this.resumo = resumo;
+		this.sumario = sumario;
+		this.preco = preco;
+		this.numeroPaginas = numeroPaginas;
+		this.isbn = isbn;
+		this.dataPublicacao = dataPublicacao;
+		this.autor = autor;
+		this.categoria = categoria;
+
 	}
 
 	public String getTitulo() {
@@ -102,8 +103,8 @@ public class Livro {
 	public String getIsbn() {
 		return isbn;
 	}
-    
-		public LocalDate getDataPublicacao() {
+
+	public LocalDate getDataPublicacao() {
 		return this.dataPublicacao;
 	}
 
@@ -115,5 +116,8 @@ public class Livro {
 		return categoria;
 	}
 
+	public Long getIdLivro() {
+		return idLivro;
+	}
 
 }

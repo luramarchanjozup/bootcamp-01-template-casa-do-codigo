@@ -1,6 +1,7 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jdk.jfr.Name;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.util.Assert;
 
@@ -26,6 +27,7 @@ public class Pedido {
     private Compra compra;
 
     @ElementCollection
+    @CollectionTable(name = "t_itens_pedido")
     @Size(min = 1)
     private Set<ItemCompra> itens = new HashSet<>();
 

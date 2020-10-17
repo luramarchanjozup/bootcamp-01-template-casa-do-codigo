@@ -49,7 +49,7 @@ public class DetalhesCompraResponse {
         this.complemento = compra.getComplemento();
         this.cidade = compra.getCidade();
         this.pais = compra.getPais().getNome();
-        this.totalPedido;
+        //this.totalPedido;
     }
 
 

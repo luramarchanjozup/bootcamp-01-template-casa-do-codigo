@@ -17,9 +17,9 @@ public class DetalhesDaCompraController {
     @Autowired
     EntityManager entityManager;
 
-    @GetMapping(value = "/{idCompra}")
-    public EntityManager<?> detalheCompra(@PathVariable Integer idCompra){
-
-        return ResponseEntity.notFound().build();
-    }
+//    @GetMapping(value = "/{idCompra}")
+//    public EntityManager<?> detalheCompra(@PathVariable Integer idCompra){
+//
+//        return ResponseEntity.notFound().build();
+//    }
 }

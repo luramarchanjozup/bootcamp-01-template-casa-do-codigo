@@ -24,6 +24,7 @@ public class Pedido {
     @NotNull
     @Valid
     private Compra compra;
+
     @ElementCollection
     @Size(min = 1)
     private Set<ItemCompra> itens = new HashSet<>();

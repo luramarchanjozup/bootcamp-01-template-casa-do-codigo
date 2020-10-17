@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class Autor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -26,41 +26,29 @@ public class Autor {
     @Size(max = 400)
     private String descricao;
 
+
     private LocalDateTime instanteRegistro = LocalDateTime.now();
 
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
+    public Autor(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
         this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-    public void setDescricao(String descricao) {
         this.descricao = descricao;
+
     }
 
-    public LocalDateTime getInstanteRegistro() {
-        return instanteRegistro;
+    @Deprecated
+    public Autor() {
     }
-    public void setInstanteRegistro(LocalDateTime instanteRegistro) {
-        this.instanteRegistro = instanteRegistro;
+
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", instanteRegistro=" + instanteRegistro +
+                '}';
     }
+
+
 }

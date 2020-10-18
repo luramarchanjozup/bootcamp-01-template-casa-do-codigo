@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 @RequestMapping("comprafeita")
 @RestController
@@ -18,15 +19,10 @@ public class DetalheCompraController {
     @PersistenceContext
     private EntityManager manager;
 
-@GetMapping("{id}")
-public ResponseEntity<?> detalhe(@PathVariable("id") Long id){
-    Compra comprabuscada = manager.find(Compra.class, id);
-    if(comprabuscada ==null){
-        return ResponseEntity.notFound().build();
+    @GetMapping("{id}")
+    public ResponseEntity<DetalheCompraResponse> getMethodName(@PathVariable("id") Long idCompra) {
+        Optional<Compra> possivelCompra = Optional.ofNullable(manager.find(Compra.class, idCompra));
+        Optional<DetalheCompraResponse> possivelDetalheCompra = possivelCompra.map(compra -> new DetalheCompraResponse(compra));
+        return ResponseEntity.of(possivelDetalheCompra);
     }
-    DetalheCompraResponse detalheCompraResponse = new DetalheCompraResponse(
-            comprabuscada);
-    return ResponseEntity.ok (detalheCompraResponse);
-
-}
 }

@@ -5,12 +5,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
 // 2 PCI's
 @Entity
-@Table (name = "Estado")
 public class Estado {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +17,8 @@ public class Estado {
     private String nome;
 
     @NotNull
-    @Valid @ManyToOne
+    @Valid
+    @ManyToOne
     private Pais pais;
     //PCI 1;
 
@@ -41,6 +39,11 @@ public class Estado {
         return nome;
     }
 
+    //PCI 2;
+    public boolean pertenceAPais(Pais pais) {
+        return this.pais.equals(pais);
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -48,9 +51,5 @@ public class Estado {
                 ", nome='" + nome + '\'' +
                 ", pais=" + pais +
                 '}';
-    }
-//PCI 2;
-    public boolean pertenceAPais(Pais pais){
-        return this.pais.equals(pais);
     }
 }

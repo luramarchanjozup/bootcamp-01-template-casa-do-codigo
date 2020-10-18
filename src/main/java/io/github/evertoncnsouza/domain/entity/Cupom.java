@@ -55,11 +55,19 @@ public class Cupom {
         return LocalDate.now().compareTo(this.validade) <= 0; //Método para CupomValidoValidator;
     }
 
-   public BigDecimal getPercentualDesconto() { //Get para CupomAplicado
+    public BigDecimal getPercentualDesconto() { //Get para CupomAplicado
         return percentualDesconto;
     }
 
     public LocalDate getValidade() {
         return validade; //Get para CupomAplicado
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

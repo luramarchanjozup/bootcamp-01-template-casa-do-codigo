@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
@@ -22,7 +21,6 @@ public class LivroController {
 
     @PostMapping
     @Transactional
-    //@ResponseStatus(HttpStatus.CREATED) Comentado para retornar 200;
     public String save(@RequestBody @Valid LivroRequest request) {
         Livro livro = request.toModel(manager);
         manager.persist(livro);

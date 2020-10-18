@@ -64,7 +64,6 @@ public class DetalheCompraResponse {
         return valorCupom;
     }
     public BigDecimal getTotalComDescontos() {
-        return pedido.getTotal().subtract(valorCupom);
+       return pedido.getTotal().subtract(valorCupom);
     }
-
 }

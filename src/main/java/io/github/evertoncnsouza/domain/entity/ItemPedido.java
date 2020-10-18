@@ -5,6 +5,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 
 @Embeddable //Declara que esta classe será integrada a outras entidades;
@@ -55,30 +56,16 @@ public class ItemPedido {
                 '}';
     }
 
-    @Override //Explicado passo a passo na JavaClass Livro;
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((livro ==null) ? 0 :livro.hashCode());
-        return result;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemPedido)) return false;
+        ItemPedido that = (ItemPedido) o;
+        return Objects.equals(getLivro(), that.getLivro());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ItemPedido other = (ItemPedido) obj;
-        if (livro == null) {
-            if (other.livro != null)
-                return false;
-        } else if (!livro.equals(other.livro))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(getLivro());
     }
-
 }
-

@@ -40,6 +40,8 @@ public class PedidoItemRequest {
         Livro livro = manager.find(Livro.class, idLivro);
         return new ItemPedido(livro, quantidade);
     }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
 }
-
-

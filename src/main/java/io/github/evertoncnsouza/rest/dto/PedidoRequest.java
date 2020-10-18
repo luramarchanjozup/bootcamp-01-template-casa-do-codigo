@@ -3,7 +3,6 @@ package io.github.evertoncnsouza.rest.dto;
 import io.github.evertoncnsouza.domain.entity.Compra;
 import io.github.evertoncnsouza.domain.entity.ItemPedido;
 import io.github.evertoncnsouza.domain.entity.Pedido;
-import io.github.evertoncnsouza.rest.dto.PedidoItemRequest;
 import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -44,6 +43,8 @@ public class PedidoRequest {
         return itens;
     }
 
+
+
     public Function<Compra, Pedido> toModel(EntityManager manager){
         Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
         return (compra) ->{
@@ -51,5 +52,13 @@ public class PedidoRequest {
             Assert.isTrue(pedido.totalIgual(this.total), "Total do pedido, não reflete o total real");
             return pedido;
         };
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public void setItens(List<PedidoItemRequest> itens) {
+        this.itens = itens;
     }
 }

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 //Não tem PCI
 @Entity
-@Table (name = "Autor")
 public class Autor {
 
     @Id

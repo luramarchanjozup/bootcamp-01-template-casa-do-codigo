@@ -5,7 +5,6 @@ import javax.validation.constraints.NotEmpty;
 
 //Não tem PCI
 @Entity
-@Table(name = "Categoria")
 public class Categoria {
 
     @Id
@@ -25,9 +24,9 @@ public class Categoria {
         this.nome = nome;
     }
 
-    @Override //Tirei a palavra "categoria para não quebrar o Json;
+    @Override
     public String toString() {
-        return "{" +
+        return "Categoria{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 '}';

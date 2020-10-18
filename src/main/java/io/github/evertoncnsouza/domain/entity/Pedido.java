@@ -1,6 +1,7 @@
 package io.github.evertoncnsouza.domain.entity;
 
 import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,8 +26,9 @@ public class Pedido {
     private BigDecimal total;
 
     //PCI 2;
+    @Embedded
     @ElementCollection //Mostra que a existência da Classe filha "ItemPedido", não tem sentido sem a classe mãe "Pedido";
-    private @Size(min = 1) Set<ItemPedido> itens;
+    private @Size(min = 1) Set<ItemPedido> itens = new HashSet<>();
 
     @Deprecated
     public Pedido() {	}

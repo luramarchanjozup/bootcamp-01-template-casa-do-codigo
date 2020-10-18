@@ -2,7 +2,6 @@ package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Autor;
 
-
 //Não serializamos objetos de domínio para reposta de API;
 public class DetalheSiteAutorResponse {
 

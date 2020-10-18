@@ -134,15 +134,15 @@ public class CompraRequest {
     public Compra toModel(EntityManager manager, CupomRepository cupomRepository) {
         Pais pais = manager.find(Pais.class, idPais);
         Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
+
         Compra compra = new Compra(email, nome, sobrenome, cidade, documento, endereco, complemento,
                 pais, telefone, cep, funcaoCriacaoPedido);
+
         if (idEstado != null) {
             compra.setEstado(manager.find(Estado.class, idEstado));
         }
-      if (StringUtils.hasText(codigoCupom)) {
-            Cupom cupom = cupomRepository.findByCodigo(codigoCupom);
-            compra.aplicaCupom(cupom);
-        }
+   Optional<Cupom> possivelCupom = cupomRepository.findByCodigo(this.codigoCupom);
+        possivelCupom.ifPresent(cupom -> compra.aplicaCupom(cupom));
   return compra;
     }
     public boolean temEstado() {

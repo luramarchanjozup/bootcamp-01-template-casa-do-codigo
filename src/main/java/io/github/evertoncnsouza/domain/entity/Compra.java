@@ -55,13 +55,13 @@ public class Compra {
     private Estado estado;
     //PCI 2;
 
-   @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST) //Salva o filho quando salva a classe mãe;
+    @OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST) //Salva o filho quando salva a classe mãe;
     private Pedido pedido;
-   //PCI 3;
+    //PCI 3;
 
-   @Embedded //Faz de um objeto um componente. Usada para embutir um tipo, em outra entidade.
+    @Embedded //Faz de um objeto um componente. Usada para embutir um tipo, em outra entidade.
     private CupomAplicado cupomAplicado;
-   //PCI 4;
+    //PCI 4;
 
 
     @Deprecated
@@ -110,6 +110,33 @@ public class Compra {
         return Optional.ofNullable(estado);
     }
 
+    public void setEstado(@NotNull @Valid Estado estado) {
+        Assert.notNull(pais, "Nao associe estado com pais nulo");
+        Assert.isTrue(estado.pertenceAPais(pais), "Este estado não é do país associado");
+        this.estado = estado;
+    }
+
+    public void aplicaCupom(@Valid Cupom cupom) {
+        Assert.notNull(cupom, "Para aplica um cupom, este não pode ser nulo");
+        Assert.isNull(this.cupomAplicado, "Só é possível aplicar um cupom por compra");
+        Assert.isTrue(cupom.valido(), "O cupom já não é mais válido de acordo com a data de validade");
+        this.cupomAplicado = new CupomAplicado(cupom);
+    }
+
+    public Optional<CupomAplicado> getCupomAplicado() {
+        return Optional.ofNullable(cupomAplicado);
+    }
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public BigDecimal getValorDesconto() {
+        if (this.cupomAplicado == null)
+            return BigDecimal.ZERO;
+        return this.pedido.getTotal()
+                .multiply(this.cupomAplicado.getPercentualDescontoMomento())
+                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+    }
 
     @Override
     public String toString() {
@@ -127,37 +154,6 @@ public class Compra {
                 ", cep='" + cep + '\'' +
                 ", estado=" + estado +
                 ", pedido=" + pedido +
-                ", cupomAplicado=" + cupomAplicado +
                 '}';
-    }
-
-    public void setEstado(@NotNull @Valid Estado estado) {
-        Assert.notNull(pais, "Nao associe estado com pais nulo");
-        Assert.isTrue(estado.pertenceAPais(pais), "Este estado não é do país associado");
-        this.estado = estado;
-    }
-
-    public void aplicaCupom(@Valid Cupom cupom) {
-        Assert.notNull(cupom, "Para aplica um cupom, este não pode ser nulo");
-        Assert.isNull(this.cupomAplicado, "Só é possível aplicar um cupom por compra");
-        Assert.isTrue(cupom.valido(), "O cupom já não é mais válido de acordo com a data de validade");
-        this.cupomAplicado = new CupomAplicado(cupom);
-    }
-
-
-    public Optional<CupomAplicado> getCupomAplicado(){
-        return Optional.ofNullable(cupomAplicado);
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public BigDecimal getValorDesconto(){
-        if(this.cupomAplicado == null)
-            return BigDecimal.ZERO;
-        return this.pedido.getTotal()
-                .multiply(this.cupomAplicado.getPercentualDescontoMomento())
-                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
     }
 }

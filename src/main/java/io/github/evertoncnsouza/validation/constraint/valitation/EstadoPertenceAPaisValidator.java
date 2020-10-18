@@ -20,7 +20,6 @@ public class EstadoPertenceAPaisValidator implements Validator {
         return CompraRequest.class.isAssignableFrom(clazz);
     }
 
-
     @Override
     public void validate(Object target, Errors errors) {
         if(errors.hasErrors()){

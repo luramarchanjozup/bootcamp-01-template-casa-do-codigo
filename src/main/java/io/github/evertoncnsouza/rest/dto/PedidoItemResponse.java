@@ -1,7 +1,6 @@
 package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.ItemPedido;
-
 import java.math.BigDecimal;
 
 public class PedidoItemResponse {

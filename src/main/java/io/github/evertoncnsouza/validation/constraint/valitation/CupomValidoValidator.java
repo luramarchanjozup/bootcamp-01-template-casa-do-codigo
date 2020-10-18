@@ -36,7 +36,7 @@ o próprio objeto não é passado para "supports", o que é passado é a classe 
         Optional<String> possivelCodigo = request.getCodigoCupom();
 //If, PCI 4;
         if (possivelCodigo.isPresent()) {
-            Cupom cupom = cupomRepository.findByCodigo(possivelCodigo.get());
+            Cupom cupom = cupomRepository.findByCodigo(possivelCodigo.get()).get();
             if (!cupom.valido()) {
                 errors.rejectValue("codigoCupom", null, "Este cupom não é mais válido");
             }

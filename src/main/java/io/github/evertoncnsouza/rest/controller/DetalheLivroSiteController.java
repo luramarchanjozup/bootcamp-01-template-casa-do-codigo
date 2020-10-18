@@ -30,7 +30,6 @@ public class DetalheLivroSiteController {
                 livroBuscado);
         return ResponseEntity.ok (detalheSiteLivroResponse); //PCI 3;
     }
-
 //Não serializamos objeto de dominio para resposta de API.
 	@GetMapping("/lista-tudo")
 	public HashMap<String, Object> list() {

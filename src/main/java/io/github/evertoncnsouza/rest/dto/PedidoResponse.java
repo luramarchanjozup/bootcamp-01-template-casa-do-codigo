@@ -8,7 +8,6 @@ import java.util.List;
 
 public class PedidoResponse {
 
-
     private BigDecimal total;
     private List<PedidoItemResponse> itens = new ArrayList<>();
 

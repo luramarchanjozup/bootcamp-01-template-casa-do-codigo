@@ -69,12 +69,12 @@ public class LivroRequest {
    public void setDataPublicacao(LocalDate dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
+
     //Entity manager para persistência junto a classe autor e categoria, para buscaram por id;
     public Livro toModel(EntityManager manager) {
     @NotNull Autor autor = manager.find(Autor.class, idAutor);
     @NotNull Categoria categoria = manager.find(Categoria.class, idCategoria);
     //PCI 3;
-
 
     Assert.state(autor!=null, "Voce esta cadastrando livro para autor que nao existe");
     Assert.state(categoria!=null,"Esta categoria de livro nao existe");

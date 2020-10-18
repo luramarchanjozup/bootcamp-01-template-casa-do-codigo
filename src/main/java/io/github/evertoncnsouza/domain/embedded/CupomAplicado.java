@@ -1,7 +1,6 @@
 package io.github.evertoncnsouza.domain.embedded;
 
 import io.github.evertoncnsouza.domain.entity.Cupom;
-
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
@@ -48,6 +47,5 @@ public class CupomAplicado {
                 ", validadeMomento=" + validadeMomento +
                 '}';
     }
-
 }
 

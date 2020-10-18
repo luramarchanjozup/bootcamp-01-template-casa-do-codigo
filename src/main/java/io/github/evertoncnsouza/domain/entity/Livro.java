@@ -5,10 +5,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 //2 PCI's
 @Entity
-@Table (name = "Livro")
 public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,6 +104,19 @@ public class Livro {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Livro)) return false;
+        Livro livro = (Livro) o;
+        return Objects.equals(getIsbn(), livro.getIsbn());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIsbn());
+    }
+
+    @Override
     public String toString() {
         return "{" +
                 "id=" + id +
@@ -118,33 +131,5 @@ public class Livro {
                 ", categoria=" + categoria +
                 '}';
     }
-//Como isbn é formato livre e único, necessita de um equals e hashcode;
-   @Override  //HashCode usa uma conta para definir um hashcode diferente, para cada objeto de código.
-    public int hashCode() {
-        final int prime = 31; //Numero primo..
-        int result = 1; //...somado ao resultado 1.
-        result = prime * result + ((isbn ==null) ? 0 : isbn.hashCode()); //Primo * resultado + se o codigo for igual
-       // a null, põe zero, se nao pega o próprio hascode do codigo.
-        return result; //Gera hashcode diferentes, para código diferentes;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) //Compara o this, com o objeto que está recebendo; Se for a mesa estância retorna true;
-            return true;
-        if (obj == null)//Se o objeto que está sendo passado for nulo, retorna falso;
-            return false;
-        if (getClass() != obj.getClass())  //Se as classes forem diferentes, retorna false;
-            return false;
-        Livro other = (Livro) obj;//Agora é feito o cast do obj pra livro
-        if (isbn == null) { //...e compara o codigo. Se o codigo for igual a null...
-            if (other.isbn != null) // e o codigo do outro for diferente de null, já é falso.
-                return false;
-        } else if (!isbn.equals(other.isbn)) //Se nao, se o codigo for igual a outro codigo, no caso diferente,
-            return false;//... retorna false;
-        return true;//... se não, retorna true. Significa que eles são iguais;
-    }
-
-
 }
 

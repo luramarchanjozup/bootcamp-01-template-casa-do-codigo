@@ -26,6 +26,6 @@ public class CategoriaController {
     }
     //PCI 1- Categoria Request;
     //PCI 2- Categoria;
-    //Comentários das annotations feitos na classe Autor;
+    //Comentários sobre annotations feitos na classe Autor;
     //Este modelo de conversão não está no padrão do mercado, porém creio que não há problemas usando apenas um get.
 }

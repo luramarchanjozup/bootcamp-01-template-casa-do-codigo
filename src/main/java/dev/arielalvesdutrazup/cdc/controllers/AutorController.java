@@ -15,6 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+// 1 AutorService.java
+// 2 CadsatrarAutorRequestDTO.java
+// 3 Autor.java
+// 4 AutorResponseDTO.java
+
 @RequestMapping("/autores")
 @RestController
 public class AutorController {

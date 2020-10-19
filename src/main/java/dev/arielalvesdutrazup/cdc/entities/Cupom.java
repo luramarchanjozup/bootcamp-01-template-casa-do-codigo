@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+
+// ZERO
 @Entity
 public class Cupom {
 
@@ -102,5 +104,19 @@ public class Cupom {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    /**
+     * Retorna verdadeiro se o código passado por parâmetro é diferente
+     * do código desse objeto.
+     *
+     * Exemplo: CODIGOX -> !CODIGOEXISTENTE.equals(CODIGOX) = true
+     * Exemplo: CODIGOX -> !CODIGOX.equals(CODIGOX) = false
+     *
+     * @param codigoParametro
+     * @return
+     */
+    public boolean naoTemMesmoCodigo(String codigoParametro) {
+        return !codigo.equals(codigoParametro);
     }
 }

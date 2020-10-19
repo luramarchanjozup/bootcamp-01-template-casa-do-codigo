@@ -4,6 +4,8 @@ import dev.arielalvesdutrazup.cdc.entities.Estado;
 
 import java.time.OffsetDateTime;
 
+// 1 Estado.java
+// 2 PaisResponseDTO.java
 public class EstadoResponseDTO {
 
     private Long id;

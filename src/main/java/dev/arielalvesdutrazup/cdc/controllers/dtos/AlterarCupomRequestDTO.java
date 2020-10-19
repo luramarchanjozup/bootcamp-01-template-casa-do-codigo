@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+// 1 Compra.java
 public class AlterarCupomRequestDTO {
 
     @NotBlank(message = "{codigo.notempty")

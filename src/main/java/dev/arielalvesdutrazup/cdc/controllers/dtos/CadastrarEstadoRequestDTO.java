@@ -4,6 +4,7 @@ import dev.arielalvesdutrazup.cdc.entities.Estado;
 
 import javax.validation.constraints.NotBlank;
 
+// 1 Estado.java
 public class CadastrarEstadoRequestDTO {
 
     @NotBlank(message = "{nome.notempty}")

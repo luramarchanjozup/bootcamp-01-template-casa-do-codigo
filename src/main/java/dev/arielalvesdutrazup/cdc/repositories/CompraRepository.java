@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface CompraRepository extends JpaRepository<Compra, Long> {
 
-    @Query("SELECT c FROM Compra c JOIN FETCH c.itens")
+    @Query("SELECT c FROM Compra c JOIN FETCH c.itens WHERE c.id = :id")
     Optional<Compra> findFetchById(Long id);
 }

@@ -15,6 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+// 1 PaisService.java
+// 2 CadastrarPaisRequestDTO.java
+// 3 Pais.java
+// 4 PaisResponseDTO.java
+
 @RequestMapping("/paises")
 @RestController
 public class PaisController {

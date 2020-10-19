@@ -7,6 +7,8 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+
+// 1 CupomAplicado.java
 public class CupomAplicadoDTO {
 
     private String codigo;

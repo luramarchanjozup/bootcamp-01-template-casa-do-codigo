@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+// 1 ErroResponseDTO.java
+
 /**
  * Controller responsável por mapear todos os erros sem
  * uma @ControllerAdvice para especificar o tratamento

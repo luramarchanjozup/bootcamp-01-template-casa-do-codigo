@@ -4,6 +4,7 @@ import dev.arielalvesdutrazup.cdc.entities.Categoria;
 
 import javax.validation.constraints.NotBlank;
 
+// 1 Categoria.java
 public class CadastrarCategoriaRequestDTO {
 
     @NotBlank(message = "{nome.notempty}")

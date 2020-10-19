@@ -12,11 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.ConstraintViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -75,8 +73,8 @@ public class EstadoServiceIT {
 
             estadoService.cadastrar(pais.getId(), estadoParaCadastrar);
             fail("Esperando uma exceção!");
-        } catch (ConstraintViolationException e) {
-            assertThat(e.getMessage()).contains("interpolatedMessage='Nome é obrigatório!', propertyPath=nome");
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).contains("Nome do estado é obrigatório para a busca!");
         }
     }
 
@@ -102,7 +100,7 @@ public class EstadoServiceIT {
             estadoService.cadastrar(null , estadoParaCadastrar);
             fail("Esperando uma exceção!");
         } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).contains("O ID do país não pode ser nulo!");
+            assertThat(e.getMessage()).contains("Id do país não pode ser nulo!");
         }
     }
 
@@ -125,8 +123,8 @@ public class EstadoServiceIT {
 
             estadoService.buscaPeloNomeEPais(estadoParaCadastrar.getNome(), null);
             fail("Esperando uma exceção!");
-        } catch (EntityNotFoundException e) {
-            assertThat(e.getMessage()).contains("Estado com nome Rio Grande do Sul não localizado!");
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).contains("País do estado é obrigatório para a busca!");
         }
     }
 }

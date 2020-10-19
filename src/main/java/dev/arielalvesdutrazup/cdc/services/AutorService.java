@@ -10,6 +10,16 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+// 1 Autor.java
+// 2 AutorRepository.java
+
+// 3 try { buscaPeloEmail(autorParaCadastrar.getEmail()) ...}
+// 4 catch EntityNotFoundException e) { return autorRepository.save(autorParaCadastrar) ...
+
+
+// 5 autorRepository.findById(autorId).orElseThrow(() -> ...
+
+// 6 autorRepository.findByEmail(email).orElseThrow(() -> ...
 @Service
 public class AutorService {
 

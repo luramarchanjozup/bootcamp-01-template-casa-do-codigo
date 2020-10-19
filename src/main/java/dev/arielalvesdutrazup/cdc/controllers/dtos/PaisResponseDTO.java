@@ -5,6 +5,7 @@ import dev.arielalvesdutrazup.cdc.entities.Pais;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+// 1 Pais.java
 public class PaisResponseDTO {
 
     private Long id;

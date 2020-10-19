@@ -15,6 +15,25 @@ import java.util.Set;
 
 import static dev.arielalvesdutrazup.cdc.utils.BigDecimalUtils.discontaPorcentagemDe;
 
+// Annotations
+// 1 @CEP
+// 2 @Documento
+
+// Other entities
+// 3 CupomAplicado.java
+// 4 Pais.java >>
+// 5 Estado.java >>
+// 6 CompraItem.java
+
+// Utils
+// 7 BigDecimalUtils.java >>
+
+// Ifs
+// 8 if (itens != null)
+
+// Loops/Iterations
+// 9 itens.forEach(item -> { item.setCompra(this); })
+
 @Entity
 public class Compra {
 
@@ -234,15 +253,7 @@ public class Compra {
     }
 
     public BigDecimal getTotalDosItens() {
-        var totalDosItens = itens.stream()
-                .map(CompraItem::getTotalCompraItem)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        if (cupomAplicado != null) {
-            return discontaPorcentagemDe(cupomAplicado.getPercentualDeDesconto(), totalDosItens);
-        }
-
-        return totalDosItens;
+        return CompraItem.calculaTotalDosItens(itens, cupomAplicado);
     }
 
     public void validaTotalComTotalDosItens() {

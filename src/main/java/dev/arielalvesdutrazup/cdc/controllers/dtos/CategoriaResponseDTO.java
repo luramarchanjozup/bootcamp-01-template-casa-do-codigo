@@ -5,6 +5,7 @@ import dev.arielalvesdutrazup.cdc.entities.Categoria;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+// 1 Categoria.java
 public class CategoriaResponseDTO {
 
     private Long id;

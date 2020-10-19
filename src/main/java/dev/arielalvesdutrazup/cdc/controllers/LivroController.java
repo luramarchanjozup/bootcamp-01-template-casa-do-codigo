@@ -16,6 +16,12 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+// 1 LivroService.java
+// 2 Livro.java
+// 3 CadastrarLivroRequestDTO.java
+// 4 LivroResponseDTO.java
+// 5 LivroDetalheResponseDTO.java
+
 @RequestMapping("/livros")
 @RestController
 public class LivroController {

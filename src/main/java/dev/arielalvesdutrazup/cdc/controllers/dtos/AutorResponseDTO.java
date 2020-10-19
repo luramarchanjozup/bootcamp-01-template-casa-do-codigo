@@ -5,6 +5,7 @@ import dev.arielalvesdutrazup.cdc.entities.Autor;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+// 1 Autor.java
 public class AutorResponseDTO {
 
     private Long id;

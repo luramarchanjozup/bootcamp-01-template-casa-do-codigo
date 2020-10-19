@@ -15,6 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+// 1 CategoriaService.java
+// 2 CategoriaResponseDTO.java
+// 3 Categoria.java
+// 4 CadastrarCategoriaRequestDTO.java
+
 @RequestMapping("/categorias")
 @RestController
 public class CategoriaController {

@@ -9,6 +9,12 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+// 1 PaisRepository.java
+// 2 Pais.java
+// 3 try { buscaPeloNome(paisParaCadastrar
+// 4 catch (EntityNotFoundException e) { return paisRepository.save
+// 5 paisRepository.findById(paisId).orElseThrow(()
+// 6 paisRepository.findByNome(nome).orElseThrow(()
 @Service
 public class PaisService {
 

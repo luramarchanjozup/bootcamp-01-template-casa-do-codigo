@@ -42,4 +42,7 @@ public class OrderItem {
         return priceBook.multiply(new BigDecimal(quantity));
     }
 
+    public BigDecimal getPriceBook() {
+        return priceBook;
     }
+}

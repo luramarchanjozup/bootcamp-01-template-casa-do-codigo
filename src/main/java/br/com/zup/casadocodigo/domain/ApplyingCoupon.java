@@ -30,4 +30,28 @@ public class ApplyingCoupon {
         this.discountPercentage = coupon.getPercentage();
         this.momentValidity = coupon.getExpirationDate();
     }
+
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
+
+    public BigDecimal getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public LocalDate getMomentValidity() {
+        return momentValidity;
+    }
+
+    public void setMomentValidity(LocalDate momentValidity) {
+        this.momentValidity = momentValidity;
+    }
 }

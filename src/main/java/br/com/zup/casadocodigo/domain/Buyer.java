@@ -8,6 +8,8 @@ import org.springframework.util.Assert;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.function.Function;
 
 @Getter @Setter
@@ -119,5 +121,18 @@ public class Buyer {
         Assert.isTrue(coupon.valid(),"the coupon being applied is no longer valid");
         Assert.isNull(applyingCoupon,"cannot exchange a coupon for a purchase");
         this.applyingCoupon = new ApplyingCoupon(coupon);
+    }
+
+    public BigDecimal totaldiscount(BigDecimal total){
+        var discount = total.multiply(this.applyingCoupon.getDiscountPercentage().divide(BigDecimal.valueOf(100)));
+        return (total.subtract(discount)).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

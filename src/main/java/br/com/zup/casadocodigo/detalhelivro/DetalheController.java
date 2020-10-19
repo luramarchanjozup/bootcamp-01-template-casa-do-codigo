@@ -1,4 +1,4 @@
-package br.com.zup.casadocodigo.detalheLivro;
+package br.com.zup.casadocodigo.detalhelivro;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,7 +11,6 @@ public class Pais {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPais;
 
 	@NotBlank
@@ -25,6 +24,22 @@ public class Pais {
 	public Pais(@NotBlank String nome) {
 		this.nome = nome;
 
+	}
+
+	public Integer getIdPais() {
+		return idPais;
+	}
+
+	public void setIdPais(Integer idPais) {
+		this.idPais = idPais;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

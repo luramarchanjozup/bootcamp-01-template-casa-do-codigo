@@ -35,4 +35,35 @@ public class Estado {
 
 	}
 
+	public boolean naoPertenceAPais(Pais pais) {
+		if (this.pais.getIdPais() == pais.getIdPais()) {
+			return false;
+		}
+		return true;
+	}
+
+	public Integer getIdEstado() {
+		return idEstado;
+	}
+
+	public void setIdEstado(Integer idEstado) {
+		this.idEstado = idEstado;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
 }

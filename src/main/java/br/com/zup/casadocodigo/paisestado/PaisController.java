@@ -21,7 +21,7 @@ public class PaisController {
 	public ResponseEntity<Pais> cadastrarPais(@RequestBody @Valid PaisDTO dadosPais) {
 		Pais novoPais = dadosPais.gerarNovoPais();
 		bancoDados.persist(novoPais);
-
+		System.out.println("pais");
 		return new ResponseEntity<Pais>(novoPais, HttpStatus.CREATED);
 
 	}

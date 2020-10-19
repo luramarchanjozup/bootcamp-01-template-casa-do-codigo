@@ -25,7 +25,7 @@ public class CupomController {
         return cupom.toString();
     }
 
-    @PutMapping("{id}")
+    @PatchMapping("{id}")
     @Transactional
     public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody CupomRequest request) {
         Cupom cupom = manager.find(Cupom.class, id);

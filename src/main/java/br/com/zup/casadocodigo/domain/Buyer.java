@@ -1,8 +1,5 @@
 package br.com.zup.casadocodigo.domain;
 
-
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -12,7 +9,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.function.Function;
 
-@Getter @Setter
+
 @Entity(name = "buyer")
 public class Buyer {
 
@@ -52,7 +49,6 @@ public class Buyer {
                     @NotBlank @Email String email, @NotBlank String cpfCnpj,
                     @NotBlank String address, @NotBlank String complement,
                     @NotBlank String city, @NotBlank Country country,
-                   // String state,
                     @NotBlank String phone,
                     @NotBlank String zipCode, Function<Buyer, Order> createOrder) {
         this.name = name;
@@ -63,7 +59,6 @@ public class Buyer {
         this.complement = complement;
         this.city = city;
         this.country = country;
-       //this.state = state;
         this.phone = phone;
         this.zipCode = zipCode;
         this.order = createOrder.apply(this);

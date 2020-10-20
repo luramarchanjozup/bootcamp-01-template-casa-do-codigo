@@ -3,8 +3,6 @@ package br.com.zup.casadocodigo.dto;
 import br.com.zup.casadocodigo.annotations.UniqueValue;
 import br.com.zup.casadocodigo.domain.Coupon;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
@@ -15,7 +13,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter @Setter
 public class CouponDTO {
 
     @NotBlank(message = "is required")
@@ -72,5 +69,17 @@ public class CouponDTO {
                 .setParameter("id", id)
                 .getResultList();
         return exists;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setPercentage(BigDecimal percentage) {
+        this.percentage = percentage;
+    }
+
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
     }
 }

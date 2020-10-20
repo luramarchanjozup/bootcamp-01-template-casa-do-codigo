@@ -2,14 +2,9 @@ package br.com.zup.casadocodigo.dto;
 
 import br.com.zup.casadocodigo.annotations.UniqueValue;
 import br.com.zup.casadocodigo.domain.Category;
-import br.com.zup.casadocodigo.annotations.ExistsValue;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
-@Setter
 public class CategoryDTO {
 
     @NotBlank(message = "is required")
@@ -27,5 +22,13 @@ public class CategoryDTO {
     public Category transformCategory(){
         Category category = new Category(this.name);
         return category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

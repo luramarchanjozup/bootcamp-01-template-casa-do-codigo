@@ -2,15 +2,11 @@ package br.com.zup.casadocodigo.dto;
 
 import br.com.zup.casadocodigo.annotations.UniqueValue;
 import br.com.zup.casadocodigo.domain.Author;
-import br.com.zup.casadocodigo.annotations.ExistsValue;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Getter @Setter
 public class AuthorDTO {
 
     @NotBlank(message = "is required")
@@ -44,7 +40,23 @@ public class AuthorDTO {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

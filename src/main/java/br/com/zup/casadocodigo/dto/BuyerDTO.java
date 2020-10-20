@@ -4,8 +4,6 @@ import br.com.zup.casadocodigo.annotations.ExistsValue;
 import br.com.zup.casadocodigo.annotations.UniqueValue;
 import br.com.zup.casadocodigo.domain.*;
 import br.com.zup.casadocodigo.repository.CouponRepository;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.StringUtils;
@@ -18,8 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.function.Function;
 
-@Getter
-@Setter
+
 public class BuyerDTO {
 
     @NotBlank(message = "is required")

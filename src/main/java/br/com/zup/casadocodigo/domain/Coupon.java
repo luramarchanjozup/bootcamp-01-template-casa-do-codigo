@@ -1,8 +1,5 @@
 package br.com.zup.casadocodigo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +11,6 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @Entity(name = "coupon")
 public class Coupon {
 
@@ -77,5 +72,7 @@ public class Coupon {
     public boolean valid() {
         return LocalDate.now().compareTo(this.expirationDate) <= 0;
     }
+
+
 
 }

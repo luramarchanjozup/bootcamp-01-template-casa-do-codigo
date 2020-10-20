@@ -3,7 +3,6 @@ package br.com.zup.casadocodigo.dto;
 import br.com.zup.casadocodigo.domain.Book;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class BookDetailsDTO {

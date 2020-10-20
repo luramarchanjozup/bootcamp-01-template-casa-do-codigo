@@ -1,15 +1,10 @@
 package br.com.zup.casadocodigo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @Entity(name = "books")
 public class Book {
 
@@ -51,35 +46,83 @@ public class Book {
         this.author = author;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getResume() {
         return resume;
     }
 
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
+
     public String getSummary() {
         return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     public int getNumberPages() {
         return numberPages;
+    }
+
+    public void setNumberPages(int numberPages) {
+        this.numberPages = numberPages;
     }
 
     public String getIsbn() {
         return isbn;
     }
 
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
     public LocalDate getDatePublish() {
         return datePublish;
     }
 
+    public void setDatePublish(LocalDate datePublish) {
+        this.datePublish = datePublish;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Author getAuthor() {
         return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

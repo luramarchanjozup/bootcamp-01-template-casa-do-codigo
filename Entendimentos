@@ -1,0 +1,59 @@
+Bem, nos desafio 1, segui as orientações de me concentrar no framework. Segui a estratégia de não importa o que eu saiba, mas o que poderia aprender.
+Mesmo que soubesse fazer algo, me concentrei em aprender de uma nova forma, entendendo cada Annotation utilizada, por que foi utilizada, cada fluxo e 
+fiz um mapeamento destas informações. 
+Abaixo, algumas considerações sobre o aprendizado. 
+
+Desafio 1 - Casa código - 
+Pacote “Entity”
+Não tive maiores dificuldades, a maioria das restrições foram resolvidas com Annotations do próprio Spring. 
+Annotations essas que detalho no dicionário de Annotations, que disponibilizarei no PullRequest sobre entendimentos.
+
+O que aprendi? 
+. Trabalhar com datas, horário de criação, comparação de validade. 
+. Passar apenas informações obrigatórias nos construtores;
+. Getters e setters só quando houver necessidade;
+. Classe Assert para validação de argumentos;
+
+Dificuldades 
+Tive maiores dificuldades na Classe “Compra”, porém consegui entender a lógica e o fluxo de aplicar um cupom, verificar um desconto, e a relação entre estado e país.
+
+##########################################
+
+Pacote Rest / DTO
+Foi um pacote tranquilo assim como os pacotes “Entity”.  Aprendi rápido sobre os atributos que necessitaria nesta classe. 
+Utilizei ele para arquivos “Request” onde protegia e validava os atributos antes de chegar na classe de domínio e arquivos “Response”, 
+onde utilizei para Respostas de API, como as páginas de detalhes, por exemplo. 
+Me atrapalhei pra montar o ToModel, mas não chegou a ser uma dificuldade, visto os alertas da IDE.
+
+O que aprendi?
+. Proteger as bordas;
+. Isolar os parâmetros de domínio;
+. Gerar obrigações;
+
+O que tive dificuldade?
+Com a classe da CompraRequest, na validação do documento válido e na hora de receber um Cupom.
+
+#############################################
+
+Pacote Rest / Controller 
+Este pacote foi onde mais aprendi neste desafio. Não conhecia o @InitBinder, @PersistenceContext, não utilizava o EntityManager nessa classe e nem Querys.
+
+O que aprendi?
+Diferentes formas de conversão, como Request Value Objects;
+Sobre o @PersistenceContext;
+Sobre o @InitBinder
+
+Onde tive dificuldade?
+No método @GetMapping, pois tive dois casos bem próximos, um utilizando ResponseEntity<?> com @PathVariable e outro utilizando um HashMap.
+
+#######################################################
+
+Pacote Validation / ContraintValidation 
+Esta foi a parte que mais gostei neste desafio.
+Aprendi a criar validadores customizados de formas simples. @ExistsId e @UniqueValue, foram bem tranquilos de aprender, 
+consigo explicá-los perfeitamente. Até mesmo os validadores que não contam com interface foram ótimos, EmailValidator principalmente. 
+
+#####################################################
+
+Coloquei minhas características de programação que já trouxe para o Bootcamp na Config Internacionalização, no HandlerAdvice e na ApiErrors.
+Fiz essas 3 classes sem consultar o material de suporte. 

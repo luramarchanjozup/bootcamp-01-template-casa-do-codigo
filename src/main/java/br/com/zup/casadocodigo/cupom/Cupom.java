@@ -32,6 +32,11 @@ public class Cupom {
 	@Future
 	private LocalDate validade;
 
+	@Deprecated
+	public Cupom() {
+
+	}
+
 	public Cupom(@NotBlank String codigo, @Positive @NotNull BigDecimal percentualDesconto,
 			@NotNull @Future LocalDate validade) {
 		this.codigo = codigo;
@@ -53,6 +58,10 @@ public class Cupom {
 
 	public String getValidade() {
 		return validade.format(ofPattern("dd/MM/yyyy"));
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

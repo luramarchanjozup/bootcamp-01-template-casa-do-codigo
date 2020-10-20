@@ -63,4 +63,9 @@ public class CupomDTO {
 		return validade;
 	}
 
+	public Cupom gerarCupomAtualizado() {
+		Cupom atualizeCupom = new Cupom(codigo, percentualDesconto, validade);
+		return atualizeCupom;
+	}
+
 }

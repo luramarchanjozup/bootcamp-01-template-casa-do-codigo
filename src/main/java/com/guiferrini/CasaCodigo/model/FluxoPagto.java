@@ -94,6 +94,30 @@ public class FluxoPagto {
 		this.pedido = pedido;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+
+
 	public String getEmail() {
 		return email;
 	}

@@ -32,7 +32,6 @@ public class EstadoPaisValidador implements Validator {
 		
 		if(!estado.validandoSePretencePais(pais)) {
 			errors.rejectValue("Estado",null,"este Estado não é o do País selecionado");
-			//errors.reject(errorCode, errorArgs, defaultMessage);
 		}
 		
 	}

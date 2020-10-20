@@ -16,9 +16,6 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 public class NovoLivroDTO {
 	
-	//@PersistenceContext
-	//EntityManager entityManager;
-	
 	@NotBlank(message="Título obrigatório")
 	@ValorUnico(domainClass=NovoLivro.class, fieldName="titulo", message="Título já existente")
 	private String titulo;

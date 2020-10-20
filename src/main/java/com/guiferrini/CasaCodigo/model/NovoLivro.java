@@ -15,14 +15,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="novolivro")
 public class NovoLivro {
 
 	@Id
 	@Column(name="id", nullable=false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(generator = "UUID", strategy = GenerationType.SEQUENCE)
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	private String id;
 	
 	@NotBlank(message="Título obrigatório")
 	private String titulo;
@@ -78,11 +81,11 @@ public class NovoLivro {
 		this.categoria = categoria;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -156,5 +159,13 @@ public class NovoLivro {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	
+	public String toString() {
+		return "Livro [id=" + id + ", titulo=" + titulo + ", resumo=" + resumo
+				+ ", sumario=" + sumario + ", preco=" + preco
+				+ ", numeroPaginas=" + paginas + ", isbn=" + identificador
+				+ ", dataPublicacao=" + date + ", autor=" + autor
+				+ ", categoria=" + categoria + "]";
 	}
 }

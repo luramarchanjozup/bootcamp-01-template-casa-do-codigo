@@ -18,7 +18,6 @@ public class Estado {
 
 	@Id
 	@Column(name="id", nullable=false)
-	//private Long id;
 	@GeneratedValue(generator = "UUID", strategy = GenerationType.SEQUENCE)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	private String id;

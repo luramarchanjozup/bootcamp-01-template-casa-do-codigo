@@ -43,6 +43,8 @@ public class FluxoPagtoDTO {
 	
 	@NotBlank(message = "CEP é obrigatorio")
 	private String cep;
+	
+	private PedidoDTO pedido; 
 
 	public FluxoPagtoDTO(@NotBlank(message = "Email é obrigatorio") @Email String email,
 			@NotBlank(message = "Nome é obrigatorio") String nome,
@@ -53,7 +55,8 @@ public class FluxoPagtoDTO {
 			@NotBlank(message = "Cidade é obrigatorio") String cidade,
 			@NotNull(message = "Pais é obrigatorio") String idPais, String idEstado,
 			@NotBlank(message = "Telefone é obrigatorio") String telefone,
-			@NotBlank(message = "CEP é obrigatorio") String cep) {
+			@NotBlank(message = "CEP é obrigatorio") String cep,
+			PedidoDTO pedido) {
 		super();
 		this.email = email;
 		this.nome = nome;
@@ -66,6 +69,7 @@ public class FluxoPagtoDTO {
 		this.idEstado = idEstado;
 		this.telefone = telefone;
 		this.cep = cep;
+		this.pedido = pedido;
 	}
 
 	public String getEmail() {
@@ -154,21 +158,22 @@ public class FluxoPagtoDTO {
 
 	public void setCep(String cep) {
 		this.cep = cep;
-	}
-		
-	public FluxoPagto toModel(EntityManager entityManager) {
+	}	
 	
+	public PedidoDTO getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(PedidoDTO pedido) {
+		this.pedido = pedido;
+	}
+
+	public FluxoPagto toModel(EntityManager entityManager) {
+		//System.out.println("aqui");
 		@NotNull Pais pais =  entityManager.find(Pais.class, idPais);
 		Estado estado = entityManager.find(Estado.class, idEstado);
+		Pedido listaPedido = pedido.toModel(entityManager); // ERRO id null, porem n criei o pedido como tem id?! id nulo não faz a conexao com o FluxoPagto
 		
-		//if(idEstado == null) {
-		if(estado == null) {
-			return new FluxoPagto(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, telefone, cep);
-			//return obj;
-		}
-		
-		return new FluxoPagto(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone, cep);
-		//return obj;
-		
+		return new FluxoPagto(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone, cep, listaPedido);
 	}
 }

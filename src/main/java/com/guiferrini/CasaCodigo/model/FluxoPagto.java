@@ -1,11 +1,14 @@
 package com.guiferrini.CasaCodigo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -59,31 +62,10 @@ public class FluxoPagto {
 	@NotBlank(message = "CEP é obrigatorio")
 	private String cep;
 	
-	//Construtor sem ESTADO
-	public FluxoPagto(@NotBlank(message = "Email é obrigatorio") @Email String email,
-			@NotBlank(message = "Nome é obrigatorio") String nome,
-			@NotBlank(message = "Sobrenome é obrigatorio") String sobrenome,
-			@NotBlank(message = "Documento é obrigatorio") String documento,
-			@NotBlank(message = "Endereço é obrigatorio") String endereco,
-			@NotBlank(message = "Complemento é obrigatorio") String complemento,
-			@NotBlank(message = "Cidade é obrigatorio") String cidade,
-			@NotNull(message = "Pais é obrigatorio") Pais pais,
-			@NotBlank(message = "Telefone é obrigatorio") String telefone,
-			@NotBlank(message = "CEP é obrigatorio") String cep) {
-		super();
-		this.email = email;
-		this.nome = nome;
-		this.sobrenome = sobrenome;
-		this.documento = documento;
-		this.endereco = endereco;
-		this.complemento = complemento;
-		this.cidade = cidade;
-		this.pais = pais;
-		this.telefone = telefone;
-		this.cep = cep;
-	}
-
-	//Contrutor completo, com td
+	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL) 
+	@NotNull
+	private Pedido pedido;
+	
 	public FluxoPagto(@NotBlank(message = "Email é obrigatorio") @Email String email,
 			@NotBlank(message = "Nome é obrigatorio") String nome,
 			@NotBlank(message = "Sobrenome é obrigatorio") String sobrenome,
@@ -94,7 +76,9 @@ public class FluxoPagto {
 			@NotBlank(message = "Pais é obrigatorio") Pais pais,
 			Estado estado,
 			@NotBlank(message = "Telefone é obrigatorio") String telefone,
-			@NotBlank(message = "CEP é obrigatorio") String cep) {
+			@NotBlank(message = "CEP é obrigatorio") String cep,
+			@NotNull Pedido pedido
+			) {
 		super();
 		this.email = email;
 		this.nome = nome;
@@ -107,6 +91,7 @@ public class FluxoPagto {
 		this.estado = estado;
 		this.telefone = telefone;
 		this.cep = cep;
+		this.pedido = pedido;
 	}
 
 	public String getEmail() {
@@ -195,5 +180,32 @@ public class FluxoPagto {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	@Override
+	public String toString() {
+		return "Compra [email=" + 
+				email + 
+				", nome= " + 
+				nome + 
+				", sobrenome= "+ 
+				sobrenome + 
+				", documento= " + 
+				documento + 
+				", endereco= " + 
+				endereco + 
+				", complemento= " + 
+				complemento + 
+				", pais= " + 
+				pais + 
+				", telefone= " + 
+				telefone + 
+				", cep= " + 
+				cep + 
+				", estado= " + 
+				estado + 
+				", pedido= " + 
+				pedido + 
+				"]";
 	}
 }

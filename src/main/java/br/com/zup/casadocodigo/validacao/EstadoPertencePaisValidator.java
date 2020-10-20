@@ -33,12 +33,16 @@ public class EstadoPertencePaisValidator implements Validator {
 
 		NovaCompraDTO request = (NovaCompraDTO) target;
 
-		Pais pais = bancoDados.find(Pais.class, request.getIdPais());
-		Estado estado = bancoDados.find(Estado.class, request.getIdEstado());
+		if (request.temEstado()) {
+			Pais pais = bancoDados.find(Pais.class, request.getIdPais());
+			Estado estado = bancoDados.find(Estado.class, request.getIdEstado());
 
-		if (estado.naoPertenceAPais(pais)) {
-			errors.reject("idEstado", null, "este estado não é o país selecionado");
+			if (estado.naoPertenceAPais(pais)) {
+				errors.reject("idEstado", null, "este estado não é o país selecionado");
 
+			}
 		}
+
 	}
+
 }

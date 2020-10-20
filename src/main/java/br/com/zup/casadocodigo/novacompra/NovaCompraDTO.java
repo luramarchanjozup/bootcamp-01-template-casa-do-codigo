@@ -1,5 +1,7 @@
 package br.com.zup.casadocodigo.novacompra;
 
+import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -49,10 +51,12 @@ public class NovaCompraDTO {
 	@NotBlank
 	private String cep;
 
+	private CarrinhoCompraDTO pedido;
+
 	public NovaCompraDTO(@Email @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome,
 			@NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento,
 			@NotBlank String cidade, @NotNull Integer idPais, Integer idEstado, @NotBlank String telefone,
-			@NotBlank String cep) {
+			@NotBlank String cep, @Valid @NotNull CarrinhoCompraDTO pedido) {
 
 		this.email = email;
 		this.nome = nome;
@@ -65,6 +69,7 @@ public class NovaCompraDTO {
 		this.idEstado = idEstado;
 		this.telefone = telefone;
 		this.cep = cep;
+		this.pedido = pedido;
 
 	}
 
@@ -104,6 +109,10 @@ public class NovaCompraDTO {
 		return cep;
 	}
 
+	public CarrinhoCompraDTO getPedido() {
+		return pedido;
+	}
+
 	public Integer getIdPais() {
 		return idPais;
 	}
@@ -122,6 +131,27 @@ public class NovaCompraDTO {
 		cnpjValidator.initialize(null);
 
 		return cpfValidator.isValid(documento, null) || cnpjValidator.isValid(documento, null);
+	}
+
+	public Compra gerarNovaCompra(EntityManager bancoDados) {
+
+		@NotNull
+		Pais buscaPais = bancoDados.find(Pais.class, idPais);
+
+		Compra novaCompra = new Compra(email, nome, sobrenome, documento, endereco, complemento, buscaPais, telefone,
+				cep);
+		if (idEstado != null) {
+			Estado buscaEstado = bancoDados.find(Estado.class, idEstado);
+			novaCompra.setEstado(buscaEstado);
+		}
+
+		return novaCompra;
+
+	}
+
+	public boolean temEstado() {
+		return idEstado != null;
+
 	}
 
 }

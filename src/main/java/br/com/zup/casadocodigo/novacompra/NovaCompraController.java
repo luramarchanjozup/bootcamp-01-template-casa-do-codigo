@@ -30,10 +30,11 @@ public class NovaCompraController {
 		binder.addValidators(new ValidadorCpfCnpj(), estadoPertencePaisValidador);
 	}
 
-	@PostMapping(value = "/pagamento", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<NovaCompraDTO> registrarCompra(@RequestBody @Valid NovaCompraDTO dadosNovaCompra) {
-
-		return new ResponseEntity<NovaCompraDTO>(dadosNovaCompra, HttpStatus.CREATED);
+	@PostMapping(value = "/compra", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Compra> registrarCompra(@RequestBody @Valid NovaCompraDTO dadosNovaCompra) {
+		Compra novaCompra = dadosNovaCompra.gerarNovaCompra(bancoDados);
+		bancoDados.persist(novaCompra);
+		return new ResponseEntity<Compra>(novaCompra, HttpStatus.CREATED);
 
 	}
 }

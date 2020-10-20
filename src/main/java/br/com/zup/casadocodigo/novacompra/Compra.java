@@ -1,6 +1,9 @@
 package br.com.zup.casadocodigo.novacompra;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -14,6 +17,10 @@ import br.com.zup.casadocodigo.paisestado.Pais;
 
 @Entity
 public class Compra {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idCompra;
 
 	@Email
 	@NotBlank
@@ -69,7 +76,7 @@ public class Compra {
 
 	public void setEstado(@NotNull @Valid Estado estado) {
 		Assert.notNull(pais, "Não rola associar um estado enquanto o pais for nulo");
-		Assert.isTrue(estado.naoPertenceAPais(pais), "Este estado não é de país associado a compra");
+		Assert.isTrue(!estado.naoPertenceAPais(pais), "Este estado não é de país associado a compra");
 		this.estado = estado;
 	}
 

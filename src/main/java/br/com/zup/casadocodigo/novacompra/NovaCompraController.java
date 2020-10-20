@@ -2,6 +2,7 @@ package br.com.zup.casadocodigo.novacompra;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class NovaCompraController {
 	}
 
 	@PostMapping(value = "/compra", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public ResponseEntity<Compra> registrarCompra(@RequestBody @Valid NovaCompraDTO dadosNovaCompra) {
 		Compra novaCompra = dadosNovaCompra.gerarNovaCompra(bancoDados);
 		bancoDados.persist(novaCompra);

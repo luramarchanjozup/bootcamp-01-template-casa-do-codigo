@@ -1,8 +1,5 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jdk.jfr.Name;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -31,15 +28,24 @@ public class Pedido {
     @Size(min = 1)
     private Set<ItemCompra> itens = new HashSet<>();
 
+    @Deprecated
+    public Pedido(){}
+
     public Pedido(@NotNull @Valid Compra compra, @Size(min = 1)Set<ItemCompra> itens){
         Assert.isTrue(!itens.isEmpty(), "Todo pedido deve ter pelo menos um item.");
         this.compra = compra;
         this.itens.addAll(itens);
     }
 
+
+
     public boolean totalIgual(@Positive @NotNull BigDecimal total) {
         BigDecimal totalPedido = itens.stream().map(ItemCompra::valorTotal).reduce(BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo));
 
         return totalPedido.doubleValue() == total.doubleValue();
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

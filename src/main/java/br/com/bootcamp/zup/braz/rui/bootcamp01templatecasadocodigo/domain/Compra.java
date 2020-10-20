@@ -1,12 +1,17 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain;
 
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.response.ItemCompraResponse;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 
 @Entity
@@ -182,5 +187,20 @@ public class Compra {
     public void aplicaCupom(Cupom cupom) {
         Assert.isTrue(cupom.isValido(), "Cupom ja passou da data de validade.");
         this.cupomAplicado = new CupomAplicado(cupom);
+    }
+
+    public List<ItemCompraResponse> buscarItens(Integer pedido_id, EntityManager entityManager){
+        Query customQuery = entityManager.createNativeQuery("select livro_id, preco_atual, quantidade from t_itens_pedido where pedido_id = :pedido_id");
+        customQuery.setParameter("pedido_id", pedido_id);
+        List<Object[]> resultSet = customQuery.getResultList();
+
+        List<ItemCompraResponse> converter = new ArrayList<>(resultSet.size());
+
+        for (Object[] item : resultSet){
+            converter.add(new ItemCompraResponse((Integer) item[0],
+                    (BigDecimal) item[1],
+                    (Integer) item[2]));
+        }
+        return converter;
     }
 }

@@ -30,4 +30,8 @@ public class CupomAplicado {
         this.percentualDesconto = cupom.getDesconto();
         this.validadeCupom = cupom.getValidade();
     }
+
+    public Cupom getCupom() {
+        return cupom;
+    }
 }

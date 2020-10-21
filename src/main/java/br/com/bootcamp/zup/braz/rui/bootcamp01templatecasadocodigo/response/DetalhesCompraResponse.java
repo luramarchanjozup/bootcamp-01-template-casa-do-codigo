@@ -61,10 +61,6 @@ public class DetalhesCompraResponse {
         return documento;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -77,88 +73,45 @@ public class DetalhesCompraResponse {
         return sobrenome;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
     public String getTelefone() {
         return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getCep() {
         return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
     }
 
     public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public String getComplemento() {
         return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
     }
 
     public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
     public String getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
 
     public String getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public BigDecimal getTotalPedido() {
+     public BigDecimal getTotalPedido() {
         return totalPedido;
-    }
-
-    public void setTotalPedido(BigDecimal totalPedido) {
-        this.totalPedido = totalPedido;
     }
 
     public String getCupomAplicado() {
         return cupomAplicado;
-    }
-
-    public void setCupomAplicado(String cupomAplicado) {
-        this.cupomAplicado = cupomAplicado;
     }
 
     public String getPercentualDesconto() {
@@ -173,16 +126,8 @@ public class DetalhesCompraResponse {
         return totalComDesconto;
     }
 
-    public void setTotalComDesconto(BigDecimal totalComDesconto) {
-        this.totalComDesconto = totalComDesconto;
-    }
-
     public List<?> getItensPedido() {
         return itensPedido;
-    }
-
-    public void setItensPedido(List<?> itensPedido) {
-        this.itensPedido = itensPedido;
     }
                                                 //1
     private BigDecimal valorTotalPedido(List<ItemCompraResponse> itensPedido){

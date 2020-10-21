@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CategoriaUnicaValidator implements Validator {
 
     @Autowired
-    CategoriaRepository categoriaRepository;
+    CategoriaRepository categoriaRepository; //1
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -23,12 +23,12 @@ public class CategoriaUnicaValidator implements Validator {
 
     @Override
     public void validate(Object object, Errors errors) {
-        if (errors.hasErrors()) return;
+        if (errors.hasErrors()) return; //1
 
-        NovaCategoriaRequest novaCategoriaRequest = (NovaCategoriaRequest) object;
-        Optional<Categoria> categoriaCadastrada = categoriaRepository.findByNome(novaCategoriaRequest.getNome());
+        NovaCategoriaRequest novaCategoriaRequest = (NovaCategoriaRequest) object; //1
+        Optional<Categoria> categoriaCadastrada = categoriaRepository.findByNome(novaCategoriaRequest.getNome()); //1
 
-        if (categoriaCadastrada.isPresent()){
+        if (categoriaCadastrada.isPresent()){ //1
             errors.rejectValue("nome", null, "da categoria já cadastrada: " + novaCategoriaRequest.getNome());
         }
     }

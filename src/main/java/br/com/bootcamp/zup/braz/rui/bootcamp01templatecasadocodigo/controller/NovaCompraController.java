@@ -22,9 +22,9 @@ public class NovaCompraController {
     @PersistenceContext
     EntityManager entityManager;
     @Autowired
-    PaisComEstadoValidator paisComEstadoValidator;
+    PaisComEstadoValidator paisComEstadoValidator; //1
     @Autowired
-    private CupomValidator cupomValidator;
+    private CupomValidator cupomValidator; //1
 
     @InitBinder
     public void init(WebDataBinder binder){
@@ -32,7 +32,7 @@ public class NovaCompraController {
     }
 
     @PostMapping
-    @Transactional
+    @Transactional          //1                                         //1
     public ResponseEntity<Compra> novaCompra(@Validated @RequestBody NovaCompraRequest novaCompraRequest){
         Compra novaCompra = novaCompraRequest.toModel(entityManager);
         entityManager.persist(novaCompra);

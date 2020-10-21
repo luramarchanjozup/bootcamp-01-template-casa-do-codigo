@@ -40,6 +40,7 @@ public class Pedido {
 
 
     public boolean totalIgual(@Positive @NotNull BigDecimal total) {
+                                                    //1                                                                 //1
         BigDecimal totalPedido = itens.stream().map(ItemCompra::valorTotal).reduce(BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo));
 
         return totalPedido.doubleValue() == total.doubleValue();

@@ -173,18 +173,19 @@ public class NovaCompraRequest {
         this.idCupom = idCupom;
     }
 
+            //1
     public Compra toModel(EntityManager entityManager) {
-        @NotNull Pais pais = entityManager.find(Pais.class, idPais);
-
+        @NotNull Pais pais = entityManager.find(Pais.class, idPais); //1
+                        //1
         Function<Compra, Pedido> funcaoCriacaoPedido = novoPedidoRequest.toModel(entityManager);
-
+                                                                                                                            //1
         Compra compra = new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, telefone, cep, funcaoCriacaoPedido);
 
-        if (idEstado != null){
+        if (idEstado != null){ //1
             compra.setEstado(entityManager.find(Estado.class, idEstado));
         }
 
-        if (idCupom != null){
+        if (idCupom != null){ //1
             Cupom cupom = entityManager.find(Cupom.class, idCupom);
             compra.aplicaCupom(cupom);
         }

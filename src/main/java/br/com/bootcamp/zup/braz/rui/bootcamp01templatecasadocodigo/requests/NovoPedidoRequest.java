@@ -23,7 +23,7 @@ public class NovoPedidoRequest {
     @NotNull
     private BigDecimal total;
     @Size(min = 1)
-    @Valid
+    @Valid          //1
     private List<NovoPedidoItemRequest> itens = new ArrayList<>();
 
     @Deprecated
@@ -53,10 +53,10 @@ public class NovoPedidoRequest {
     }
 
     public Function<Compra, Pedido> toModel(EntityManager entityManager){
-        Set<ItemCompra> itensCalculados = itens.stream().map(item -> item.toModel(entityManager)).collect(Collectors.toSet());
+        Set<ItemCompra> itensCalculados = itens.stream().map(item -> item.toModel(entityManager)).collect(Collectors.toSet());//2
 
-        return (compra) -> {
-            Pedido pedido = new Pedido(compra,itensCalculados);
+        return (compra) -> { //2
+            Pedido pedido = new Pedido(compra,itensCalculados); //1
             Assert.isTrue(pedido.totalIgual(total), "Total informado difere do total real.");
             return pedido;
         };

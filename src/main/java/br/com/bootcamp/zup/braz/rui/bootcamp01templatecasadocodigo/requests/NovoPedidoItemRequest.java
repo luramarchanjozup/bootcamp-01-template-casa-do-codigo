@@ -26,7 +26,7 @@ public class NovoPedidoItemRequest {
     }
 
     public ItemCompra toModel(EntityManager entityManager){
-        @NotNull Livro livro = entityManager.find(Livro.class, idLivro);
-        return new ItemCompra(livro, quantidade);
+        @NotNull Livro livro = entityManager.find(Livro.class, idLivro); //1
+        return new ItemCompra(livro, quantidade); //1
     }
 }

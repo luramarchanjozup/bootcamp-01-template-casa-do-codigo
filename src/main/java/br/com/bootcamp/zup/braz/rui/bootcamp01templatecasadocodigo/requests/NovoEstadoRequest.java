@@ -44,6 +44,7 @@ public class NovoEstadoRequest {
         this.idPais = idPais;
     }
 
+    //1
     public Estado toModel(EntityManager entityManager) {
 
         return new Estado(nome, entityManager.find(Pais.class, idPais));

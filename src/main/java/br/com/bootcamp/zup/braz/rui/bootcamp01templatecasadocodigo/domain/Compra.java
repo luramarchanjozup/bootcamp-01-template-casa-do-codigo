@@ -183,19 +183,19 @@ public class Compra {
     public void setCupomAplicado(CupomAplicado cupomAplicado) {
         this.cupomAplicado = cupomAplicado;
     }
-
+                            //1
     public void aplicaCupom(Cupom cupom) {
         Assert.isTrue(cupom.isValido(), "Cupom ja passou da data de validade.");
-        this.cupomAplicado = new CupomAplicado(cupom);
+        this.cupomAplicado = new CupomAplicado(cupom); //1
     }
-
+                //1
     public List<ItemCompraResponse> buscarItens(Integer pedido_id, EntityManager entityManager){
         Query customQuery = entityManager.createNativeQuery("select livro_id, preco_atual, quantidade from t_itens_pedido where pedido_id = :pedido_id");
         customQuery.setParameter("pedido_id", pedido_id);
         List<Object[]> resultSet = customQuery.getResultList();
 
         List<ItemCompraResponse> converter = new ArrayList<>(resultSet.size());
-
+        //1
         for (Object[] item : resultSet){
             converter.add(new ItemCompraResponse((Integer) item[0],
                     (BigDecimal) item[1],

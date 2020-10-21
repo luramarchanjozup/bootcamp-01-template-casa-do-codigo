@@ -23,7 +23,7 @@ public class NovaCategoriaController {
 
     //Cadastrar uma nova Categoria
     @PostMapping
-    @Transactional
+    @Transactional         //1                                                 //1
     public ResponseEntity<Categoria> novaCategoria(@Validated @RequestBody NovaCategoriaRequest novaCategoriaRequest){
 
         Categoria novaCategoria = novaCategoriaRequest.toModel();

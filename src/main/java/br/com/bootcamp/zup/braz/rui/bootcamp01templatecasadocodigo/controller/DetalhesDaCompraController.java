@@ -25,15 +25,18 @@ public class DetalhesDaCompraController {
     @PersistenceContext
     EntityManager entityManager;
 
+    //1
     DetalhesCompraResponse detalhesCompraResponse;
 
     @GetMapping(value = "/{idCompra}")
     public ResponseEntity<?> detalheCompra(@NotNull @PathVariable Integer idCompra){
-
+        //1
         Compra compra = entityManager.find(Compra.class, idCompra);
 
         if (compra != null){
+                //1
             List<ItemCompraResponse> listaItens = compra.buscarItens(compra.getPedido().getId(), entityManager);
+                                                                    //1
             return ResponseEntity.status(HttpStatus.OK).body(new DetalhesCompraResponse(compra, listaItens));
         }
 

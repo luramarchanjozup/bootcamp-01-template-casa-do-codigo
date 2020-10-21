@@ -23,7 +23,7 @@ public class NovoAutorController {
 
     //Cadastrar um novo Autor
     @PostMapping
-    @Transactional
+    @Transactional          //1                                             //1
     public ResponseEntity<Autor> cadastrarAutor(@Validated @RequestBody NovoAutorRequest novoAutorRequest){
 
         Autor novoAutor = novoAutorRequest.toModel();

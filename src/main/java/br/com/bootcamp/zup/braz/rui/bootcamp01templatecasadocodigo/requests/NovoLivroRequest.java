@@ -129,9 +129,9 @@ public class NovoLivroRequest {
     }
 
     public Livro toModel(EntityManager entityManager) {
-        @NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria);
-        @NotNull Autor autor = entityManager.find(Autor.class, idAutor);
+        @NotNull Categoria categoria = entityManager.find(Categoria.class, idCategoria); //1
+        @NotNull Autor autor = entityManager.find(Autor.class, idAutor); //1
 
-        return new Livro(titulo, resumo, sumario, preco, paginas, isbn, dataLancamento, categoria, autor);
+        return new Livro(titulo, resumo, sumario, preco, paginas, isbn, dataLancamento, categoria, autor); //1
     }
 }

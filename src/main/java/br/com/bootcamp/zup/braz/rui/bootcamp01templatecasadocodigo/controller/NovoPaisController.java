@@ -23,7 +23,7 @@ public class NovoPaisController {
     EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional        //1                                       //1
     public ResponseEntity<Pais> novoPais(@Validated @RequestBody NovoPaisRequest novoPaisRequest){
 
         Pais novoPais = novoPaisRequest.toModel();

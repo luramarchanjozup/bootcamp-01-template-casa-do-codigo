@@ -23,7 +23,7 @@ public class NovoLivroController {
 
     //Cadastra um novo Livro
     @PostMapping
-    @Transactional
+    @Transactional          //1                                             //1
     public ResponseEntity<Livro> cadastrarLivro(@Validated @RequestBody NovoLivroRequest novoLivroRequest){
 
         Livro novoLivro = novoLivroRequest.toModel(entityManager);

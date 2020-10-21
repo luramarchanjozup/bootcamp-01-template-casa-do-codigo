@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 @Documented
 @Constraint(validatedBy = ObjetoValidoValidator.class)
 public @interface ObjetoValido {
+
     String message() default "não existe no banco.";
 
     Class<?>[] groups() default {};

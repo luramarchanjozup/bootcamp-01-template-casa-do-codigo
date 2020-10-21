@@ -69,8 +69,5 @@ public class AtualizaCupomRequest {
         this.validade = validade;
     }
 
-//    public Cupom toModel(){
-//        return new Cupom(this.codigo, this.desconto, this.validade);
-//    }
 
 }

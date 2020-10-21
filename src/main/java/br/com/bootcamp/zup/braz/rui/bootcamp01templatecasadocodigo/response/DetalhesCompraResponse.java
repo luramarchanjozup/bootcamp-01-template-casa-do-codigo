@@ -195,7 +195,7 @@ public class DetalhesCompraResponse {
     public void setItensPedido(List<?> itensPedido) {
         this.itensPedido = itensPedido;
     }
-
+                                                //1
     private BigDecimal valorTotalPedido(List<ItemCompraResponse> itensPedido){
 
         BigDecimal valorTotal = BigDecimal.ZERO;

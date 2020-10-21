@@ -22,7 +22,7 @@ public class NovoCupomController {
     EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional          //1                                         //1
     public ResponseEntity<Cupom> novoCupom(@Validated @RequestBody NovoCupomRequest novoCupomRequest){
         Cupom cupom = novoCupomRequest.toModel();
         entityManager.persist(cupom);

@@ -19,7 +19,7 @@ public class AtualizaCupomController {
     EntityManager entityManager;
 
     @PutMapping
-    @Transactional
+    @Transactional          //1                                         //1
     public ResponseEntity<Cupom> atualizaCupom(@RequestBody @Validated AtualizaCupomRequest atualizaCupomRequest){
         Cupom cupom = entityManager.find(Cupom.class, atualizaCupomRequest.getId());
         entityManager.merge(cupom);

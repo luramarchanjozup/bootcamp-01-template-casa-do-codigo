@@ -1,6 +1,7 @@
 package com.guiferrini.CasaCodigo.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,10 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.util.Assert;
 
 @Entity
 @Table(name="pedido")
@@ -27,19 +31,25 @@ public class Pedido {
 	
 	//@OneToMany(cascade = {CascadeType.ALL})
 	@ElementCollection // classe q recebe, com //@Embeddable
-	@Size(min=1)
+	@Size(min=1, message = "O pedido tem que ter no minimo 1 item")
 	@NotNull
+	@Valid
 	private List<ItemPedido> itens;
 	
-	@NotNull
+	@NotNull(message = "O total não pode ser zero")
+	@Positive(message = "O total tem que ser maior que zero")
 	private BigDecimal total;
 
 	@Deprecated
 	public Pedido() {
 	}
 
-	public Pedido(@NotNull BigDecimal total, @NotNull @Size(min = 1) List<ItemPedido> itens) {
+	public Pedido(@NotNull @Positive BigDecimal total, 
+				@NotNull @Valid @Size(min = 1) List<ItemPedido> itens) {
 		super();
+		
+		Assert.isTrue(!itens.isEmpty(), "O pedido tem que ter no minimo 1 item");
+		
 		this.total = total;
 		this.itens = itens;
 	}
@@ -72,4 +82,18 @@ public class Pedido {
 	public String toString() {
 		return "Pedido [itens= " + itens + "]";
 	}
+	
+	public boolean check(@NotNull(message = "O total não pode ser zero") @Positive(message = "O total tem que ser maior que zero") BigDecimal total) {
+		
+		List<ItemPedido> listaItemPedido = new ArrayList<>();
+		double soma = 0.0;
+		
+		for(ItemPedido item : itens) { 
+			Double itemPedido2 = item.getNovoLivro().getPreco();
+			soma += itemPedido2;
+		}
+		BigDecimal b1 = new BigDecimal(Double.toString(soma));
+
+		return b1 == total;
+	} 
 }

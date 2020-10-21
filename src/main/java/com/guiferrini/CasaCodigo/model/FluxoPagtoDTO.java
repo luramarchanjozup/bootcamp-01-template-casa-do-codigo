@@ -1,6 +1,7 @@
 package com.guiferrini.CasaCodigo.model;
 
 import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -44,6 +45,8 @@ public class FluxoPagtoDTO {
 	@NotBlank(message = "CEP é obrigatorio")
 	private String cep;
 	
+	@NotNull(message = "O pedido não pode ser Nulo")
+	@Valid //faz a validação de outra 'tabela', td q vai p o pedido vaz uma validação aqui.
 	private PedidoDTO pedido; 
 
 	public FluxoPagtoDTO(@NotBlank(message = "Email é obrigatorio") @Email String email,
@@ -169,10 +172,10 @@ public class FluxoPagtoDTO {
 	}
 
 	public FluxoPagto toModel(EntityManager entityManager) {
-		//System.out.println("aqui");
+
 		@NotNull Pais pais =  entityManager.find(Pais.class, idPais);
 		Estado estado = entityManager.find(Estado.class, idEstado);
-		Pedido listaPedido = pedido.toModel(entityManager); // ERRO id null, porem n criei o pedido como tem id?! id nulo não faz a conexao com o FluxoPagto
+		Pedido listaPedido = pedido.toModel(entityManager); 
 		
 		return new FluxoPagto(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone, cep, listaPedido);
 	}

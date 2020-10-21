@@ -39,16 +39,19 @@ public class FluxoPagtoController {
 	
 	@PostMapping
 	@Transactional
-	//public FluxoPagto cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) {
+	//public FluxoPagto cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) { - referencia p outro tipo de retorno
 	public ResponseEntity<FluxoPagto> cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) {	
+		
 		FluxoPagto obj = fluxoPagtoDTO.toModel(entityManager);
 		entityManager.persist(obj);
-		
+				
+		//UriComponentsBuilder builder - Alternativa de retorno URI
+		//return ResponseEntity.created(builder.path("/pagto/{id}").buildAndExpand(obj.getId()).toUri()).build();
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		//return obj;
 		
 		if(obj instanceof FluxoPagto) {
-			return ResponseEntity.created(uri).build();			
+			return ResponseEntity.created(uri).build();
 		} else {
 			return ResponseEntity.status(400).body(obj);
 		}	

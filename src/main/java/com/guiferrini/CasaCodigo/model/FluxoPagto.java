@@ -63,7 +63,7 @@ public class FluxoPagto {
 	private String cep;
 	
 	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL) 
-	@NotNull
+	@NotNull(message = "O pedido não pode ser Nulo")
 	private Pedido pedido;
 	
 	public FluxoPagto(@NotBlank(message = "Email é obrigatorio") @Email String email,

@@ -64,4 +64,8 @@ public class Cupom {
 		this.id = id;
 	}
 
+	public boolean valido() {
+		return LocalDate.now().compareTo(this.validade) <= 0;
+	}
+
 }

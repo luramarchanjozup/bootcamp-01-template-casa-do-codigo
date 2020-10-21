@@ -1,5 +1,7 @@
 package br.com.zup.casadocodigo.novacompra;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -10,6 +12,7 @@ import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 
+import br.com.zup.casadocodigo.cupom.Cupom;
 import br.com.zup.casadocodigo.paisestado.Estado;
 import br.com.zup.casadocodigo.paisestado.Pais;
 import br.com.zup.casadocodigo.validacao.IdExiste;
@@ -53,10 +56,13 @@ public class NovaCompraDTO {
 
 	private CarrinhoCompraDTO pedido;
 
+	@IdExiste(domainClass = Cupom.class, fieldName = "codigo")
+	private String codigoCupom;
+
 	public NovaCompraDTO(@Email @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome,
 			@NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento,
 			@NotBlank String cidade, @NotNull Integer idPais, Integer idEstado, @NotBlank String telefone,
-			@NotBlank String cep, @Valid @NotNull CarrinhoCompraDTO pedido) {
+			@NotBlank String cep, @Valid @NotNull CarrinhoCompraDTO pedido, String codigoCupom) {
 
 		this.email = email;
 		this.nome = nome;
@@ -70,6 +76,7 @@ public class NovaCompraDTO {
 		this.telefone = telefone;
 		this.cep = cep;
 		this.pedido = pedido;
+		this.codigoCupom = codigoCupom;
 
 	}
 
@@ -121,6 +128,10 @@ public class NovaCompraDTO {
 		return idEstado;
 	}
 
+	public String getCupom() {
+		return codigoCupom;
+	}
+
 	public boolean documentoValido() {
 		Assert.hasLength(documento, "você nao deveria validar o documento se ele não tiver sido preenchido");
 
@@ -140,6 +151,15 @@ public class NovaCompraDTO {
 
 		Compra novaCompra = new Compra(email, nome, sobrenome, documento, endereco, complemento, buscaPais, telefone,
 				cep);
+
+		List<Cupom> listaCupom = bancoDados.createQuery("SELECT c FROM Cupom c WHERE c.codigo = :codigo", Cupom.class)
+				.setParameter("codigo", codigoCupom).getResultList();
+
+		if (!listaCupom.isEmpty()) {
+			Cupom cupomValido = listaCupom.stream().findFirst().get();
+			novaCompra.aplicaCupom(cupomValido);
+		}
+
 		if (idEstado != null) {
 			Estado buscaEstado = bancoDados.find(Estado.class, idEstado);
 			novaCompra.setEstado(buscaEstado);

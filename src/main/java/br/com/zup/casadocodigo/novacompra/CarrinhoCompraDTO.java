@@ -16,11 +16,14 @@ public class CarrinhoCompraDTO {
 	private BigDecimal total;
 	@Size(min = 1)
 	@Valid
-	private List<ItemCarrinho> itens = new ArrayList<>();
+	private List<ItemCarrinhoDTO> itens = new ArrayList<>();
 
-	public CarrinhoCompraDTO(@Positive @NotNull BigDecimal total, @Size(min = 1) @Valid List<ItemCarrinho> itens) {
+	public CarrinhoCompraDTO(@Positive @NotNull BigDecimal total, @Size(min = 1) @Valid List<ItemCarrinhoDTO> itens) {
 		this.total = total;
 		this.itens = itens;
 	}
 
+	public List<ItemCarrinhoDTO> getItens() {
+		return itens;
+	}
 }

@@ -1,31 +1,53 @@
 package br.com.zup.casadocodigo.novacompra;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.zup.casadocodigo.livro.Livro;
-import br.com.zup.casadocodigo.validacao.IdExiste;
 
+@Embeddable
 public class ItemCarrinho {
 
 	@NotNull
-	@IdExiste(domainClass = Livro.class, fieldName = "idLivro")
-	private Integer idLivro;
+	@ManyToOne
+	private Livro livro;
 
 	@Positive
 	private int quantidade;
 
-	public ItemCarrinho(@NotNull Integer idLivro, @Positive int quantidade) {
-		this.idLivro = idLivro;
-		this.quantidade = quantidade;
+	@Positive
+	private BigDecimal precoMomento;
+
+	@Deprecated
+	public ItemCarrinho() {
+
 	}
 
-	public Integer getIdLivro() {
-		return idLivro;
+	public ItemCarrinho(@NotNull Livro livro, @Positive int quantidade, @Positive BigDecimal precoMomento) {
+
+		this.livro = livro;
+		this.quantidade = quantidade;
+		this.precoMomento = precoMomento;
+	}
+
+	public BigDecimal total() {
+		return precoMomento.multiply(new BigDecimal(quantidade));
+	}
+
+	public Livro getLivro() {
+		return livro;
 	}
 
 	public int getQuantidade() {
 		return quantidade;
+	}
+
+	public BigDecimal getPrecoMomento() {
+		return precoMomento;
 	}
 
 }

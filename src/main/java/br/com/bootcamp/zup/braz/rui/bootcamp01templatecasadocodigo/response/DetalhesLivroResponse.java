@@ -17,7 +17,6 @@ public class DetalhesLivroResponse {
     @Size(max = 400)
     private String resumo;
     private String sumario;
-    @NotNull
     @Min(20)
     private BigDecimal preco;
     @NotNull

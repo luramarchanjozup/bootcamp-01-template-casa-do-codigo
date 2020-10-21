@@ -1,10 +1,10 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoValido;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Autor;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Categoria;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Livro;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.*;

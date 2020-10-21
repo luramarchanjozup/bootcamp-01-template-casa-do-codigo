@@ -5,13 +5,11 @@ import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 

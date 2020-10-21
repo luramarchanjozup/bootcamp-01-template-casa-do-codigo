@@ -1,20 +1,10 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.response;
 
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Compra;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class DetalhesCompraResponse {
@@ -65,7 +55,6 @@ public class DetalhesCompraResponse {
         this.percentualDesconto = compra.getCupomAplicado().getCupom().getDesconto() + "%";
         this.totalComDesconto = valorTotalComDesconto(itensPedido, compra.getCupomAplicado().getCupom().getDesconto());
 
-        //this.totalPedido;
     }
 
     public String getDocumento() {
@@ -198,7 +187,7 @@ public class DetalhesCompraResponse {
                                                 //1
     private BigDecimal valorTotalPedido(List<ItemCompraResponse> itensPedido){
 
-        BigDecimal valorTotal = BigDecimal.ZERO;
+        BigDecimal valorTotal;
         BigDecimal subTotal = BigDecimal.ZERO;
 
         for (ItemCompraResponse itemCompraResponse : itensPedido){
@@ -211,9 +200,9 @@ public class DetalhesCompraResponse {
 
     private BigDecimal valorTotalComDesconto(List<ItemCompraResponse> itensPedido, Integer percentualDesconto){
         BigDecimal valorTotal = valorTotalPedido(itensPedido);
-        BigDecimal valorDoDesconto = BigDecimal.ZERO;
+        BigDecimal valorDoDesconto;
 
-        valorDoDesconto = valorTotal.multiply(new BigDecimal(25)).divide(new BigDecimal(100));
+        valorDoDesconto = valorTotal.multiply(new BigDecimal(percentualDesconto)).divide(new BigDecimal(100));
 
         return valorTotal.subtract(valorDoDesconto);
 

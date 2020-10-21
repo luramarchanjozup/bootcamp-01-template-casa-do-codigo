@@ -1,9 +1,9 @@
 package br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.requests;
 
+import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoValido;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Estado;
 import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.domain.Pais;
-import br.com.bootcamp.zup.braz.rui.bootcamp01templatecasadocodigo.annotation.ObjetoUnico;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;

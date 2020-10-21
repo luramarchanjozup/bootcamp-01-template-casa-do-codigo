@@ -22,7 +22,7 @@ public class ListarLivrosCadastrados {
     @ResponseBody //1
     public List<Livro> listarLivros(){
         Query query = entityManager.createQuery("select l from " + Livro.class.getName() + " l");
-        List resultado = query.getResultList();
+        List<Livro> resultado = query.getResultList();
         return resultado;
     }
 }

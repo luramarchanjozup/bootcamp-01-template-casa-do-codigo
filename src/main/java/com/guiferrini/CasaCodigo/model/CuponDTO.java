@@ -22,7 +22,7 @@ public class CuponDTO {
 	@NotNull(message = "A Data é Obrigatórioa e no Futuro.")
 	@Future
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
-	private LocalDate date;
+	private LocalDate validade;
 	
 	@Deprecated
 	public CuponDTO() {
@@ -30,11 +30,11 @@ public class CuponDTO {
 
 	public CuponDTO(@NotBlank(message = "O Código é Obrigatorio.") String codigo, 
 			@NotNull(message = "A porcentagem do Desconto é obrigatoria e positiva.") @Positive Double desconto, 
-			@NotNull(message = "A Data é Obrigatórioa e no Futuro.") @Future LocalDate date) {
+			@NotNull(message = "A Data é Obrigatórioa e no Futuro.") @Future LocalDate validade) {
 		super();
 		this.codigo = codigo;
 		this.desconto = desconto;
-		this.date = date;
+		this.validade = validade;
 	}
 	
 	public String getCodigo() {
@@ -45,13 +45,13 @@ public class CuponDTO {
 		return desconto;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getValidade() {
+		return validade;
 	}
 
 	public Cupon toModel() {
 		//return new Cupon(codigo, desconto, date);
-		Cupon obj = new Cupon(codigo, desconto, date);
+		Cupon obj = new Cupon(codigo, desconto, validade);
 		return obj;
 	}
 }

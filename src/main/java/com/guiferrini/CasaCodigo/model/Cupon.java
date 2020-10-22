@@ -35,7 +35,7 @@ public class Cupon {
 	
 	@NotNull(message = "A Data é Obrigatórioa e no Futuro.")
 	@Future
-	private LocalDate date;
+	private LocalDate validade;
 	
 	@Deprecated
 	public Cupon() {
@@ -43,11 +43,27 @@ public class Cupon {
 
 	public Cupon(@NotBlank(message = "O Código é Obrigatorio.") String codigo, 
 			@NotNull(message = "A porcentagem do Desconto é obrigatoria e positiva.") @Positive Double desconto, 
-			@NotNull(message = "A Data é Obrigatórioa e no Futuro.") @Future LocalDate date) {
+			@NotNull(message = "A Data é Obrigatórioa e no Futuro.") @Future LocalDate validade) {
 		super();
 		this.codigo = codigo;
 		this.desconto = desconto;
-		this.date = date;
+		this.validade = validade;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
+	}
+
+	public void setValidade(LocalDate validade) {
+		this.validade = validade;
 	}
 	
 	public String toString() {
@@ -56,6 +72,6 @@ public class Cupon {
 				" Porcentagem de Desconto: " +
 				desconto + 
 				" Data de Validade: " + 
-				date;
+				validade;
 	}
 }

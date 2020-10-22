@@ -42,7 +42,7 @@ public class CuponDuplicadoValidador implements Validator{
 		if(list.contains(cuponDTO.getCodigo())) {
 			errors.rejectValue("codigo", null, 
 					"Já existe um Código com este mesmo nome " + cuponDTO.getCodigo());
-		}
+		} 
 		
 	}
 

@@ -6,6 +6,7 @@ Projeto construído para atender as funcionalidades da aplicação da Casa do C�
  -  Cadastro de novo autor
  -  Cadastro de nova categoria
  -  Validação e tratamento de erro
+ - Cadastro de novo livro
 
 ## Tecnologias utilizadas
 - Spring Boot 2.3.4 (Spring Boot DevTools, Spring Web, Spring Data JPA, Spring Validation, PostgreSQL Driver)

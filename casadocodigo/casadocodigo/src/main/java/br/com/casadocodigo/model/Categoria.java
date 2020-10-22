@@ -1,6 +1,6 @@
 package br.com.casadocodigo.model;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +19,7 @@ public class Categoria {
     public Categoria(String nome) {
         this.nome = nome;
     }
+
 
     public Long getId() {
         return id;

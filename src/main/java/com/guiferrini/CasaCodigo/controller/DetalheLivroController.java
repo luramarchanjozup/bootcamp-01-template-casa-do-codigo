@@ -21,7 +21,7 @@ public class DetalheLivroController {
 	EntityManager entityManager;
 	
 	@GetMapping
-	public ResponseEntity<?> buscaPorId(@PathVariable("id") Long id) {
+	public ResponseEntity<?> buscaPorId(@PathVariable("id") String id) {
 		
 		NovoLivro obj = entityManager.find(NovoLivro.class, id);
 

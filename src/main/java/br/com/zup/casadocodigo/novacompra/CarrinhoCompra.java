@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class CarrinhoCompra {
 	private Compra compra;
 
 	@Size(min = 1)
+	@ElementCollection
 	private List<ItemCarrinho> itens = new ArrayList<>();
 
 	public CarrinhoCompra(@NotNull @Valid Compra compra, @Size(min = 1) List<ItemCarrinho> itens) {

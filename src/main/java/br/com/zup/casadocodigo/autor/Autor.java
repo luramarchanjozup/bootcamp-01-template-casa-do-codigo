@@ -3,42 +3,42 @@ package br.com.zup.casadocodigo.autor;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "AUTOR")
 public class Autor implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 316809177616776372L;
 
 	@Id
-	@Column(name = "ID_AUTOR")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idAutor;
-	
-	@Column(name = "NOME")
+
+	@NotBlank
 	private String nome;
-	
-	@Column(name = "EMAIL")
+
+	@NotBlank
+	@Email
 	private String email;
-	
-	@Column(name = "DESCRICAO")
+
+	@NotBlank
+	@Size(max = 400)
 	private String descricao;
-	
-	@Column(name = "DATA_REGISTRO")
+
 	private LocalDate dataRegistro;
-	
+
 	@Deprecated
 	public Autor() {
-	
+
 	}
 
 	public Autor(String nome, String email, String descricao) {
@@ -88,5 +88,4 @@ public class Autor implements Serializable {
 		this.dataRegistro = dataRegistro;
 	}
 
-		
 }

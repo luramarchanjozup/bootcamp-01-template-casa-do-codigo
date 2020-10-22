@@ -1,4 +1,4 @@
-package br.com.zup.casadocodigo.autor;
+package br.com.zup.casadocodigo.validacao;
 
 import java.util.List;
 
@@ -8,6 +8,9 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import br.com.zup.casadocodigo.autor.Autor;
+import br.com.zup.casadocodigo.autor.AutorDTO;
 
 @Component
 public class ValidaEmailDuplicadoAutor implements Validator {

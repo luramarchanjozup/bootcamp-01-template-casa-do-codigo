@@ -7,7 +7,7 @@ import br.com.zup.casadocodigo.livro.Livro;
 
 public class DetalheLivroResponseDTO {
 
-	private Long idLivro;
+	private Integer idLivro;
 
 	private String titulo;
 
@@ -40,7 +40,7 @@ public class DetalheLivroResponseDTO {
 		this.categoria = dadosLivro.getCategoria().getNome();
 	}
 
-	public Long getIdLivro() {
+	public Integer getIdLivro() {
 		return idLivro;
 	}
 

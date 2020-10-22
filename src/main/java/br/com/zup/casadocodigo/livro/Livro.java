@@ -23,7 +23,7 @@ public class Livro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idLivro;
+	private Integer idLivro;
 
 	@NotBlank
 	private String titulo;
@@ -116,7 +116,7 @@ public class Livro {
 		return categoria;
 	}
 
-	public Long getIdLivro() {
+	public Integer getIdLivro() {
 		return idLivro;
 	}
 

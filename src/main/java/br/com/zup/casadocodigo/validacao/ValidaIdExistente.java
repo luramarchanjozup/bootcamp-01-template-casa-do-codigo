@@ -8,8 +8,10 @@ import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+@Component
 public class ValidaIdExistente implements ConstraintValidator<IdExiste, Object> {
 
 	private String domainAttibute;

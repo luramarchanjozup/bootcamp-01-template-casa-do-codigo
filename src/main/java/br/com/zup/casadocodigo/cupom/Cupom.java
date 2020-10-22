@@ -44,6 +44,10 @@ public class Cupom {
 		this.validade = validade;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -58,10 +62,6 @@ public class Cupom {
 
 	public String getValidade() {
 		return validade.format(ofPattern("dd/MM/yyyy"));
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public boolean valido() {

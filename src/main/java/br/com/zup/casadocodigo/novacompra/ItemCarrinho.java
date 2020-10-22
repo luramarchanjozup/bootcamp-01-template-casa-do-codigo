@@ -27,11 +27,11 @@ public class ItemCarrinho {
 
 	}
 
-	public ItemCarrinho(@NotNull Livro livro, @Positive int quantidade, @Positive BigDecimal precoMomento) {
+	public ItemCarrinho(@NotNull Livro livro, @Positive int quantidade) {
 
 		this.livro = livro;
 		this.quantidade = quantidade;
-		this.precoMomento = precoMomento;
+		this.precoMomento = livro.getPreco();
 	}
 
 	public BigDecimal total() {

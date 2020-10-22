@@ -1,10 +1,12 @@
 package br.com.zup.casadocodigo.validacao;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import br.com.zup.casadocodigo.novacompra.NovaCompraDTO;
 
+@Component
 public class ValidadorCpfCnpj implements Validator {
 
 	@Override

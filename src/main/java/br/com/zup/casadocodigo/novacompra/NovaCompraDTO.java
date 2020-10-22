@@ -1,6 +1,8 @@
 package br.com.zup.casadocodigo.novacompra;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -54,6 +56,8 @@ public class NovaCompraDTO {
 	@NotBlank
 	private String cep;
 
+	@Valid
+	@NotNull
 	private CarrinhoCompraDTO pedido;
 
 	@IdExiste(domainClass = Cupom.class, fieldName = "codigo")
@@ -149,8 +153,11 @@ public class NovaCompraDTO {
 		@NotNull
 		Pais buscaPais = bancoDados.find(Pais.class, idPais);
 
+		Function<Compra, CarrinhoCompra> funcaoCarrinhoCompra = pedido.geraNovoCarrinho(bancoDados);
+
+		// adicionar carrinho de compra recebido
 		Compra novaCompra = new Compra(email, nome, sobrenome, documento, endereco, complemento, buscaPais, telefone,
-				cep);
+				cep, funcaoCarrinhoCompra);
 
 		List<Cupom> listaCupom = bancoDados.createQuery("SELECT c FROM Cupom c WHERE c.codigo = :codigo", Cupom.class)
 				.setParameter("codigo", codigoCupom).getResultList();
@@ -172,6 +179,10 @@ public class NovaCompraDTO {
 	public boolean temEstado() {
 		return idEstado != null;
 
+	}
+
+	public Optional<String> getCodigoCupom() {
+		return Optional.of(codigoCupom);
 	}
 
 }

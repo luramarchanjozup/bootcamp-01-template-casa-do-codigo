@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.zup.casadocodigo.validacao.CupomValidoValidador;
 import br.com.zup.casadocodigo.validacao.EstadoPertencePaisValidator;
 import br.com.zup.casadocodigo.validacao.ValidadorCpfCnpj;
 
@@ -26,9 +27,12 @@ public class NovaCompraController {
 	@Autowired
 	private EstadoPertencePaisValidator estadoPertencePaisValidador;
 
+	@Autowired
+	private CupomValidoValidador cupomValidator;
+
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(new ValidadorCpfCnpj(), estadoPertencePaisValidador);
+		binder.addValidators(new ValidadorCpfCnpj(), estadoPertencePaisValidador, cupomValidator);
 	}
 
 	@PostMapping(value = "/compra", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

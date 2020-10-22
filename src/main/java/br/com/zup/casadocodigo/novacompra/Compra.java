@@ -1,5 +1,7 @@
 package br.com.zup.casadocodigo.novacompra;
 
+import java.util.function.Function;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -70,7 +72,7 @@ public class Compra {
 
 	public Compra(@Email @NotBlank String email, @NotBlank String nome, @NotBlank String sobrenome,
 			@NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento, @NotNull Pais pais,
-			@NotBlank String telefone, @NotBlank String cep) {
+			@NotBlank String telefone, @NotBlank String cep, Function<Compra, CarrinhoCompra> carrinhoCompra) {
 		this.email = email;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -80,6 +82,7 @@ public class Compra {
 		this.pais = pais;
 		this.telefone = telefone;
 		this.cep = cep;
+		this.carrinhoCompra = carrinhoCompra.apply(this);
 
 	}
 

@@ -1,5 +1,7 @@
 package com.guiferrini.CasaCodigo.model;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -48,6 +50,10 @@ public class FluxoPagtoDTO {
 	@NotNull(message = "O pedido não pode ser Nulo")
 	@Valid //faz a validação de outra 'tabela', td q vai p o pedido vaz uma validação aqui.
 	private PedidoDTO pedido; 
+	
+	@IdUnico(domainClass = Cupon.class, fieldName = "id", message = "ERRO. Favor verificar o ID do Cupom.")
+	@Valid
+	private String idCupon;
 
 	public FluxoPagtoDTO(@NotBlank(message = "Email é obrigatorio") @Email String email,
 			@NotBlank(message = "Nome é obrigatorio") String nome,
@@ -170,6 +176,14 @@ public class FluxoPagtoDTO {
 	public void setPedido(PedidoDTO pedido) {
 		this.pedido = pedido;
 	}
+	
+	public Optional<String> getIdCupon(){
+		return Optional.ofNullable(idCupon);
+	}
+
+	public void setIdCupon(String idCupon) {
+		this.idCupon = idCupon;
+	}
 
 	public FluxoPagto toModel(EntityManager entityManager) {
 
@@ -177,6 +191,13 @@ public class FluxoPagtoDTO {
 		Estado estado = entityManager.find(Estado.class, idEstado);
 		Pedido listaPedido = pedido.toModel(entityManager); 
 		
-		return new FluxoPagto(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone, cep, listaPedido);
+		FluxoPagto fluxoPagto = new FluxoPagto(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, telefone, cep, listaPedido);
+		
+		if(idCupon != null) {
+			Cupon cupon = entityManager.find(Cupon.class, idCupon);
+			fluxoPagto.cuponSendoAplicado(cupon);
+		}
+		
+		return fluxoPagto;
 	}
 }

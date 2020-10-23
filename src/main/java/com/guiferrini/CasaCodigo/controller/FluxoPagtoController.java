@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.guiferrini.CasaCodigo.model.CuponValidoValidador;
 import com.guiferrini.CasaCodigo.model.EstadoPaisValidador;
 import com.guiferrini.CasaCodigo.model.FluxoPagto;
 import com.guiferrini.CasaCodigo.model.FluxoPagtoDTO;
@@ -32,11 +33,14 @@ public class FluxoPagtoController {
 	@Autowired
 	EstadoPaisValidador estadoPaisValidador;
 	
+	//@Autowired
+	//private CuponValidoValidador cuponValidoValidador;
+
 	@InitBinder
 	public void init(WebDataBinder webDataBinder) {
 		webDataBinder.addValidators(estadoPaisValidador);
 	}
-	
+
 	@PostMapping
 	@Transactional
 	//public FluxoPagto cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) { - referencia p outro tipo de retorno
@@ -51,7 +55,8 @@ public class FluxoPagtoController {
 		//return obj;
 		
 		if(obj instanceof FluxoPagto) {
-			return ResponseEntity.created(uri).build();
+			//return ResponseEntity.created(uri).build();
+			return ResponseEntity.status(201).body(obj);
 		} else {
 			return ResponseEntity.status(400).body(obj);
 		}	

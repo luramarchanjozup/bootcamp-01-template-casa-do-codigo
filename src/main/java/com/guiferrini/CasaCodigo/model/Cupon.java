@@ -66,6 +66,26 @@ public class Cupon {
 		this.validade = validade;
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public Double getDesconto() {
+		return desconto;
+	}
+
+	public LocalDate getValidade() {
+		return validade;
+	}
+	
+	public boolean cuponDataValida() {
+		return LocalDate.now().compareTo(this.validade) <= 0;
+	}	
+
 	public String toString() {
 		return "Cupon: Código: " +
 				codigo +

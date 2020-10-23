@@ -2,6 +2,7 @@ package com.guiferrini.CasaCodigo.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.util.Assert;
 
 @Entity
 @Table(name="fluxopagto")
@@ -65,6 +68,10 @@ public class FluxoPagto {
 	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL) 
 	@NotNull(message = "O pedido não pode ser Nulo")
 	private Pedido pedido;
+	
+	@Embedded
+	@Valid
+	CuponAplicado cuponAplicado;
 	
 	public FluxoPagto(@NotBlank(message = "Email é obrigatorio") @Email String email,
 			@NotBlank(message = "Nome é obrigatorio") String nome,
@@ -204,6 +211,19 @@ public class FluxoPagto {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	public CuponAplicado getCuponAplicado() {
+		return cuponAplicado;
+	}
+
+	public void setCuponAplicado(CuponAplicado cuponAplicado) {
+		this.cuponAplicado = cuponAplicado;
+	}
+
+	public void cuponSendoAplicado(Cupon cupon) {
+		Assert.isTrue(cupon.cuponDataValida(), "O cupon não está com data Válida.");
+		cuponAplicado = new CuponAplicado(cupon);
 	}
 	
 	@Override

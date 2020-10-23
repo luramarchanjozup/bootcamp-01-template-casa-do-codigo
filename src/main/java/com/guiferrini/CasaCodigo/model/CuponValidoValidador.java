@@ -2,9 +2,6 @@ package com.guiferrini.CasaCodigo.model;
 
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -15,8 +12,8 @@ import com.guiferrini.CasaCodigo.repository.CuponRepository;
 @Component
 public class CuponValidoValidador implements Validator {
 
-	@PersistenceContext
-	EntityManager entityManager;
+	//@PersistenceContext
+	//EntityManager entityManager;
 	
 	@Autowired
 	CuponRepository cuponRepository;
@@ -36,13 +33,17 @@ public class CuponValidoValidador implements Validator {
 		FluxoPagtoDTO fluxoPagtoDTO = (FluxoPagtoDTO) target;
 		
 		Optional<String> idCupomInserido = fluxoPagtoDTO.getIdCupon();
-		System.out.println("Aqui Cupon: " + idCupomInserido);
+		
         if (idCupomInserido.isPresent()){
-            Cupon cupon = cuponRepository.getOne(idCupomInserido.get()); //Aqui ocorre o erro LazyInitializationException: could not initialize proxy - no Session
-            if (!cupon.cuponDataValida()){
-                errors.rejectValue("id", null, "Esta cupom está inválido.");
+            Cupon cupon = cuponRepository.getById(idCupomInserido.get());
+        	//Cupon cupon = cuponRepository.getOne(idCupomInserido.get()); //Aqui ocorre o erro LazyInitializationException: could not initialize proxy - no Session
+            System.out.println("Aqui Cupon: " + cupon);
+            if (!cupon.cuponDataValida()){ 
+                errors.rejectValue("idCupon", null, "Esta cupom está inválido.");
             }
         } 
+        
+        //Tentativa com Querry - Erro na querry - VALIDAR!!!
 //		FluxoPagtoDTO fluxoPagtoDTO = (FluxoPagtoDTO) target;
 // 
 //		Optional<String> idCuponInserido = fluxoPagtoDTO.getIdCupon();
@@ -51,7 +52,7 @@ public class CuponValidoValidador implements Validator {
 //		if(idCuponInserido.isPresent()) {
 //			TypedQuery<LocalDate> consulta = entityManager.createQuery(
 //					//"Select validade " + //funciona, tras tds as datas, não filtar pelo ID
-//					"Select id=6bbd73e7-488b-4d4e-86ca-d66e59f3c8ad " +  
+//					"Select id " +  
 //					"From Cupon " +
 //					"Where validade=validade",
 //					LocalDate.class

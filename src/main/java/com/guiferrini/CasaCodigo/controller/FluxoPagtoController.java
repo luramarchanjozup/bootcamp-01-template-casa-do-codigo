@@ -33,17 +33,17 @@ public class FluxoPagtoController {
 	@Autowired
 	EstadoPaisValidador estadoPaisValidador;
 	
-	//@Autowired
-	//private CuponValidoValidador cuponValidoValidador;
+	@Autowired
+	private CuponValidoValidador cuponValidoValidador;
 
 	@InitBinder
 	public void init(WebDataBinder webDataBinder) {
-		webDataBinder.addValidators(estadoPaisValidador);
+		webDataBinder.addValidators(estadoPaisValidador, cuponValidoValidador);
 	}
 
+	//public FluxoPagto cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) { - referencia p outro tipo de retorno
 	@PostMapping
 	@Transactional
-	//public FluxoPagto cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) { - referencia p outro tipo de retorno
 	public ResponseEntity<FluxoPagto> cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) {	
 		
 		FluxoPagto obj = fluxoPagtoDTO.toModel(entityManager);

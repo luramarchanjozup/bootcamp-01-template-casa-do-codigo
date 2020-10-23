@@ -14,7 +14,7 @@ import javax.validation.constraints.Positive;
 public class CuponAplicado {
 
 	@Valid
-	@ManyToOne //(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER) //ele pega td q eu faço...
 	private Cupon cupon;
 	
 	@NotNull(message = "A porcentagem do Desconto é obrigatoria e positiva.")

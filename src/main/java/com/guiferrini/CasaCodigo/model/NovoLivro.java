@@ -1,5 +1,6 @@
 package com.guiferrini.CasaCodigo.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -38,7 +39,7 @@ public class NovoLivro {
 
 	@NotNull(message="Preço obrigatório")
 	@Min(20)
-	private Double preco;
+	private BigDecimal preco;
 	
 	@NotNull(message="Número de paginas obrigatório")
 	@Min(100)
@@ -65,7 +66,7 @@ public class NovoLivro {
 
 	public NovoLivro(@NotBlank String titulo,
 			@NotBlank @Size(max = 500) String resumo, String sumario,
-			@NotNull @Min(20) Double preco,
+			@NotNull @Min(20) BigDecimal preco,
 			@NotNull @Min(100) Integer paginas,
 			@NotBlank String identificador, @NotNull
 			@Future LocalDate date, Autor autor, Categoria categoria) {
@@ -113,11 +114,11 @@ public class NovoLivro {
 		this.sumario = sumario;
 	}
 
-	public Double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 

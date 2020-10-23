@@ -1,5 +1,6 @@
 package com.guiferrini.CasaCodigo.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Cupon {
 	
 	@NotNull(message = "A porcentagem do Desconto é obrigatoria e positiva.")
 	@Positive
-	private Double desconto;
+	private BigDecimal desconto;
 	
 	@NotNull(message = "A Data é Obrigatórioa e no Futuro.")
 	@Future
@@ -42,7 +43,7 @@ public class Cupon {
 	}
 
 	public Cupon(@NotBlank(message = "O Código é Obrigatorio.") String codigo, 
-			@NotNull(message = "A porcentagem do Desconto é obrigatoria e positiva.") @Positive Double desconto, 
+			@NotNull(message = "A porcentagem do Desconto é obrigatoria e positiva.") @Positive BigDecimal desconto, 
 			@NotNull(message = "A Data é Obrigatórioa e no Futuro.") @Future LocalDate validade) {
 		super();
 		this.codigo = codigo;
@@ -58,7 +59,7 @@ public class Cupon {
 		this.codigo = codigo;
 	}
 
-	public void setDesconto(Double desconto) {
+	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
 	}
 
@@ -74,7 +75,7 @@ public class Cupon {
 		return codigo;
 	}
 
-	public Double getDesconto() {
+	public BigDecimal getDesconto() {
 		return desconto;
 	}
 

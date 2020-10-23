@@ -10,7 +10,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import com.guiferrini.CasaCodigo.model.CuponValidoValidador;
 import com.guiferrini.CasaCodigo.model.EstadoPaisValidador;
 import com.guiferrini.CasaCodigo.model.FluxoPagto;
 import com.guiferrini.CasaCodigo.model.FluxoPagtoDTO;
+import com.guiferrini.CasaCodigo.model.FluxoPagtoResponse;
 
 @RestController
 @RequestMapping("/pagto")

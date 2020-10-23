@@ -1,5 +1,7 @@
 package com.guiferrini.CasaCodigo.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
@@ -28,6 +30,9 @@ public class ItemPedido {
 	@Positive(message = "Por favor, informar a quantidade de produtos. A quantidade não pode ser zero.")
 	private int quantidade;
 	
+	@Positive
+	private BigDecimal preco;
+	
 	@Deprecated
 	public ItemPedido() {
 	}
@@ -36,6 +41,7 @@ public class ItemPedido {
 		super();
 		this.novoLivro = novoLivro;
 		this.quantidade = quantidade;
+		this.preco = novoLivro.getPreco();
 	}
 
 	public NovoLivro getNovoLivro() {
@@ -44,6 +50,10 @@ public class ItemPedido {
 
 	public int getQuantidade() {
 		return quantidade;
+	}
+	
+	public BigDecimal total() {
+		return preco.multiply(new BigDecimal(quantidade));
 	}
 	
 	@Override

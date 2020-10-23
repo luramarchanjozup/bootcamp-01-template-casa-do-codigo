@@ -83,17 +83,23 @@ public class Pedido {
 		return "Pedido [itens= " + itens + "]";
 	}
 	
+	public BigDecimal calculoTotal() {
+		return itens.stream().map(itemPedido -> itemPedido.total()).reduce(new BigDecimal(0), BigDecimal::add);
+	}
+	
 	public boolean check(@NotNull(message = "O total não pode ser zero") @Positive(message = "O total tem que ser maior que zero") BigDecimal total) {
 		
 		List<ItemPedido> listaItemPedido = new ArrayList<>();
-		double soma = 0.0;
+		BigDecimal soma = null;
+		BigDecimal somaFinal = null;
 		
-		for(ItemPedido item : itens) { 
-			Double itemPedido2 = item.getNovoLivro().getPreco();
-			soma += itemPedido2;
+		for(ItemPedido item : itens) {  
+			BigDecimal itemPedido2 = item.getNovoLivro().getPreco();
+			//soma = soma + itemPedido2;
+			somaFinal = soma.add(itemPedido2);
 		}
-		BigDecimal b1 = new BigDecimal(Double.toString(soma));
+		//BigDecimal b1 = new BigDecimal(somaFinal);
 
-		return b1 == total;
+		return somaFinal == total;
 	} 
 }

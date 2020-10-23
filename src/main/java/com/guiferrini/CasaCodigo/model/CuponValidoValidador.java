@@ -2,6 +2,8 @@ package com.guiferrini.CasaCodigo.model;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -24,6 +26,7 @@ public class CuponValidoValidador implements Validator {
 	}
 
 	@Override
+	@Transactional
 	public void validate(Object target, Errors errors) {
 		
 		if(errors.hasErrors()) {
@@ -35,8 +38,8 @@ public class CuponValidoValidador implements Validator {
 		Optional<String> idCupomInserido = fluxoPagtoDTO.getIdCupon();
 		
         if (idCupomInserido.isPresent()){
-            Cupon cupon = cuponRepository.getById(idCupomInserido.get());
-        	//Cupon cupon = cuponRepository.getOne(idCupomInserido.get()); //Aqui ocorre o erro LazyInitializationException: could not initialize proxy - no Session
+            Cupon cupon = cuponRepository.getById(idCupomInserido.get()); //Usando um medodo meu no Repository
+        	//Cupon cupon = cuponRepository.getOne(idCupomInserido.get()); //Usando um metodo do Repository
             System.out.println("Aqui Cupon: " + cupon);
             if (!cupon.cuponDataValida()){ 
                 errors.rejectValue("idCupon", null, "Esta cupom está inválido.");

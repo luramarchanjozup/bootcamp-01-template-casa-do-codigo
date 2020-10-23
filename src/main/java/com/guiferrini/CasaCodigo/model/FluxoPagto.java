@@ -1,5 +1,7 @@
 package com.guiferrini.CasaCodigo.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -73,6 +75,10 @@ public class FluxoPagto {
 	@Valid
 	CuponAplicado cuponAplicado;
 	
+	@Deprecated
+	public FluxoPagto() {
+	}
+	
 	public FluxoPagto(@NotBlank(message = "Email é obrigatorio") @Email String email,
 			@NotBlank(message = "Nome é obrigatorio") String nome,
 			@NotBlank(message = "Sobrenome é obrigatorio") String sobrenome,
@@ -105,25 +111,17 @@ public class FluxoPagto {
 		return id;
 	}
 
-
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
-
 
 	public Pedido getPedido() {
 		return pedido;
 	}
 
-
-
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-
-
 
 	public String getEmail() {
 		return email;
@@ -224,6 +222,15 @@ public class FluxoPagto {
 	public void cuponSendoAplicado(Cupon cupon) {
 		Assert.isTrue(cupon.cuponDataValida(), "O cupon não está com data Válida.");
 		cuponAplicado = new CuponAplicado(cupon);
+	}
+	
+	public BigDecimal pedidoTotal() {
+		return pedido.calculoTotal();
+	}
+	
+	public BigDecimal valorFinalComDesconto() {
+		BigDecimal desconto = cuponAplicado.getDescontoCupon();
+		return pedidoTotal().subtract(desconto.divide(new BigDecimal(100)).multiply(pedidoTotal()));
 	}
 	
 	@Override

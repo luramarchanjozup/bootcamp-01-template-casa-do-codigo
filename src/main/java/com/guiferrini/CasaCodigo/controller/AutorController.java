@@ -21,7 +21,7 @@ import com.guiferrini.CasaCodigo.repository.AutorRepository;
 public class AutorController {
 	
 	//1
-	@Autowired AutorRepository autorRepo; //responseEntity - alternativa EntityManager - são 2 coisaas diferentes
+	@Autowired AutorRepository autorRepo;
 	
 	//Criando Autor
 	@CrossOrigin

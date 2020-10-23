@@ -32,10 +32,10 @@ public class FluxoPagtoController {
 	@PersistenceContext
 	EntityManager entityManager;
 	
-	//Validando se o Estado pertence ao Pais
+	//1 - Validando se o Estado pertence ao Pais
 	@Autowired
 	EstadoPaisValidador estadoPaisValidador;
-	
+	//1
 	@Autowired
 	private CuponValidoValidador cuponValidoValidador;
 
@@ -46,9 +46,9 @@ public class FluxoPagtoController {
 
 	//public FluxoPagto cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) { - referencia p outro tipo de retorno
 	@PostMapping
-	@Transactional
+	@Transactional//1
 	public ResponseEntity<FluxoPagto> cria(@Valid @RequestBody FluxoPagtoDTO fluxoPagtoDTO) {	
-		
+		//1
 		FluxoPagto obj = fluxoPagtoDTO.toModel(entityManager);
 		entityManager.persist(obj);
 				
@@ -56,11 +56,11 @@ public class FluxoPagtoController {
 		//return ResponseEntity.created(builder.path("/pagto/{id}").buildAndExpand(obj.getId()).toUri()).build();
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		//return obj;
-		
+		//1
 		if(obj instanceof FluxoPagto) {
 			//return ResponseEntity.created(uri).build();
 			return ResponseEntity.status(201).body(obj);
-		} else {
+		} else {//1
 			return ResponseEntity.status(400).body(obj);
 		}	
 	}

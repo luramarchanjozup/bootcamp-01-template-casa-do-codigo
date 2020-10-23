@@ -25,11 +25,11 @@ public class CategoriaDuplicadoValidador implements Validator {
 	
 	@Override
 	public void validate(Object target, Errors errors) {
-
+		//1
 		if(errors.hasErrors()) {
 			return;
 		}
-		
+		//1
 		CategoriaDTO categoriaDTO = (CategoriaDTO) target;
 		
 		TypedQuery<String> consulta = entityManager.createQuery(
@@ -39,7 +39,7 @@ public class CategoriaDuplicadoValidador implements Validator {
 				String.class
 				);
 		List<String> list = consulta.getResultList();
-		
+		//1
 		if(list.contains(categoriaDTO.getNome())) {
 			errors.rejectValue("nome", null,
 					"Já existe um(a) outro(a) Categoria(a) com o mesmo nome "

@@ -95,7 +95,7 @@ public class Pedido {
 		
 		for(ItemPedido item : itens) {  
 			BigDecimal itemPedido2 = item.getNovoLivro().getPreco();
-			//soma = soma + itemPedido2;
+			//soma += itemPedido2;
 			somaFinal = soma.add(itemPedido2);
 		}
 		//BigDecimal b1 = new BigDecimal(somaFinal);

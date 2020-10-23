@@ -16,8 +16,6 @@ public class Pais {
 
 	@Id
 	@Column(name="id", nullable=false)
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//private Long id;
 	@GeneratedValue(generator = "UUID", strategy = GenerationType.SEQUENCE)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	private String id;

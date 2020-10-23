@@ -28,21 +28,21 @@ public class NovoLivroController {
 	EntityManager entityManager;
 	
 	@PostMapping
-	@Transactional
+	@Transactional//1
 	public ResponseEntity<NovoLivro> criaNovoLivro(@Valid @RequestBody NovoLivroDTO novoLivroDTO) {
-		
+		//1
 		NovoLivro obj = novoLivroDTO.toModel(entityManager);
 		entityManager.persist(obj);
-		
+		//1
 		if(obj instanceof NovoLivro) {
 			return ResponseEntity.status(201).body(obj);
-		} else {
+		} else {//1
 			return ResponseEntity.status(400).body(obj); 
 		}
 	}
 	
 	@GetMapping
-	@Transactional
+	@Transactional//1
 	public ResponseEntity<List<NovoLivro>> busca(){
 		
 		Query query = entityManager.createQuery("Select x from " + NovoLivro.class.getName() + " x");
@@ -50,10 +50,10 @@ public class NovoLivroController {
 		List<NovoLivro> list = new ArrayList<>();
 		
 		list.addAll(query.getResultList());
-		
+		//1
 		if(list instanceof NovoLivro) {
 			return ResponseEntity.status(200).body(list);			
-		} else {
+		} else {//1
 			return ResponseEntity.status(500).body(list);
 		}	
 	}

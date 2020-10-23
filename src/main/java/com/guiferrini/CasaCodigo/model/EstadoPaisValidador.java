@@ -18,18 +18,18 @@ public class EstadoPaisValidador implements Validator {
 		return FluxoPagtoDTO.class.isAssignableFrom(clazz);
 	}
 
-	@Override
+	@Override//1
 	public void validate(Object target, Errors errors) {
-		
+		//1
 		if(errors.hasErrors()) {
 			return;
 		}
-		
+		//1
 		FluxoPagtoDTO fluxoPagtoDTO = (FluxoPagtoDTO) target;
 		
 		Pais pais = entityManager.find(Pais.class, fluxoPagtoDTO.getPais());
 		Estado estado = entityManager.find(Estado.class, fluxoPagtoDTO.getEstado());
-		
+		//1
 		if(!estado.validandoSePretencePais(pais)) {
 			errors.rejectValue("Estado",null,"este Estado não é o do País selecionado");
 		}

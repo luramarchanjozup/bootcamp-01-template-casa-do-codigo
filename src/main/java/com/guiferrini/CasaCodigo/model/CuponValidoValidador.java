@@ -26,22 +26,22 @@ public class CuponValidoValidador implements Validator {
 	}
 
 	@Override
-	@Transactional
+	@Transactional//1
 	public void validate(Object target, Errors errors) {
-		
+		//1
 		if(errors.hasErrors()) {
 			return;
 		}
-
+		//1
 		FluxoPagtoDTO fluxoPagtoDTO = (FluxoPagtoDTO) target;
 		
 		Optional<String> idCupomInserido = fluxoPagtoDTO.getIdCupon();
-		
+		//1
         if (idCupomInserido.isPresent()){
             Cupon cupon = cuponRepository.getById(idCupomInserido.get()); //Usando um medodo meu no Repository
         	//Cupon cupon = cuponRepository.getOne(idCupomInserido.get()); //Usando um metodo do Repository
             System.out.println("Aqui Cupon: " + cupon);
-            if (!cupon.cuponDataValida()){ 
+            if (!cupon.cuponDataValida()){//1 
                 errors.rejectValue("idCupon", null, "Esta cupom está inválido.");
             }
         } 

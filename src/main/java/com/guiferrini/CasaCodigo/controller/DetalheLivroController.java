@@ -20,16 +20,16 @@ public class DetalheLivroController {
 	@PersistenceContext
 	EntityManager entityManager;
 	
-	@GetMapping
+	@GetMapping//1
 	public ResponseEntity<?> buscaPorId(@PathVariable("id") String id) {
-		
+		//1
 		NovoLivro obj = entityManager.find(NovoLivro.class, id);
 
-		//**ERRO, validar pq do erro...Assert.state(obj == null, "ID inexistente. Favor verificar o ID do Livro informado.");
+		//1
 		if(obj == null) {
 			return ResponseEntity.status(404).body("ID inexistente. Favor verificar o ID do Livro informado.");
 		}
-		
+		//1
 		NovoLivroDTO rFinal = new NovoLivroDTO(
 				obj.getTitulo(), 
 				obj.getResumo(), 

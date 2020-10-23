@@ -28,6 +28,7 @@ public class CuponController {
 	@PersistenceContext
 	EntityManager entityManager;
 	
+	//1
 	@Autowired
 	private CuponDuplicadoValidador cuponDuplicadoValidador;
 	
@@ -37,24 +38,23 @@ public class CuponController {
 	}
 	
 	@PostMapping
-	@Transactional
+	@Transactional//1
 	public ResponseEntity<String> criaCupon(@Valid @RequestBody CuponDTO cuponDTO) {
-		
-		//Cupon obj = new Cupon(cuponDTO.getCodigo(), cuponDTO.getDesconto(), cuponDTO.getDate());
+		//1
 		Cupon obj = cuponDTO.toModel();
 		entityManager.merge(obj);
-
+		//1
 		if(obj instanceof Cupon) {
 			return ResponseEntity.status(201).body(obj.toString());
-		} else {
+		} else {//1
 			return ResponseEntity.status(400).body(obj.toString());
 		}
 	}
 	
 	@PutMapping("/{id}")
-	@Transactional
+	@Transactional//1
 	public ResponseEntity<String> alterarCupon(@Valid @RequestBody CuponDTO cuponDTO, @PathVariable String id) {
-		
+		//1
 		Cupon cupon = entityManager.find(Cupon.class, id); //busco id do Cupon existente
 		
 		entityManager.merge(cupon); //Solicito as atualização p gravar

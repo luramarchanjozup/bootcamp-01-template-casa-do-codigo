@@ -23,11 +23,11 @@ public class CuponDuplicadoValidador implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		
+		//1
 		if(errors.hasErrors()) {
 			return;
 		}
-		
+		//1
 		CuponDTO cuponDTO = (CuponDTO) target;
 		
 		TypedQuery<String> consulta = entityManager.createQuery(
@@ -38,7 +38,7 @@ public class CuponDuplicadoValidador implements Validator{
 				);
 		
 		List<String> list = consulta.getResultList();
-		
+		//1
 		if(list.contains(cuponDTO.getCodigo())) {
 			errors.rejectValue("codigo", null, 
 					"Já existe um Código com este mesmo nome " + cuponDTO.getCodigo());

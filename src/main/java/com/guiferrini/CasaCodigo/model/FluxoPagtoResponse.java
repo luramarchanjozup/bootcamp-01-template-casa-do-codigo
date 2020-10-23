@@ -3,8 +3,13 @@ package com.guiferrini.CasaCodigo.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class FluxoPagtoResponse {
 
+	@NotBlank //n funciona
+	@NotNull //n funciona
 	private String email;
 	
 	private String nome;

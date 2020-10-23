@@ -51,7 +51,6 @@ public class CuponDTO {
 	}
 
 	public Cupon toModel() {
-		//return new Cupon(codigo, desconto, date);
 		Cupon obj = new Cupon(codigo, desconto, validade);
 		return obj;
 	}

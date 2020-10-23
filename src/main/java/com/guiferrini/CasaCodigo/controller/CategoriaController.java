@@ -27,6 +27,7 @@ public class CategoriaController {
 	@PersistenceContext
 	EntityManager entityManager;
 
+	//1
 	@Autowired
 	private CategoriaDuplicadoValidador categoriaDuplicadoValidador;
 
@@ -36,9 +37,10 @@ public class CategoriaController {
 	}
  
 	@PostMapping 
-	@Transactional
+	@Transactional //1
 	public String criarNovaCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
 
+		//1
 		Categoria obj = new Categoria(categoriaDTO.getNome());
 
 		entityManager.persist(obj);

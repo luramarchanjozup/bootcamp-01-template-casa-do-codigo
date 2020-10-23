@@ -27,9 +27,9 @@ public class PaisEstadoController {
 	EntityManager entityManager;
 	
 	@Transactional
-	@PostMapping(value="/pais")
+	@PostMapping(value="/pais")//1
 	public Pais criaPais(@Valid @RequestBody PaisDTO paisDTO) {
-		
+		//1
 		Pais obj = new Pais(paisDTO.getNome());
 		entityManager.persist(obj);
 		
@@ -37,9 +37,9 @@ public class PaisEstadoController {
 	}
 	
 	@PostMapping(value="/pais/estado")
-	@Transactional
+	@Transactional//1
 	public Estado criaEstado(@Valid @RequestBody EstadoDTO estadoDTO) {
-		
+		//1
 		Estado obj = estadoDTO.toModel(entityManager);
 		entityManager.persist(obj); 
 		

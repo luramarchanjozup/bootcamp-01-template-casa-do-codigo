@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+//3
 @RestController
 public class CupomController {
 
@@ -22,6 +23,8 @@ public class CupomController {
 
 	@PostMapping(value = "/cupom", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
+	// 1
+	// 1
 	public ResponseEntity<Cupom> descontoCupom(@RequestBody @Valid CupomDTO dadosCupom) {
 
 		Cupom novoCupom = dadosCupom.gerarNovoCupom();
@@ -36,6 +39,7 @@ public class CupomController {
 			@PathVariable("id") Integer idCupom) {
 
 		Cupom procurarId = bancoDados.find(Cupom.class, idCupom);
+		// 1
 		if (procurarId == null) {
 			return ResponseEntity.notFound().build();
 		}

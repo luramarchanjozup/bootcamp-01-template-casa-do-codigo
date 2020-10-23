@@ -7,12 +7,17 @@ import javax.validation.constraints.NotNull;
 import br.com.zup.casadocodigo.validacao.IdExiste;
 import br.com.zup.casadocodigo.validacao.ValorUnico;
 
+//4
 public class EstadoDTO {
 
+	// 1
+	// 1
 	@NotBlank
 	@ValorUnico(classeDominio = Estado.class, nomeCampo = "nome")
 	private String nome;
 
+	// 1
+	// 1
 	@NotNull
 	@IdExiste(domainClass = Pais.class, fieldName = "idPais")
 	private Integer idPais;

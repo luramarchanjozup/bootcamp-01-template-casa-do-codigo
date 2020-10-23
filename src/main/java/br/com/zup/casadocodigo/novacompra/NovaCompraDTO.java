@@ -19,6 +19,7 @@ import br.com.zup.casadocodigo.paisestado.Estado;
 import br.com.zup.casadocodigo.paisestado.Pais;
 import br.com.zup.casadocodigo.validacao.IdExiste;
 
+//7
 public class NovaCompraDTO {
 
 	@Email
@@ -43,10 +44,13 @@ public class NovaCompraDTO {
 	@NotBlank
 	private String cidade;
 
+	// 1
+	// 1
 	@NotNull
 	@IdExiste(domainClass = Pais.class, fieldName = "idPais")
 	private Integer idPais;
 
+	// 1
 	@IdExiste(domainClass = Estado.class, fieldName = "idEstado")
 	private Integer idEstado;
 
@@ -56,10 +60,12 @@ public class NovaCompraDTO {
 	@NotBlank
 	private String cep;
 
+	// 1
 	@Valid
 	@NotNull
 	private CarrinhoCompraDTO pedido;
 
+	// 1
 	@IdExiste(domainClass = Cupom.class, fieldName = "codigo")
 	private String codigoCupom;
 
@@ -155,18 +161,19 @@ public class NovaCompraDTO {
 
 		Function<Compra, CarrinhoCompra> funcaoCarrinhoCompra = pedido.geraNovoCarrinho(bancoDados);
 
-		// adicionar carrinho de compra recebido
 		Compra novaCompra = new Compra(email, nome, sobrenome, documento, endereco, complemento, buscaPais, telefone,
 				cep, funcaoCarrinhoCompra);
 
 		List<Cupom> listaCupom = bancoDados.createQuery("SELECT c FROM Cupom c WHERE c.codigo = :codigo", Cupom.class)
 				.setParameter("codigo", codigoCupom).getResultList();
 
+		// 1
 		if (!listaCupom.isEmpty()) {
 			Cupom cupomValido = listaCupom.stream().findFirst().get();
 			novaCompra.aplicaCupom(cupomValido);
 		}
 
+		// 1
 		if (idEstado != null) {
 			Estado buscaEstado = bancoDados.find(Estado.class, idEstado);
 			novaCompra.setEstado(buscaEstado);

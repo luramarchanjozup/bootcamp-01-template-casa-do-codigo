@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
+//8
 @RestControllerAdvice
 public class ExceptionsHandler {
 
@@ -29,6 +30,7 @@ public class ExceptionsHandler {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
+	// 1
 	public ValidationErrorsOutputDto handleValidationError(MethodArgumentNotValidException exception) {
 
 		List<ObjectError> globalErrors = exception.getBindingResult().getGlobalErrors();
@@ -54,6 +56,7 @@ public class ExceptionsHandler {
 
 		InvalidFormatException invalidFormat = (InvalidFormatException) exception.getCause();
 
+		// 1
 		List<ObjectError> globalErrors = List
 				.of(new ObjectError("", invalidFormat.getValue() + " não é um valor válido"));
 		List<FieldError> fieldErrors = List.of();
@@ -64,9 +67,13 @@ public class ExceptionsHandler {
 	private ValidationErrorsOutputDto buildValidationErrors(List<ObjectError> globalErrors,
 			List<FieldError> fieldErrors) {
 		ValidationErrorsOutputDto validationErrors = new ValidationErrorsOutputDto();
-
+//1
+//1
 		globalErrors.forEach(error -> validationErrors.addError(getErrorMessage(error)));
 
+		// 1
+		// 1
+		// 1
 		fieldErrors.forEach(error -> {
 			String errorMessage = getErrorMessage(error);
 			validationErrors.addFieldError(error.getField(), errorMessage);
@@ -75,6 +82,7 @@ public class ExceptionsHandler {
 	}
 
 	private String getErrorMessage(ObjectError error) {
+		// 1
 		return messageSource.getMessage(error, LocaleContextHolder.getLocale());
 	}
 

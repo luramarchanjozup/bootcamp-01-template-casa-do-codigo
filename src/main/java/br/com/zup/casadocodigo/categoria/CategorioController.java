@@ -13,21 +13,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+//2
 public class CategorioController {
-	
+
 	@PersistenceContext
 	private EntityManager bancoDados;
-	
-	
+
 	@PostMapping(value = "/categoria", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
+	// 1
+	// 1
 	public ResponseEntity<Categoria> cadastrarCategoria(@RequestBody @Valid CategoriaDTO dadosCategoria) {
-		
+
 		Categoria categoriaSalva = dadosCategoria.gerarCategoria();
 		bancoDados.persist(categoriaSalva);
-		
-		return new ResponseEntity<Categoria> (categoriaSalva, HttpStatus.CREATED);
-		
+
+		return new ResponseEntity<Categoria>(categoriaSalva, HttpStatus.CREATED);
+
 	}
 
 }

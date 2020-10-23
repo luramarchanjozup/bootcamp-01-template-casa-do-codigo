@@ -18,49 +18,52 @@ import br.com.zup.casadocodigo.categoria.Categoria;
 import br.com.zup.casadocodigo.validacao.IdExiste;
 import br.com.zup.casadocodigo.validacao.ValorUnico;
 
+//5
 public class LivroDTO {
 
+	// 1
+	// 1
 	@NotBlank
 	@ValorUnico(classeDominio = Livro.class, nomeCampo = "titulo")
 	private String titulo;
-	
+
 	@NotBlank
 	@Size(max = 500)
 	private String resumo;
-	
+
 	@NotBlank
 	private String sumario;
-	
+
 	@NotNull
 	@Min(20)
 	private BigDecimal preco;
-	
+
 	@Min(100)
 	private int numeroPaginas;
-	
+
 	@NotBlank
 	@ValorUnico(classeDominio = Livro.class, nomeCampo = "isbn")
 	private String isbn;
-	
+
 	@NotNull
 	@Future
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate dataPublicacao;
-	
+
+	// 1
+	// 1
 	@NotNull
 	@IdExiste(domainClass = Categoria.class, fieldName = "idCategoria", message = "Categoria inexistente")
 	private Integer idCategoria;
-	
-	
+
+	// 1
 	@NotNull
-	@IdExiste(domainClass = Autor.class, fieldName = "idAutor", message = "Autor Inexistente" )
+	@IdExiste(domainClass = Autor.class, fieldName = "idAutor", message = "Autor Inexistente")
 	private Integer idAutor;
-	
-	
-	public LivroDTO(@NotBlank String titulo,@NotBlank @Size(max = 500) String resumo, @NotBlank String sumario,
-			@NotNull @Min(20) BigDecimal preco, @Min(100) int numeroPaginas, @NotBlank String isbn, @NotNull Integer idCategoria, 
-			@NotNull Integer idAutor) {
-		super();
+
+	public LivroDTO(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, @NotBlank String sumario,
+			@NotNull @Min(20) BigDecimal preco, @Min(100) int numeroPaginas, @NotBlank String isbn,
+			@NotNull Integer idCategoria, @NotNull Integer idAutor) {
 		this.titulo = titulo;
 		this.resumo = resumo;
 		this.sumario = sumario;
@@ -69,9 +72,9 @@ public class LivroDTO {
 		this.isbn = isbn;
 		this.idCategoria = idCategoria;
 		this.idAutor = idAutor;
-		
+
 	}
-	
+
 	public void setDataPublicacao(LocalDate dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
@@ -79,12 +82,12 @@ public class LivroDTO {
 	public Livro geraNovoLivro(EntityManager bancoDados) {
 		Autor buscaAutor = bancoDados.find(Autor.class, idAutor);
 		Categoria buscaCategoria = bancoDados.find(Categoria.class, idCategoria);
-		
-		Livro novoLivro = new Livro(titulo, resumo, sumario, preco, numeroPaginas,
-				isbn, dataPublicacao, buscaAutor, buscaCategoria);
+
+		Livro novoLivro = new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, buscaAutor,
+				buscaCategoria);
 
 		return novoLivro;
-		
+
 	}
-	
+
 }

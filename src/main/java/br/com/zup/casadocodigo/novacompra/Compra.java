@@ -20,6 +20,7 @@ import br.com.zup.casadocodigo.cupom.Cupom;
 import br.com.zup.casadocodigo.paisestado.Estado;
 import br.com.zup.casadocodigo.paisestado.Pais;
 
+//6
 @Entity
 public class Compra {
 
@@ -46,6 +47,7 @@ public class Compra {
 	@NotBlank
 	private String complemento;
 
+	// 1
 	@ManyToOne
 	@NotNull
 	private Pais pais;
@@ -56,12 +58,15 @@ public class Compra {
 	@NotBlank
 	private String cep;
 
+	// 1
 	@ManyToOne
 	private Estado estado;
 
+	// 1
 	@OneToOne(mappedBy = "compra", cascade = CascadeType.PERSIST)
 	private CarrinhoCompra carrinhoCompra;
 
+	// 1
 	@ManyToOne
 	private Cupom cupom;
 
@@ -88,11 +93,13 @@ public class Compra {
 
 	public void setEstado(@NotNull @Valid Estado estado) {
 		Assert.notNull(pais, "Não rola associar um estado enquanto o pais for nulo");
+		// 1
 		Assert.isTrue(!estado.naoPertenceAPais(pais), "Este estado não é de país associado a compra");
 		this.estado = estado;
 	}
 
 	public void aplicaCupom(Cupom cupom) {
+		// 1
 		Assert.isTrue(cupom.valido(), "Olha o cupom que está sendo aplicado não está mais válido ");
 		Assert.isNull(this.cupom, "Olha você não pode trocar um cupom de uma compra");
 		this.cupom = cupom;

@@ -3,9 +3,11 @@ package br.com.zup.casadocodigo.validacao;
 import java.util.ArrayList;
 import java.util.List;
 
+//1
 public class ValidationErrorsOutputDto {
 
 	private List<String> globalErrorMessages = new ArrayList<>();
+	// 1
 	private List<FieldErrorOutputDto> fieldErrors = new ArrayList<>();
 
 	public void addError(String message) {

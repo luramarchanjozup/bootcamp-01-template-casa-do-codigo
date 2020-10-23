@@ -7,8 +7,11 @@ import javax.validation.constraints.Positive;
 import br.com.zup.casadocodigo.livro.Livro;
 import br.com.zup.casadocodigo.validacao.IdExiste;
 
+//3
 public class ItemCarrinhoDTO {
 
+	// 1
+	// 1
 	@NotNull
 	@IdExiste(domainClass = Livro.class, fieldName = "idLivro")
 	private Integer idLivro;
@@ -25,6 +28,7 @@ public class ItemCarrinhoDTO {
 		return idLivro;
 	}
 
+	// 1
 	public ItemCarrinho gerarNovoItemCarrinho(EntityManager bancoDados) {
 		Livro livroEncontrado = bancoDados.find(Livro.class, idLivro);
 		ItemCarrinho novoItemCarrinho = new ItemCarrinho(livroEncontrado, quantidade);

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import br.com.zup.casadocodigo.livro.Livro;
 
+//4
 public class DetalheLivroResponseDTO {
 
 	private Integer idLivro;
@@ -22,11 +23,12 @@ public class DetalheLivroResponseDTO {
 	private String isbn;
 
 	private String dataPublicacao;
-
+//1
 	private DetalheAutorResponseDTO autor;
 
 	private String categoria;
 
+//1
 	public DetalheLivroResponseDTO(Livro dadosLivro) {
 		this.idLivro = dadosLivro.getIdLivro();
 		this.titulo = dadosLivro.getTitulo();
@@ -35,7 +37,9 @@ public class DetalheLivroResponseDTO {
 		this.preco = dadosLivro.getPreco();
 		this.numeroPaginas = dadosLivro.getNumeroPaginas();
 		this.isbn = dadosLivro.getIsbn();
+//1		
 		this.dataPublicacao = dadosLivro.getDataPublicacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//1
 		this.autor = new DetalheAutorResponseDTO(dadosLivro.getAutor());
 		this.categoria = dadosLivro.getCategoria().getNome();
 	}

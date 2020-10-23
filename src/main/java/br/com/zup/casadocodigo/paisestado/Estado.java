@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+//2
 @Entity
 public class Estado {
 
@@ -19,6 +20,7 @@ public class Estado {
 	@NotBlank
 	private String nome;
 
+	// 1
 	@ManyToOne
 	@NotNull
 	@Valid
@@ -36,6 +38,7 @@ public class Estado {
 	}
 
 	public boolean naoPertenceAPais(Pais pais) {
+		// 1
 		if (this.pais.getIdPais() == pais.getIdPais()) {
 			return false;
 		}

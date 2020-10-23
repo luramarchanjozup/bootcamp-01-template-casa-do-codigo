@@ -9,9 +9,11 @@ import javax.validation.constraints.Positive;
 
 import br.com.zup.casadocodigo.livro.Livro;
 
+//2
 @Embeddable
 public class ItemCarrinho {
 
+	// 1
 	@NotNull
 	@ManyToOne
 	private Livro livro;
@@ -35,6 +37,7 @@ public class ItemCarrinho {
 	}
 
 	public BigDecimal total() {
+		// 1
 		return precoMomento.multiply(new BigDecimal(quantidade));
 	}
 

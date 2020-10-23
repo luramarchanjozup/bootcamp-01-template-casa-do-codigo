@@ -13,8 +13,11 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import br.com.zup.casadocodigo.validacao.ValorUnico;
 
+//2
 public class CupomDTO {
 
+	// 1
+	// 1
 	@NotBlank
 	@ValorUnico(classeDominio = Cupom.class, nomeCampo = "codigo")
 	private String codigo;

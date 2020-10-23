@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 import br.com.zup.casadocodigo.autor.Autor;
 import br.com.zup.casadocodigo.categoria.Categoria;
 
+//2
 @Entity
 public class Livro {
 
@@ -49,11 +50,13 @@ public class Livro {
 	@Future
 	private LocalDate dataPublicacao;
 
+	// 1
 	@ManyToOne
 	@NotNull
 	@Valid
 	private Autor autor;
 
+	// 1
 	@ManyToOne
 	@NotNull
 	@Valid

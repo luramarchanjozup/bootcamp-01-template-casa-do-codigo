@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+//2
 @RestController
 public class LivroController {
 
 	@PersistenceContext
 	private EntityManager bancoDados;
 
+	// 1
+	// 1
 	@PostMapping(value = "/livro")
 	@Transactional
 	public ResponseEntity<Livro> salvarLivro(@RequestBody @Valid LivroDTO dadosLivro) {

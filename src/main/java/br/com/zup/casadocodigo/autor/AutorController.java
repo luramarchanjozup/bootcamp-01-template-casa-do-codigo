@@ -35,7 +35,7 @@ public class AutorController {
 
 	@GetMapping(value = "/autor/{nomeAutor}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Autor>> procurarAutorNome(@PathVariable String nomeAutor) {
-		// 1
+
 		List<Autor> listaAutores = bancoDados.createQuery("SELECT a FROM Autor a WHERE a.nome LIKE :nome", Autor.class)
 				.setParameter("nome", "%" + nomeAutor + "%").getResultList();
 

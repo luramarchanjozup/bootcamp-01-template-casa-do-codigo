@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 import br.com.zup.casadocodigo.autor.Autor;
 
+//2
 public class DetalheAutorResponseDTO {
 
 	private Integer idAutor;
@@ -16,11 +17,13 @@ public class DetalheAutorResponseDTO {
 
 	private String dataRegistro;
 
+	// 1
 	public DetalheAutorResponseDTO(Autor dadosAutor) {
 		this.idAutor = dadosAutor.getIdAutor();
 		this.nome = dadosAutor.getNome();
 		this.email = dadosAutor.getEmail();
 		this.descricao = dadosAutor.getEmail();
+		// 1
 		this.dataRegistro = dadosAutor.getDataRegistro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
 	}

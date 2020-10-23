@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.util.Assert;
 
+//3
 @Entity
 public class CarrinhoCompra {
 
@@ -24,22 +25,26 @@ public class CarrinhoCompra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	// 1
 	@NotNull
 	@Valid
 	@OneToOne
 	private Compra compra;
 
+	// 1
 	@Size(min = 1)
 	@ElementCollection
 	private List<ItemCarrinho> itens = new ArrayList<>();
 
 	public CarrinhoCompra(@NotNull @Valid Compra compra, @Size(min = 1) List<ItemCarrinho> itens) {
+		// 1
 		Assert.isTrue(!itens.isEmpty(), "todo pedido dever ter pelo menos um item");
 		this.compra = compra;
 		this.itens = itens;
 	}
 
 	public boolean totalIgual(@Positive @NotNull BigDecimal total) {
+		// 1
 		BigDecimal totalPedido = itens.stream().map(ItemCarrinho::total).reduce(BigDecimal.ZERO,
 				(atual, proximo) -> atual.add(proximo));
 

@@ -11,9 +11,10 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+//4
 @Component
 public class UnicoValidador implements ConstraintValidator<ValorUnico, Object> {
-
+//1
 	private String atributoDomonio;
 	private Class<?> klass;
 
@@ -30,10 +31,13 @@ public class UnicoValidador implements ConstraintValidator<ValorUnico, Object> {
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		Query query = manager
+//1
+//1
 				.createQuery("select 1 from " + klass.getName() + " where " + atributoDomonio + "=: value");
 		query.setParameter("value", value);
-		List<?> list = query.getResultList();
 
+		List<?> list = query.getResultList();
+//1
 		Assert.state(list.size() <= 1,
 				"Foi encontrado mais de um " + klass + " com o atributo " + atributoDomonio + "=: value");
 

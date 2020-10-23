@@ -19,22 +19,29 @@ import br.com.zup.casadocodigo.validacao.CupomValidoValidador;
 import br.com.zup.casadocodigo.validacao.EstadoPertencePaisValidator;
 import br.com.zup.casadocodigo.validacao.ValidadorCpfCnpj;
 
+//5
 @RestController
 public class NovaCompraController {
+
 	@PersistenceContext
 	private EntityManager bancoDados;
 
+	// 1
 	@Autowired
 	private EstadoPertencePaisValidator estadoPertencePaisValidador;
 
+	// 1
 	@Autowired
 	private CupomValidoValidador cupomValidator;
 
 	@InitBinder
 	public void init(WebDataBinder binder) {
+		// 1
 		binder.addValidators(new ValidadorCpfCnpj(), estadoPertencePaisValidador, cupomValidator);
 	}
 
+	// 1
+	// 1
 	@PostMapping(value = "/compra", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	public ResponseEntity<Compra> registrarCompra(@RequestBody @Valid NovaCompraDTO dadosNovaCompra) {

@@ -13,11 +13,14 @@ import javax.validation.constraints.Size;
 
 import org.springframework.util.Assert;
 
+//7
 public class CarrinhoCompraDTO {
 
 	@Positive
 	@NotNull
 	private BigDecimal total;
+
+	// 1
 	@Size(min = 1)
 	@Valid
 	private List<ItemCarrinhoDTO> itens = new ArrayList<>();
@@ -31,16 +34,22 @@ public class CarrinhoCompraDTO {
 		return itens;
 	}
 
+	// 1
+	// 1
 	public Function<Compra, CarrinhoCompra> geraNovoCarrinho(EntityManager bancoDados) {
 
+		// 1
 		List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 
+		// 1
 		for (ItemCarrinhoDTO itemCarrinhoDTO : itens) {
+			// 1
 			itensCarrinho.add(itemCarrinhoDTO.gerarNovoItemCarrinho(bancoDados));
 		}
 
 		return (compra) -> {
 			CarrinhoCompra pedido = new CarrinhoCompra(compra, itensCarrinho);
+			// 1
 			Assert.isTrue(pedido.totalIgual(total), "Total enviado não corresponde ao total real");
 			return pedido;
 		};

@@ -1,13 +1,12 @@
 package br.com.casadocodigo.model;
 
-
-
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tb_categoria")
-public class Categoria {
+public class Estado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +15,18 @@ public class Categoria {
     @NotBlank
     private String nome;
 
-    public Categoria(String nome) {
-        this.nome = nome;
-    }
+    @NotNull
+    @Valid
+    @ManyToOne
+    private Pais pais;
 
     @Deprecated
-    public Categoria() {
+    public Estado() {
+    }
+
+    public Estado(@NotBlank String nome, @NotNull @Valid Pais pais) {
+        this.nome = nome;
+        this.pais = pais;
     }
 
     public Long getId() {
@@ -40,11 +45,20 @@ public class Categoria {
         this.nome = nome;
     }
 
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
     @Override
     public String toString() {
-        return "Categoria{" +
+        return "Estado{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
+                ", pais=" + pais +
                 '}';
     }
 }

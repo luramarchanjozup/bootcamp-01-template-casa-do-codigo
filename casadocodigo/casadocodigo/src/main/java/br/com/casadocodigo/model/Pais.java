@@ -1,13 +1,13 @@
 package br.com.casadocodigo.model;
 
-
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "tb_categoria")
-public class Categoria {
+public class Pais {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +16,12 @@ public class Categoria {
     @NotBlank
     private String nome;
 
-    public Categoria(String nome) {
-        this.nome = nome;
-    }
-
     @Deprecated
-    public Categoria() {
+    public Pais() {    }
+
+
+    public Pais(@NotBlank String nome) {
+        this.nome = nome;
     }
 
     public Long getId() {
@@ -32,17 +32,11 @@ public class Categoria {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
-    }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     @Override
     public String toString() {
-        return "Categoria{" +
+        return "Pais{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 '}';

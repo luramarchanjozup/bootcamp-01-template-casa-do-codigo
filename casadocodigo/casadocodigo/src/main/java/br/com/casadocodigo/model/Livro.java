@@ -1,6 +1,8 @@
 package br.com.casadocodigo.model;
 
 
+
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -24,19 +26,20 @@ public class Livro {
     @NotBlank
     private String sumario;
 
-    @NotBlank
+    @NotNull
     @Min(20)
     private BigDecimal preco;
 
-    @NotBlank
+    @NotNull
     @Min(100)
     private int numeroDePaginas;
 
     @NotBlank
-    private String isbnLivro;
+    private String isbn;
 
     @NotNull
     @Future
+
     private LocalDate dataDePublicacao;
 
     @NotNull
@@ -50,8 +53,8 @@ public class Livro {
     private Categoria categoria;
 
     public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo,
-                 @NotBlank String sumario, @NotBlank @Min(20) BigDecimal preco,
-                 @NotBlank @Min(100) int numeroDePaginas, @NotBlank String isbnLivro,
+                 @NotBlank String sumario, @NotNull @Min(20) BigDecimal preco,
+                 @NotNull @Min(100) int numeroDePaginas, @NotBlank String isbn,
                  @NotNull @Future LocalDate dataDePublicacao, @NotNull @Valid Autor autor,
                  @NotNull @Valid Categoria categoria) {
         this.titulo = titulo;
@@ -59,7 +62,7 @@ public class Livro {
         this.sumario = sumario;
         this.preco = preco;
         this.numeroDePaginas = numeroDePaginas;
-        this.isbnLivro = isbnLivro;
+        this.isbn = isbn;
         this.dataDePublicacao = dataDePublicacao;
         this.autor = autor;
         this.categoria = categoria;
@@ -87,8 +90,8 @@ public class Livro {
         return numeroDePaginas;
     }
 
-    public String getIsbnLivro() {
-        return isbnLivro;
+    public String getIsbn() {
+        return isbn;
     }
 
     public LocalDate getDataDePublicacao() {
@@ -114,7 +117,7 @@ public class Livro {
                 ", sumario='" + sumario + '\'' +
                 ", preco=" + preco +
                 ", numeroDePaginas=" + numeroDePaginas +
-                ", isbnLivro='" + isbnLivro + '\'' +
+                ", isbnLivro='" + isbn + '\'' +
                 ", dataDePublicacao=" + dataDePublicacao +
                 ", autor=" + autor +
                 ", categoria=" + categoria +

@@ -25,14 +25,16 @@ public class ValidadorExisteId implements ConstraintValidator<ExisteId, Object> 
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context){
+
+
         Query query = manager.createQuery("Select 1 from " + klass.getName() +
-                "where " + domainAttribute + " = :value");
+                " where " + domainAttribute + " = :value");
         query.setParameter("value", value);
 
         List<?> list = query.getResultList();
         Assert.state(list.size() <= 1, "Foi encontrado mais de um " +
                         klass + " com o atributo" + domainAttribute + " = " + value);
-        return list.isEmpty();
+        return !list.isEmpty();
 
     }
 

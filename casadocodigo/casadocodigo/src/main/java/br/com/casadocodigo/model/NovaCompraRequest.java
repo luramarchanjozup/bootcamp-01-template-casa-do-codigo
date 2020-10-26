@@ -1,9 +1,8 @@
 package br.com.casadocodigo.model;
 
+import br.com.casadocodigo.repository.CupomRepository;
 import br.com.casadocodigo.validator.CpfCnpj;
 import br.com.casadocodigo.validator.ExisteId;
-import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
-import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -56,8 +55,8 @@ public class NovaCompraRequest {
     @Valid
     @NotNull
     private NovoPedidoRequest pedido;
-    @ExisteId(domainClass = Cupom.class, fieldName = "codigo")
 
+    @ExisteId(domainClass = CupomAplicado.class, fieldName = "codigo")
     private String codigoCumpom;
 
     public NovaCompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome,
@@ -78,6 +77,22 @@ public class NovaCompraRequest {
         this.pedido = pedido;
     }
 
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public void setCodigoCupom(String codigoCupom) {
+        this.codigoCupom = codigoCupom;
+    }
+
+    public NovoPedidoRequest getPedido() {
+        return pedido;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
     public Compra toModel(EntityManager entityManager, CupomRepository cupomRepository){
         @NotNull Pais pais = entityManager.find(Pais.class, idPais);
 
@@ -91,116 +106,19 @@ public class NovaCompraRequest {
         }
 
         if(StringUtils.hasText(codigoCupom)) {
-            Cupom cupom = cupomRepository.getByCodigo(codigoCupom);
+            CupomAplicado cupom = cupomRepository.getByCodigo(codigoCupom);
             compra.aplicaCupom(cupom);
         }
 
         return compra;
     }
 
-    public String getEmail() {
-        return email;
+    public boolean temEstado() {
+        return Optional.ofNullable(idEstado).isPresent();
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public Long getIdPais() {
-        return idPais;
-    }
-
-    public void setIdPais(Long idPais) {
-        this.idPais = idPais;
-    }
-
-    public Long getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(Long idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public NovoPedidoRequest getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(NovoPedidoRequest pedido) {
-        this.pedido = pedido;
-    }
-
 
     public Optional<String> getCodigoCupom() {
         return Optional.ofNullable(codigoCupom);
-    }
-
-    public void setCodigoCupom(String codigoCupom) {
-        this.codigoCupom = codigoCupom;
     }
 
     @Override
@@ -217,8 +135,7 @@ public class NovaCompraRequest {
                 ", idEstado=" + idEstado +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
-                ", novoPedidoRequest=" +  +
-                ", codigoCumpom='" + codigoCumpom + '\'' +
+                ", pedido=" + pedido +
                 '}';
     }
 }

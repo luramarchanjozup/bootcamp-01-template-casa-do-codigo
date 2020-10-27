@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/bootcamp-01-template-casa-do-codigo.iml" filepath="$PROJECT_DIR$/.idea/bootcamp-01-template-casa-do-codigo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/casadocodigo/casadocodigo/casadocodigo.iml" filepath="$PROJECT_DIR$/casadocodigo/casadocodigo/casadocodigo.iml" />
+    </modules>
+  </component>
+</project>

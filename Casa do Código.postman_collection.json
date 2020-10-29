@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "444f3a20-b195-4ed0-83f0-66de1801614b",
+		"name": "Casa do Código",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Novo autor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Gustavo Rodrigues Inácio\",\n    \"email\": \"gustavo.inacio@casadocodigo.com.br\",\n    \"description\": \"Novo autor de teste\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/authors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authors"
+					]
+				},
+				"description": "Cadastro de novo autor."
+			},
+			"response": []
+		},
+		{
+			"name": "Nova categoria",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"Tecnologia\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories"
+					]
+				},
+				"description": "Cadastro de nova categoria"
+			},
+			"response": []
+		},
+		{
+			"name": "Novo livro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Teste 1\",\n    \"synopsis\":\"Sinopseeeee\",\n    \"price\":20,\n    \"summary\": \"1 - Intro, 2 - Início, 3 - Meio, 4 - Fim\",\n    \"pages\":\"900\",\n    \"releaseDate\":\"2021-10-25\",\n    \"isbn\":\"656-835257\",\n    \"categoryId\":1,\n    \"authorId\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				},
+				"description": "Cadastro de um novo livro.\nTítulo é obrigatório\nTítulo é único\nResumo é obrigatório e tem no máximo 500 caracteres\nSumário é de tamanho livre.\nPreço é obrigatório e o mínimo é de 20\nNúmero de páginas é obrigatória e o mínimo é de 100\nIsb é obrigatório, formato livre\nIsbn é único\nData que vai entrar no ar precisa ser no futuro\nO id da categoria é obrigatório\nO id da categoria precisa existir no banco de dados\nO id do autor é obrigatório\nO id do autor precisa existir no banco de dados"
+			},
+			"response": []
+		},
+		{
+			"name": "Lista livros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detalha livro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Novo estado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Minas Gerais\",\n    \"countryId\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"states"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Novo país",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"Brasil\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/countries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nova compra",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"customerDto\":{\n    \"name\":\"Gustavo\",\n    \"surname\":\"Inácio\",\n    \"email\":\"gustavo.inacio@casadocodigo.com.br\",\n    \"personId\":\"08869750698\",\n    \"address\":\"Rua abc\",\n    \"complement\": \"casa\",\n    \"city\": \"Cidade abc\",\n    \"countryId\":1,\n    \"stateId\":1,\n    \"telephone\": 983745454,\n    \"cep\": 12312312\n},\n\"orderDto\":{\n    \"total\":140,\n    \"itemsDto\":[\n        {\n            \"bookId\":1,\n            \"amount\":7\n        }\n    ]\n},\n\"couponId\":\"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/billing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"billing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Novo cupom",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"vale30\",\n    \"percentage\": 30,\n    \"expiresOn\": \"2021-11-27\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/coupons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coupons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detalha compra",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/billing/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"billing",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

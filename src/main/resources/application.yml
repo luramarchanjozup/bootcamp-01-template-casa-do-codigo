@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/casadocodigo
+    username: root
+    password: bootcampzup
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddlAuto: update
+      showSql: true
+  jackson:
+    mapper.propagate_transient_marker: true
+    #propertyNamingStrategy: SNAKE_CASE
+    defaultPropertyInclusion: non_null
+    serialization:
+      writeDatesAsTimestamps: true
+
+server:
+  error:
+    includeStacktrace: never

@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  database:
+    image: library/postgres:alpine
+    environment:
+      POSTGRES_USER: casadocodigo
+      POSTGRES_PASSWORD: bootcampzup
+      POSTGRES_DB: casadocodigo
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/database/init_db_creation.sql:/docker-entrypoint-initdb.d/init_db_creation.sql

@@ -37,20 +37,6 @@ public class Author {
         this.createdAt = OffsetDateTime.now();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Author author = (Author) o;
-
-        return id.equals(author.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
 
     public Long getId() {
         return id;
@@ -58,22 +44,6 @@ public class Author {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public OffsetDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(OffsetDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getName() {
@@ -84,11 +54,5 @@ public class Author {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

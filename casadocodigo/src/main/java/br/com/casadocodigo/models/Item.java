@@ -5,9 +5,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Item {
 
+
     private Long bookId;
 
     private Long quantity;
+
 
     public Long getBookId() {
         return bookId;

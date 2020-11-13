@@ -17,7 +17,15 @@ public class CouponDto {
         return discount;
     }
 
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

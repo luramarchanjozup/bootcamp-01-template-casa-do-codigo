@@ -69,20 +69,6 @@ public class Book {
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Book book = (Book) o;
-
-        return id.equals(book.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
 
     public Long getId() {
         return id;
@@ -96,71 +82,9 @@ public class Book {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getResume() {
-        return resume;
-    }
-
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
     public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 
-    public Long getPages() {
-        return pages;
-    }
-
-    public void setPages(Long pages) {
-        this.pages = pages;
-    }
-
-    public Long getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(Long isbn) {
-        this.isbn = isbn;
-    }
-
-    public OffsetDateTime getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(OffsetDateTime publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
 }

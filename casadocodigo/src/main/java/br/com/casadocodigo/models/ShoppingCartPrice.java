@@ -29,25 +29,8 @@ public class ShoppingCartPrice {
         this.items = items;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ShoppingCartPrice that = (ShoppingCartPrice) o;
-
-        return id.equals(that.id);
-    }
-
     public void applyDiscount(Coupon coupon){
-
         this.totalWithDiscount = this.total * coupon.getDiscount();
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
     }
 
     public Long getId() {
@@ -62,24 +45,12 @@ public class ShoppingCartPrice {
         return total;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
     public Double getTotalWithDiscount() {
         return totalWithDiscount;
     }
 
     public void setTotalWithDiscount(Double totalWithDiscount) {
         this.totalWithDiscount = totalWithDiscount;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
     }
 
 }

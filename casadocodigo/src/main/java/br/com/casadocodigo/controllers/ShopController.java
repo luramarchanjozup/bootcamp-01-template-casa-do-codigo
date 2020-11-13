@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/shop")
+@RequestMapping("/api/shop")
 public class ShopController {
 
 
@@ -46,8 +46,7 @@ public class ShopController {
 
     @PostMapping("/finish")
     @Transactional
-    public ResponseEntity<?> addFinalShopCart(
-            @RequestBody @Valid ShopPriceForm shopPriceForm){
+    public ResponseEntity<?> addFinalShopCart(@RequestBody @Valid ShopPriceForm shopPriceForm){
 
         // +1
         ShoppingCartPrice userDataCart = shopPriceForm.toEntity();

@@ -37,21 +37,6 @@ public class Coupon {
         this.validate = validate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Coupon coupon = (Coupon) o;
-
-        return id.equals(coupon.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-
     public Long getId() {
         return id;
     }
@@ -72,15 +57,4 @@ public class Coupon {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
-    public OffsetDateTime getValidate() {
-        return validate;
-    }
-
-    public void setValidate(OffsetDateTime validate) {
-        this.validate = validate;
-    }
 }

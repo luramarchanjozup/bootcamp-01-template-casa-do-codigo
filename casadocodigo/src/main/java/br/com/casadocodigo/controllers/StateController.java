@@ -1,37 +1,46 @@
 package br.com.casadocodigo.controllers;
 
-import br.com.casadocodigo.dtos.StateDto;
 import br.com.casadocodigo.forms.StateForm;
 import br.com.casadocodigo.models.State;
 import br.com.casadocodigo.repositories.StateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 
+
 @RestController
-@RequestMapping("/states")
+@RequestMapping("/api/states")
 public class StateController {
 
-    //+1
-    @Autowired
-    private StateRepository stateRepository;
 
-    @PostMapping                                                        //+1
-    public ResponseEntity<?> createState(@RequestBody @Valid StateForm stateForm){
+    private final StateRepository stateRepository;
 
-        //+1
-        State state = stateForm.toEntity();
+    private final Logger logger = LoggerFactory.getLogger(State.class);
 
 
+    public StateController(StateRepository stateRepository) {
+        this.stateRepository = stateRepository;
+    }
+
+
+    @PostMapping
+    public ResponseEntity<?> createState(@RequestBody @Valid StateForm stateForm, UriComponentsBuilder
+                                         uriComponentsBuilder){
+
+        var state = stateForm.toEntity();
         stateRepository.save(state);
 
+        logger.info("[INFO] Estado {} criado.", state.getName());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity
+                .created(uriComponentsBuilder.path("/api/states").buildAndExpand().toUri())
+                .body(state);
 
     }
 }

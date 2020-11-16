@@ -20,7 +20,7 @@ import java.util.List;
 public class BookController {
 
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     private final Logger logger = LoggerFactory.getLogger(Book.class);
 
@@ -36,7 +36,6 @@ public class BookController {
                                         UriComponentsBuilder uriComponentsBuilder){
 
         var book = bookForm.toEntity(entityManager);
-
         entityManager.persist(book);
 
         logger.info("[NOVO LIVRO] Livro {} criado com sucesso.", book.getTitle());
@@ -51,7 +50,6 @@ public class BookController {
     public ResponseEntity<List<BookDto>> getAllBooks(){
 
         var booksDtos = new ArrayList<BookDto>();
-
         entityManager
                 .createQuery("SELECT b FROM Book b", Book.class)
                 .getResultList()
@@ -70,6 +68,8 @@ public class BookController {
         if(book == null){
             return ResponseEntity.notFound().build();
         }
+
+        logger.info("[INFO] Livro {} retornado com sucesso.", id);
 
         return  ResponseEntity.ok(book);
 

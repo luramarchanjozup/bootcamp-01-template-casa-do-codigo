@@ -2,11 +2,10 @@ package br.com.casadocodigo.models;
 
 import br.com.casadocodigo.validation.Unique;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -17,6 +16,9 @@ public class Category {
 
     @NotBlank
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Book> books = new HashSet<>();
 
     @Deprecated
     public Category(){};

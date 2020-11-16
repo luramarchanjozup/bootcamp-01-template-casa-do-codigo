@@ -19,7 +19,7 @@ import javax.validation.Valid;
 public class CountryController {
 
 
-    private CountryRepository countryRepository;
+    private final CountryRepository countryRepository;
 
     private final Logger logger = LoggerFactory.getLogger(Country.class);
 
@@ -40,7 +40,7 @@ public class CountryController {
 
         return ResponseEntity
                 .created(uriComponentsBuilder.path("/api/countries").buildAndExpand().toUri())
-                .body(country);
+                .build();
 
     }
 }

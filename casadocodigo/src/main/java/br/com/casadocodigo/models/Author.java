@@ -1,11 +1,11 @@
 package br.com.casadocodigo.models;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Author {
@@ -20,12 +20,15 @@ public class Author {
     @NotBlank
     private String name;
 
+    @OneToMany(mappedBy = "author")
+    private Set<Book> books = new HashSet<>();
+
     @NotBlank
     @Size(max = 400)
     private String description;
 
-    @NotBlank
-    private OffsetDateTime createdAt;
+    @NotNull
+    private OffsetDateTime createdAt = OffsetDateTime.now();
 
     @Deprecated
     public Author(){};

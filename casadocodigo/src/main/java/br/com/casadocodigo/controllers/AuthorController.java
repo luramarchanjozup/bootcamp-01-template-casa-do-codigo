@@ -28,15 +28,16 @@ public class AuthorController {
         this.authorRepository = authorRepository;
     }
 
+
     @PostMapping              /* @complexidade (1) - classe específica do projeto */
     public ResponseEntity<?> createAuthor(@RequestBody @Valid AuthorForm authorForm
                 ,UriComponentsBuilder uriComponentsBuilder){
 
-            /* @complexidade (2) - método em classe específica do projeto */
-            var author = authorForm.toEntity();
-            authorRepository.save(author);
+        /* @complexidade (2) - método em classe específica do projeto */
+        var author = authorForm.toEntity();
+        authorRepository.save(author);
 
-            logger.info("[NOVO AUTOR] Autor {} criado com sucesso", author.getName());
+        logger.info("[NOVO AUTOR] Autor {} criado com sucesso", author.getName());
 
         return ResponseEntity
                 .created(uriComponentsBuilder.path("/api/authors").buildAndExpand().toUri())

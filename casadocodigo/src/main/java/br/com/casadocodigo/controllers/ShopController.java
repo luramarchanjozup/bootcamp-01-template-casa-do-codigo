@@ -17,17 +17,20 @@ import javax.validation.Valid;
 @RequestMapping("/api/shop")
 public class ShopController {
 
+    private final EntityManager entityManager;
 
-    @Autowired
-    private EntityManager entityManager;
+    public ShopController(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @GetMapping("/{id}/{userDataId}")
     public ResponseEntity<ShopDto> shopDetails(@PathVariable Long id, @PathVariable Long userDataId){
 
-        // +1
-        return ResponseEntity.ok(
-                new ShopDto(entityManager.find(UserData.class, userDataId), entityManager.find(ShoppingCartPrice.class, id))
-        );
+        var userData = entityManager.find(UserData.class, userDataId);
+        var shoppingCartPrice = entityManager.find(ShoppingCartPrice.class, id);
+
+
+        return ResponseEntity.ok(new ShopDto(userData,shoppingCartPrice));
 
     }
 
@@ -35,9 +38,7 @@ public class ShopController {
     @Transactional
     public ResponseEntity<?> addShopUserData(@RequestBody @Valid ShopDataForm shopDataForm){
 
-        // +1
-        UserData userData = shopDataForm.toEntity();
-
+        var userData = shopDataForm.toEntity();
         entityManager.persist(userData);
 
         return ResponseEntity.ok().build();
@@ -48,9 +49,7 @@ public class ShopController {
     @Transactional
     public ResponseEntity<?> addFinalShopCart(@RequestBody @Valid ShopPriceForm shopPriceForm){
 
-        // +1
-        ShoppingCartPrice userDataCart = shopPriceForm.toEntity();
-
+        var userDataCart = shopPriceForm.toEntity();
         entityManager.persist(userDataCart);
 
         return ResponseEntity.ok().build();
@@ -61,14 +60,9 @@ public class ShopController {
     @PutMapping("/apply-coupon/{id}/{couponId}")
     public ResponseEntity<?> applyCoupon(@PathVariable Long couponId, @PathVariable Long id)
     {
-        // +1
-        ShoppingCartPrice shoppingCartPrice = entityManager
-                .find(ShoppingCartPrice.class, id);
 
-        // +1                            // +1
-        shoppingCartPrice.applyDiscount(entityManager
-                .find(Coupon.class, couponId));
-
+        var shoppingCartPrice = entityManager.find(ShoppingCartPrice.class, id);
+        shoppingCartPrice.applyDiscount(entityManager.find(Coupon.class, couponId));
         entityManager.persist(shoppingCartPrice);
 
         return ResponseEntity.ok().build();

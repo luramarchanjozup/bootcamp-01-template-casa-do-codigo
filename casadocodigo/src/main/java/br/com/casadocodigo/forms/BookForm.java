@@ -51,7 +51,6 @@ public class BookForm {
     public Book toEntity(EntityManager entityManager){
 
         Author author = entityManager.find(Author.class, authorId);
-
         Category category = entityManager.find(Category.class, categoryId);
 
         Assert.state( author != null, "Você esta querendo cadastrar um livro para um autor que nao existe no banco "+ authorId);

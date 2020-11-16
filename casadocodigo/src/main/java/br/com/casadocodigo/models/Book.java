@@ -19,25 +19,25 @@ public class Book {
     private String title;
 
     @NotBlank
-    @Max(500)
+    @Size(max = 500)
     private String resume;
 
     @NotBlank
     private String summary;
 
-    @NotBlank
+    @NotNull
     @Min(20)
     private Double price;
 
-    @NotBlank
+    @NotNull
     @Min(100)
     private Long pages;
 
-    @NotBlank
+    @NotNull
     private Long isbn;
 
     @Future
-    private OffsetDateTime publishedAt;
+    private OffsetDateTime publishedAt = OffsetDateTime.now();
 
     @ManyToOne
     @NotNull
@@ -52,9 +52,9 @@ public class Book {
     @Deprecated
     public Book(){};
 
-    public Book(@NotBlank String title, @NotBlank @Max(500) String resume, @NotBlank String summary,
-                @NotBlank @Min(20) Double price, @NotBlank @Min(100) Long pages,
-                @NotBlank Long isbn, OffsetDateTime publishedAt, @Valid @NotNull Author author,
+    public Book(@NotBlank String title, @NotBlank @Size(max = 500) String resume, @NotBlank String summary,
+                @NotNull @Min(20) Double price, @NotNull @Min(100) Long pages,
+                @NotNull Long isbn, OffsetDateTime publishedAt, @Valid @NotNull Author author,
                 @Valid @NotNull Category category) {
 
         this.title = title;

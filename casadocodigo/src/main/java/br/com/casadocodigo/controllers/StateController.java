@@ -40,7 +40,7 @@ public class StateController {
 
         return ResponseEntity
                 .created(uriComponentsBuilder.path("/api/states").buildAndExpand().toUri())
-                .body(state);
+                .build();
 
     }
 }

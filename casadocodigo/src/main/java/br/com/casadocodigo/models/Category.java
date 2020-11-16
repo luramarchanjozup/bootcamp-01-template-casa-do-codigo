@@ -10,6 +10,8 @@ import java.util.Set;
 @Entity
 public class Category {
 
+    /*  pontos de dificuldade de entendimento =  1 */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +19,7 @@ public class Category {
     @NotBlank
     private String name;
 
+    /* @complexidade (1) - acoplamento contextual */
     @OneToMany(mappedBy = "category")
     private Set<Book> books = new HashSet<>();
 

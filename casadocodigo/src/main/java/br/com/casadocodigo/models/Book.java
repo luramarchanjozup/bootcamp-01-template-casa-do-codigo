@@ -11,6 +11,9 @@ import java.time.OffsetDateTime;
 @Entity
 public class Book {
 
+    /*  pontos de dificuldade de entendimento =  2 */
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,11 +42,15 @@ public class Book {
     @Future
     private OffsetDateTime publishedAt = OffsetDateTime.now();
 
+
+    /* @complexidade (1) - acoplamento contextual */
     @ManyToOne
     @NotNull
     @Valid
     private Category category;
 
+
+    /* @complexidade (1) - acoplamento contextual */
     @ManyToOne
     @NotNull
     @Valid

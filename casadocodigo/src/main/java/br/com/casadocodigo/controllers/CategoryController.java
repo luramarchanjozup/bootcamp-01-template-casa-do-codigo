@@ -14,13 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
 
 
+    /* pontos de dificuldade de entendimento = 3 */
+
+
+    /* @complexidade (1) - acoplamento contextual */
     private final CategoryRepository categoryRepository;
+
 
     private final Logger logger = LoggerFactory.getLogger(Category.class);
 
@@ -34,8 +40,12 @@ public class CategoryController {
     public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryForm categoryForm,
                                             UriComponentsBuilder uriComponentsBuilder){
 
+        /* @complexidade (2) - método em classe específica do projeto */
         var category = categoryForm.toEntity();
         categoryRepository.save(category);
+
+        logger.info("[NOVA CATEGORIA] Nova categoria de nome {} criada em {} com sucesso",
+                category.getName(), OffsetDateTime.now());
 
         return ResponseEntity
                 .created(uriComponentsBuilder.path("/api/categories").buildAndExpand().toUri())

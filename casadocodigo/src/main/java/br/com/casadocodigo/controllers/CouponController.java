@@ -20,8 +20,12 @@ import javax.validation.Valid;
 public class CouponController {
 
 
+    /* pontos de dificuldade de entendimento =  6 */
+
+    /* @complexidade (1) - acoplamento contextual */
     private final CouponRepository couponRepository;
 
+    /* @complexidade (1) - acoplamento contextual */
     private final EntityManager entityManager;
 
     private final Logger logger = LoggerFactory.getLogger(Coupon.class);
@@ -38,6 +42,7 @@ public class CouponController {
     public ResponseEntity<CouponDto> createCoupon(@RequestBody @Valid CouponForm couponForm,
                                                   UriComponentsBuilder uriComponentsBuilder){
 
+        /* @complexidade (2) - método em classe específica do projeto */
         var coupon = couponForm.toEntity();
         couponRepository.save(coupon);
 
@@ -53,6 +58,7 @@ public class CouponController {
     public ResponseEntity<CouponDto> updateCoupon(@PathVariable @Valid Long couponId,
                                                   @RequestBody CouponForm couponForm){
 
+        /* @complexidade (2) - método em classe específica do projeto */
         var coupon = couponForm.toEntity();
         entityManager.merge(coupon);
 

@@ -9,6 +9,8 @@ import java.util.List;
 @Entity
 public class UserData {
 
+    /*  pontos de dificuldade de entendimento =  1 */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,6 +36,7 @@ public class UserData {
     @NotBlank
     private String city;
 
+    /* @complexidade (1) - acoplamento contextual */
     @ManyToOne
     private Country country;
 

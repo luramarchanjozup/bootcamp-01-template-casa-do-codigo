@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/authors")
 public class AuthorController {
 
-    /* pontos de dificuldade de entendimento =   */
+    /* pontos de dificuldade de entendimento =  3 */
 
     /* @complexidade (1) - acoplamento contextual */
     private final AuthorRepository authorRepository;

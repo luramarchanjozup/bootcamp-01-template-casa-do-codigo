@@ -8,6 +8,8 @@ import java.util.List;
 @Entity
 public class ShoppingCartPrice {
 
+    /*  pontos de dificuldade de entendimento =  1 */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,6 +20,7 @@ public class ShoppingCartPrice {
     @Positive
     private Double totalWithDiscount;
 
+    /* @complexidade (1) - acoplamento contextual */
     @ElementCollection
     private List<Item> items = new ArrayList<>();
 

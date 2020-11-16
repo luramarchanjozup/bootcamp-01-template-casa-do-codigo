@@ -19,7 +19,9 @@ import java.util.List;
 @RequestMapping("/api/books")
 public class BookController {
 
+    /* pontos de dificuldade de entendimento =  6 */
 
+    /* @complexidade (1) - acoplamento contextual */
     private final EntityManager entityManager;
 
     private final Logger logger = LoggerFactory.getLogger(Book.class);
@@ -35,6 +37,7 @@ public class BookController {
     public ResponseEntity<?> createBook(@RequestBody @Valid BookForm bookForm,
                                         UriComponentsBuilder uriComponentsBuilder){
 
+        /* @complexidade (2) - método em classe específica do projeto */
         var book = bookForm.toEntity(entityManager);
         entityManager.persist(book);
 
@@ -49,6 +52,7 @@ public class BookController {
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks(){
 
+        /* @complexidade (2) - método em classe específica do projeto + forEach */
         var booksDtos = new ArrayList<BookDto>();
         entityManager
                 .createQuery("SELECT b FROM Book b", Book.class)
@@ -64,6 +68,7 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id){
 
+        /* @complexidade (1) - branch */
         var book = entityManager.find(Book.class, id);
         if(book == null){
             return ResponseEntity.notFound().build();
@@ -74,4 +79,5 @@ public class BookController {
         return  ResponseEntity.ok(book);
 
     }
+
 }

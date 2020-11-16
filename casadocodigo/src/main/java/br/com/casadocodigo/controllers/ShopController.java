@@ -17,6 +17,10 @@ import javax.validation.Valid;
 @RequestMapping("/api/shop")
 public class ShopController {
 
+
+    /* pontos de dificuldade de entendimento =   */
+
+    /* @complexidade (1) - acoplamento contextual */
     private final EntityManager entityManager;
 
     public ShopController(EntityManager entityManager) {

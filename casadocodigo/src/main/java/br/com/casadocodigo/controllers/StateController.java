@@ -19,6 +19,9 @@ import javax.validation.Valid;
 public class StateController {
 
 
+    /* pontos de dificuldade de entendimento =  3 */
+
+    /* @complexidade (1) - acoplamento contextual */
     private final StateRepository stateRepository;
 
     private final Logger logger = LoggerFactory.getLogger(State.class);
@@ -33,6 +36,7 @@ public class StateController {
     public ResponseEntity<?> createState(@RequestBody @Valid StateForm stateForm, UriComponentsBuilder
                                          uriComponentsBuilder){
 
+        /* @complexidade (2) - método em classe específica do projeto */
         var state = stateForm.toEntity();
         stateRepository.save(state);
 

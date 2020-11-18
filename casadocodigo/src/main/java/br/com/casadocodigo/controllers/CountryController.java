@@ -18,7 +18,6 @@ import java.time.OffsetDateTime;
 @RequestMapping("/api/countries")
 public class CountryController {
 
-
     /* pontos de dificuldade de entendimento = 3  */
 
     /* @complexidade (1) - acoplamento contextual */
@@ -47,4 +46,5 @@ public class CountryController {
                 .build();
 
     }
+
 }

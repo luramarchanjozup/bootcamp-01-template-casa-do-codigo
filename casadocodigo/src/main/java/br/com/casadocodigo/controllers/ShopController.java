@@ -18,9 +18,9 @@ import javax.validation.Valid;
 public class ShopController {
 
 
-    /* pontos de dificuldade de entendimento =   */
+    /* pontos de dificuldade de entendimento =  9 */
 
-    /* @complexidade (1) - acoplamento contextual */
+
     private final EntityManager entityManager;
 
     public ShopController(EntityManager entityManager) {
@@ -30,6 +30,7 @@ public class ShopController {
     @GetMapping("/{id}/{userDataId}")
     public ResponseEntity<ShopDto> shopDetails(@PathVariable Long id, @PathVariable Long userDataId){
 
+        /* @complexidade (2) - método e classe específicos */
         var userData = entityManager.find(UserData.class, userDataId);
         var shoppingCartPrice = entityManager.find(ShoppingCartPrice.class, id);
 
@@ -42,6 +43,7 @@ public class ShopController {
     @Transactional
     public ResponseEntity<?> addShopUserData(@RequestBody @Valid ShopDataForm shopDataForm){
 
+        /* @complexidade (2) - método e classe específicos */
         var userData = shopDataForm.toEntity();
         entityManager.persist(userData);
 
@@ -53,6 +55,7 @@ public class ShopController {
     @Transactional
     public ResponseEntity<?> addFinalShopCart(@RequestBody @Valid ShopPriceForm shopPriceForm){
 
+        /* @complexidade (2) - método e classe específicos */
         var userDataCart = shopPriceForm.toEntity();
         entityManager.persist(userDataCart);
 
@@ -64,7 +67,7 @@ public class ShopController {
     @PutMapping("/apply-coupon/{id}/{couponId}")
     public ResponseEntity<?> applyCoupon(@PathVariable Long couponId, @PathVariable Long id)
     {
-
+        /* @complexidade (3) - método e classe específicos */
         var shoppingCartPrice = entityManager.find(ShoppingCartPrice.class, id);
         shoppingCartPrice.applyDiscount(entityManager.find(Coupon.class, couponId));
         entityManager.persist(shoppingCartPrice);

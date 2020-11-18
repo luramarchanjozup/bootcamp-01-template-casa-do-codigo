@@ -31,7 +31,6 @@ public class CouponController {
     private final Logger logger = LoggerFactory.getLogger(Coupon.class);
 
 
-
     public CouponController(CouponRepository couponRepository, EntityManager entityManager) {
         this.couponRepository = couponRepository;
         this.entityManager = entityManager;

@@ -1,3 +1,21 @@
-# Por favor faça um Fork desse projeto!
+# Casa do Código
 
-## Está em dúvida de como fazer um Fork? Não tem problema! [Aqui tem uma explicação do que entendemos que você deve considerar!](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
+
+### Sobre a revisão
+
+
+- Não estava utilizando Logger em nenhuma parte da API, tornando a API desfuncional.
+
+- Estava usando Autowired para injeção de dependência sem necessidade.
+
+- Também vi algumas escolhas de nomeação de classes que não ficou muito bom.
+
+- Acho que poderia ter simplificado em algumas partes.
+
+
+
+
+
+
+
+
